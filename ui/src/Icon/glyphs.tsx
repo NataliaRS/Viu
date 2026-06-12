@@ -4,8 +4,9 @@ import type { ReactNode } from "react";
  * The glyphs of the VIU `Icon` component (Figma set 56:431).
  * Authored as 16×16 line icons (stroke = currentColor, 1.5) to match the
  * Figma source, which uses strokes rather than fills for these glyphs.
- * NOTE: Eye / EyeOff were added in code for the password toggle — they should
- * also be added to the Figma Icon set to keep parity.
+ * NOTE: Visibility / VisibilityOff (password toggle) están en el set Figma como
+ * `Visibility` y `Visibility_off` (nodos 726:3273 / 726:71). El código usa
+ * `VisibilityOff` (PascalCase); el Code Connect mapea `Visibility_off`→`VisibilityOff`.
  */
 export type GlyphName =
   | "Plus"
@@ -16,8 +17,8 @@ export type GlyphName =
   | "Search"
   | "Info"
   | "Alert"
-  | "Eye"
-  | "EyeOff";
+  | "Visibility"
+  | "VisibilityOff";
 
 export const glyphs: Record<GlyphName, ReactNode> = {
   Plus: (
@@ -60,13 +61,13 @@ export const glyphs: Record<GlyphName, ReactNode> = {
       <path d="M8 12h.01" />
     </>
   ),
-  Eye: (
+  Visibility: (
     <>
       <path d="M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8s-2.4 4.5-6.5 4.5S1.5 8 1.5 8Z" />
       <circle cx="8" cy="8" r="2" />
     </>
   ),
-  EyeOff: (
+  VisibilityOff: (
     <>
       <path d="M6.3 6.3a2 2 0 0 0 2.7 2.7" />
       <path d="M9.8 3.3A6.6 6.6 0 0 1 14.5 8s-.6 1.1-1.7 2.2M4.7 4.7C2.8 5.8 1.5 8 1.5 8s2.4 4.5 6.5 4.5c1 0 1.9-.3 2.7-.7" />

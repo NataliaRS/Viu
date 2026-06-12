@@ -103,7 +103,10 @@ Body/L `1b1f4a805f78a665a9f2f7e6b8575ea8167a0a3f` · Body/M `28bd418f889fa4fafa9
 Instanciar con `getNodeByIdAsync(id)`. SET(n)=set de n variantes; COMP=componente único.
 
 **ÁTOMOS (28):** *(corregido jun-2026: antes decía 27; faltaba Icon container, que SÍ tiene nodo.)*
-Icon `56:431` SET(8) Glyph:Plus/Check/Chevron/Close/Arrow/Search/Info/Alert · Icon button `393:190`
+Icon `56:431` SET(10) Glyph:Plus/Check/Chevron/Close/Arrow/Search/Info/Alert/**Visibility
+`726:3273`/Visibility_off `726:71`** *(jun-2026, B2: glifos del toggle de password; en código
+`Visibility`/`VisibilityOff`, Code Connect mapea `Visibility_off`→`VisibilityOff`)* · Icon button
+`393:190`
 SET(36) Variant·State·Size · Button `8:53` SET(45) Variant Primary/Secondary/Tertiary·State
 Default/Hover/Pressed/Disabled/Focus·Size MD/SM/LG (`Label#53:0`) · Badge `14:77` SET(6) Tone
 (`Label#65:0`) · Link `22:137` SET(5) State (`Label#65:19`) · Tag `15:42` SET(3) Tone

@@ -30,7 +30,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(fu
         aria-pressed={visible}
         onClick={() => setVisible((v) => !v)}
       >
-        <Icon glyph={visible ? "EyeOff" : "Eye"} size={16} />
+        <Icon glyph={visible ? "VisibilityOff" : "Visibility"} size={16} />
       </button>
     </span>
   );

@@ -131,7 +131,9 @@ quedó atrás. Este lo absorbe entero.
   jun-2026: ausentes en el repo de código; el gate del repo es el de 5 pasos: typecheck · test ·
   build · figma connect parse · build-storybook).
 - **Pendientes — DECIDIDOS jun-2026, en cola de ejecución (orden sugerido):**
-  1. **B2** · sumar Eye/EyeOff al Icon de Figma (paridad código↔diseño). *(decidido: hacer)*
+  1. ~~**B2** · sumar Eye/EyeOff al Icon de Figma~~ ✅ HECHO (jun-2026). Natalia los creó en Figma
+     como `Visibility`/`Visibility_off`; el código se renombró a `Visibility`/`VisibilityOff`
+     (alineado a Figma, mejor nombre semántico). Code Connect mapea `Visibility_off`→`VisibilityOff`.
   2. ~~**B3** · `.figma.tsx` de Icon container~~ ✅ HECHO (jun-2026). Surgió un gap nuevo: el nodo
      Figma tiene `style`/`tone` (48 var) que el código no expone — anotado en code-build §14.
   3. **A1** · actualizar la etiqueta de madurez de los componentes a la escala única
