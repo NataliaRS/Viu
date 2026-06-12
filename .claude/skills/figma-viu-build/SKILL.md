@@ -193,6 +193,8 @@ En Componentes, ubicar componentes/páginas por nombre iterando `figma.root.chil
 
 **Grid (3, modos base/sm/md/lg/xl/2xl):** `grid-columns` 4/8/8/12/12/12 · `grid-gutter` 16/24/24/32/32/32 · `grid-margin` 16/32/48/48/64/96.
 
+**Effects (NO son variables — Effect/Paint Styles):** Effect Styles `Elevation/{Raised,Overlay,Brand glow}` (+ `Light/*`) → tokens `shadow/{raised,overlay,brand-glow}` (Dark/Light). Paint Styles `Gradient/{Accent line,Hero,Editorial,Banner}` (+ `Light/*`) → tokens `gradient/{accent-line,hero,editorial,banner}`. Se extraen con `getLocalEffectStylesAsync` / `getLocalPaintStylesAsync` (NO con get_variable_defs). En código viven en `tokens/effects.json` (CSS literal por tema; los radiales son aproximación de los `gradientTransform`). CSS: `--shadow-*` (box-shadow) y `--gradient-*` (background), temáticos.
+
 **Text styles** (separados de las variables): Oversize/Display/Headline/Title → PP Neue Montreal Medium; Body → Google Sans Regular; Label → General Sans Medium; Code → JetBrains Mono. `letterSpacing` en **%** → tight=-2% (=-0.02em); Label/S=4% (=0.04em, NO 4px). `lineHeight`: display/headline 120%, title 130%, body/label/code 150%.
 
 > GOTCHA de auditoría: `get_variable_defs` solo ve variables PEGADAS a un nodo. Una extracción previa "por frames" se perdió ~250 variables (todo lo no-color: border-width, icon-size, opacity, z, duration, font-size numéricos, easing, aspect-ratio, scales semánticas, modo Mobile del Type Scale). Auditar SIEMPRE con `getLocalVariablesAsync`.

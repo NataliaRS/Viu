@@ -99,6 +99,7 @@ tokens.type.desktop["font-size/title-l"]; // "28px"  (mobile: "22px")
 | **Scales** | `space/*`, `radius/*`, `z/*`, `icon/*`, `state/*`, `motion/*`, `border-width/*`, `aspect/*` | Aliases semánticos sobre primitivos |
 | **Tipografía** | `oversize · display · headline · title · body · label · code` | Responsive (Mobile/Desktop) · PP Neue Montreal · Google Sans · General Sans · mono |
 | **Grid** | `base · sm · md · lg · xl · 2xl` | 4→12 cols, 320→1920 px |
+| **Effects** | `shadow/{raised,overlay,brand-glow}`, `gradient/{accent-line,hero,editorial,banner}` | Por tema (dark/light). Derivados de los Effect/Paint Styles de Figma |
 
 ### Marca
 

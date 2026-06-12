@@ -1,0 +1,35 @@
+{
+  "$description": "VIU — Effects (shadows + gradients) derived from the Figma Effect Styles and Paint Styles. These are NOT Figma variables (they live as styles), so values are literal CSS per theme (Dark/Light), not primitive aliases. Radial gradients are visual approximations of the Figma paint transforms.",
+  "shadow": {
+    "raised": {
+      "Dark": "0 1px 2px 0 #00000080, inset 0 0 0 1px #ffffff0f",
+      "Light": "0 1px 2px 0 #0a0a0b14, 0 1px 1px 0 #0a0a0b0a"
+    },
+    "overlay": {
+      "Dark": "0 12px 32px -8px #000000b2, inset 0 0 0 1px #ffffff0f",
+      "Light": "0 12px 32px -8px #0a0a0b24"
+    },
+    "brand-glow": {
+      "Dark": "inset 0 0 0 1px #b5262e, inset 0 0 24px -8px #b5262e",
+      "Light": "inset 0 0 0 1px #b5262e, inset 0 0 24px -8px #b5262e3d"
+    }
+  },
+  "gradient": {
+    "accent-line": {
+      "Dark": "linear-gradient(90deg, #b5262e 0%, #5a55a8 100%)",
+      "Light": "linear-gradient(90deg, #b5262e 0%, #5a55a8 100%)"
+    },
+    "hero": {
+      "Dark": "radial-gradient(120% 120% at 25% 35%, #b5262e6b 0%, #b5262e00 62%), radial-gradient(120% 120% at 80% 20%, #2725584d 0%, #27255800 62%), #0a0a0b",
+      "Light": "radial-gradient(120% 120% at 25% 35%, #b5262e1a 0%, #b5262e00 62%), radial-gradient(120% 120% at 80% 20%, #27255812 0%, #27255800 62%), #ffffff"
+    },
+    "editorial": {
+      "Dark": "radial-gradient(120% 120% at 80% 25%, #b5262e29 0%, #b5262e00 62%), #0a0a0b",
+      "Light": "radial-gradient(120% 120% at 80% 25%, #b5262e0f 0%, #b5262e00 62%), #ffffff"
+    },
+    "banner": {
+      "Dark": "radial-gradient(120% 120% at 20% 20%, #b5262e66 0%, #b5262e00 62%), radial-gradient(120% 120% at 85% 80%, #3a36808c 0%, #3a368000 62%), radial-gradient(120% 120% at 50% 50%, #5a55a82e 0%, #5a55a800 62%), #050506",
+      "Light": "radial-gradient(120% 120% at 20% 20%, #b5262e1a 0%, #b5262e00 62%), radial-gradient(120% 120% at 85% 80%, #3a36801f 0%, #3a368000 62%), #ffffff"
+    }
+  }
+}

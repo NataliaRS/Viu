@@ -30,6 +30,7 @@ const semantic = read("semantic.json");
 const scales = read("scales.json");
 const typeScale = read("type-scale.json");
 const grid = read("grid.json");
+const effects = read("effects.json");
 
 /* ---------- flatten primitives with "/" (matches Figma variable names) ---------- */
 
@@ -87,6 +88,23 @@ function walkSemantic(node, path) {
 }
 walkSemantic(semantic, []);
 
+/* ---------- effects (shadows + gradients, Dark/Light) ---------- */
+
+const effects_ = { Dark: {}, Light: {} };
+function walkThemed(node, path, out) {
+  for (const [key, val] of Object.entries(node)) {
+    if (key.startsWith("$")) continue;
+    if (val && typeof val === "object" && ("Dark" in val || "Light" in val)) {
+      const name = [...path, key].join("/");
+      out.Dark[name] = resolve(val.Dark);
+      out.Light[name] = resolve(val.Light);
+    } else if (val && typeof val === "object") {
+      walkThemed(val, [...path, key], out);
+    }
+  }
+}
+walkThemed(effects, [], effects_);
+
 /* ---------- type scale (Mobile/Desktop) ---------- */
 
 const type_ = { Mobile: {}, Desktop: {} };
@@ -140,6 +158,7 @@ css.push("}\n");
 function emitSemantic(selector, mode) {
   css.push(`${selector} {`);
   for (const [name, v] of Object.entries(semantic_[mode])) css.push(`  ${toVar(name)}: ${v};`);
+  for (const [name, v] of Object.entries(effects_[mode])) css.push(`  ${toVar(name)}: ${v};`);
   css.push("}\n");
 }
 css.push("/* Default theme: Dark (black-first) */");
@@ -149,7 +168,7 @@ emitSemantic('[data-theme="light"]', "Light");
 css.push("@media (prefers-color-scheme: light) {");
 css.push(
   "  :root:not([data-theme]) {\n" +
-    Object.entries(semantic_.Light)
+    [...Object.entries(semantic_.Light), ...Object.entries(effects_.Light)]
       .map(([n, v]) => `    ${toVar(n)}: ${v};`)
       .join("\n") +
     "\n  }",
@@ -220,6 +239,7 @@ const resolved = {
   primitive: prim,
   scales: scaleTokens,
   semantic: { dark: semantic_.Dark, light: semantic_.Light },
+  effects: { dark: effects_.Dark, light: effects_.Light },
   type: { mobile: type_.Mobile, desktop: type_.Desktop },
   grid: grid_,
 };
@@ -241,6 +261,7 @@ writeFileSync(
     "  primitive: Record<string, string | number>;\n" +
     "  scales: Record<string, string | number>;\n" +
     "  semantic: { dark: Record<string, string>; light: Record<string, string> };\n" +
+    "  effects: { dark: Record<string, string>; light: Record<string, string> };\n" +
     "  type: { mobile: Record<string, string>; desktop: Record<string, string> };\n" +
     "  grid: Record<string, Record<string, string | number>>;\n" +
     "}\n" +
@@ -251,5 +272,6 @@ console.log("VIU tokens built ->", DIST);
 console.log(`  primitives: ${Object.keys(prim).length}`);
 console.log(`  scales: ${Object.keys(scaleTokens).length}`);
 console.log(`  semantic (per theme): ${Object.keys(semantic_.Dark).length}`);
+console.log(`  effects (per theme): ${Object.keys(effects_.Dark).length}`);
 console.log(`  type scale (per mode): ${Object.keys(type_.Mobile).length}`);
 console.log(`  grid: ${Object.keys(grid_).length}`);
