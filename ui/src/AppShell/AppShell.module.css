@@ -1,0 +1,39 @@
+.shell {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 240px;
+  background: var(--color-bg-raised);
+  border-right: var(--border-width-default) solid var(--color-border-subtle);
+}
+
+.main {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  min-height: 60px;
+  padding: 0 var(--space-lg);
+  border-bottom: var(--border-width-default) solid var(--color-border-subtle);
+}
+
+.content {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-lg);
+}

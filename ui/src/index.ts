@@ -196,3 +196,16 @@ export type { DrawerProps, DrawerSide } from "./Drawer/Drawer";
 
 export { Popover } from "./Popover/Popover";
 export type { PopoverProps, PopoverSide } from "./Popover/Popover";
+
+/* ---- patterns (Tramo 5) ---- */
+export { AppShell } from "./AppShell/AppShell";
+export type { AppShellProps } from "./AppShell/AppShell";
+
+export { Form } from "./Form/Form";
+export type { FormProps } from "./Form/Form";
+
+export { Wizard } from "./Wizard/Wizard";
+export type { WizardProps, WizardStep } from "./Wizard/Wizard";
+
+export { DataTable } from "./DataTable/DataTable";
+export type { DataTableProps } from "./DataTable/DataTable";
