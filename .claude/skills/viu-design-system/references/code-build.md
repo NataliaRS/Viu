@@ -39,7 +39,11 @@ playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada co
   componentes de layout reusables que componen el resto (no stories sueltas).
 
 **Deudas conocidas:** Slider solo modo Único (falta Rango/doble thumb); Tooltip CSS-only sin
-colisión/flip; **Icon container — Code Connect creado (jun-2026, B3, `.figma.tsx` → nodo `574:150`).
+colisión/flip; **C1 design-to-code PENDIENTE (jun-2026):** Natalia construyó en Figma los 5 gaps de
+C1 — Kbd `721:7`, Segmented control `724:28`, Choice group `728:35`, Combobox `730:40`, Date range
+picker `732:120` (detalle en figma-build §2b/§14) — pero `@viu/ui` aún NO los tiene → Figma va 5
+componentes adelante; portarlos por demanda real de producto (no en batch). **Icon container — Code
+Connect creado (jun-2026, B3, `.figma.tsx` → nodo `574:150`).
 Gap de paridad PENDIENTE:** el nodo Figma tiene 3 ejes (Size × `style` Filled/Stroke × `tone`
 Brand/Neutral/Inverse/Danger/Warning/Success/Info/Disable = 48 variantes), pero el componente de
 código solo expone `size`; Code Connect mapea solo `size`. Falta llevar `style`/`tone` al código si

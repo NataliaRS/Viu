@@ -119,15 +119,19 @@ quedó atrás. Este lo absorbe entero.
 ## 6. Estado actual (junio 2026)
 - **Tokens:** 331 variables / 5 colecciones, auditadas 1:1 Figma↔código; paridad verificada.
   Effects (sombras/gradients) como Styles → `tokens/effects.json`.
-- **Figma:** **28 átomos · 31 moléculas · 9 organismos = 68 componentes** + 4 patrones (frames de
-  composición, sin nodo de componente). *(corregido jun-2026 por enumeración directa de
-  `figma.root.children`: antes el registro decía "27 átomos / 66" y la portada "ÁTOMOS·26"; el
-  faltante era **Icon container**, que SÍ tiene nodo — `SET 574:150`.)* Card modular SET(45). Átomo
-  Image (15 var). Portada con índice por nivel atómico. Sections en archivo aparte; `Marketing ·
-  LinkedIn` fuera del índice. Sandbox de pruebas: `zmTSs2J5H3EIkItlF85rfc`.
-- **Código (`NataliaRS/Viu`, rama `claude/viu-design-system`):** sistema CERRADO — **28 átomos + 31
-  moléculas + 9 organismos + 4 patrones** en `@viu/ui`, Storybook en vivo
-  (https://nataliars.github.io/Viu/) con chrome de marca, ViuDocs y Foundations interactivas.
+- **Figma:** **29 átomos · 35 moléculas · 9 organismos = 73 componentes** + 4 patrones (frames de
+  composición, sin nodo de componente). Todos publicables (unused-props = []). *(Crecimiento jun-2026:
+  Natalia construyó los 5 gaps de C1 en Figma — **Kbd** `721:7` átomo + **Segmented control** `724:28`
+  / **Choice group** `728:35` / **Combobox** `730:40` / **Date range picker** `732:120` moléculas;
+  detalle e IDs en figma-build §2b. Antes: 28/31/68 — el registro venía de "27 átomos / 66" y la
+  portada "ÁTOMOS·26"; el faltante histórico era Icon container `574:150`.)* Banner `135:84`: CTA
+  removido (jun-2026). Card modular SET(45). Portada con índice por nivel atómico (⚠️ falta sumarle
+  las 5 entradas nuevas en Figma — figma-build §7b). Sections en archivo aparte; `Marketing · LinkedIn`
+  fuera del índice. Sandbox de pruebas: `zmTSs2J5H3EIkItlF85rfc`.
+- **Código (`NataliaRS/Viu`, rama `claude/viu-design-system`):** **28 átomos + 31 moléculas + 9
+  organismos + 4 patrones** en `@viu/ui`, Storybook en vivo (https://nataliars.github.io/Viu/) con
+  chrome de marca, ViuDocs y Foundations interactivas. ⚠️ **Figma va 5 componentes adelante** (los 5
+  gaps de C1): design-to-code pendiente a `@viu/ui`.
 - **A11y:** 0 fallas WCAG reales; `success-solid` = green-700; contraste de borde = excepción
   documentada (1.4.11). Cuatro gates limpios — `token-usage · ghost-check · lint-literals ·
   contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
@@ -150,7 +154,9 @@ quedó atrás. Este lo absorbe entero.
   6. **B5** · resolver colisión/flip de Tooltip + Popover juntos (misma lógica). *(decidido)*
 - **A4 (RESUELTO): átomo `Marker` DESCARTADO** — no es gap real; "Marker, no CheckCircle" sigue
   siendo solo la regla de nombrar por rol (figma-build §12), no un componente a construir.
-- **Gaps opcionales (C1):** Segmented control · Radio/Checkbox group · Combobox/Autocomplete · Date
-  range picker · Kbd. **Proceso decidido: se crean PRIMERO en Figma (fuente de verdad) y luego
-  design-to-code a `@viu/ui`.** Cada uno requiere aprobación de gobernanza + demanda real; se
-  priorizan por necesidad de producto (no se construyen los 5 en batch).
+- **Gaps C1 — ✅ construidos en Figma (jun-2026):** Segmented control `724:28` · Choice group
+  (Radio/Checkbox) `728:35` · Combobox `730:40` · Date range picker `732:120` · Kbd `721:7`. Se
+  siguió el proceso decidido (PRIMERO en Figma, fuente de verdad). Reuso estricto aplicado
+  (figma-build §14): Combobox→Search+Menu item; Choice group→Radio+Checkbox; Date range
+  picker→Datepicker ×2. **Pendiente:** design-to-code a `@viu/ui` de los 5 — se priorizan por demanda
+  real de producto + aprobación de gobernanza (no en batch).

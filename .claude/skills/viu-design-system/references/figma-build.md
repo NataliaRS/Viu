@@ -102,7 +102,7 @@ Body/L `1b1f4a805f78a665a9f2f7e6b8575ea8167a0a3f` · Body/M `28bd418f889fa4fafa9
 ### 2b. Registro de componentes (IDs locales · página = componente)
 Instanciar con `getNodeByIdAsync(id)`. SET(n)=set de n variantes; COMP=componente único.
 
-**ÁTOMOS (28):** *(corregido jun-2026: antes decía 27; faltaba Icon container, que SÍ tiene nodo.)*
+**ÁTOMOS (29):** *(jun-2026: 27→28 al contar Icon container [tiene nodo]; 28→29 sumó Kbd.)*
 Icon `56:431` SET(10) Glyph:Plus/Check/Chevron/Close/Arrow/Search/Info/Alert/**Visibility
 `726:3273`/Visibility_off `726:71`** *(jun-2026, B2: glifos del toggle de password; en código
 `Visibility`/`VisibilityOff`, Code Connect mapea `Visibility_off`→`VisibilityOff`)* · Icon button
@@ -118,20 +118,36 @@ Checkbox `24:167` SET(12) · Radio `24:227` SET(8) · Switch `24:279` SET(8) · 
 Único/Rango · Input `26:197` SET(5) · Skeleton `229:10` SET(3) · Spinner `20:209` SET(3) · Select
 `26:293` SET(5) · Step `189:25` SET(3) · Textarea `26:250` SET(5) · Tab `161:43` SET(6) Estilo
 Línea/Segmentado·Estado · Rating `410:43` SET(6) 0–5 · Image `543:62` SET(15) Aspect ratio
-16:9/4:3/1:1/3:2/Libre · Estado Default/Loading/Error · **Icon container `574:150` SET** (caja
-ícono — bg/elevated + border/subtle + radius md; doc en `Atom · Icon container`. ⚠️ falta su
-`.figma.tsx` en código).
+(16:9/4:3/1:1/3:2/Libre) × Estado (Default/Loading/Error) — Default=fill; Loading=Spinner;
+Error=Alert + "Sin imagen"; doc `Atom · Image` · Icon container `574:150` SET(48) Tone
+(Brand/Neutral/Inverse/Danger/Warning/Success/Info/Disable) × Size (Large40/Medium32/Small24) × Style
+(Filled/Stroke) — contenedor circular, glifo Info expuesto; Filled=`*-surface/subtle` + `*-text`,
+Stroke=borde+ícono tonal; Inverse=disco text/primary + ícono bg/base; doc `Atom · Icon container`
+*(Code Connect creado en B3; el código solo expone `size` — gap style/tone sin exponer, ver
+code-build §14)* · Kbd `721:7` COMP — keycap mono (prop `Tecla#721:0`); ancho mínimo cuadrado, crece
+con el texto; borde + sombra inferior; doc `Atom · Kbd`.
 
-**MOLÉCULAS (31):** Search `26:347` SET(4) (`Texto#84:18`) · Datepicker `28:386` SET(5) · Toast
+**MOLÉCULAS (35):** Search `26:347` SET(4) (`Texto#84:18`) · Datepicker `28:386` SET(5) · Toast
 `176:101` SET(4) Tono · Field/Textarea `223:46` SET(4) · Stepper `339:66` COMP · Accordion item
 `174:19` SET(2) · Accordion `399:7` COMP · Avatar group `185:37` SET(2) · Banner `135:84` SET(5) Tono
-(`Texto título#135:12`,`Texto mensaje#135:13`) · Form field `27:255` SET(3) · Menu `377:6` COMP ·
+— *(jun-2026: CTA removido, prop Acción borrada)* props `Icono#135:7` · `Título#135:8` ·
+`Mensaje#135:9` · `Cerrar#135:11` · `Texto título#135:12` · `Texto mensaje#135:13` · `Link#683:0`
+(booleano, off; instancia de Link `22:137` expuesta, debajo del mensaje); Título/Mensaje opcionales
+(default on) · Form field `27:255` SET(3) · Menu `377:6` COMP ·
 Dropzone `235:28` SET(3) · File row `237:49` SET(3) · Breadcrumb `163:19` SET(2) · List item `165:41`
 SET(4) · Menu item `170:21` SET(3) · Table row `195:58` SET(3) · Field/Input `362:6` SET(4) ·
 Field/Password `407:6` SET(4) · Tabs `366:6` COMP · Field/Select `191:33` (pág "Select field") SET(4)
 · Pagination `168:32` SET(2) · Toolbar `172:29` COMP · Nav item `233:19` SET(3) · Nav `401:7` COMP ·
 List `400:7` COMP · Quote `413:7` COMP · Tree item `411:19` SET(3) · Rich text `402:7` COMP · Time
-picker `409:6` SET(4) · Video embed `414:7` COMP.
+picker `409:6` SET(4) · Video embed `414:7` COMP · **Segmented control `724:28` SET(3)
+Activo=Izquierda/Centro/Derecha** — track + 3 segmentos, thumb activo elevado; 3 textos editables
+(Texto izquierda/centro/derecha) · **Choice group `728:35` SET(2) Tipo=Radio/Checkbox** — etiqueta de
+grupo + items (REUSA Radio `24:227` / Checkbox `24:167`) + ayuda opcional · **Combobox `730:40` SET(3)
+State=Default/Open/Disabled** — campo = Search (`26:347`, con estados + `Texto#84:18`); Open despliega
+panel con Menu item (`170:21`), opción activa en Hover · **Date range picker `732:120` SET(2)
+State=Default/Open** — dos campos Datepicker (`28:386`) Desde/Hasta (`Texto#84:23`) + calendario de
+rango custom (extremos en círculo, intermedios en banda). *(Estas 4 + Kbd = los 5 gaps de C1, ya
+construidos en Figma jun-2026; pendiente design-to-code a `@viu/ui`.)*
 
 **ORGANISMOS (9):** Table `372:6` COMP · Card `434:6` SET(45) (§6b) · Modal `140:57` SET(3) Tamaño ·
 Page header `147:89` SET(3) (`Título#147:17`,`Texto subtítulo#147:18`,`Texto breadcrumb#147:19`) ·
@@ -139,11 +155,15 @@ Empty state `157:55` SET(3) · Drawer `227:53` COMP · Popover `187:69` SET(2) �
 · Footer `415:7` COMP.
 
 **PATRONES (4, frames de composición — NO componentes; páginas `Pattern ·`):** Form `282:7` · App
-shell `274:7` · Wizard `288:7` · Data table `285:7`. (Eran 5; "Formulario" se consolidó en "Form"
-jun-2026 → 4.) En CÓDIGO sí son componentes de layout reusables (ver `code-build.md` §16).
+shell `274:7` · Wizard `288:7` · Data table `285:7`. (Eran 5; el duplicado "Formulario" se consolidó
+en "Form" jun-2026 → 4. **Form es el único patrón de formulario:** validación, resumen de errores,
+todos los tipos de campo.) En CÓDIGO sí son componentes de layout reusables (ver `code-build.md` §16).
 
-> **Total Figma (verificado jun-2026 por enumeración de `figma.root.children`): 28 átomos + 31
-> moléculas + 9 organismos = 68 componentes + 4 patrones (frames, sin nodo).**
+> **Total Figma (jun-2026, por enumeración de `figma.root.children`): 29 átomos + 35 moléculas + 9
+> organismos = 73 componentes + 4 patrones (frames, sin nodo). Todos publicables (unused-props = []).**
+> *(Crecimiento jun-2026: +Kbd átomo; +Segmented control / Choice group / Combobox / Date range picker
+> moléculas — los 5 gaps de C1. El CÓDIGO `@viu/ui` aún NO los tiene → Figma va 5 componentes adelante;
+> design-to-code pendiente, ver code-build §14.)*
 
 ## 3. Cargar fuentes (siempre, antes de `characters`/`textAutoResize`)
 ```js
@@ -207,7 +227,8 @@ function setLabel(inst,val){const k=Object.keys(inst.componentProperties||{})
   `primaryAxisSizingMode='AUTO'` (hug) en el eje del texto — nunca FIXED, o el texto largo se
   desborda/clipea en vez de expandir el contenedor. El texto interno con
   `textAutoResize='WIDTH_AND_HEIGHT'`. Si se necesita un tope, usar `maxWidth` +
-  `textTruncation='ENDING'`, no un ancho fijo. (Bug real: el Pill tenía FIXED=80px y no crecía.)
+  `textTruncation='ENDING'`, no un ancho fijo. (Bug real: el Pill tenía FIXED=80px y no crecía; el
+  resto de la familia pill/chip/tag/badge/botón/link ya estaba en hug — auditado jun-2026.)
 
 ## 6. Componentes / variantes (recetas)
 - Hermano: `set.clone()` (clona variantes+props con refs recableadas; releer keys del clon). Ej.:
@@ -237,7 +258,9 @@ function setLabel(inst,val){const k=Object.keys(inst.componentProperties||{})
   properties — overridear via `node.characters` tras cargar fuente; `setProperties()` falla
   silenciosamente.
 - **Disabled state:** tokens explícitos `bg-disabled`/`text-disabled` por variante — NO dimming
-  universal con `opacity: var(--state-disabled)`. (Button ya migrado; ~15 componentes pendientes.)
+  universal con `opacity: var(--state-disabled)`. **Migración completa en código (B1, jun-2026):** eran
+  solo 4 (ListItem/MenuItem/Tab + TimePicker/PickerField), no ~15. Regla: rellenos→`bg-disabled`+
+  `text-disabled`; transparentes→solo `text-disabled` (ver `interaction.md` §2).
 
 ### 6b. Card (`434:6`) — receta
 45 variantes: Superficie (Elevated/Outlined/Filled) × Estado
@@ -274,10 +297,12 @@ global: `page.backgrounds` `#1A1A1A`; cada frame de Doc stroke 1px border/subtle
 
 ### 7b. Portada (`Portada` `0:1`, frame `31:413`)
 Layout ABSOLUTO: logo VIU+punto, eyebrow crimson, título, descripción, Índice `31:421`, _Footer.
-Índice por nivel atómico (**ÁTOMOS·28** / MOLÉCULAS·31 / ORGANISMOS·9 / PATRONES·4): por bloque,
+Índice por nivel atómico (**ÁTOMOS·29** / MOLÉCULAS·35 / ORGANISMOS·9 / PATRONES·4): por bloque,
 rótulo crimson (Label/S, reusar el estilo/fill existente) + párrafo con nombres separados por " · ".
-*(corregido jun-2026: la portada listaba ÁTOMOS·26; el conteo real por enumeración es 28 — incluye
-Icon container. Actualizar el bloque de la portada en Figma.)* Cuidado con el gotcha de §5 en los
+*(corregido jun-2026: la portada listaba ÁTOMOS·26; el conteo real por enumeración es 29.)* ⚠️
+PENDIENTE: el índice de la portada en Figma debe sumar las entradas nuevas — Kbd (átomos), y
+Segmented control / Choice group / Combobox / Date range picker (moléculas) — y reflejar 29/35.
+Verificar/actualizar en Figma. Cuidado con el gotcha de §5 en los
 bloques (poner AUTO tras poblar, o clipea). Las Sections NO van (archivo aparte). La página `Marketing
 · LinkedIn` (collateral) tampoco va en el índice atómico.
 
@@ -296,6 +321,10 @@ complejo/superficie. Distinción de labels (regla de gobernanza — no conflar n
 - **Pill:** round, interactivo (filtros/toggles) — se acciona.
 - **Chip:** interactivo, removible o con avatar — se acciona.
 - **Notification badge:** contador/dot sobre ícono/avatar/tab — se monta encima.
+- **Icon container:** átomo NO interactivo (ícono con tono/estilo/tamaño, para feature/alertas/empty
+  states). Distinto de **Icon button** (interactivo). Para avatar de personas → **Avatar**.
+- **Segmented control:** control de INPUT (selección entre opciones excluyentes). NO es **Tabs**
+  (navegación entre vistas). Mantener separados aunque se parezcan visualmente.
 
 Cada uno tiene su doc "cuándo y dónde". No son el mismo componente.
 
@@ -418,3 +447,18 @@ tokens en ambos modos, compone alpha). Estado: 0 fallas reales; `success-solid` 
 contraste de borde documentado como excepción aceptada bajo WCAG 1.4.11. Cuatro gates limpios
 (token-usage, ghost-check, lint-literals, contrast-audit) — **viven en el proyecto de gobernanza, no
 en `NataliaRS/Viu`**.
+
+## 14. Reuso estricto (principio — jun-2026)
+Si un componente YA existe, se INSTANCIA en vez de rearmarlo desde cero. Aplicado al construir los
+gaps de C1: **Combobox** → Search (`26:347`) + Menu item (`170:21`); **Choice group** → Radio
+(`24:227`) + Checkbox (`24:167`); **Date range picker** → Datepicker (`28:386`) ×2.
+
+**Gotchas de reuso (aprendidos):**
+- **Menu (`377:6`) NO es reusable:** no expone props → no se editan labels ni cantidad de items. Para
+  un panel propio (ej. Combobox abierto), reusar **Menu item** (`170:21`) suelto, no el Menu entero.
+- **Datepicker (`28:386`)** tiene ancho fijo ~280 y su texto NO se angosta sin montarse sobre el ícono
+  → reusarlo a ancho natural, no forzarlo más angosto.
+- Cuando NO existe un componente apropiado (ej. el calendario de RANGO del Date range picker),
+  construir custom y documentarlo COMO tal — no inventar un reuso forzado.
+- **Standalone justificado** (no es falta de reuso): **Segmented control** (Tab es navegación,
+  semánticamente distinto — §9) y **Kbd** (primitiva; no hay nada menor que reusar).
