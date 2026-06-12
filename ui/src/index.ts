@@ -74,3 +74,12 @@ export type { TabProps, TabVariant } from "./Tab/Tab";
 
 export { Step } from "./Step/Step";
 export type { StepProps, StepStatus } from "./Step/Step";
+
+export { NotificationBadge } from "./NotificationBadge/NotificationBadge";
+export type { NotificationBadgeProps } from "./NotificationBadge/NotificationBadge";
+
+export { Image } from "./Image/Image";
+export type { ImageProps, ImageRatio, ImageState } from "./Image/Image";
+
+export { IconContainer } from "./IconContainer/IconContainer";
+export type { IconContainerProps, IconContainerSize } from "./IconContainer/IconContainer";
