@@ -61,9 +61,8 @@ pueden expandirse. Orden:
 - ☐ Observado y recomendado diferenciados.
 
 ## Equivalencias por superficie (la misma doc, tres formas)
-⚠️ PENDIENTE de aprobación: esta tabla fue agregada al fusionar el estándar en el skill (no es texto
-canónico de Natalia). Útil como mapa MD↔Figma↔Storybook; requiere su visto bueno por gobernanza antes
-de tratarse como regla.
+**APROBADA por gobernanza (jun-2026, A2)** — es regla: el mapa MD↔Figma↔Storybook de abajo se trata
+como normativo.
 
 | Dimensión | Markdown (`<comp>.md`) | Figma (página Atom ·/Molecule ·/…) | Storybook (`parameters.viu`) |
 |---|---|---|---|

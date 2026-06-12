@@ -139,7 +139,8 @@ Reglas explícitas de quién decide y cuándo se revisa el sistema.
 - **Definición de "funcional/terminado".** Un componente o el sistema está terminado cuando la dueña
   lo aprueba explícitamente como funcional — no antes.
 - **Versionado y madurez.** Se versiona con semver; cada token y componente lleva una etiqueta de
-  madurez: experimental, estable u obsoleto.
+  madurez en la **escala única `Draft / Reviewed / Stable / Deprecated`** *(unificada jun-2026, A1;
+  antes coexistía `experimental/estable/obsoleto`, ahora deprecado como vocabulario).*
 
 ## Decisión de marca registrada · acento secundario
 La identidad parte de "rojo como acento primario". Se incorpora un acento secundario menor:

@@ -70,8 +70,15 @@ var(--state-disabled)`. El Button ya migró; ~15 componentes pendientes. `pointe
 mantiene. *(Observado histórico — OBSOLETO: el Button original usaba opacidad del elemento completo;
 ese patrón no se replica en componentes nuevos.)*
 
-⚠️ PENDIENTE: definir si `selected` y `dragged` usan overlay propio o token de color. Hoy solo Button
-(sin selected) está construido; se resuelve al llegar a chips/listas seleccionables.
+**`selected` y `dragged` — RESUELTO (jun-2026, A3):**
+- **`dragged`** (transitorio) → **overlay** con `--state-dragged` (0.24). Es feedback efímero
+  mientras se arrastra; no amerita un color propio.
+- **`selected`** (persistente) → **token de color semántico de superficie** (ej. `bg/brand-subtle` o
+  un `bg/selected` si se agrega) **+ un signifier no-color** (borde, check o relleno), **nunca**
+  opacidad sola. Razón: es un estado persistente y significativo; P5 prohíbe comunicarlo solo por
+  color/opacidad, y una superficie real lee mejor que un overlay genérico. Se materializa al
+  construir el primer componente con `selected` (chips/listas/filas seleccionables); ahí se decide
+  si alcanza `bg/brand-subtle` o se crea un semántico `bg/selected` dedicado.
 
 ## 3 · Motion (`--motion-*`) — cómo se aplica
 El motion comunica causa-efecto y continuidad; nunca decora. Regla raíz: micro-interacciones rápidas,

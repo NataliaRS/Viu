@@ -35,10 +35,11 @@ skill — nunca quedan divergentes.
 ## 1. Gobernanza (quién decide)
 - Solo la dueña del sistema (Natalia) crea o aprueba componentes nuevos, en Figma o en código. Nada
   está "terminado" hasta que ella lo aprueba explícitamente.
-- Toda decisión relevante va al decision log al tomarse. Versionado semver. Madurez — dos escalas
-  con mapeo explícito: tokens/componentes usan experimental / estable / obsoleto (principios); la
-  doc usa Draft / Reviewed / Stable / Deprecated (estándar). Mapeo: experimental↔Draft·Reviewed,
-  estable↔Stable, obsoleto↔Deprecated. ⚠️ PENDIENTE: decidir si se unifican en una sola escala.
+- Toda decisión relevante va al decision log al tomarse. Versionado semver. **Madurez — escala
+  única (RESUELTO jun-2026, A1): `Draft / Reviewed / Stable / Deprecated`** (la del estándar de doc;
+  el Storybook ya usa `status`). El vocabulario viejo `experimental/estable/obsoleto` queda
+  deprecado; mapeo de transición: experimental→Draft·Reviewed, estable→Stable, obsoleto→Deprecated.
+  ⚠️ En cola: actualizar la etiqueta de madurez de los componentes a la escala única.
 - Antes de crear un componente, distinguir: (1) existe pero no está publicado, (2) gap real
   reusable, (3) one-off que NO debe entrar a la librería. No conflar Badge/Tag/Pill/Chip/
   Notification badge (cada uno tiene rol y doc propios; no crearlos en batch).
@@ -49,10 +50,10 @@ skill — nunca quedan divergentes.
   Patterns = composición, no tokens. Cada capa referencia solo la inmediatamente inferior, nunca
   salta. El producto nunca consume un primitivo de COLOR directo (en tipografía/dimensión los
   primitivos SÍ son consumibles — matiz honesto en code-build.md). Inventario real de capas:
-  figma-build.md §13. ⚠️ PENDIENTE Arquitectura R3: del lado código está resuelto — en
-  `NataliaRS/Viu` NO existe CSS vanilla (`viu-ds.css`/`button.css`); `@viu/ui` es la única
-  implementación (verificado jun-2026). Si ese vanilla vive, es solo en el proyecto de gobernanza;
-  R3 queda acotado a esa decisión.
+  figma-build.md §13. **Arquitectura R3 — CERRADO (RESUELTO jun-2026, A5):** el CSS vanilla
+  (`viu-ds.css`/`button.css`) se declara superado por `@viu/ui`; en `NataliaRS/Viu` no existe
+  (verificado), y se da por muerto también en gobernanza. La implementación de referencia es
+  `@viu/ui`; no se mantiene una capa vanilla en paralelo.
 
 ## 2. Mapa de referencias (qué leer según la tarea)
 
@@ -129,8 +130,19 @@ quedó atrás. Este lo absorbe entero.
   contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
   jun-2026: ausentes en el repo de código; el gate del repo es el de 5 pasos: typecheck · test ·
   build · figma connect parse · build-storybook).
-- **Pendientes:** migrar ~15 componentes de disabled-por-opacidad a `bg-disabled`/`text-disabled`;
-  sumar Eye/EyeOff al Icon de Figma; **Icon container ya tiene nodo Figma (`574:150`) → falta su
-  `.figma.tsx` (Code Connect) en código**; deudas Slider rango / Tooltip flip; evaluar átomo Marker
-  (diferido). Gaps opcionales: Segmented control, Radio/Checkbox group, Combobox, Date range
-  picker, Kbd.
+- **Pendientes — DECIDIDOS jun-2026, en cola de ejecución (orden sugerido):**
+  1. **B2** · sumar Eye/EyeOff al Icon de Figma (paridad código↔diseño). *(decidido: hacer)*
+  2. **B3** · crear `.figma.tsx` (Code Connect) de Icon container, que ya tiene nodo `574:150`.
+     *(decidido: crear)*
+  3. **A1** · actualizar la etiqueta de madurez de los componentes a la escala única
+     Draft/Reviewed/Stable/Deprecated.
+  4. **B1** · migrar ~15 componentes de `disabled` por opacidad a `bg-disabled`/`text-disabled`.
+     *(decidido: migrar)*
+  5. **B4** · Slider modo Rango (doble thumb) en código. *(decidido: hacer)*
+  6. **B5** · resolver colisión/flip de Tooltip + Popover juntos (misma lógica). *(decidido)*
+- **A4 (RESUELTO): átomo `Marker` DESCARTADO** — no es gap real; "Marker, no CheckCircle" sigue
+  siendo solo la regla de nombrar por rol (figma-build §12), no un componente a construir.
+- **Gaps opcionales (C1):** Segmented control · Radio/Checkbox group · Combobox/Autocomplete · Date
+  range picker · Kbd. **Proceso decidido: se crean PRIMERO en Figma (fuente de verdad) y luego
+  design-to-code a `@viu/ui`.** Cada uno requiere aprobación de gobernanza + demanda real; se
+  priorizan por necesidad de producto (no se construyen los 5 en batch).

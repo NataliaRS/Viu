@@ -199,6 +199,19 @@ Cada decisión de paradigma del sistema, enunciada de forma explícita y con su 
 6. El modo oscuro es el por defecto; el claro es blanco frío. *Razón:* identidad black-first.
 7. El contraste se verifica con números antes de aprobar cualquier color de texto. *Razón:* la
    accesibilidad no se estima a ojo.
+8. *(jun-2026, A1)* Escala de madurez única: `Draft / Reviewed / Stable / Deprecated`. *Razón:* dos
+   vocabularios para lo mismo invitan a inconsistencia; el estándar de doc y el Storybook ya la usan.
+9. *(jun-2026, A2)* La tabla de equivalencias MD↔Figma↔Storybook (doc-standard) es normativa.
+   *Razón:* refleja cómo ya documentamos (`parameters.viu` ↔ secciones de Figma); bajo riesgo.
+10. *(jun-2026, A3)* `dragged` = overlay `--state-dragged`; `selected` = superficie semántica +
+    signifier no-color, nunca opacidad sola. *Razón:* persistencia + P5 (no comunicar solo por
+    color).
+11. *(jun-2026, A4)* Átomo `Marker` descartado. *Razón:* no es gap real reusable; viola
+    specificity / "no inflar".
+12. *(jun-2026, A5)* Arquitectura R3 cerrada: `@viu/ui` es la implementación de referencia; el CSS
+    vanilla se da por superado. *Razón:* no se mantienen dos implementaciones en paralelo.
+13. *(jun-2026, C1)* Los componentes-gap nuevos se crean PRIMERO en Figma (fuente de verdad) y luego
+    design-to-code. *Razón:* la paridad manda desde el diseño; el código se deriva.
 
 ## 11 · Glosario de foundations que el sistema debe documentar
 Para estar completo a nivel enterprise, el sistema documenta tanto las foundations de tokens/estilos
