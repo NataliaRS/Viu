@@ -168,3 +168,22 @@ export type { TimePickerProps } from "./TimePicker/TimePicker";
 
 export { Datepicker } from "./Datepicker/Datepicker";
 export type { DatepickerProps } from "./Datepicker/Datepicker";
+
+/* ---- organisms (Tramo 4) ---- */
+export { Card } from "./Card/Card";
+export type { CardProps, CardSurface, CardOrientation } from "./Card/Card";
+
+export { EmptyState } from "./EmptyState/EmptyState";
+export type { EmptyStateProps, EmptyStateVariant } from "./EmptyState/EmptyState";
+
+export { PageHeader } from "./PageHeader/PageHeader";
+export type { PageHeaderProps, PageHeaderVariant } from "./PageHeader/PageHeader";
+
+export { Footer } from "./Footer/Footer";
+export type { FooterProps } from "./Footer/Footer";
+
+export { Table } from "./Table/Table";
+export type { TableProps } from "./Table/Table";
+
+export { TreeView } from "./TreeView/TreeView";
+export type { TreeViewProps } from "./TreeView/TreeView";

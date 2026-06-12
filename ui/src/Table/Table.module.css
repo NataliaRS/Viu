@@ -1,0 +1,16 @@
+.table {
+  width: 100%;
+}
+.header {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-m);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+}
+.body > * + * {
+  border-top: var(--border-width-default) solid var(--color-border-subtle);
+}

@@ -1,0 +1,18 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-xl) var(--space-lg);
+  border-top: var(--border-width-default) solid var(--color-border-subtle);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-s);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+.copyright {
+  color: var(--color-text-tertiary);
+}

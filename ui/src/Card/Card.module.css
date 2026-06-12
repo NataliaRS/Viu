@@ -1,0 +1,71 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-surface);
+  overflow: hidden;
+  background: var(--color-bg-raised);
+}
+.elevated {
+  box-shadow: var(--shadow-raised);
+}
+.outlined {
+  background: var(--color-bg-base);
+  border: var(--border-width-default) solid var(--color-border-subtle);
+}
+.filled {
+  background: var(--color-bg-elevated);
+}
+.horizontal {
+  flex-direction: row;
+}
+.interactive {
+  cursor: pointer;
+  transition-property: border-color, background-color, box-shadow;
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-ease-standard);
+}
+.interactive:hover {
+  border-color: var(--color-border-default);
+}
+.media {
+  flex: none;
+}
+.horizontal .media {
+  width: 40%;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  flex: 1 1 0;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  border-top: var(--border-width-default) solid var(--color-border-subtle);
+}
+.accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-bg-brand);
+  z-index: var(--z-raised);
+}
+.badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: var(--z-raised);
+}
