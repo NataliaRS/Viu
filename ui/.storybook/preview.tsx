@@ -8,6 +8,9 @@ const preview: Preview = {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     backgrounds: { disable: true },
     a11y: { context: "#storybook-root" },
+    options: {
+      storySort: { order: ["Foundations", "Atoms", "*"] },
+    },
   },
   globalTypes: {
     theme: {
