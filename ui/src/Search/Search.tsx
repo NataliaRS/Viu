@@ -10,7 +10,7 @@ export interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
 const cx = (...a: Array<string | false | undefined>) => a.filter(Boolean).join(" ");
 
 export const Search = forwardRef<HTMLInputElement, SearchProps>(function Search(
-  { onClear, className, value, placeholder = "Buscar…", ...rest },
+  { onClear, className, value, placeholder = "Buscar", ...rest },
   ref,
 ) {
   const hasValue = value != null && value !== "";
