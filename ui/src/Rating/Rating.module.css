@@ -1,0 +1,23 @@
+.rating {
+  display: inline-flex;
+  gap: var(--space-3xs);
+  color: var(--color-bg-strong);
+}
+.star {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+.button {
+  cursor: pointer;
+}
+.button:focus-visible {
+  outline: var(--border-width-strong) solid var(--color-border-focus);
+  outline-offset: var(--space-3xs);
+  border-radius: var(--radius-xs);
+}
+.filled {
+  color: var(--color-bg-brand);
+}

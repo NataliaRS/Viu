@@ -1,0 +1,26 @@
+.track {
+  width: 100%;
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.sm { height: var(--space-2xs); }
+.md { height: var(--space-xs); }
+.lg { height: var(--space-sm); }
+.fill {
+  height: 100%;
+  background: var(--color-bg-brand);
+  border-radius: var(--radius-pill);
+  transition: width var(--motion-duration-short) var(--motion-ease-standard);
+}
+.indeterminate .fill {
+  width: 40%;
+  animation: viu-progress 1.2s var(--motion-ease-standard) infinite;
+}
+@keyframes viu-progress {
+  0% { margin-left: -40%; }
+  100% { margin-left: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .indeterminate .fill { animation-duration: 3s; }
+}

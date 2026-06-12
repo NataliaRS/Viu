@@ -1,0 +1,84 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+}
+.input {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  background: var(--color-bg-base);
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-xs);
+  color: var(--color-text-on-brand);
+  transition-property: background-color, border-color;
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-ease-standard);
+}
+.check {
+  display: none;
+}
+.bar {
+  display: none;
+  width: 8px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-text-on-brand);
+}
+.input:checked ~ .box {
+  background: var(--color-bg-brand);
+  border-color: transparent;
+}
+.input:checked ~ .box .check {
+  display: block;
+}
+.input:indeterminate ~ .box {
+  background: var(--color-bg-brand);
+  border-color: transparent;
+}
+.input:indeterminate ~ .box .check {
+  display: none;
+}
+.input:indeterminate ~ .box .bar {
+  display: block;
+}
+.root:hover .input:checked:not(:disabled) ~ .box,
+.root:hover .input:indeterminate:not(:disabled) ~ .box {
+  background: var(--color-bg-brand-hover);
+}
+.input:focus-visible ~ .box {
+  outline: var(--border-width-strong) solid var(--color-border-focus);
+  outline-offset: var(--space-3xs);
+}
+.input:disabled ~ .box {
+  background: var(--color-bg-disabled);
+  border-color: var(--color-border-strong);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+.input:disabled ~ .box .bar {
+  background: var(--color-text-disabled);
+}
+.label {
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+.input:disabled ~ .label {
+  color: var(--color-text-disabled);
+}
