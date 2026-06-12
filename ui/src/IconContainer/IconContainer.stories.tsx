@@ -6,6 +6,18 @@ const meta = {
   title: "Components/Atoms/IconContainer",
   component: IconContainer,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      overview: "Superficie enmarcada para un ícono (bg/elevated + border/subtle + radius). 3 tamaños. Derivado del recipe de Card (sin nodo propio en Figma).",
+      whenToUse: ["Destacar un ícono como featurette (empty states, cards).", "Dar peso visual a un glifo."],
+      whenNotToUse: ["Para acciones → usá Icon button.", "Ícono inline en texto → Icon."],
+      anatomy: ["Caja cuadrada (bg/elevated + border/subtle + radius/control).", "Ícono centrado (16/20/24)."],
+      accessibility: ["Hereda la semántica del ícono que contenga (decorativo o titulado)."],
+      dos: ["Usalo para jerarquizar un ícono no interactivo."],
+      donts: ["No lo hagas clickable → eso es Icon button."],
+    },
+  },
   args: { size: "lg", icon: <Icon glyph="Info" /> },
   argTypes: { size: { control: "inline-radio", options: ["sm", "md", "lg"] } },
 } satisfies Meta<typeof IconContainer>;

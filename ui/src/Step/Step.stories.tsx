@@ -5,6 +5,19 @@ const meta = {
   title: "Components/Atoms/Step",
   component: Step,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=189-25",
+      overview: "Paso individual de un proceso secuencial: completado, actual o pendiente.",
+      whenToUse: ["Mostrar avance en un flujo de pasos (wizard, checkout).", "Componer varios en un Stepper."],
+      whenNotToUse: ["Para alternar vistas → usá Tab.", "Para progreso continuo → Progress."],
+      anatomy: ["Nodo (número o check) + label + conector."],
+      accessibility: ["Comunicá el estado con texto/ícono, no solo color.", "El número indica el orden."],
+      dos: ["Marcá claramente el paso actual.", "Conector entre pasos."],
+      donts: ["No uses Step para navegación libre."],
+    },
+  },
   args: { status: "current", number: 2, label: "Datos" },
   argTypes: {
     status: { control: "inline-radio", options: ["complete", "current", "upcoming"] },

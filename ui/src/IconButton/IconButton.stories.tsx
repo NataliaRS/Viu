@@ -6,6 +6,19 @@ const meta = {
   title: "Components/Atoms/IconButton",
   component: IconButton,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=393-190",
+      overview: "Botón cuadrado de solo ícono. Misma jerarquía que Button (primary/secondary/tertiary) en 3 tamaños.",
+      whenToUse: ["Acción reconocible sin texto (cerrar, buscar, más).", "Toolbars o áreas con espacio limitado."],
+      whenNotToUse: ["Si el ícono no es inequívoco → usá Button con label.", "Para navegación → Link / Nav."],
+      anatomy: ["Contenedor cuadrado (variante + tamaño).", "Ícono centrado (16/20/24)."],
+      accessibility: ["`aria-label` es OBLIGATORIO (no hay texto visible).", "Foco visible; Enter/Espacio nativos.", "Sumá un Tooltip para descubrir su función."],
+      dos: ["Siempre pasá `aria-label`.", "Usá íconos inequívocos."],
+      donts: ["No lo dejes sin nombre accesible.", "No uses tertiary para la acción principal."],
+    },
+  },
   args: { variant: "primary", size: "md", "aria-label": "Agregar", icon: <Icon glyph="Plus" /> },
   argTypes: {
     variant: { control: "inline-radio", options: ["primary", "secondary", "tertiary"] },

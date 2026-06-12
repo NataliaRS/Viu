@@ -7,6 +7,19 @@ const meta = {
   title: "Components/Atoms/Badge",
   component: Badge,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=14-77",
+      overview: "Etiqueta de estado o categoría no interactiva. 6 tonos (neutral + feedback).",
+      whenToUse: ["Comunicar estado o conteo categórico (Nuevo, Activo, 3).", "Clasificar un ítem acompañándolo."],
+      whenNotToUse: ["Si es accionable → usá Pill/Chip.", "Para notificaciones sobre un ícono → Notification badge."],
+      anatomy: ["Contenedor pill, tono (surface + text).", "Label en micro-mayúscula (Label/S)."],
+      accessibility: ["No interactivo; el significado va con texto, no solo color.", "Si el estado cambia en vivo, considerá aria-live en el contenedor."],
+      dos: ["Texto corto (1–2 palabras).", "Tono coherente con el significado (danger = error)."],
+      donts: ["No lo hagas clickable.", "No comuniques solo por color."],
+    },
+  },
   args: { children: "Nuevo", tone: "neutral" },
   argTypes: { tone: { control: "inline-radio", options: tones } },
 } satisfies Meta<typeof Badge>;

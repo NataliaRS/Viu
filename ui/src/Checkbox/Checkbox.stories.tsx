@@ -6,6 +6,19 @@ const meta = {
   title: "Components/Atoms/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=24-167",
+      overview: "Casilla para selección múltiple o binaria, con estado indeterminado.",
+      whenToUse: ["Activar/desactivar una opción.", "Seleccionar varias de una lista (indeterminate en el padre)."],
+      whenNotToUse: ["Elección única entre opciones → usá Radio.", "Activar algo al instante → considerá Switch."],
+      anatomy: ["Caja (radius/xs) + check / barra (indeterminate).", "Label opcional."],
+      accessibility: ["<input type=checkbox> nativo; asociá un label.", "Indeterminate es visual (no es un tercer valor enviado).", "Foco visible."],
+      dos: ["Usá indeterminate para “algunos seleccionados”.", "Hacé el label clickable."],
+      donts: ["No uses checkbox para acciones inmediatas."],
+    },
+  },
   args: { label: "Acepto los términos" },
 } satisfies Meta<typeof Checkbox>;
 

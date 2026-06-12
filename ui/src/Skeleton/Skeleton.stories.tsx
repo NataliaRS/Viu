@@ -5,6 +5,19 @@ const meta = {
   title: "Components/Atoms/Skeleton",
   component: Skeleton,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=229-10",
+      overview: "Placeholder de carga que anticipa la forma del contenido. text/rect/circle.",
+      whenToUse: ["Carga de contenido estructurado (cards, listas).", "Evitar saltos de layout."],
+      whenNotToUse: ["Esperas muy cortas → un Spinner alcanza.", "Para progreso medible → Progress."],
+      anatomy: ["Bloque con superficie strong + shimmer.", "Variante: text · rect · circle."],
+      accessibility: ["Decorativo (aria-hidden).", "Respeta prefers-reduced-motion (sin shimmer)."],
+      dos: ["Imitá la forma y proporción del contenido real."],
+      donts: ["No lo dejes infinito si la carga falló (mostrá error)."],
+    },
+  },
   args: { variant: "text", width: 200 },
   argTypes: { variant: { control: "inline-radio", options: ["text", "rect", "circle"] } },
 } satisfies Meta<typeof Skeleton>;

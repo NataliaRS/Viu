@@ -5,6 +5,19 @@ const meta = {
   title: "Components/Atoms/Link",
   component: Link,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=22-137",
+      overview: "Enlace de texto inline para navegar a otra página, sección o recurso.",
+      whenToUse: ["Navegar a una URL o ancla.", "Acción secundaria de texto dentro de un párrafo."],
+      whenNotToUse: ["Para disparar una acción (enviar/guardar) → usá Button.", "Como botón estilado."],
+      anatomy: ["Texto (text/link), subrayado en hover.", "Estados: default · hover · disabled · focus."],
+      accessibility: ["Es un <a> con href; usá texto descriptivo (no “clic acá”).", "Foco visible; disabled expone aria-disabled."],
+      dos: ["Texto que describe el destino.", "Distinguible del texto normal (color + hover)."],
+      donts: ["No uses Link para acciones.", "No abuses de “leer más” sin contexto."],
+    },
+  },
   args: { children: "Ver más", href: "#" },
   argTypes: { disabled: { control: "boolean" } },
 } satisfies Meta<typeof Link>;

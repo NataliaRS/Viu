@@ -7,6 +7,19 @@ const meta = {
   title: "Components/Atoms/Tag",
   component: Tag,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=15-42",
+      overview: "Etiqueta de clasificación no interactiva. 3 tonos (neutral/brand/indigo).",
+      whenToUse: ["Clasificar o etiquetar contenido (categorías, temas).", "Mostrar metadatos de un ítem."],
+      whenNotToUse: ["Si se puede quitar o seleccionar → usá Chip.", "Para estado de feedback → usá Badge."],
+      anatomy: ["Contenedor radius/control, tono (subtle + text)."],
+      accessibility: ["No interactivo; el significado va por el texto."],
+      dos: ["Usalo para taxonomía estable.", "Texto conciso."],
+      donts: ["No agregues acciones (✕) → eso es Chip."],
+    },
+  },
   args: { children: "Etiqueta", tone: "neutral" },
   argTypes: { tone: { control: "inline-radio", options: tones } },
 } satisfies Meta<typeof Tag>;

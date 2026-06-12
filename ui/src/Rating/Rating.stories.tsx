@@ -6,6 +6,19 @@ const meta = {
   title: "Components/Atoms/Rating",
   component: Rating,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=410-43",
+      overview: "Calificación por estrellas (0–5), de lectura o interactiva.",
+      whenToUse: ["Mostrar o capturar una valoración.", "Reseñas, encuestas."],
+      whenNotToUse: ["Para progreso → Progress.", "Para selección de opciones → Radio."],
+      anatomy: ["N estrellas; llenas (brand) vs vacías (strong)."],
+      accessibility: ["Lectura: role=img con label “X de N”.", "Interactiva: botones con aria-pressed (soporta teclado)."],
+      dos: ["Indicá el máximo.", "Permití teclado en modo interactivo."],
+      donts: ["No uses medias estrellas sin soporte real."],
+    },
+  },
   args: { value: 3, max: 5 },
 } satisfies Meta<typeof Rating>;
 

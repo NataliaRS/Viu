@@ -7,6 +7,19 @@ const meta = {
   title: "Components/Atoms/Avatar",
   component: Avatar,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=19-90",
+      overview: "Representación de un usuario: imagen o iniciales sobre superficie de marca. 5 tamaños.",
+      whenToUse: ["Identificar a una persona o entidad.", "Listas, comentarios, headers."],
+      whenNotToUse: ["Para íconos de sistema → Icon / Icon container.", "Para logos de producto."],
+      anatomy: ["Contenedor circular (radius/pill).", "Imagen (cover) o iniciales (1–2)."],
+      accessibility: ["La imagen lleva alt descriptivo.", "Iniciales: contraste asegurado sobre brand-2."],
+      dos: ["Usá iniciales como fallback de imagen.", "Tamaño acorde a la densidad."],
+      donts: ["No metas más de 2 iniciales.", "No uses imágenes sin alt."],
+    },
+  },
   args: { size: "md", initials: "NR" },
   argTypes: { size: { control: "inline-radio", options: sizes } },
 } satisfies Meta<typeof Avatar>;

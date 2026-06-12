@@ -5,6 +5,19 @@ const meta = {
   title: "Components/Atoms/Progress",
   component: Progress,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=22-184",
+      overview: "Barra de progreso determinada (0–100) o indeterminada. 3 tamaños.",
+      whenToUse: ["Mostrar avance medible (carga, pasos %).", "Indeterminado para esperas sin % conocido."],
+      whenNotToUse: ["Esperas cortas → Spinner.", "Carga de layout → Skeleton."],
+      anatomy: ["Track (subtle) + fill (brand).", "Tamaño sm/md/lg."],
+      accessibility: ["role=progressbar con aria-valuenow/min/max.", "Pasá un `label` accesible."],
+      dos: ["Usá `value` real cuando lo conozcas."],
+      donts: ["No uses indeterminate si tenés el %."],
+    },
+  },
   args: { value: 60, size: "md" },
   argTypes: {
     value: { control: { type: "range", min: 0, max: 100 } },

@@ -7,6 +7,19 @@ const meta = {
   title: "Components/Atoms/Tab",
   component: Tab,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=161-43",
+      overview: "Pestaña individual de navegación entre vistas. Estilo línea o segmentado.",
+      whenToUse: ["Alternar entre vistas del mismo contexto.", "Agrupar varias en un Tabs (molécula)."],
+      whenNotToUse: ["Para navegación entre páginas → usá Nav.", "Para filtros → Pill."],
+      anatomy: ["Label + ícono opcional.", "Indicador: subrayado (línea) o fondo (segmentado)."],
+      accessibility: ["role=tab con aria-selected.", "En grupo: role=tablist + flechas (lo provee Tabs)."],
+      dos: ["Marcá la activa con `active`.", "Pocas pestañas, labels cortos."],
+      donts: ["No uses tabs para pasos secuenciales → usá Stepper."],
+    },
+  },
   args: { children: "Pestaña", variant: "line", active: false },
   argTypes: {
     variant: { control: "inline-radio", options: ["line", "segmented"] },

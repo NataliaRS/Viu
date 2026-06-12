@@ -5,6 +5,19 @@ const meta = {
   title: "Components/Atoms/Divider",
   component: Divider,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=20-97",
+      overview: "Separador visual horizontal o vertical, con label opcional.",
+      whenToUse: ["Separar grupos de contenido.", "Dividir secciones (“o”) con label."],
+      whenNotToUse: ["Para espaciar → usá tokens de space, no un divider.", "Como decoración sin función."],
+      anatomy: ["Línea (border/default).", "Label centrado opcional (horizontal)."],
+      accessibility: ["Expone role=separator con orientación.", "Decorativo: no agrega ruido al lector de pantalla."],
+      dos: ["Usalo entre grupos lógicos."],
+      donts: ["No lo uses para padding/espaciado."],
+    },
+  },
   args: { orientation: "horizontal" },
   argTypes: {
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },

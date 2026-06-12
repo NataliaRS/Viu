@@ -17,6 +17,20 @@ const meta = {
   title: "Components/Atoms/Icon",
   component: Icon,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=56-431",
+      overview:
+        "Glifo de 16px con stroke en currentColor. Set base de 8 íconos del sistema (Plus, Check, Chevron, Close, Arrow, Search, Info, Alert).",
+      whenToUse: ["Reforzar el significado de una acción o estado.", "Dentro de otros componentes (Button, Input, Tab…)."],
+      whenNotToUse: ["Como única forma de comunicar algo crítico → acompañá con texto o `title`.", "Para ilustraciones grandes — no es un sistema ilustrativo."],
+      anatomy: ["SVG 16×16, stroke currentColor 1.5.", "Glyph — uno de los 8 del set."],
+      accessibility: ["Decorativo por defecto (aria-hidden).", "Con `title` se expone como imagen con nombre accesible.", "Hereda el color del texto (currentColor)."],
+      dos: ["Heredá el color del contexto.", "Usá `title` cuando el ícono tiene significado propio."],
+      donts: ["No reescales rompiendo la grilla de 16.", "No uses íconos fuera del set sin sumarlos al sistema."],
+    },
+  },
   args: { glyph: "Search", size: 24 },
   argTypes: {
     glyph: { control: "select", options: allGlyphs },

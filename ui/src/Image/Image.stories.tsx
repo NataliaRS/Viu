@@ -5,6 +5,19 @@ const meta = {
   title: "Components/Atoms/Image",
   component: Image,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=543-62",
+      overview: "Media con relación de aspecto fija y estados de carga/error. 5 ratios.",
+      whenToUse: ["Mostrar imágenes manteniendo proporción.", "Galerías, cards, thumbnails (ratio chico)."],
+      whenNotToUse: ["Íconos → Icon.", "Avatares → Avatar."],
+      anatomy: ["Contenedor (radius/control, overflow).", "Default: imagen cover · Loading: Spinner · Error: ícono + “Sin imagen”."],
+      accessibility: ["`alt` descriptivo (vacío si es decorativa).", "El estado de error es visible y textual."],
+      dos: ["Elegí el ratio acorde al contexto.", "Definí un alt significativo."],
+      donts: ["No deformes la imagen (object-fit cover lo evita)."],
+    },
+  },
   args: { ratio: "16:9", src: "https://picsum.photos/480/270" },
   argTypes: {
     ratio: { control: "inline-radio", options: ["16:9", "4:3", "1:1", "3:2", "free"] },
