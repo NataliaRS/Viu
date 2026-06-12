@@ -253,6 +253,8 @@ Ejemplos canónicos ya escritos: `Button` e `Input` (copiar su estructura).
 
 **Convención de stories:** `Playground` (con controles) · variantes nombradas · `States`/`Gallery` con `parameters.controls.disable` cuando es una grilla. Estado controlado con `useState` en `render` para interactivos.
 
+**Props slot (ReactNode) en Controls:** los slots de elemento (`icon`, `leadingIcon`, `trailingIcon`, `link`, `action`, `avatar`) tienen `control: false` GLOBAL en `preview.tsx` para no mostrar el volcado `React.element` en el panel Controls. Si agregás un slot con otro nombre, sumalo a esa lista global (no a `children`, que suele ser texto editable).
+
 **Foundations:** son token-driven (leen `dist/tokens.js`, no hardcodear). Patrones ya hechos: swatches **copy-to-click**, matriz de **contraste WCAG**, **dark/light lado a lado**, y galerías de spacing/radius/type/effects/grid. Al agregar tokens nuevos → sumar su visualización.
 
 **Entrada:** `src/Introduction.mdx` (`Get started/Introduction`) — actualizar links/uso si cambia el paquete.

@@ -21,6 +21,17 @@ const preview: Preview = {
       storySort: { order: ["Get started", "Foundations", "Components", "*"] },
     },
   },
+  // Slot props are ReactNode — disable their Controls so they don't render the
+  // raw React.element object dump. They still appear (with type/description) in
+  // the Docs args table.
+  argTypes: {
+    icon: { control: false },
+    leadingIcon: { control: false },
+    trailingIcon: { control: false },
+    link: { control: false },
+    action: { control: false },
+    avatar: { control: false },
+  },
   globalTypes: {
     theme: {
       description: "Tema VIU (black-first) — afecta el canvas de componentes",
