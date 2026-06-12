@@ -39,10 +39,13 @@ playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada co
   componentes de layout reusables que componen el resto (no stories sueltas).
 
 **Deudas conocidas:** Slider solo modo Único (falta Rango/doble thumb); Tooltip CSS-only sin
-colisión/flip; **Icon container ya tiene nodo propio en Figma (`SET 574:150`) → falta su `.figma.tsx`
-(Code Connect)** *(corregido jun-2026: antes decía "no tiene nodo propio en Figma"; sí lo tiene)*;
-Eye/EyeOff en código → falta sumarlos al Icon de Figma; ~15 componentes pendientes de migrar disabled
-de `opacity: var(--state-disabled)` a `bg-disabled`/`text-disabled` explícitos.
+colisión/flip; **Icon container — Code Connect creado (jun-2026, B3, `.figma.tsx` → nodo `574:150`).
+Gap de paridad PENDIENTE:** el nodo Figma tiene 3 ejes (Size × `style` Filled/Stroke × `tone`
+Brand/Neutral/Inverse/Danger/Warning/Success/Info/Disable = 48 variantes), pero el componente de
+código solo expone `size`; Code Connect mapea solo `size`. Falta llevar `style`/`tone` al código si
+se quiere paridad total. Eye/EyeOff en código → falta sumarlos al Icon de Figma (B2); ~15 componentes
+pendientes de migrar disabled de `opacity: var(--state-disabled)` a `bg-disabled`/`text-disabled`
+explícitos (B1).
 
 **Iconos:** SVG stroke a mano (`currentColor`) — el sandbox bloquea descargar assets de Figma;
 reemplazables por los exportados.

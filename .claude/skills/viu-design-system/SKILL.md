@@ -132,8 +132,8 @@ quedó atrás. Este lo absorbe entero.
   build · figma connect parse · build-storybook).
 - **Pendientes — DECIDIDOS jun-2026, en cola de ejecución (orden sugerido):**
   1. **B2** · sumar Eye/EyeOff al Icon de Figma (paridad código↔diseño). *(decidido: hacer)*
-  2. **B3** · crear `.figma.tsx` (Code Connect) de Icon container, que ya tiene nodo `574:150`.
-     *(decidido: crear)*
+  2. ~~**B3** · `.figma.tsx` de Icon container~~ ✅ HECHO (jun-2026). Surgió un gap nuevo: el nodo
+     Figma tiene `style`/`tone` (48 var) que el código no expone — anotado en code-build §14.
   3. **A1** · actualizar la etiqueta de madurez de los componentes a la escala única
      Draft/Reviewed/Stable/Deprecated.
   4. **B1** · migrar ~15 componentes de `disabled` por opacidad a `bg-disabled`/`text-disabled`.
