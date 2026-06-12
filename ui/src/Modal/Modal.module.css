@@ -1,0 +1,106 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  background: var(--alpha-black-72);
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100vh - var(--space-2xl));
+  background: var(--color-bg-elevated);
+  border: var(--border-width-default) solid var(--color-border-subtle);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--shadow-overlay);
+  outline: none;
+}
+
+.sm {
+  max-width: 400px;
+}
+.md {
+  max-width: 520px;
+}
+.lg {
+  max-width: 680px;
+}
+
+.header {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  padding: var(--space-lg) var(--space-lg) var(--space-xs);
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+.heading {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-title-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-m);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.close {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-xs);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--motion-duration-micro) var(--motion-ease-standard);
+}
+.close:hover {
+  color: var(--color-text-primary);
+}
+.close:focus-visible {
+  outline: var(--border-width-strong) solid var(--color-border-focus);
+  outline-offset: var(--space-3xs);
+}
+
+.body {
+  padding: var(--space-xs) var(--space-lg) var(--space-sm);
+  overflow-y: auto;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-m);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.footer {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+}

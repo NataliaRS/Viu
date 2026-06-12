@@ -187,3 +187,12 @@ export type { TableProps } from "./Table/Table";
 
 export { TreeView } from "./TreeView/TreeView";
 export type { TreeViewProps } from "./TreeView/TreeView";
+
+export { Modal } from "./Modal/Modal";
+export type { ModalProps, ModalSize } from "./Modal/Modal";
+
+export { Drawer } from "./Drawer/Drawer";
+export type { DrawerProps, DrawerSide } from "./Drawer/Drawer";
+
+export { Popover } from "./Popover/Popover";
+export type { PopoverProps, PopoverSide } from "./Popover/Popover";
