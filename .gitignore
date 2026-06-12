@@ -6,3 +6,4 @@ node_modules/
 # Build artifacts (UI package builds on demand; tokens dist/ IS committed)
 ui/dist/
 ui/demo-dist/
+ui/storybook-static/

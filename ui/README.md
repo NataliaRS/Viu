@@ -27,12 +27,18 @@ import { Button, Icon } from "@viu/ui";
 ## Scripts
 
 ```bash
-npm run dev        # playground Vite (visual)
-npm run typecheck  # tsc --noEmit
-npm test           # vitest + Testing Library
-npm run build      # tsup → dist/ (ESM + .d.ts + index.css)
-npm run cc:check   # figma connect parse (valida los mappings *.figma.tsx)
+npm run storybook        # docs vivas + playground (puerto 6006)
+npm run build-storybook  # Storybook estático
+npm run dev              # playground Vite (visual)
+npm run typecheck        # tsc --noEmit
+npm test                 # vitest + Testing Library
+npm run build            # tsup → dist/ (ESM + .d.ts + index.css)
+npm run cc:check         # figma connect parse (valida los mappings *.figma.tsx)
 ```
+
+Storybook (React + Vite) trae addon de accesibilidad (`@storybook/addon-a11y`) y
+un switch de tema **dark/light** en la toolbar. Stories: `Atoms/Button`, `Atoms/Icon`
+(incluye `AllVariants` / `AllGlyphs`).
 
 ## Code Connect
 
