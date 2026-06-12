@@ -2,7 +2,7 @@ name: Deploy Storybook to Pages
 
 on:
   push:
-    branches: ["claude/kind-wozniak-mzuumz"]
+    branches: ["claude/kind-wozniak-mzuumz", "claude/viu-overlays-modal-drawer-c6ujcb"]
   workflow_dispatch:
 
 permissions:
