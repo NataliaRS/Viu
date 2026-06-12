@@ -4,7 +4,7 @@ import { Status, type StatusKind } from "./Status";
 const kinds: StatusKind[] = ["online", "busy", "away", "offline"];
 
 const meta = {
-  title: "Atoms/Status",
+  title: "Components/Atoms/Status",
   component: Status,
   tags: ["autodocs"],
   args: { status: "online", label: true },

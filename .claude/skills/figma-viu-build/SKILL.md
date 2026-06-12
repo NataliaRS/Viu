@@ -227,6 +227,36 @@ Repo trabajado en sesiones web de Claude Code (rama `claude/*`). Storybook en vi
 
 **Correcciones halladas en la auditoría (ya aplicadas en código):** `bg/strong` Light = neutral/100 (no 200) · `breakpoint/xs`=320 (no 375) · Type Scale es responsive (no solo Desktop) → corrige iniciales de Avatar LG (18px Mobile) · letterSpacing de Figma en % → micro-labels (Badge/Tag/Status/Label-S) usan `tracking/wide`=0.04em (no 4px).
 
+## 15. Estándar de Storybook (presentación + docs) — OBLIGATORIO para CADA componente nuevo
+El Storybook es el producto de marca, no un catálogo. Reglas que TODO componente (átomo,
+molécula, organismo, patrón) debe cumplir:
+
+**Chrome de marca (ya montado, no re-hacer):** `.storybook/theme.ts` + `manager.ts` (dark, crimson, fuentes VIU) y `parameters.docs.theme` (Docs oscuro). El decorator de `preview.tsx` es *viewMode-aware* (sin bloques 100vh en Docs).
+
+**Página de docs reutilizable:** `.storybook/ViuDocs.tsx` está seteada global (`parameters.docs.page`). Lee `parameters.viu` del meta y renderiza: Título + **status badge** + link **“Ver en Figma”** → Overview → **Cuándo usar / Evitar** (2 cards) → Vista general (Primary) → Propiedades (Controls) → Anatomía → Accesibilidad → **Do & Don't** (2 cards) → Ejemplos (Stories). Campos faltantes degradan elegante.
+
+**Cada `meta` DEBE incluir** (espeja el doc canónico de Figma §7):
+```ts
+parameters: { viu: {
+  status: "stable" | "beta" | "wip",
+  figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=<id>",
+  overview: "1–2 frases: qué es y para qué.",
+  whenToUse: ["…"], whenNotToUse: ["… → usá <otro componente>"],
+  anatomy: ["Parte — token/rol", …],
+  accessibility: ["rol/teclado/aria; no comunicar solo por color", …],
+  dos: ["…"], donts: ["…"],
+} }
+```
+Ejemplos canónicos ya escritos: `Button` e `Input` (copiar su estructura).
+
+**Naming / IA:** título `Components/<Atoms|Molecules|Organisms|Patterns>/<Nombre>`. Sidebar ordenada `Get started → Foundations → Components` (`storySort` en preview). `tags: ["autodocs"]` siempre.
+
+**Convención de stories:** `Playground` (con controles) · variantes nombradas · `States`/`Gallery` con `parameters.controls.disable` cuando es una grilla. Estado controlado con `useState` en `render` para interactivos.
+
+**Foundations:** son token-driven (leen `dist/tokens.js`, no hardcodear). Patrones ya hechos: swatches **copy-to-click**, matriz de **contraste WCAG**, **dark/light lado a lado**, y galerías de spacing/radius/type/effects/grid. Al agregar tokens nuevos → sumar su visualización.
+
+**Entrada:** `src/Introduction.mdx` (`Get started/Introduction`) — actualizar links/uso si cambia el paquete.
+
 ## Estado actual (junio 2026)
-**Tokens:** auditados 1:1 contra Figma (331 vars / 5 colecciones, §13) y espejados en código (repo §14); paridad verificada. **Código:** `@viu/design-tokens` (pipeline tokens→CSS) + `@viu/ui` con los **28 átomos completos** en Storybook desplegado.
+**Tokens:** auditados 1:1 contra Figma (331 vars / 5 colecciones, §13) y espejados en código (repo §14); paridad verificada. **Código:** `@viu/design-tokens` (pipeline tokens→CSS) + `@viu/ui` con los **28 átomos completos** en Storybook desplegado, con **chrome de marca + docs estándar (§15)** y Foundations interactivas (copy, contraste WCAG, dark/light). Docs ricos (status/Figma/cuándo usar/anatomía/a11y/do&don't) en Button e Input como patrón; replicar a cada nuevo componente.
 Tipografía Google Sans (body/reading); Merriweather eliminado (0 nodos). 67 componentes en Figma: 27 átomos · 31 moléculas · 9 organismos + 5 patrones. Sections en archivo aparte. Card modular (45 var): Disposición Arriba/Lateral/Abajo, ícono desacoplado, autor al pie, tags, leer más, barra, footer 2 botones, badge que sigue a la imagen. Portada con índice por nivel atómico. Homepage de prueba en `Test · Homepage`. Gaps opcionales: Segmented control, Radio/Checkbox group, Combobox/Autocomplete, Date range picker, Kbd. Átomo Image (15 var: Aspect ratio × Estado) como primitiva de media; thumbnail = Image en ratio chico (no es componente aparte). Video sigue siendo molécula (Video embed `414:7`); su poster puede instanciar Image a futuro.

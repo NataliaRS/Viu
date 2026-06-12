@@ -3,7 +3,7 @@ import { IconContainer } from "./IconContainer";
 import { Icon } from "../Icon/Icon";
 
 const meta = {
-  title: "Atoms/IconContainer",
+  title: "Components/Atoms/IconContainer",
   component: IconContainer,
   tags: ["autodocs"],
   args: { size: "lg", icon: <Icon glyph="Info" /> },

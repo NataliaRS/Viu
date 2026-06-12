@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Slider } from "./Slider";
 
 const meta = {
-  title: "Atoms/Slider",
+  title: "Components/Atoms/Slider",
   component: Slider,
   tags: ["autodocs"],
   decorators: [(S) => <div style={{ width: 320 }}>{S()}</div>],

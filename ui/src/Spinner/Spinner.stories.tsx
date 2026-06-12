@@ -4,7 +4,7 @@ import { Spinner, type SpinnerSize } from "./Spinner";
 const sizes: SpinnerSize[] = ["sm", "md", "lg"];
 
 const meta = {
-  title: "Atoms/Spinner",
+  title: "Components/Atoms/Spinner",
   component: Spinner,
   tags: ["autodocs"],
   args: { size: "md" },

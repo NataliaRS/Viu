@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Select } from "./Select";
 
 const meta = {
-  title: "Atoms/Select",
+  title: "Components/Atoms/Select",
   component: Select,
   tags: ["autodocs"],
   argTypes: { error: { control: "boolean" }, disabled: { control: "boolean" } },

@@ -4,7 +4,7 @@ import { Chip } from "./Chip";
 import { Avatar } from "../Avatar/Avatar";
 
 const meta = {
-  title: "Atoms/Chip",
+  title: "Components/Atoms/Chip",
   component: Chip,
   tags: ["autodocs"],
   args: { variant: "input", label: "Etiqueta" },

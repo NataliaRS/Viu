@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Rating } from "./Rating";
 
 const meta = {
-  title: "Atoms/Rating",
+  title: "Components/Atoms/Rating",
   component: Rating,
   tags: ["autodocs"],
   args: { value: 3, max: 5 },

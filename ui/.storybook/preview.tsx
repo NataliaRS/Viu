@@ -3,16 +3,17 @@ import type { Preview } from "@storybook/react";
 // VIU tokens — CSS variables + themes. The single source the components consume.
 import "../../dist/tokens.css";
 import theme from "./theme";
+import ViuDocs from "./ViuDocs";
 
 const preview: Preview = {
   parameters: {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     backgrounds: { disable: true },
     a11y: { context: "#storybook-root" },
-    // Dark, on-brand Docs pages so the narrative matches the canvas.
-    docs: { theme },
+    // Dark, on-brand Docs pages + the reusable VIU docs template for every component.
+    docs: { theme, page: ViuDocs },
     options: {
-      storySort: { order: ["Get started", "Foundations", "Components", "Atoms", "*"] },
+      storySort: { order: ["Get started", "Foundations", "Components", "*"] },
     },
   },
   globalTypes: {

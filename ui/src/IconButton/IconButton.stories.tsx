@@ -3,7 +3,7 @@ import { IconButton } from "./IconButton";
 import { Icon } from "../Icon/Icon";
 
 const meta = {
-  title: "Atoms/IconButton",
+  title: "Components/Atoms/IconButton",
   component: IconButton,
   tags: ["autodocs"],
   args: { variant: "primary", size: "md", "aria-label": "Agregar", icon: <Icon glyph="Plus" /> },

@@ -3,9 +3,45 @@ import { Button } from "./Button";
 import { Icon } from "../Icon/Icon";
 
 const meta = {
-  title: "Atoms/Button",
+  title: "Components/Atoms/Button",
   component: Button,
   tags: ["autodocs"],
+  parameters: {
+    viu: {
+      status: "stable",
+      figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=8-53",
+      overview:
+        "Acción de una interfaz. Comunica la operación de un contexto y la jerarquiza por variante (primary → secondary → tertiary).",
+      whenToUse: [
+        "Disparar una acción: enviar, guardar, crear, confirmar.",
+        "Jerarquizar acciones: una primaria por vista, el resto secundarias/terciarias.",
+      ],
+      whenNotToUse: [
+        "Para navegar a otra página o URL → usá Link.",
+        "Para acciones solo-icono → usá Icon button.",
+      ],
+      anatomy: [
+        "Contenedor — variante (color) + tamaño (alto).",
+        "Label — General Sans Medium.",
+        "Icono opcional — leading y/o trailing (16px).",
+      ],
+      accessibility: [
+        "Es un <button> nativo: foco, Enter y Espacio funcionan solos.",
+        "Foco visible con outline de border/focus.",
+        "Disabled quita interacción y baja el contraste (no usar para ocultar acciones críticas).",
+      ],
+      dos: [
+        "Una sola acción primaria por vista.",
+        "Label corto y accionable (un verbo).",
+        "Icono que refuerza el significado, no decorativo.",
+      ],
+      donts: [
+        "No uses tertiary para la acción principal.",
+        "No pongas oraciones largas como label.",
+        "No combines 3 botones primarios compitiendo.",
+      ],
+    },
+  },
   args: { children: "Button", variant: "primary", size: "md" },
   argTypes: {
     variant: { control: "inline-radio", options: ["primary", "secondary", "tertiary"] },

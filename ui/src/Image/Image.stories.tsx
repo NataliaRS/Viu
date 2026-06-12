@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Image } from "./Image";
 
 const meta = {
-  title: "Atoms/Image",
+  title: "Components/Atoms/Image",
   component: Image,
   tags: ["autodocs"],
   args: { ratio: "16:9", src: "https://picsum.photos/480/270" },

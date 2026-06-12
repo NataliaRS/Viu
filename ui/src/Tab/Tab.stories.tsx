@@ -4,7 +4,7 @@ import { Tab } from "./Tab";
 import { Icon } from "../Icon/Icon";
 
 const meta = {
-  title: "Atoms/Tab",
+  title: "Components/Atoms/Tab",
   component: Tab,
   tags: ["autodocs"],
   args: { children: "Pestaña", variant: "line", active: false },

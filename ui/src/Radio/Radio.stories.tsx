@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Radio } from "./Radio";
 
 const meta = {
-  title: "Atoms/Radio",
+  title: "Components/Atoms/Radio",
   component: Radio,
   tags: ["autodocs"],
 } satisfies Meta<typeof Radio>;

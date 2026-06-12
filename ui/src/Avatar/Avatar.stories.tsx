@@ -4,7 +4,7 @@ import { Avatar, type AvatarSize } from "./Avatar";
 const sizes: AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];
 
 const meta = {
-  title: "Atoms/Avatar",
+  title: "Components/Atoms/Avatar",
   component: Avatar,
   tags: ["autodocs"],
   args: { size: "md", initials: "NR" },

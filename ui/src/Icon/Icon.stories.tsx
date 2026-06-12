@@ -14,7 +14,7 @@ const allGlyphs: GlyphName[] = [
 ];
 
 const meta = {
-  title: "Atoms/Icon",
+  title: "Components/Atoms/Icon",
   component: Icon,
   tags: ["autodocs"],
   args: { glyph: "Search", size: 24 },

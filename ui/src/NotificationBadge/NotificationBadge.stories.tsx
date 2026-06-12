@@ -4,7 +4,7 @@ import { IconButton } from "../IconButton/IconButton";
 import { Icon } from "../Icon/Icon";
 
 const meta = {
-  title: "Atoms/NotificationBadge",
+  title: "Components/Atoms/NotificationBadge",
   component: NotificationBadge,
   tags: ["autodocs"],
   args: { count: 5, max: 99, dot: false },

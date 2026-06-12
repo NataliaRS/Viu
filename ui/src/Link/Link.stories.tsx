@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Link } from "./Link";
 
 const meta = {
-  title: "Atoms/Link",
+  title: "Components/Atoms/Link",
   component: Link,
   tags: ["autodocs"],
   args: { children: "Ver más", href: "#" },

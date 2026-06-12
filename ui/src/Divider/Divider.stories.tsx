@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Divider } from "./Divider";
 
 const meta = {
-  title: "Atoms/Divider",
+  title: "Components/Atoms/Divider",
   component: Divider,
   tags: ["autodocs"],
   args: { orientation: "horizontal" },

@@ -4,7 +4,7 @@ import { Tag, type TagTone } from "./Tag";
 const tones: TagTone[] = ["neutral", "brand", "indigo"];
 
 const meta = {
-  title: "Atoms/Tag",
+  title: "Components/Atoms/Tag",
   component: Tag,
   tags: ["autodocs"],
   args: { children: "Etiqueta", tone: "neutral" },
