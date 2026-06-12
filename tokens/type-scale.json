@@ -1,0 +1,28 @@
+{
+  "$description": "VIU — Type Scale collection. Responsive font sizes with Mobile/Desktop modes, aliasing font-size primitives. 1:1 with Figma 'Type Scale' (23).",
+  "font-size": {
+    "oversize-l": { "Mobile": "{font-size/1400}", "Desktop": "{font-size/1600}" },
+    "oversize-m": { "Mobile": "{font-size/1300}", "Desktop": "{font-size/1500}" },
+    "oversize-s": { "Mobile": "{font-size/1200}", "Desktop": "{font-size/1400}" },
+    "display-l": { "Mobile": "{font-size/1100}", "Desktop": "{font-size/1300}" },
+    "display-m": { "Mobile": "{font-size/1000}", "Desktop": "{font-size/1200}" },
+    "display-s": { "Mobile": "{font-size/900}", "Desktop": "{font-size/1100}" },
+    "headline-l": { "Mobile": "{font-size/800}", "Desktop": "{font-size/1000}" },
+    "headline-m": { "Mobile": "{font-size/700}", "Desktop": "{font-size/900}" },
+    "headline-s": { "Mobile": "{font-size/600}", "Desktop": "{font-size/800}" },
+    "title-l": { "Mobile": "{font-size/500}", "Desktop": "{font-size/700}" },
+    "title-m": { "Mobile": "{font-size/400}", "Desktop": "{font-size/600}" },
+    "title-s": { "Mobile": "{font-size/300}", "Desktop": "{font-size/500}" },
+    "body-xl": { "Mobile": "{font-size/300}", "Desktop": "{font-size/300}" },
+    "body-l": { "Mobile": "{font-size/200}", "Desktop": "{font-size/200}" },
+    "body-m": { "Mobile": "{font-size/100}", "Desktop": "{font-size/100}" },
+    "body-s": { "Mobile": "{font-size/75}", "Desktop": "{font-size/75}" },
+    "label-2xl": { "Mobile": "{font-size/300}", "Desktop": "{font-size/300}" },
+    "label-xl": { "Mobile": "{font-size/200}", "Desktop": "{font-size/200}" },
+    "label-l": { "Mobile": "{font-size/100}", "Desktop": "{font-size/100}" },
+    "label-m": { "Mobile": "{font-size/75}", "Desktop": "{font-size/75}" },
+    "label-s": { "Mobile": "{font-size/50}", "Desktop": "{font-size/50}" },
+    "code-m": { "Mobile": "{font-size/100}", "Desktop": "{font-size/100}" },
+    "code-s": { "Mobile": "{font-size/75}", "Desktop": "{font-size/75}" }
+  }
+}

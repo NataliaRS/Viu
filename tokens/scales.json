@@ -1,0 +1,31 @@
+{
+  "$description": "VIU — Scales collection (mode: Value). Semantic aliases over primitives. Components consume these (+ Semantic + Type Scale), never raw primitives. 1:1 with Figma 'Scales' (70).",
+  "space": {
+    "3xs": { "$value": "{space/2}" }, "2xs": { "$value": "{space/4}" }, "xs": { "$value": "{space/8}" },
+    "sm": { "$value": "{space/12}" }, "md": { "$value": "{space/16}" }, "lg": { "$value": "{space/24}" },
+    "xl": { "$value": "{space/32}" }, "2xl": { "$value": "{space/48}" }, "3xl": { "$value": "{space/64}" },
+    "4xl": { "$value": "{space/96}" }, "5xl": { "$value": "{space/128}" }, "6xl": { "$value": "{space/192}" },
+    "stack-2xs": { "$value": "{space/4}" }, "stack-xs": { "$value": "{space/8}" }, "stack-sm": { "$value": "{space/12}" },
+    "stack-md": { "$value": "{space/16}" }, "stack-lg": { "$value": "{space/24}" }, "stack-xl": { "$value": "{space/32}" },
+    "inline-2xs": { "$value": "{space/4}" }, "inline-xs": { "$value": "{space/8}" }, "inline-sm": { "$value": "{space/12}" },
+    "inline-md": { "$value": "{space/16}" }, "inline-lg": { "$value": "{space/24}" },
+    "inset-xs": { "$value": "{space/8}" }, "inset-sm": { "$value": "{space/12}" }, "inset-md": { "$value": "{space/16}" }, "inset-lg": { "$value": "{space/24}" }
+  },
+  "radius": { "xs": { "$value": "{radius/xs}" }, "control": { "$value": "{radius/md}" }, "surface": { "$value": "{radius/lg}" }, "pill": { "$value": "{radius/round}" } },
+  "border-width": { "default": { "$value": "{border-width/1}" }, "strong": { "$value": "{border-width/2}" }, "heavy": { "$value": "{border-width/4}" } },
+  "z": {
+    "hide": { "$value": "{z/hide}" }, "base": { "$value": "{z/base}" }, "raised": { "$value": "{z/raised}" }, "docked": { "$value": "{z/docked}" },
+    "dropdown": { "$value": "{z/dropdown}" }, "sticky": { "$value": "{z/sticky}" }, "banner": { "$value": "{z/banner}" }, "overlay": { "$value": "{z/overlay}" },
+    "modal": { "$value": "{z/modal}" }, "popover": { "$value": "{z/popover}" }, "toast": { "$value": "{z/toast}" }, "tooltip": { "$value": "{z/tooltip}" }
+  },
+  "font-weight": { "emphasis": { "$value": "{font-weight/semibold}" } },
+  "icon": { "sm": { "$value": "{icon-size/sm}" }, "md": { "$value": "{icon-size/md}" }, "lg": { "$value": "{icon-size/lg}" }, "xl": { "$value": "{icon-size/xl}" } },
+  "state": { "hover": { "$value": "{opacity/8}" }, "focus": { "$value": "{opacity/12}" }, "pressed": { "$value": "{opacity/16}" }, "dragged": { "$value": "{opacity/24}" }, "disabled": { "$value": "{opacity/38}" } },
+  "size": { "target-min": { "$value": "{space/24}" } },
+  "aspect": { "square": { "$value": "{aspect-ratio/square}" }, "4-3": { "$value": "{aspect-ratio/4-3}" }, "16-9": { "$value": "{aspect-ratio/16-9}" }, "golden": { "$value": "{aspect-ratio/golden}" } },
+  "motion": {
+    "duration-micro": { "$value": "{duration/fast}" }, "duration-short": { "$value": "{duration/base}" }, "duration-medium": { "$value": "{duration/moderate}" },
+    "duration-long": { "$value": "{duration/slow}" }, "duration-loop": { "$value": "{duration/deliberate}" },
+    "ease-standard": { "$value": "{easing/standard}" }, "ease-enter": { "$value": "{easing/enter}" }, "ease-exit": { "$value": "{easing/exit}" }, "ease-emphasized": { "$value": "{easing/emphasized}" }
+  }
+}

@@ -2,7 +2,7 @@
    Source: /tokens/*.json — run `npm run build:tokens` to regenerate. */
 
 :root {
-  /* ---- primitives · color ---- */
+  /* ---- Primitives (raw — components consume Scales/Semantic/Type, not these) ---- */
   --color-red-300: #f07178;
   --color-red-400: #c92e37;
   --color-red-500: #b5262e;
@@ -74,8 +74,124 @@
   --alpha-blue-14: #7da9f524;
   --alpha-indigo-14: #5a55a824;
   --alpha-indigo-24: #5a55a83d;
+  --space-0: 0px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+  --space-128: 128px;
+  --space-192: 192px;
+  --space-256: 256px;
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-round: 9999px;
+  --border-width-0: 0px;
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+  --border-width-3: 3px;
+  --border-width-4: 4px;
+  --icon-size-xs: 16px;
+  --icon-size-sm: 20px;
+  --icon-size-md: 24px;
+  --icon-size-lg: 32px;
+  --icon-size-xl: 40px;
+  --icon-size-2xl: 48px;
+  --opacity-0: 0;
+  --opacity-5: 0.05;
+  --opacity-8: 0.08;
+  --opacity-12: 0.12;
+  --opacity-16: 0.16;
+  --opacity-24: 0.24;
+  --opacity-38: 0.38;
+  --opacity-60: 0.6;
+  --opacity-100: 1;
+  --z-hide: -1;
+  --z-base: 0;
+  --z-raised: 100;
+  --z-docked: 300;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-banner: 1200;
+  --z-overlay: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-toast: 1600;
+  --z-tooltip: 1700;
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1440px;
+  --breakpoint-2xl: 1920px;
+  --duration-instant: 0ms;
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --duration-moderate: 320ms;
+  --duration-slow: 400ms;
+  --duration-emphasized: 480ms;
+  --duration-deliberate: 600ms;
+  --font-size-50: 11px;
+  --font-size-75: 12px;
+  --font-size-100: 14px;
+  --font-size-200: 16px;
+  --font-size-300: 18px;
+  --font-size-400: 20px;
+  --font-size-500: 22px;
+  --font-size-600: 25px;
+  --font-size-700: 28px;
+  --font-size-800: 32px;
+  --font-size-900: 36px;
+  --font-size-1000: 40px;
+  --font-size-1100: 45px;
+  --font-size-1200: 51px;
+  --font-size-1300: 58px;
+  --font-size-1400: 65px;
+  --font-size-1500: 73px;
+  --font-size-1600: 82px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.3;
+  --line-height-relaxed: 1.5;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.04em;
+  --font-family-display: "PP Neue Montreal", "Satoshi", "Söhne Breit", system-ui, sans-serif;
+  --font-family-body: "Google Sans", "General Sans", "Inter", system-ui, sans-serif;
+  --font-family-reading: "Google Sans", "General Sans", "Inter", system-ui, sans-serif;
+  --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
+  --easing-standard: cubic-bezier(0.2,0.8,0.2,1);
+  --easing-enter: cubic-bezier(0,0,0.2,1);
+  --easing-exit: cubic-bezier(0.4,0,1,1);
+  --easing-emphasized: cubic-bezier(0.2,0,0,1);
+  --aspect-ratio-square: 1 / 1;
+  --aspect-ratio-4-3: 4 / 3;
+  --aspect-ratio-3-2: 3 / 2;
+  --aspect-ratio-16-9: 16 / 9;
+  --aspect-ratio-21-9: 21 / 9;
+  --aspect-ratio-golden: 1.618 / 1;
 
-  /* ---- scale · spacing ---- */
+  /* ---- derived families (from text styles; not Figma variables) ---- */
+  --font-family-label: "General Sans", "Inter", system-ui, sans-serif;
+  --font-family-code: var(--font-family-mono);
+
+  /* ---- Scales (semantic aliases) ---- */
   --space-3xs: 2px;
   --space-2xs: 4px;
   --space-xs: 8px;
@@ -88,74 +204,87 @@
   --space-4xl: 96px;
   --space-5xl: 128px;
   --space-6xl: 192px;
-
-  /* ---- scale · radius ---- */
+  --space-stack-2xs: 4px;
+  --space-stack-xs: 8px;
+  --space-stack-sm: 12px;
+  --space-stack-md: 16px;
+  --space-stack-lg: 24px;
+  --space-stack-xl: 32px;
+  --space-inline-2xs: 4px;
+  --space-inline-xs: 8px;
+  --space-inline-sm: 12px;
+  --space-inline-md: 16px;
+  --space-inline-lg: 24px;
+  --space-inset-xs: 8px;
+  --space-inset-sm: 12px;
+  --space-inset-md: 16px;
+  --space-inset-lg: 24px;
   --radius-xs: 4px;
   --radius-control: 8px;
   --radius-surface: 12px;
   --radius-pill: 9999px;
+  --border-width-default: 1px;
+  --border-width-strong: 2px;
+  --border-width-heavy: 4px;
+  --z-hide: -1;
+  --z-base: 0;
+  --z-raised: 100;
+  --z-docked: 300;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-banner: 1200;
+  --z-overlay: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-toast: 1600;
+  --z-tooltip: 1700;
+  --font-weight-emphasis: 600;
+  --icon-sm: 20px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+  --icon-xl: 40px;
+  --state-hover: 0.08;
+  --state-focus: 0.12;
+  --state-pressed: 0.16;
+  --state-dragged: 0.24;
+  --state-disabled: 0.38;
+  --size-target-min: 24px;
+  --aspect-square: 1 / 1;
+  --aspect-4-3: 4 / 3;
+  --aspect-16-9: 16 / 9;
+  --aspect-golden: 1.618 / 1;
+  --motion-duration-micro: 160ms;
+  --motion-duration-short: 240ms;
+  --motion-duration-medium: 320ms;
+  --motion-duration-long: 400ms;
+  --motion-duration-loop: 600ms;
+  --motion-ease-standard: cubic-bezier(0.2,0.8,0.2,1);
+  --motion-ease-enter: cubic-bezier(0,0,0.2,1);
+  --motion-ease-exit: cubic-bezier(0.4,0,1,1);
+  --motion-ease-emphasized: cubic-bezier(0.2,0,0,1);
 
-  /* ---- scale · typography primitives ---- */
-  --font-family-display: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  --font-family-body: "Google Sans", "Inter", system-ui, -apple-system, sans-serif;
-  --font-family-label: "General Sans", "Inter", system-ui, -apple-system, sans-serif;
-  --font-family-code: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-size-oversize-l: 82px;
-  --font-size-oversize-m: 73px;
-  --font-size-oversize-s: 65px;
-  --font-size-display-l: 58px;
-  --font-size-display-m: 51px;
-  --font-size-display-s: 45px;
-  --font-size-headline-l: 40px;
-  --font-size-headline-m: 36px;
-  --font-size-headline-s: 32px;
-  --font-size-title-l: 28px;
-  --font-size-title-m: 25px;
-  --font-size-title-s: 22px;
-  --font-size-body-xl: 18px;
-  --font-size-body-l: 16px;
-  --font-size-body-m: 14px;
-  --font-size-body-s: 12px;
-  --font-size-label-2xl: 18px;
-  --font-size-label-xl: 16px;
-  --font-size-label-l: 14px;
-  --font-size-label-m: 12px;
-  --font-size-label-s: 11px;
-  --font-size-code-m: 14px;
-  --font-size-code-s: 12px;
-
-  /* ---- scale · breakpoints ---- */
-  --breakpoint-base: 375px;
-  --breakpoint-sm: 768px;
-  --breakpoint-md: 1024px;
-  --breakpoint-lg: 1280px;
-  --breakpoint-xl: 1440px;
-  --breakpoint-2xl: 1920px;
-
-  /* ---- scale · grid ---- */
-  --grid-base-columns: 4;
-  --grid-base-gutter: 16px;
-  --grid-base-margin: 16px;
-  --grid-sm-columns: 8;
-  --grid-sm-gutter: 24px;
-  --grid-sm-margin: 32px;
-  --grid-md-columns: 8;
-  --grid-md-gutter: 24px;
-  --grid-md-margin: 48px;
-  --grid-lg-columns: 12;
-  --grid-lg-gutter: 32px;
-  --grid-lg-margin: 48px;
-  --grid-xl-columns: 12;
-  --grid-xl-gutter: 32px;
-  --grid-xl-margin: 64px;
-  --grid-2xl-columns: 12;
-  --grid-2xl-gutter: 32px;
-  --grid-2xl-margin: 96px;
+  /* ---- Grid (per-mode) ---- */
+  --grid-columns-base: 4;
+  --grid-columns-sm: 8;
+  --grid-columns-md: 8;
+  --grid-columns-lg: 12;
+  --grid-columns-xl: 12;
+  --grid-columns-2xl: 12;
+  --grid-gutter-base: 16px;
+  --grid-gutter-sm: 24px;
+  --grid-gutter-md: 24px;
+  --grid-gutter-lg: 32px;
+  --grid-gutter-xl: 32px;
+  --grid-gutter-2xl: 32px;
+  --grid-margin-base: 16px;
+  --grid-margin-sm: 32px;
+  --grid-margin-md: 48px;
+  --grid-margin-lg: 48px;
+  --grid-margin-xl: 64px;
+  --grid-margin-2xl: 96px;
 }
 
-/* Default theme: dark (black-first) */
+/* Default theme: Dark (black-first) */
 :root, [data-theme="dark"] {
   --color-bg-base: #0a0a0b;
   --color-bg-raised: #1c1c1f;
@@ -211,13 +340,13 @@
   --color-feedback-info-on-solid: #ffffff;
 }
 
-/* Light theme override */
+/* Light theme */
 [data-theme="light"] {
   --color-bg-base: #ffffff;
   --color-bg-raised: #fbfcfd;
   --color-bg-elevated: #f5f5f7;
   --color-bg-sunken: #e8e8eb;
-  --color-bg-strong: #c9c9ce;
+  --color-bg-strong: #e8e8eb;
   --color-bg-subtle: #eef0f3;
   --color-bg-hover: #0a0a0b14;
   --color-bg-pressed: #0a0a0b24;
@@ -267,14 +396,13 @@
   --color-feedback-info-on-solid: #ffffff;
 }
 
-/* Auto: follow OS when no explicit data-theme is set */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
     --color-bg-base: #ffffff;
     --color-bg-raised: #fbfcfd;
     --color-bg-elevated: #f5f5f7;
     --color-bg-sunken: #e8e8eb;
-    --color-bg-strong: #c9c9ce;
+    --color-bg-strong: #e8e8eb;
     --color-bg-subtle: #eef0f3;
     --color-bg-hover: #0a0a0b14;
     --color-bg-pressed: #0a0a0b24;
@@ -325,208 +453,262 @@
   }
 }
 
+/* Responsive type sizes: Mobile by default, Desktop at >= md */
+:root {
+  --font-size-oversize-l: 65px;
+  --font-size-oversize-m: 58px;
+  --font-size-oversize-s: 51px;
+  --font-size-display-l: 45px;
+  --font-size-display-m: 40px;
+  --font-size-display-s: 36px;
+  --font-size-headline-l: 32px;
+  --font-size-headline-m: 28px;
+  --font-size-headline-s: 25px;
+  --font-size-title-l: 22px;
+  --font-size-title-m: 20px;
+  --font-size-title-s: 18px;
+  --font-size-body-xl: 18px;
+  --font-size-body-l: 16px;
+  --font-size-body-m: 14px;
+  --font-size-body-s: 12px;
+  --font-size-label-2xl: 18px;
+  --font-size-label-xl: 16px;
+  --font-size-label-l: 14px;
+  --font-size-label-m: 12px;
+  --font-size-label-s: 11px;
+  --font-size-code-m: 14px;
+  --font-size-code-s: 12px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --font-size-oversize-l: 82px;
+    --font-size-oversize-m: 73px;
+    --font-size-oversize-s: 65px;
+    --font-size-display-l: 58px;
+    --font-size-display-m: 51px;
+    --font-size-display-s: 45px;
+    --font-size-headline-l: 40px;
+    --font-size-headline-m: 36px;
+    --font-size-headline-s: 32px;
+    --font-size-title-l: 28px;
+    --font-size-title-m: 25px;
+    --font-size-title-s: 22px;
+    --font-size-body-xl: 18px;
+    --font-size-body-l: 16px;
+    --font-size-body-m: 14px;
+    --font-size-body-s: 12px;
+    --font-size-label-2xl: 18px;
+    --font-size-label-xl: 16px;
+    --font-size-label-l: 14px;
+    --font-size-label-m: 12px;
+    --font-size-label-s: 11px;
+    --font-size-code-m: 14px;
+    --font-size-code-s: 12px;
+  }
+}
+
 /* ---- typography utilities ---- */
 .viu-type-oversize-l {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 82px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-oversize-l);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-oversize-m {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 73px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-oversize-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-oversize-s {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 65px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-oversize-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-display-l {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 58px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-display-l);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-display-m {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 51px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-display-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-display-s {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 45px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-display-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-headline-l {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-headline-l);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-headline-m {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 36px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-headline-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-headline-s {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -2px;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-headline-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 .viu-type-title-l {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-title-l);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-title-m {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 25px;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-title-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-title-s {
-  font-family: "PP Neue Montreal", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-title-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-body-xl {
-  font-family: "Google Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-xl);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-body-l {
-  font-family: "Google Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-l);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-body-m {
-  font-family: "Google Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-m);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-body-s {
-  font-family: "Google Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-label-2xl {
-  font-family: "General Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-2xl);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-label-xl {
-  font-family: "General Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-xl);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-label-l {
-  font-family: "General Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-l);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-label-m {
-  font-family: "General Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-label-s {
-  font-family: "General Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 4px;
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-wide);
 }
 .viu-type-code-m {
-  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-code-m);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 .viu-type-code-s {
-  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0;
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-code-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-normal);
 }
 
 /* ---- responsive grid container ---- */
 .viu-grid {
   display: grid;
-  grid-template-columns: repeat(var(--grid-base-columns), 1fr);
-  column-gap: var(--grid-base-gutter);
-  padding-inline: var(--grid-base-margin);
+  grid-template-columns: repeat(var(--grid-columns-base), 1fr);
+  column-gap: var(--grid-gutter-base);
+  padding-inline: var(--grid-margin-base);
 }
 @media (min-width: 768px) {
   .viu-grid {
-    grid-template-columns: repeat(var(--grid-sm-columns), 1fr);
-    column-gap: var(--grid-sm-gutter);
-    padding-inline: var(--grid-sm-margin);
+    grid-template-columns: repeat(var(--grid-columns-sm), 1fr);
+    column-gap: var(--grid-gutter-sm);
+    padding-inline: var(--grid-margin-sm);
   }
 }
 @media (min-width: 1024px) {
   .viu-grid {
-    grid-template-columns: repeat(var(--grid-md-columns), 1fr);
-    column-gap: var(--grid-md-gutter);
-    padding-inline: var(--grid-md-margin);
+    grid-template-columns: repeat(var(--grid-columns-md), 1fr);
+    column-gap: var(--grid-gutter-md);
+    padding-inline: var(--grid-margin-md);
   }
 }
 @media (min-width: 1280px) {
   .viu-grid {
-    grid-template-columns: repeat(var(--grid-lg-columns), 1fr);
-    column-gap: var(--grid-lg-gutter);
-    padding-inline: var(--grid-lg-margin);
+    grid-template-columns: repeat(var(--grid-columns-lg), 1fr);
+    column-gap: var(--grid-gutter-lg);
+    padding-inline: var(--grid-margin-lg);
   }
 }
 @media (min-width: 1440px) {
   .viu-grid {
-    grid-template-columns: repeat(var(--grid-xl-columns), 1fr);
-    column-gap: var(--grid-xl-gutter);
-    padding-inline: var(--grid-xl-margin);
+    grid-template-columns: repeat(var(--grid-columns-xl), 1fr);
+    column-gap: var(--grid-gutter-xl);
+    padding-inline: var(--grid-margin-xl);
   }
 }
 @media (min-width: 1920px) {
   .viu-grid {
-    grid-template-columns: repeat(var(--grid-2xl-columns), 1fr);
-    column-gap: var(--grid-2xl-gutter);
-    padding-inline: var(--grid-2xl-margin);
+    grid-template-columns: repeat(var(--grid-columns-2xl), 1fr);
+    column-gap: var(--grid-gutter-2xl);
+    padding-inline: var(--grid-margin-2xl);
   }
 }

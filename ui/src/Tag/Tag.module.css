@@ -8,7 +8,7 @@
   font-size: var(--font-size-label-s);
   font-weight: var(--font-weight-medium);
   line-height: 1.5;
-  letter-spacing: 4px;
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   white-space: nowrap;
 }

@@ -1,0 +1,6 @@
+{
+  "$description": "VIU — Grid collection. Responsive grid with base/sm/md/lg/xl/2xl modes. 1:1 with Figma 'Grid' (3).",
+  "grid-columns": { "base": 4, "sm": 8, "md": 8, "lg": 12, "xl": 12, "2xl": 12 },
+  "grid-gutter": { "base": "{space/16}", "sm": "{space/24}", "md": "{space/24}", "lg": "{space/32}", "xl": "{space/32}", "2xl": "{space/32}" },
+  "grid-margin": { "base": "{space/16}", "sm": "{space/32}", "md": "{space/48}", "lg": "{space/48}", "xl": "{space/64}", "2xl": "{space/96}" }
+}

@@ -2,14 +2,18 @@
 /**
  * VIU Design System — token build (zero dependencies).
  *
- * Reads the DTCG source files in /tokens, resolves the alias chain
- * (primitives -> semantic -> theme), and emits to /dist:
- *   - tokens.css   CSS custom properties (black-first, light theme override) + type/grid helpers
- *   - tokens.json  fully resolved tokens (primitive + scale + semantic per theme)
- *   - tokens.js    ESM object for JS/TS consumers
- *   - tokens.d.ts  type declarations
+ * Mirrors the 5 Figma variable collections 1:1:
+ *   primitives.json  Primitives   (mode Value)
+ *   semantic.json    Semantic     (modes Dark / Light)
+ *   scales.json      Scales       (mode Value, aliases over primitives)
+ *   type-scale.json  Type Scale   (modes Mobile / Desktop, responsive font sizes)
+ *   grid.json        Grid         (modes base..2xl)
  *
- * Rule mirrored from Figma: components consume SEMANTIC + SCALE, never primitives.
+ * Resolves the alias chain (everything aliases PRIMITIVES) and emits to /dist:
+ *   tokens.css   CSS custom properties (black-first, light + responsive type) + type/grid helpers
+ *   tokens.json  fully resolved tokens
+ *   tokens.js    ESM object for JS/TS consumers
+ *   tokens.d.ts  type declarations
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -22,66 +26,60 @@ const DIST = join(ROOT, "dist");
 
 const read = (f) => JSON.parse(readFileSync(join(TOKENS, f), "utf8"));
 const primitives = read("primitives.json");
-const scale = read("scale.json");
 const semantic = read("semantic.json");
+const scales = read("scales.json");
+const typeScale = read("type-scale.json");
+const grid = read("grid.json");
 
-/* ---------- helpers ---------- */
+/* ---------- flatten primitives with "/" (matches Figma variable names) ---------- */
 
-// Walk a token tree, calling cb(pathArray, node) for every leaf that has $value.
-function walk(node, path, cb) {
+function flattenPrimitives(node, path, out) {
   for (const [key, val] of Object.entries(node)) {
     if (key.startsWith("$")) continue;
     if (val && typeof val === "object" && "$value" in val) {
-      cb([...path, key], val);
+      out[[...path, key].join("/")] = val.$value;
     } else if (val && typeof val === "object") {
-      walk(val, [...path, key], cb);
+      flattenPrimitives(val, [...path, key], out);
     }
   }
 }
+const prim = {};
+flattenPrimitives(primitives, [], prim); // "color/red/500" -> "#b5262e", "space/16" -> "16px"
 
-// Flat map "a.b.c" -> $value, across a token tree.
-function flatten(tree) {
-  const map = {};
-  walk(tree, [], (path, node) => {
-    map[path.join(".")] = node.$value;
-  });
-  return map;
-}
-
-const primitiveMap = flatten(primitives); // color.red.500 -> #b5262e
-const scaleLeafMap = {};                   // space.md -> 16px, font.size.body-m -> 14px, etc.
-walk(scale, [], (path, node) => {
-  if (typeof node.$value !== "object") scaleLeafMap[path.join(".")] = node.$value;
-});
-
-const refLookup = { ...primitiveMap, ...scaleLeafMap };
-
-// Resolve a value that may be an alias "{a.b.c}" against the lookup table.
-function resolveRef(value) {
+const refRe = /^\{(.+)\}$/;
+function resolve(value) {
   if (typeof value !== "string") return value;
-  const m = value.match(/^\{(.+)\}$/);
+  const m = value.match(refRe);
   if (!m) return value;
-  const target = refLookup[m[1]];
-  if (target === undefined) throw new Error(`Unresolved token reference: {${m[1]}}`);
-  return resolveRef(target);
+  if (!(m[1] in prim)) throw new Error(`Unresolved reference: {${m[1]}}`);
+  return resolve(prim[m[1]]);
 }
 
-const toVar = (segments) => "--" + segments.join("-").toLowerCase().replace(/\./g, "-");
+/* ---------- flatten alias collections (scales) ---------- */
 
-/* ---------- resolve semantic per theme ---------- */
+function flattenAliases(node, path, out) {
+  for (const [key, val] of Object.entries(node)) {
+    if (key.startsWith("$")) continue;
+    if (val && typeof val === "object" && "$value" in val) {
+      out[[...path, key].join("/")] = resolve(val.$value);
+    } else if (val && typeof val === "object") {
+      flattenAliases(val, [...path, key], out);
+    }
+  }
+}
+const scaleTokens = {};
+flattenAliases(scales, [], scaleTokens); // "space/md" -> "16px"
 
-const THEMES = ["dark", "light"];
-const semanticResolved = { dark: {}, light: {} };
-// Semantic leaves are identified by carrying theme keys ("dark"/"light") rather than "$value".
+/* ---------- semantic (Dark/Light) ---------- */
+
+const semantic_ = { Dark: {}, Light: {} };
 function walkSemantic(node, path) {
   for (const [key, val] of Object.entries(node)) {
     if (key.startsWith("$")) continue;
-    if (val && typeof val === "object" && ("dark" in val || "light" in val)) {
-      const name = [...path, key].join(".");
-      for (const theme of THEMES) {
-        if (!(theme in val)) throw new Error(`Semantic token ${name} missing theme "${theme}"`);
-        semanticResolved[theme][name] = resolveRef(val[theme]);
-      }
+    if (val && typeof val === "object" && ("Dark" in val || "Light" in val)) {
+      const name = [...path, key].join("/");
+      semantic_.Dark[name] = resolve(val.Dark);
+      semantic_.Light[name] = resolve(val.Light);
     } else if (val && typeof val === "object") {
       walkSemantic(val, [...path, key]);
     }
@@ -89,140 +87,169 @@ function walkSemantic(node, path) {
 }
 walkSemantic(semantic, []);
 
-/* ---------- resolve composite typography ---------- */
+/* ---------- type scale (Mobile/Desktop) ---------- */
 
-const typeResolved = {};
-walk(scale, [], (path, node) => {
-  if (node.$type === "typography") {
-    const v = node.$value;
-    typeResolved[path[path.length - 1]] = {
-      fontFamily: resolveRef(v.fontFamily),
-      fontSize: resolveRef(v.fontSize),
-      fontWeight: resolveRef(v.fontWeight),
-      lineHeight: v.lineHeight,
-      letterSpacing: v.letterSpacing,
-    };
+const type_ = { Mobile: {}, Desktop: {} };
+function walkType(node, path) {
+  for (const [key, val] of Object.entries(node)) {
+    if (key.startsWith("$")) continue;
+    if (val && typeof val === "object" && ("Mobile" in val || "Desktop" in val)) {
+      const name = [...path, key].join("/");
+      type_.Mobile[name] = resolve(val.Mobile);
+      type_.Desktop[name] = resolve(val.Desktop);
+    } else if (val && typeof val === "object") {
+      walkType(val, [...path, key]);
+    }
   }
-});
+}
+walkType(typeScale, []);
 
-/* ---------- CSS emit ---------- */
+/* ---------- grid (base..2xl modes) ---------- */
 
+const GRID_MODES = ["base", "sm", "md", "lg", "xl", "2xl"];
+const grid_ = {};
+for (const [name, modes] of Object.entries(grid)) {
+  if (name.startsWith("$")) continue;
+  grid_[name] = {};
+  for (const m of GRID_MODES) grid_[name][m] = resolve(modes[m]);
+}
+
+/* ---------- CSS ---------- */
+
+const toVar = (name) => "--" + name.replace(/\//g, "-");
 const css = [];
 css.push("/* VIU Design System — generated tokens. DO NOT EDIT BY HAND.");
 css.push("   Source: /tokens/*.json — run `npm run build:tokens` to regenerate. */\n");
 
-// Primitives + scale live in :root (theme-independent).
 css.push(":root {");
-css.push("  /* ---- primitives · color ---- */");
-walk(primitives, [], (path, node) => {
-  css.push(`  ${toVar(path)}: ${node.$value};`);
-});
-css.push("\n  /* ---- scale · spacing ---- */");
-walk(scale.space, ["space"], (p, n) => css.push(`  ${toVar(p)}: ${n.$value};`));
-css.push("\n  /* ---- scale · radius ---- */");
-walk(scale.radius, ["radius"], (p, n) => css.push(`  ${toVar(p)}: ${n.$value};`));
-css.push("\n  /* ---- scale · typography primitives ---- */");
-walk(scale.font, ["font"], (p, n) => css.push(`  ${toVar(p)}: ${n.$value};`));
-css.push("\n  /* ---- scale · breakpoints ---- */");
-walk(scale.breakpoint, ["breakpoint"], (p, n) => css.push(`  ${toVar(p)}: ${n.$value};`));
-css.push("\n  /* ---- scale · grid ---- */");
-for (const [bp, g] of Object.entries(scale.grid)) {
-  css.push(`  --grid-${bp}-columns: ${g.columns};`);
-  css.push(`  --grid-${bp}-gutter: ${g.gutter};`);
-  css.push(`  --grid-${bp}-margin: ${g.margin};`);
+css.push("  /* ---- Primitives (raw — components consume Scales/Semantic/Type, not these) ---- */");
+for (const [name, v] of Object.entries(prim)) css.push(`  ${toVar(name)}: ${v};`);
+// Derived families for code consumers (Label text style uses General Sans; code uses mono).
+css.push("\n  /* ---- derived families (from text styles; not Figma variables) ---- */");
+css.push('  --font-family-label: "General Sans", "Inter", system-ui, sans-serif;');
+css.push("  --font-family-code: var(--font-family-mono);");
+css.push("\n  /* ---- Scales (semantic aliases) ---- */");
+for (const [name, v] of Object.entries(scaleTokens)) css.push(`  ${toVar(name)}: ${v};`);
+css.push("\n  /* ---- Grid (per-mode) ---- */");
+for (const [name, modes] of Object.entries(grid_)) {
+  for (const m of GRID_MODES) css.push(`  ${toVar(name)}-${m}: ${modes[m]};`);
 }
 css.push("}\n");
 
-// Semantic tokens — default theme is dark (black-first).
-function emitTheme(selector, theme) {
+// Semantic — black-first (Dark default).
+function emitSemantic(selector, mode) {
   css.push(`${selector} {`);
-  for (const [name, value] of Object.entries(semanticResolved[theme])) {
-    css.push(`  ${toVar(name.split("."))}: ${value};`);
-  }
+  for (const [name, v] of Object.entries(semantic_[mode])) css.push(`  ${toVar(name)}: ${v};`);
   css.push("}\n");
 }
-css.push("/* Default theme: dark (black-first) */");
-emitTheme(":root, [data-theme=\"dark\"]", "dark");
-css.push("/* Light theme override */");
-emitTheme("[data-theme=\"light\"]", "light");
-css.push("/* Auto: follow OS when no explicit data-theme is set */");
+css.push("/* Default theme: Dark (black-first) */");
+emitSemantic(':root, [data-theme="dark"]', "Dark");
+css.push("/* Light theme */");
+emitSemantic('[data-theme="light"]', "Light");
 css.push("@media (prefers-color-scheme: light) {");
-const lightLines = Object.entries(semanticResolved.light)
-  .map(([name, value]) => `    ${toVar(name.split("."))}: ${value};`)
-  .join("\n");
-css.push(`  :root:not([data-theme]) {\n${lightLines}\n  }`);
+css.push(
+  "  :root:not([data-theme]) {\n" +
+    Object.entries(semantic_.Light)
+      .map(([n, v]) => `    ${toVar(n)}: ${v};`)
+      .join("\n") +
+    "\n  }",
+);
+css.push("}\n");
+
+// Type scale — Mobile default, Desktop at >= md (1024px). Mode switch is a code-side
+// decision (Figma toggles Mobile/Desktop per frame); md is the chosen breakpoint.
+const DESKTOP_BP = prim["breakpoint/md"]; // 1024px
+css.push("/* Responsive type sizes: Mobile by default, Desktop at >= md */");
+css.push(":root {");
+for (const [name, v] of Object.entries(type_.Mobile)) css.push(`  ${toVar(name)}: ${v};`);
+css.push("}");
+css.push(`@media (min-width: ${DESKTOP_BP}) {`);
+css.push("  :root {");
+for (const [name, v] of Object.entries(type_.Desktop)) css.push(`    ${toVar(name)}: ${v};`);
+css.push("  }");
 css.push("}\n");
 
 // Typography utility classes.
+const ROLE = {
+  oversize: { family: "display", weight: "medium", lh: "tight", ls: "tight" },
+  display: { family: "display", weight: "medium", lh: "tight", ls: "tight" },
+  headline: { family: "display", weight: "medium", lh: "tight", ls: "tight" },
+  title: { family: "display", weight: "medium", lh: "snug", ls: "normal" },
+  body: { family: "body", weight: "regular", lh: "relaxed", ls: "normal" },
+  label: { family: "label", weight: "medium", lh: "relaxed", ls: "normal" },
+  code: { family: "code", weight: "regular", lh: "relaxed", ls: "normal" },
+};
 css.push("/* ---- typography utilities ---- */");
-for (const [name, t] of Object.entries(typeResolved)) {
-  css.push(`.viu-type-${name} {`);
-  css.push(`  font-family: ${t.fontFamily};`);
-  css.push(`  font-size: ${t.fontSize};`);
-  css.push(`  font-weight: ${t.fontWeight};`);
-  css.push(`  line-height: ${t.lineHeight};`);
-  css.push(`  letter-spacing: ${t.letterSpacing};`);
+for (const fullName of Object.keys(type_.Mobile)) {
+  const short = fullName.replace("font-size/", ""); // e.g. "label-s"
+  const role = short.split("-")[0];
+  const cfg = { ...ROLE[role] };
+  if (short === "label-s") cfg.ls = "wide"; // micro-label tracking
+  css.push(`.viu-type-${short} {`);
+  css.push(`  font-family: var(--font-family-${cfg.family});`);
+  css.push(`  font-size: var(--${toVar(fullName).slice(2)});`);
+  css.push(`  font-weight: var(--font-weight-${cfg.weight});`);
+  css.push(`  line-height: var(--line-height-${cfg.lh});`);
+  css.push(`  letter-spacing: var(--tracking-${cfg.ls});`);
   css.push(`}`);
 }
 css.push("");
 
-// Responsive grid container helper.
+// Responsive grid container.
 css.push("/* ---- responsive grid container ---- */");
 css.push(".viu-grid {");
 css.push("  display: grid;");
-css.push("  grid-template-columns: repeat(var(--grid-base-columns), 1fr);");
-css.push("  column-gap: var(--grid-base-gutter);");
-css.push("  padding-inline: var(--grid-base-margin);");
+css.push("  grid-template-columns: repeat(var(--grid-columns-base), 1fr);");
+css.push("  column-gap: var(--grid-gutter-base);");
+css.push("  padding-inline: var(--grid-margin-base);");
 css.push("}");
-const bpOrder = ["sm", "md", "lg", "xl", "2xl"];
-for (const bp of bpOrder) {
-  const min = scale.breakpoint[bp].$value;
-  css.push(`@media (min-width: ${min}) {`);
+for (const m of ["sm", "md", "lg", "xl", "2xl"]) {
+  css.push(`@media (min-width: ${prim["breakpoint/" + m]}) {`);
   css.push("  .viu-grid {");
-  css.push(`    grid-template-columns: repeat(var(--grid-${bp}-columns), 1fr);`);
-  css.push(`    column-gap: var(--grid-${bp}-gutter);`);
-  css.push(`    padding-inline: var(--grid-${bp}-margin);`);
+  css.push(`    grid-template-columns: repeat(var(--grid-columns-${m}), 1fr);`);
+  css.push(`    column-gap: var(--grid-gutter-${m});`);
+  css.push(`    padding-inline: var(--grid-margin-${m});`);
   css.push("  }");
   css.push("}");
 }
 css.push("");
 
-/* ---------- resolved JSON + JS emit ---------- */
+/* ---------- resolved JSON + JS ---------- */
 
-const resolvedJson = {
-  primitive: primitiveMap,
-  scale: { ...scaleLeafMap, type: typeResolved, grid: scale.grid },
-  semantic: semanticResolved,
+const resolved = {
+  primitive: prim,
+  scales: scaleTokens,
+  semantic: { dark: semantic_.Dark, light: semantic_.Light },
+  type: { mobile: type_.Mobile, desktop: type_.Desktop },
+  grid: grid_,
 };
-
-const jsBody =
-  "// VIU Design System — generated tokens. DO NOT EDIT BY HAND.\n" +
-  "export const tokens = " + JSON.stringify(resolvedJson, null, 2) + ";\n" +
-  "export default tokens;\n";
-
-const dtsBody =
-  "// VIU Design System — generated token types.\n" +
-  "export interface ViuTokens {\n" +
-  "  primitive: Record<string, string>;\n" +
-  "  scale: Record<string, unknown>;\n" +
-  "  semantic: { dark: Record<string, string>; light: Record<string, string> };\n" +
-  "}\n" +
-  "export declare const tokens: ViuTokens;\n" +
-  "export default tokens;\n";
-
-/* ---------- write ---------- */
 
 mkdirSync(DIST, { recursive: true });
 writeFileSync(join(DIST, "tokens.css"), css.join("\n"));
-writeFileSync(join(DIST, "tokens.json"), JSON.stringify(resolvedJson, null, 2) + "\n");
-writeFileSync(join(DIST, "tokens.js"), jsBody);
-writeFileSync(join(DIST, "tokens.d.ts"), dtsBody);
+writeFileSync(join(DIST, "tokens.json"), JSON.stringify(resolved, null, 2) + "\n");
+writeFileSync(
+  join(DIST, "tokens.js"),
+  "// VIU Design System — generated tokens. DO NOT EDIT BY HAND.\n" +
+    "export const tokens = " +
+    JSON.stringify(resolved, null, 2) +
+    ";\nexport default tokens;\n",
+);
+writeFileSync(
+  join(DIST, "tokens.d.ts"),
+  "// VIU Design System — generated token types.\n" +
+    "export interface ViuTokens {\n" +
+    "  primitive: Record<string, string | number>;\n" +
+    "  scales: Record<string, string | number>;\n" +
+    "  semantic: { dark: Record<string, string>; light: Record<string, string> };\n" +
+    "  type: { mobile: Record<string, string>; desktop: Record<string, string> };\n" +
+    "  grid: Record<string, Record<string, string | number>>;\n" +
+    "}\n" +
+    "export declare const tokens: ViuTokens;\nexport default tokens;\n",
+);
 
-const counts = {
-  primitives: Object.keys(primitiveMap).length,
-  scale: Object.keys(scaleLeafMap).length,
-  typography: Object.keys(typeResolved).length,
-  "semantic (per theme)": Object.keys(semanticResolved.dark).length,
-};
 console.log("VIU tokens built ->", DIST);
-for (const [k, v] of Object.entries(counts)) console.log(`  ${k}: ${v}`);
+console.log(`  primitives: ${Object.keys(prim).length}`);
+console.log(`  scales: ${Object.keys(scaleTokens).length}`);
+console.log(`  semantic (per theme): ${Object.keys(semantic_.Dark).length}`);
+console.log(`  type scale (per mode): ${Object.keys(type_.Mobile).length}`);
+console.log(`  grid: ${Object.keys(grid_).length}`);

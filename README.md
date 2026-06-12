@@ -21,11 +21,16 @@ primitivos  →  semánticos (por tema)  →  temas (dark / light)
   alpha/*                                                 [data-theme="light"]
 ```
 
+Espeja **1:1 las 5 colecciones de variables de Figma** (331 variables):
+
 ```
-tokens/                 # FUENTE DE VERDAD (editar aquí), formato DTCG
-  primitives.json       # color crudo + alphas  (70 tokens)
-  semantic.json         # alias por tema dark/light  (51 × 2)
-  scale.json            # spacing, radius, tipografía, breakpoints, grid
+tokens/                 # FUENTE DE VERDAD (editar aquí) — espejo de las colecciones Figma
+  primitives.json       # Primitives (mode Value) · 183 — color, espacio, radius, z, opacity,
+                        #   duration, font-size/weight, easing, aspect-ratio, breakpoints, …
+  semantic.json         # Semantic (Dark/Light) · 52 — bg/text/border/feedback
+  scales.json           # Scales (Value) · 70 — aliases: space/radius/z/icon/state/motion/…
+  type-scale.json       # Type Scale (Mobile/Desktop) · 23 — font-size responsive
+  grid.json             # Grid (base…2xl) · 3 — columns/gutter/margin
 scripts/
   build-tokens.mjs      # resuelve alias → genera /dist  (sin dependencias)
 dist/                   # GENERADO (no editar a mano)
@@ -80,20 +85,20 @@ Sin `data-theme`, el sistema sigue el modo del sistema operativo
 ```ts
 import { tokens } from "@viu/design-tokens";
 
-tokens.semantic.dark["color.bg.base"];   // "#0a0a0b"
-tokens.scale["space.md"];                // "16px"
+tokens.semantic.dark["color/bg/base"];   // "#0a0a0b"
+tokens.scales["space/md"];               // "16px"
+tokens.type.desktop["font-size/title-l"]; // "28px"  (mobile: "22px")
 ```
 
 ## Tokens
 
 | Capa | Grupos | Notas |
 |------|--------|-------|
-| **Primitivos** | `color/{red,neutral,green,amber,alert,blue,indigo}`, `alpha/*` | Crudos, no se consumen directo |
+| **Primitivos** | color · alpha · space · radius · border-width · icon-size · opacity · z · breakpoint · duration · font-size · font-weight · line-height · tracking · font-family · easing · aspect-ratio | Crudos, no se consumen directo |
 | **Semánticos** | `bg`, `text`, `border`, `feedback` | Alias por tema (dark/light) |
-| **Espaciado** | `space/3xs…6xl` | 2 → 192 px |
-| **Radios** | `radius/{xs,control,surface,pill}` | 4 / 8 / 12 / full |
-| **Tipografía** | `oversize · display · headline · title · body · label · code` | PP Neue Montreal · Google Sans · General Sans · mono |
-| **Grid** | `base · sm · md · lg · xl · 2xl` | 4→12 cols, 375→1920 px |
+| **Scales** | `space/*`, `radius/*`, `z/*`, `icon/*`, `state/*`, `motion/*`, `border-width/*`, `aspect/*` | Aliases semánticos sobre primitivos |
+| **Tipografía** | `oversize · display · headline · title · body · label · code` | Responsive (Mobile/Desktop) · PP Neue Montreal · Google Sans · General Sans · mono |
+| **Grid** | `base · sm · md · lg · xl · 2xl` | 4→12 cols, 320→1920 px |
 
 ### Marca
 
