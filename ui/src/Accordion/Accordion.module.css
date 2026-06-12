@@ -1,0 +1,7 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+}
+.accordion > * + * {
+  border-top: var(--border-width-default) solid var(--color-border-subtle);
+}
