@@ -2,14 +2,17 @@ import { useEffect } from "react";
 import type { Preview } from "@storybook/react";
 // VIU tokens — CSS variables + themes. The single source the components consume.
 import "../../dist/tokens.css";
+import theme from "./theme";
 
 const preview: Preview = {
   parameters: {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     backgrounds: { disable: true },
     a11y: { context: "#storybook-root" },
+    // Dark, on-brand Docs pages so the narrative matches the canvas.
+    docs: { theme },
     options: {
-      storySort: { order: ["Foundations", "Atoms", "*"] },
+      storySort: { order: ["Get started", "Foundations", "Components", "Atoms", "*"] },
     },
   },
   globalTypes: {
@@ -29,18 +32,20 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals.theme as "dark" | "light";
+      const t = context.globals.theme as "dark" | "light";
+      const isDocs = context.viewMode === "docs";
       useEffect(() => {
-        document.documentElement.setAttribute("data-theme", theme);
-      }, [theme]);
+        document.documentElement.setAttribute("data-theme", t);
+      }, [t]);
       return (
         <div
           style={{
             background: "var(--color-bg-base)",
             color: "var(--color-text-primary)",
             fontFamily: "var(--font-family-body)",
-            padding: "var(--space-2xl)",
-            minHeight: "100vh",
+            padding: isDocs ? "var(--space-lg)" : "var(--space-2xl)",
+            minHeight: isDocs ? "auto" : "100vh",
+            borderRadius: isDocs ? "var(--radius-surface)" : 0,
           }}
         >
           <Story />
