@@ -4,9 +4,11 @@ Sistema de diseño **black-first**, acento crimson `#B5262E`, secundario índigo
 Esta es la **fundación de tokens**: la fuente única de verdad, con **paridad 1:1**
 con los archivos de Figma _Tokens & Foundations_ y _Componentes_.
 
-> Estado actual: **fundación de tokens completa**. La capa de componentes
-> (28 átomos · 31 moléculas · 9 organismos · 5 patrones) está en el roadmap —
-> ver [Componentes](#componentes-roadmap).
+> Estado actual: **fundación de tokens completa** + **piloto de componentes**
+> (`@viu/ui`: `Button` e `Icon`) construido design-to-code desde Figma.
+> Los componentes ya están diseñados en Figma (67 + 5 patrones); ver el plan en
+> [`docs/components-plan.md`](docs/components-plan.md) y el paquete en
+> [`ui/`](ui/README.md).
 
 ## Arquitectura
 

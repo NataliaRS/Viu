@@ -2,3 +2,7 @@ node_modules/
 *.log
 .DS_Store
 .cache/
+
+# Build artifacts (UI package builds on demand; tokens dist/ IS committed)
+ui/dist/
+ui/demo-dist/

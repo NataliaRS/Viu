@@ -1,0 +1,99 @@
+/* VIU Button — 1:1 with Figma set 8:53 (Variant × State × Size).
+   Consumes only semantic + scale tokens (never primitives). */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-control);
+  font-family: var(--font-family-label);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+  white-space: nowrap;
+  text-decoration: none;
+  user-select: none;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ---- sizes ---- */
+.sm {
+  height: 32px;
+  padding-inline: var(--space-sm);
+  font-size: var(--font-size-label-m);
+}
+.md {
+  height: 40px;
+  padding-inline: var(--space-md);
+  font-size: var(--font-size-label-l);
+}
+.lg {
+  height: 48px;
+  padding-inline: var(--space-lg);
+  font-size: var(--font-size-label-xl);
+}
+
+/* ---- variant: primary ---- */
+.primary {
+  background: var(--color-bg-brand);
+  color: var(--color-text-on-brand);
+}
+.primary:hover {
+  background: var(--color-bg-brand-hover);
+}
+.primary:active {
+  background: var(--color-bg-brand-pressed);
+}
+
+/* ---- variant: secondary ---- */
+.secondary {
+  background: transparent;
+  border-color: var(--color-border-brand-2);
+  color: var(--color-text-brand-2);
+}
+.secondary:hover {
+  background: var(--color-bg-brand-2-subtle);
+}
+.secondary:active {
+  background: var(--color-bg-brand-2-subtle);
+}
+
+/* ---- variant: tertiary ---- */
+.tertiary {
+  background: transparent;
+  color: var(--color-text-brand);
+}
+.tertiary:hover {
+  background: var(--color-bg-hover);
+}
+.tertiary:active {
+  background: var(--color-bg-pressed);
+}
+
+/* ---- disabled (all variants) ---- */
+.button:disabled {
+  background: var(--color-bg-disabled);
+  color: var(--color-text-disabled);
+  border-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.label {
+  display: inline-block;
+}
