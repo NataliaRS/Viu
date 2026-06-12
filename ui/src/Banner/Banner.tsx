@@ -8,8 +8,8 @@ export type BannerTone = "info" | "success" | "warning" | "danger" | "neutral";
 export interface BannerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   tone?: BannerTone;
   title?: ReactNode;
-  /** Optional action(s), e.g. a tertiary Button. */
-  action?: ReactNode;
+  /** Optional inline link below the message (e.g. <Link href>Más información</Link>). */
+  link?: ReactNode;
   /** When provided, renders a close affordance. */
   onClose?: () => void;
 }
@@ -25,7 +25,7 @@ const glyphFor: Record<BannerTone, GlyphName> = {
 const cx = (...a: Array<string | false | undefined>) => a.filter(Boolean).join(" ");
 
 export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
-  { tone = "info", title, action, onClose, children, className, ...rest },
+  { tone = "info", title, link, onClose, children, className, ...rest },
   ref,
 ) {
   return (
@@ -36,8 +36,8 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
       <div className={styles.content}>
         {title ? <p className={styles.title}>{title}</p> : null}
         {children ? <p className={styles.message}>{children}</p> : null}
+        {link ? <div className={styles.link}>{link}</div> : null}
       </div>
-      {action ? <div className={styles.actions}>{action}</div> : null}
       {onClose ? (
         <button type="button" className={styles.close} aria-label="Cerrar" onClick={onClose}>
           <Icon glyph="Close" size={16} />

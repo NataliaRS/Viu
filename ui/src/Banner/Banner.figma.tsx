@@ -1,5 +1,6 @@
 import figma from "@figma/code-connect";
 import { Banner } from "./Banner";
+import { Link } from "../Link/Link";
 
 figma.connect(
   Banner,
@@ -13,11 +14,20 @@ figma.connect(
         Danger: "danger",
         Neutral: "neutral",
       }),
-      title: figma.string("textoTitulo"),
-      message: figma.string("textoMensaje"),
+      title: figma.boolean("titulo", { true: figma.string("textoTitulo"), false: undefined }),
+      message: figma.boolean("mensaje", { true: figma.string("textoMensaje"), false: undefined }),
+      link: figma.boolean("link", {
+        true: (
+          <Link href="#" style={{ textDecoration: "underline" }}>
+            Más información
+          </Link>
+        ),
+        false: undefined,
+      }),
+      onClose: figma.boolean("cerrar", { true: () => {}, false: undefined }),
     },
-    example: ({ tone, title, message }) => (
-      <Banner tone={tone} title={title} onClose={() => {}}>
+    example: ({ tone, title, message, link, onClose }) => (
+      <Banner tone={tone} title={title} link={link} onClose={onClose}>
         {message}
       </Banner>
     ),

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Banner, type BannerTone } from "./Banner";
-import { Button } from "../Button/Button";
+import { Link } from "../Link/Link";
 
 const tones: BannerTone[] = ["info", "success", "warning", "danger", "neutral"];
 
@@ -15,7 +15,7 @@ const meta = {
       overview: "Mensaje contextual persistente dentro del layout. 5 tonos, con acción y cierre opcionales.",
       whenToUse: ["Comunicar un estado del sistema o de la página (info, error, éxito).", "Avisos que permanecen hasta que el usuario actúa."],
       whenNotToUse: ["Notificaciones transitorias → usá Toast.", "Validación de un campo → usá FormField/error."],
-      anatomy: ["Ícono por tono.", "Título (opcional) + mensaje.", "Acción (opcional) + cierre (opcional)."],
+      anatomy: ["Ícono por tono.", "Título (opcional) + mensaje.", "Link inline opcional + cierre (opcional)."],
       accessibility: ["role=status; el ícono es decorativo (el tono no es la única señal — usá texto claro).", "El cierre tiene aria-label."],
       dos: ["Texto que explique qué pasó y qué hacer.", "Tono acorde al significado."],
       donts: ["No lo uses para mensajes efímeros.", "No dependas solo del color del tono."],
@@ -30,8 +30,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
-export const WithActionAndClose: Story = {
-  args: { tone: "warning", action: <Button variant="tertiary" size="sm">Revisar</Button>, onClose: () => {} },
+export const WithLinkAndClose: Story = {
+  args: {
+    tone: "warning",
+    link: (
+      <Link href="#" style={{ textDecoration: "underline" }}>
+        Más información
+      </Link>
+    ),
+    onClose: () => {},
+  },
 };
 export const AllTones: Story = {
   parameters: { controls: { disable: true } },
