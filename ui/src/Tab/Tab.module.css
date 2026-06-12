@@ -52,6 +52,8 @@
   outline-offset: var(--space-3xs);
 }
 .tab:disabled {
-  opacity: var(--state-disabled);
   cursor: not-allowed;
+}
+.tab:disabled .inner {
+  color: var(--color-text-disabled);
 }

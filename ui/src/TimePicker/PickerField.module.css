@@ -4,8 +4,19 @@
   gap: var(--space-2xs);
   width: 100%;
 }
-.disabled {
-  opacity: 0.5;
+.disabled .label {
+  color: var(--color-text-disabled);
+}
+.disabled .control {
+  background: var(--color-bg-disabled);
+  border-color: var(--color-border-subtle);
+}
+.disabled .input {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+.disabled .chevron {
+  color: var(--color-text-disabled);
 }
 .label {
   font-family: var(--font-family-label);

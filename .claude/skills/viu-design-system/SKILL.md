@@ -138,8 +138,10 @@ quedó atrás. Este lo absorbe entero.
      Figma tiene `style`/`tone` (48 var) que el código no expone — anotado en code-build §14.
   3. **A1** · actualizar la etiqueta de madurez de los componentes a la escala única
      Draft/Reviewed/Stable/Deprecated.
-  4. **B1** · migrar ~15 componentes de `disabled` por opacidad a `bg-disabled`/`text-disabled`.
-     *(decidido: migrar)*
+  4. ~~**B1** · migrar componentes de `disabled` por opacidad a `bg-disabled`/`text-disabled`~~
+     ✅ HECHO (jun-2026). Resultaron solo **4** (no ~15): ListItem, MenuItem, Tab (usaban `opacity:
+     var(--state-disabled)`) + TimePicker/PickerField (`opacity: 0.5` mágico). Regla aplicada:
+     rellenos→`bg-disabled`+`text-disabled`; transparentes→solo `text-disabled` (ver interaction §2).
   5. **B4** · Slider modo Rango (doble thumb) en código. *(decidido: hacer)*
   6. **B5** · resolver colisión/flip de Tooltip + Popover juntos (misma lógica). *(decidido)*
 - **A4 (RESUELTO): átomo `Marker` DESCARTADO** — no es gap real; "Marker, no CheckCircle" sigue

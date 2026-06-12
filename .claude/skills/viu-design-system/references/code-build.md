@@ -46,8 +46,10 @@ código solo expone `size`; Code Connect mapea solo `size`. Falta llevar `style`
 se quiere paridad total. **Eye/EyeOff → RESUELTO (jun-2026, B2):** Natalia los creó en Figma como
 `Visibility`/`Visibility_off` (nodos 726:3273/726:71) y el código se renombró `Eye`→`Visibility`,
 `EyeOff`→`VisibilityOff` (mejor nombre semántico, alineado a Figma como fuente de verdad); Code
-Connect mapea `Visibility_off`→`VisibilityOff`. ~15 componentes pendientes de migrar disabled de
-`opacity: var(--state-disabled)` a `bg-disabled`/`text-disabled` explícitos (B1).
+Connect mapea `Visibility_off`→`VisibilityOff`. **B1 → RESUELTO (jun-2026):** migración de disabled
+por opacidad a tokens explícitos completa; eran solo 4 componentes (ListItem/MenuItem/Tab +
+TimePicker/PickerField), no ~15 — el resto ya consumía `bg-disabled`/`text-disabled`. Patrón:
+rellenos→`bg-disabled`+`text-disabled`; transparentes→solo `text-disabled` (interaction §2).
 
 **Iconos:** SVG stroke a mano (`currentColor`) — el sandbox bloquea descargar assets de Figma;
 reemplazables por los exportados.

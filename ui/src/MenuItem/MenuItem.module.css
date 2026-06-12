@@ -26,8 +26,12 @@
   outline-offset: -2px;
 }
 .item:disabled {
-  opacity: var(--state-disabled);
+  color: var(--color-text-disabled);
   cursor: not-allowed;
+}
+.item:disabled .icon,
+.item:disabled .shortcut {
+  color: var(--color-text-disabled);
 }
 .icon {
   flex: none;

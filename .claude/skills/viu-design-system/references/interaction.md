@@ -66,9 +66,16 @@ oscurecerlo/aclararlo de forma uniforme, sin definir un color nuevo por cada est
 
 **disabled — ⚠️ CRITERIO CORREGIDO (jun-2026, confirmado contra variantes de Figma):** se usan
 tokens explícitos `bg-disabled`/`text-disabled` por variante, **NO** dimming universal con `opacity:
-var(--state-disabled)`. El Button ya migró; ~15 componentes pendientes. `pointer-events: none` se
-mantiene. *(Observado histórico — OBSOLETO: el Button original usaba opacidad del elemento completo;
-ese patrón no se replica en componentes nuevos.)*
+var(--state-disabled)`. **Cómo aplicar según el tipo de superficie (RESUELTO jun-2026, B1):**
+componentes **rellenos** (Button, Input, Select, Chip, PickerField…) → `background: bg-disabled` +
+`color: text-disabled` (+ `border-color: border-subtle` si aplica); componentes **transparentes /
+solo-texto** (ListItem, MenuItem, Tab…) → solo `color: text-disabled` en el texto y los íconos (sin
+relleno: meterle un `bg-disabled` a una superficie transparente la ensucia). El punto del criterio
+es contraste controlado, no rellenar todo. `pointer-events: none`/`cursor: not-allowed` se mantienen.
+**Migración COMPLETA (jun-2026, B1):** el conteo histórico "~15 pendientes" estaba inflado — solo
+quedaban 4 (ListItem, MenuItem, Tab con `opacity: var(--state-disabled)`; TimePicker/PickerField con
+`opacity: 0.5` mágico); los demás ya consumían los tokens. *(Observado histórico — OBSOLETO: el
+Button original usaba opacidad del elemento completo; ese patrón no se replica.)*
 
 **`selected` y `dragged` — RESUELTO (jun-2026, A3):**
 - **`dragged`** (transitorio) → **overlay** con `--state-dragged` (0.24). Es feedback efímero

@@ -33,8 +33,14 @@
   background: var(--color-bg-brand-2-subtle);
 }
 .disabled {
-  opacity: var(--state-disabled);
+  color: var(--color-text-disabled);
   pointer-events: none;
+}
+.disabled .title,
+.disabled .subtitle,
+.disabled .meta,
+.disabled .chev {
+  color: var(--color-text-disabled);
 }
 .leading {
   flex: none;
