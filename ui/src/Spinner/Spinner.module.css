@@ -5,11 +5,11 @@
   border-style: solid;
   border-color: var(--color-bg-brand-subtle);
   border-top-color: var(--color-bg-brand);
-  animation: viu-spin 0.7s linear infinite;
+  animation: viu-spin var(--motion-duration-loop) linear infinite;
 }
-.sm { width: 16px; height: 16px; border-width: 2px; }
-.md { width: 24px; height: 24px; border-width: 2.5px; }
-.lg { width: 32px; height: 32px; border-width: 3px; }
+.sm { width: var(--icon-size-xs); height: var(--icon-size-xs); border-width: var(--border-width-strong); }
+.md { width: var(--icon-size-md); height: var(--icon-size-md); border-width: 2.5px; }
+.lg { width: var(--icon-size-lg); height: var(--icon-size-lg); border-width: var(--border-width-3); }
 
 @keyframes viu-spin {
   to { transform: rotate(360deg); }

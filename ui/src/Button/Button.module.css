@@ -6,24 +6,23 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  border: 1.5px solid transparent;
+  border: 1.5px solid transparent; /* Figma uses a literal 1.5px stroke here */
   border-radius: var(--radius-control);
   font-family: var(--font-family-label);
   font-weight: var(--font-weight-medium);
-  line-height: 1.5;
+  line-height: var(--line-height-relaxed);
   white-space: nowrap;
   text-decoration: none;
   user-select: none;
   cursor: pointer;
-  transition:
-    background-color 120ms ease,
-    border-color 120ms ease,
-    color 120ms ease;
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-ease-standard);
 }
 
 .button:focus-visible {
-  outline: 2px solid var(--color-border-focus);
-  outline-offset: 2px;
+  outline: var(--border-width-strong) solid var(--color-border-focus);
+  outline-offset: var(--space-3xs);
 }
 
 /* ---- sizes ---- */

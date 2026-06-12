@@ -89,17 +89,17 @@
       const group = (prefix) =>
         Object.entries(sem).filter(([k]) => k.startsWith(prefix));
 
-      document.getElementById("bg").innerHTML = group("color.bg.")
-        .map(([k, v]) => sw(k.replace("color.bg.", ""), v)).join("");
-      document.getElementById("text").innerHTML = group("color.text.")
-        .map(([k, v]) => sw(k.replace("color.text.", ""), v)).join("");
+      document.getElementById("bg").innerHTML = group("color/bg/")
+        .map(([k, v]) => sw(k.replace("color/bg/", ""), v)).join("");
+      document.getElementById("text").innerHTML = group("color/text/")
+        .map(([k, v]) => sw(k.replace("color/text/", ""), v)).join("");
 
       const kinds = ["success", "warning", "danger", "info"];
       document.getElementById("fb").innerHTML = kinds.map((kind) => `
         <div class="fb" style="
-          background:${sem["color.feedback." + kind + "-surface"]};
-          border-color:${sem["color.feedback." + kind + "-border"]};
-          color:${sem["color.feedback." + kind + "-text"]};">
+          background:${sem["color/feedback/" + kind + "-surface"]};
+          border-color:${sem["color/feedback/" + kind + "-border"]};
+          color:${sem["color/feedback/" + kind + "-text"]};">
           <strong class="viu-type-label-l">${kind}</strong>
           <div class="viu-type-body-s">surface · border · text</div>
         </div>`).join("");

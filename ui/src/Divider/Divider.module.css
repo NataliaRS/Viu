@@ -4,10 +4,10 @@
 }
 .horizontal {
   width: 100%;
-  height: 1px;
+  height: var(--border-width-default);
 }
 .vertical {
-  width: 1px;
+  width: var(--border-width-default);
   align-self: stretch;
   min-height: 1em;
 }
@@ -19,14 +19,14 @@
 }
 .line {
   flex: 1;
-  height: 1px;
+  height: var(--border-width-default);
   background: var(--color-border-default);
 }
 .label {
   font-family: var(--font-family-label);
   font-size: var(--font-size-label-m);
   font-weight: var(--font-weight-medium);
-  line-height: 1.5;
+  line-height: var(--line-height-relaxed);
   color: var(--color-text-tertiary);
   white-space: nowrap;
 }
