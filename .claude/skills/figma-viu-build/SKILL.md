@@ -204,9 +204,21 @@ Repo trabajado en sesiones web de Claude Code (rama `claude/*`). Storybook en vi
 - CSS: primitivos + scales + grid en `:root`; Semantic black-first (`:root`=Dark, `[data-theme="light"]`, `prefers-color-scheme`); Type Scale responsive (Mobile en `:root`, Desktop en `@media (min-width:1024px)` — **el disparador 1024px es decisión de código**; Figma cambia el modo por frame, no hay breakpoint oficial). Clases `.viu-type-*`, contenedor `.viu-grid`.
 - Naming CSS: `color/bg/base`→`--color-bg-base`, `space/md`→`--space-md`. Derivados de código (NO son variables Figma): `--font-family-label` (=General Sans, tomado de la text style Label) y `--font-family-code` (=mono).
 
-**Componentes:** `ui/` = paquete `@viu/ui` (React 18 + TS + CSS Modules). Consumen SOLO semantic/scales/type (nunca primitivos/hex). tsup→dist, Vitest, playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada componente: `Componente.tsx` + `.module.css` + `.stories.tsx` + `.figma.tsx` (Code Connect).
+**Componentes:** `ui/` = paquete `@viu/ui` (React 18 + TS + CSS Modules). tsup→dist, Vitest, playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada componente: `Componente.tsx` + `.module.css` + `.stories.tsx` + `.figma.tsx` (Code Connect).
 - Hechos (13): Button, Icon, IconButton, Link, Badge, Tag, Status, Pill, Chip, Divider, Avatar, Spinner, Skeleton. Pendiente: resto del registro §2b (design-to-code con `get_design_context`/`get_variable_defs` por nodo).
 - Iconos: SVG stroke a mano (`currentColor`) — el sandbox bloquea descargar assets de Figma; reemplazables por los exportados.
+
+**Regla de consumo de tokens (código) — CERO valores mágicos:** un componente nunca usa hex ni números sueltos. Mapa de tokenización (úsalo para CADA componente nuevo del Tramo 2+):
+- color → SOLO Semantic (`--color-bg|text|border|feedback-*`). Nunca primitivos de color ni hex.
+- espaciado/padding/gap → `--space-*` (Scales) · radios → `--radius-*` (Scales) · z-index → `--z-*`.
+- transiciones → `transition-duration: var(--motion-duration-micro)` + `transition-timing-function: var(--motion-ease-standard)` (Scales). Animaciones largas → `--motion-duration-loop`.
+- bordes/líneas → `--border-width-default` (1px) / `--border-width-strong` (2px). Focus ring → `outline: var(--border-width-strong) solid var(--color-border-focus); outline-offset: var(--space-3xs)`.
+- tamaño de iconos → `--icon-size-*` (xs16/sm20/md24/lg32/xl40/2xl48).
+- tipografía → `--font-size-*` (Type Scale, responsive), `--font-family-{display|body|label|code}`, `--font-weight-*`, `--line-height-{tight|snug|relaxed}`, `--tracking-{tight|normal|wide}`. (Para micro-labels en mayúscula: `--tracking-wide`.)
+- **Matiz honesto:** en código SÍ se consumen ciertos primitivos sin capa semántica (font-family, font-weight, line-height, tracking, icon-size, font-size numéricos). La regla Figma "nunca Primitives" aplica a COLOR; en tipografía/dimensión esos primitivos SON los tokens consumibles.
+- Literales aceptados (también literales en Figma, no hay token): bordes `1.5px` de Button/IconButton; alturas de control 32/40/48; tamaños de Avatar 24–64; `2.5px` del Spinner MD.
+
+**Consumir desde JS/TS** (`@viu/design-tokens`): claves con **slash**. `tokens.semantic.{dark,light}["color/bg/base"]` · `tokens.scales["space/md"]` · `tokens.type.{mobile,desktop}["font-size/title-l"]` · `tokens.grid["grid-columns"][mode]`. (El `preview.html` del repo las usa así.)
 
 **CI/deploy:** `.github/workflows/deploy-storybook.yml` → build + GitHub Pages en cada push. Pages se habilita 1 vez (Settings→Pages→Source: GitHub Actions). La GitHub App de Claude Code necesita permiso **Contents: write** para pushear.
 
