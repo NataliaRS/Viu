@@ -1,0 +1,17 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-control);
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-s);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.neutral { background: var(--color-bg-subtle); color: var(--color-text-secondary); }
+.brand { background: var(--color-bg-brand-subtle); color: var(--color-text-brand); }
+.indigo { background: var(--color-bg-brand-2-subtle); color: var(--color-text-brand-2); }

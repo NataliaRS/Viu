@@ -6,6 +6,7 @@
       "raised":        { "$type": "color", "dark": "{color.neutral.800}", "light": "{color.neutral.25}" },
       "elevated":      { "$type": "color", "dark": "{color.neutral.700}", "light": "{color.neutral.50}" },
       "sunken":        { "$type": "color", "dark": "{color.neutral.950}", "light": "{color.neutral.100}" },
+      "strong":        { "$type": "color", "dark": "{color.neutral.650}", "light": "{color.neutral.200}" },
       "subtle":        { "$type": "color", "dark": "{alpha.white-06}",    "light": "{color.neutral.75}" },
       "hover":         { "$type": "color", "dark": "{alpha.white-06}",    "light": "{alpha.black-08}" },
       "pressed":       { "$type": "color", "dark": "{alpha.white-12}",    "light": "{alpha.black-14}" },

@@ -1,0 +1,25 @@
+.link {
+  color: var(--color-text-link);
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-l);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+  text-decoration: none;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+.link:hover {
+  color: var(--color-text-link-hover);
+  text-decoration: underline;
+}
+.link:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+.disabled {
+  color: var(--color-text-disabled);
+  text-decoration: none;
+  cursor: not-allowed;
+  pointer-events: none;
+}

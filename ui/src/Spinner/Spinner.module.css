@@ -1,0 +1,20 @@
+.spinner {
+  display: inline-block;
+  flex: none;
+  border-radius: var(--radius-pill);
+  border-style: solid;
+  border-color: var(--color-bg-brand-subtle);
+  border-top-color: var(--color-bg-brand);
+  animation: viu-spin 0.7s linear infinite;
+}
+.sm { width: 16px; height: 16px; border-width: 2px; }
+.md { width: 24px; height: 24px; border-width: 2.5px; }
+.lg { width: 32px; height: 32px; border-width: 3px; }
+
+@keyframes viu-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 2s; }
+}

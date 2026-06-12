@@ -1,0 +1,90 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  height: 32px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-m);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+.label { display: inline-block; }
+
+/* input & avatar */
+.input,
+.avatar {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border-default);
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.input { padding-left: var(--space-sm); padding-right: var(--space-xs); }
+.avatar { padding-left: var(--space-2xs); padding-right: var(--space-xs); }
+.input:hover,
+.avatar:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-border-strong);
+}
+.input:focus-within,
+.avatar:focus-within {
+  border-color: var(--color-border-focus);
+}
+.avatar :global(span) { flex: none; }
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+}
+.remove:hover { color: var(--color-text-primary); }
+.remove:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 1px;
+  border-radius: var(--radius-xs);
+}
+
+/* choice */
+.choice {
+  padding-inline: var(--space-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+.choice:hover {
+  background: var(--color-bg-brand-2-subtle);
+  border-color: var(--color-border-brand-2);
+  color: var(--color-text-brand);
+}
+.choice:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+.choiceSelected {
+  background: var(--color-bg-brand-subtle);
+  border-color: transparent;
+  color: var(--color-text-brand);
+}
+
+/* disabled (input/avatar) */
+.disabled {
+  background: var(--color-bg-disabled);
+  border-color: transparent;
+  color: var(--color-text-disabled);
+  pointer-events: none;
+}
+.choice:disabled {
+  background: var(--color-bg-disabled);
+  border-color: transparent;
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}

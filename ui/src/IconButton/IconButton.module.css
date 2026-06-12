@@ -1,0 +1,52 @@
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+.icon {
+  display: inline-flex;
+}
+
+/* sizes (square) + icon sizing */
+.sm { width: 32px; height: 32px; }
+.md { width: 40px; height: 40px; }
+.lg { width: 48px; height: 48px; }
+.sm .icon :global(svg) { width: 16px; height: 16px; }
+.md .icon :global(svg) { width: 20px; height: 20px; }
+.lg .icon :global(svg) { width: 24px; height: 24px; }
+
+/* variant: primary */
+.primary { background: var(--color-bg-brand); color: var(--color-text-on-brand); }
+.primary:hover { background: var(--color-bg-brand-hover); }
+.primary:active { background: var(--color-bg-brand-pressed); }
+
+/* variant: secondary */
+.secondary {
+  background: transparent;
+  border-color: var(--color-border-brand-2);
+  color: var(--color-text-brand-2);
+}
+.secondary:hover { background: var(--color-bg-brand-2-subtle); }
+.secondary:active { background: var(--color-bg-brand-2-subtle); }
+
+/* variant: tertiary */
+.tertiary { background: transparent; color: var(--color-text-primary); }
+.tertiary:hover { background: var(--color-bg-hover); }
+.tertiary:active { background: var(--color-bg-pressed); }
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+.iconButton:disabled {
+  background: var(--color-bg-disabled);
+  color: var(--color-text-disabled);
+  border-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
