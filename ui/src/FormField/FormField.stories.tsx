@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FormField } from "./FormField";
 import { Input } from "../Input/Input";
+import { Select } from "../Select/Select";
+import { Textarea } from "../Textarea/Textarea";
 
 const meta = {
   title: "Components/Molecules/FormField",
@@ -36,4 +38,26 @@ export const WithError: Story = {
 };
 export const Disabled: Story = {
   args: { label: "Usuario", htmlFor: "f4", disabled: true, helper: "No editable.", children: <Input id="f4" disabled defaultValue="nataliars" /> },
+};
+
+/** Field/* = FormField + el control (Input/Select/Textarea/Password). No son componentes aparte. */
+export const Fields: Story = {
+  args: { label: "", children: null },
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ display: "grid", gap: "var(--space-lg)" }}>
+      <FormField label="Nombre" htmlFor="r1" helper="Field/Input">
+        <Input id="r1" placeholder="Natalia" />
+      </FormField>
+      <FormField label="Área" htmlFor="r2" helper="Field/Select">
+        <Select id="r2">
+          <option>Diseño</option>
+          <option>Código</option>
+        </Select>
+      </FormField>
+      <FormField label="Bio" htmlFor="r3" helper="Field/Textarea">
+        <Textarea id="r3" rows={3} placeholder="Contanos sobre vos…" />
+      </FormField>
+    </div>
+  ),
 };
