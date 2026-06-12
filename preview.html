@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIU Design System · Tokens</title>
+  <link rel="stylesheet" href="dist/tokens.css" />
+  <style>
+    body {
+      margin: 0;
+      background: var(--color-bg-base);
+      color: var(--color-text-primary);
+      font-family: var(--font-family-body);
+      padding: var(--space-2xl);
+    }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2xl); }
+    .brand { display: flex; align-items: center; gap: var(--space-xs); }
+    .dot { width: 10px; height: 10px; border-radius: var(--radius-pill); background: var(--color-bg-brand); }
+    .toggle {
+      background: var(--color-bg-raised); color: var(--color-text-primary);
+      border: 1px solid var(--color-border-default); border-radius: var(--radius-control);
+      padding: var(--space-xs) var(--space-md); cursor: pointer; font-family: var(--font-family-label);
+    }
+    h2 { margin: var(--space-2xl) 0 var(--space-md); color: var(--color-text-secondary);
+         font-family: var(--font-family-label); letter-spacing: 4px; font-size: var(--font-size-label-s);
+         text-transform: uppercase; }
+    .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-sm); }
+    .sw { border: 1px solid var(--color-border-subtle); border-radius: var(--radius-surface); overflow: hidden; }
+    .chip { height: 64px; }
+    .meta { padding: var(--space-xs) var(--space-sm); font-size: var(--font-size-body-s); }
+    .meta b { display: block; font-family: var(--font-family-label); }
+    .meta span { color: var(--color-text-tertiary); }
+    .stack > * { margin: 0 0 var(--space-sm); }
+    .feedback { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: var(--space-sm); }
+    .fb { padding: var(--space-md); border-radius: var(--radius-control); border: 1px solid; }
+    .btns { display: flex; gap: var(--space-sm); flex-wrap: wrap; align-items: center; }
+    .btn { border: none; border-radius: var(--radius-control); padding: var(--space-sm) var(--space-lg);
+           font-family: var(--font-family-label); font-weight: var(--font-weight-medium); cursor: pointer; }
+    .btn-primary { background: var(--color-bg-brand); color: var(--color-text-on-brand); }
+    .btn-secondary { background: var(--color-bg-brand-2); color: var(--color-text-on-brand-2); }
+    .btn-ghost { background: transparent; color: var(--color-text-primary); border: 1px solid var(--color-border-default); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <strong class="viu-type-title-m">VIU</strong><span class="dot"></span>
+    </div>
+    <button class="toggle" onclick="toggleTheme()">Cambiar tema</button>
+  </header>
+
+  <h1 class="viu-type-display-m">Design System · Tokens</h1>
+  <p class="viu-type-body-l" style="color: var(--color-text-secondary); max-width: 60ch;">
+    Fundación de tokens con paridad 1:1 con Figma. Black-first, acento crimson, secundario índigo.
+  </p>
+
+  <h2>Tipografía</h2>
+  <div class="stack">
+    <div class="viu-type-display-s">Display · El veloz murciélago</div>
+    <div class="viu-type-headline-m">Headline · El veloz murciélago</div>
+    <div class="viu-type-title-m">Title · El veloz murciélago</div>
+    <div class="viu-type-body-l">Body · El veloz murciélago hindú comía feliz cardillo.</div>
+    <div class="viu-type-label-l">LABEL · COMPONENTES</div>
+    <div class="viu-type-code-m">code · const viu = "#B5262E";</div>
+  </div>
+
+  <h2>Botones</h2>
+  <div class="btns">
+    <button class="btn btn-primary">Primario</button>
+    <button class="btn btn-secondary">Secundario</button>
+    <button class="btn btn-ghost">Ghost</button>
+  </div>
+
+  <h2>Fondos semánticos</h2>
+  <div class="swatches" id="bg"></div>
+
+  <h2>Texto</h2>
+  <div class="swatches" id="text"></div>
+
+  <h2>Feedback</h2>
+  <div class="feedback" id="fb"></div>
+
+  <script type="module">
+    import { tokens } from "./dist/tokens.js";
+    const theme = () => document.documentElement.getAttribute("data-theme") || "dark";
+
+    function render() {
+      const sem = tokens.semantic[theme()];
+      const group = (prefix) =>
+        Object.entries(sem).filter(([k]) => k.startsWith(prefix));
+
+      document.getElementById("bg").innerHTML = group("color.bg.")
+        .map(([k, v]) => sw(k.replace("color.bg.", ""), v)).join("");
+      document.getElementById("text").innerHTML = group("color.text.")
+        .map(([k, v]) => sw(k.replace("color.text.", ""), v)).join("");
+
+      const kinds = ["success", "warning", "danger", "info"];
+      document.getElementById("fb").innerHTML = kinds.map((kind) => `
+        <div class="fb" style="
+          background:${sem["color.feedback." + kind + "-surface"]};
+          border-color:${sem["color.feedback." + kind + "-border"]};
+          color:${sem["color.feedback." + kind + "-text"]};">
+          <strong class="viu-type-label-l">${kind}</strong>
+          <div class="viu-type-body-s">surface · border · text</div>
+        </div>`).join("");
+    }
+    function sw(name, val) {
+      return `<div class="sw"><div class="chip" style="background:${val}"></div>
+        <div class="meta"><b>${name}</b><span>${val}</span></div></div>`;
+    }
+    window.toggleTheme = () => {
+      document.documentElement.setAttribute("data-theme", theme() === "dark" ? "light" : "dark");
+      render();
+    };
+    render();
+  </script>
+</body>
+</html>

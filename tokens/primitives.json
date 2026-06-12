@@ -1,0 +1,91 @@
+{
+  "$description": "VIU Design System — Primitive tokens. Raw values, never consumed directly by components. Source of truth, 1:1 parity with Figma 'Tokens & Foundations' (Primitives · Color).",
+  "color": {
+    "red": {
+      "300": { "$type": "color", "$value": "#f07178" },
+      "400": { "$type": "color", "$value": "#c92e37" },
+      "500": { "$type": "color", "$value": "#b5262e" },
+      "600": { "$type": "color", "$value": "#a0212a" },
+      "700": { "$type": "color", "$value": "#841d24" }
+    },
+    "neutral": {
+      "0":    { "$type": "color", "$value": "#ffffff" },
+      "25":   { "$type": "color", "$value": "#fbfcfd" },
+      "50":   { "$type": "color", "$value": "#f5f5f7" },
+      "75":   { "$type": "color", "$value": "#eef0f3" },
+      "100":  { "$type": "color", "$value": "#e8e8eb" },
+      "200":  { "$type": "color", "$value": "#c9c9ce" },
+      "300":  { "$type": "color", "$value": "#a8a8ad" },
+      "400":  { "$type": "color", "$value": "#828287" },
+      "500":  { "$type": "color", "$value": "#6d6d72" },
+      "600":  { "$type": "color", "$value": "#48484c" },
+      "700":  { "$type": "color", "$value": "#2e2e31" },
+      "800":  { "$type": "color", "$value": "#1c1c1f" },
+      "850":  { "$type": "color", "$value": "#141416" },
+      "900":  { "$type": "color", "$value": "#0a0a0b" },
+      "950":  { "$type": "color", "$value": "#050506" },
+      "1000": { "$type": "color", "$value": "#000000" }
+    },
+    "green": {
+      "50":  { "$type": "color", "$value": "#e6f8ef" },
+      "100": { "$type": "color", "$value": "#c9f0db" },
+      "400": { "$type": "color", "$value": "#3dd68c" },
+      "500": { "$type": "color", "$value": "#20b473" },
+      "600": { "$type": "color", "$value": "#1f8f5a" },
+      "700": { "$type": "color", "$value": "#14613d" }
+    },
+    "amber": {
+      "50":  { "$type": "color", "$value": "#fef7e6" },
+      "100": { "$type": "color", "$value": "#fbe9b8" },
+      "400": { "$type": "color", "$value": "#f2c94c" },
+      "500": { "$type": "color", "$value": "#e0a91e" },
+      "600": { "$type": "color", "$value": "#9a6b05" },
+      "700": { "$type": "color", "$value": "#6b4a04" }
+    },
+    "alert": {
+      "50":  { "$type": "color", "$value": "#fdecec" },
+      "100": { "$type": "color", "$value": "#f9d2d3" },
+      "400": { "$type": "color", "$value": "#f0565b" },
+      "500": { "$type": "color", "$value": "#e5484d" },
+      "600": { "$type": "color", "$value": "#c4373b" },
+      "700": { "$type": "color", "$value": "#8f2528" }
+    },
+    "blue": {
+      "50":  { "$type": "color", "$value": "#eaf1fe" },
+      "100": { "$type": "color", "$value": "#cbddfb" },
+      "400": { "$type": "color", "$value": "#7da9f5" },
+      "500": { "$type": "color", "$value": "#4f86ee" },
+      "600": { "$type": "color", "$value": "#3a6fd0" },
+      "700": { "$type": "color", "$value": "#27508f" }
+    },
+    "indigo": {
+      "300": { "$type": "color", "$value": "#a5a1e0" },
+      "400": { "$type": "color", "$value": "#6e69bc" },
+      "500": { "$type": "color", "$value": "#5a55a8" },
+      "700": { "$type": "color", "$value": "#3a3680" },
+      "900": { "$type": "color", "$value": "#272558" }
+    }
+  },
+  "alpha": {
+    "white-06": { "$type": "color", "$value": "#ffffff0f" },
+    "white-12": { "$type": "color", "$value": "#ffffff1f" },
+    "white-16": { "$type": "color", "$value": "#ffffff29" },
+    "white-24": { "$type": "color", "$value": "#ffffff3d" },
+    "white-28": { "$type": "color", "$value": "#ffffff47" },
+    "white-40": { "$type": "color", "$value": "#ffffff66" },
+    "white-72": { "$type": "color", "$value": "#ffffffb8" },
+    "black-08": { "$type": "color", "$value": "#0a0a0b14" },
+    "black-14": { "$type": "color", "$value": "#0a0a0b24" },
+    "black-24": { "$type": "color", "$value": "#0a0a0b3d" },
+    "black-72": { "$type": "color", "$value": "#0a0a0bb8" },
+    "red-12":  { "$type": "color", "$value": "#b5262e29" },
+    "red-24":  { "$type": "color", "$value": "#b5262e3d" },
+    "red-32":  { "$type": "color", "$value": "#b5262e52" },
+    "green-14":  { "$type": "color", "$value": "#3dd68c24" },
+    "amber-16":  { "$type": "color", "$value": "#f2c94c29" },
+    "alert-14":  { "$type": "color", "$value": "#e5484d24" },
+    "blue-14":   { "$type": "color", "$value": "#7da9f524" },
+    "indigo-14": { "$type": "color", "$value": "#5a55a824" },
+    "indigo-24": { "$type": "color", "$value": "#5a55a83d" }
+  }
+}
