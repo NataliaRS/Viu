@@ -257,6 +257,33 @@ Ejemplos canónicos ya escritos: `Button` e `Input` (copiar su estructura).
 
 **Entrada:** `src/Introduction.mdx` (`Get started/Introduction`) — actualizar links/uso si cambia el paquete.
 
+## 16. Convenciones de moléculas / organismos / patrones (código)
+Aprendido construyendo el Tramo 3. Aplicar a todo lo compuesto:
+
+**Composición:** una molécula importa y compone los átomos del paquete (`../Atom/Atom`), nunca los re-implementa. Título `Components/Molecules/<Nombre>` (idem Organisms/Patterns). Carpeta `ui/src/<Nombre>/`.
+
+**Props controladas (convención):** estado + handler — `value`/`onValueChange`, `checked`/`onCheckedChange`, `open`/`onOpenChange`. Acciones one-shot: `onClose` · `onClear` · `onRemove`. Datos por array de items tipados (ej. `Tabs.items`, `Breadcrumb.items`).
+
+**Gotchas de TypeScript (ya pegados):**
+- Prop `title`/`open`/`color` chocan con `HTMLAttributes`. Si tu prop es `ReactNode`/custom → `extends Omit<HTMLAttributes<HTMLDivElement>, "title">`.
+- `satisfies Meta<typeof C>` EXIGE `args` en el meta si el componente tiene props requeridas sin default (ej. Tabs items/value/onValueChange). Agregá `args` mínimos aunque uses `render`.
+- `cx(..., cond && clase)` con `cond: ReactNode` rompe (puede ser null/0). Usá `cond ? clase : false`.
+- Merge de refs: `useRef<T | null>(null)` (mutable) y `(ref as any).current = node` para forwardear.
+
+**Superficies flotantes (Toast/Popover/Menu/Modal):** `bg/elevated` + `border/subtle` + `box-shadow: var(--shadow-overlay)` + `radius/surface`. Capa con `z/*` correspondiente.
+
+**Mensajes con tono (Banner/Toast/…):** mapear tono→glifo con el set de 8 íconos: info/neutral→Info, success→Check, warning/danger→Alert. El set es limitado: si un componente necesita otro glifo, primero agregarlo al átomo Icon (y a Figma), no inventarlo inline.
+
+**Patrones de a11y por tipo:**
+- Tabs → `role=tablist` + roving tabindex (activa=0, resto=-1) + flechas; `aria-selected`; conectar `aria-controls` al panel en el layout.
+- Navegación (Breadcrumb/Nav) → `<nav aria-label>`; actual con `aria-current`; separadores `aria-hidden`.
+- Feedback transitorio (Toast) → `role=status` + `aria-live=polite`. Persistente (Banner) → `role=status`.
+- Form (FormField) → label asociado por `htmlFor`/`id`; error como texto (no solo color) + `aria-invalid` en el control.
+
+**`Field/*` de Figma (Input/Password/Select/Textarea):** = `FormField` + el control correspondiente. NO crear un componente nuevo salvo que el diseño agregue estructura propia; por defecto, componer `FormField` con `<Input>`/`<Select>`/`<Textarea>` (Password = Input con toggle de visibilidad).
+
+**Verificación obligatoria por batch:** `typecheck` · `test` · `build` (lib) · `figma connect parse` · `build-storybook`. Todo verde antes de commitear.
+
 ## Estado actual (junio 2026)
-**Tokens:** auditados 1:1 contra Figma (331 vars / 5 colecciones, §13) y espejados en código (repo §14); paridad verificada. **Código:** `@viu/design-tokens` (pipeline tokens→CSS) + `@viu/ui` con los **28 átomos completos** en Storybook desplegado, con **chrome de marca + docs estándar (§15)** y Foundations interactivas (copy, contraste WCAG, dark/light). Docs ricos (status/Figma/cuándo usar/anatomía/a11y/do&don't) en Button e Input como patrón; replicar a cada nuevo componente.
+**Tokens:** auditados 1:1 contra Figma (331 vars / 5 colecciones, §13) y espejados en código (repo §14); paridad verificada. **Código:** `@viu/design-tokens` (pipeline tokens→CSS) + `@viu/ui` con los **28 átomos completos** en Storybook desplegado, con **chrome de marca + docs estándar (§15)** y Foundations interactivas (copy, contraste WCAG, dark/light). Docs ricos completos en los 28 átomos. **Tramo 3 (moléculas) iniciado: 6/31** (FormField, Search, Tabs, Breadcrumb, Banner, Toast). Convenciones de composición en §16.
 Tipografía Google Sans (body/reading); Merriweather eliminado (0 nodos). 67 componentes en Figma: 27 átomos · 31 moléculas · 9 organismos + 5 patrones. Sections en archivo aparte. Card modular (45 var): Disposición Arriba/Lateral/Abajo, ícono desacoplado, autor al pie, tags, leer más, barra, footer 2 botones, badge que sigue a la imagen. Portada con índice por nivel atómico. Homepage de prueba en `Test · Homepage`. Gaps opcionales: Segmented control, Radio/Checkbox group, Combobox/Autocomplete, Date range picker, Kbd. Átomo Image (15 var: Aspect ratio × Estado) como primitiva de media; thumbnail = Image en ratio chico (no es componente aparte). Video sigue siendo molécula (Video embed `414:7`); su poster puede instanciar Image a futuro.
