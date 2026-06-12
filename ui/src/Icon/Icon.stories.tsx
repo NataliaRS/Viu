@@ -11,6 +11,8 @@ const allGlyphs: GlyphName[] = [
   "Search",
   "Info",
   "Alert",
+  "Eye",
+  "EyeOff",
 ];
 
 const meta = {
@@ -22,7 +24,7 @@ const meta = {
       status: "stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=56-431",
       overview:
-        "Glifo de 16px con stroke en currentColor. Set base de 8 íconos del sistema (Plus, Check, Chevron, Close, Arrow, Search, Info, Alert).",
+        "Glifo de 16px con stroke en currentColor. Set del sistema: Plus, Check, Chevron, Close, Arrow, Search, Info, Alert, Eye, EyeOff.",
       whenToUse: ["Reforzar el significado de una acción o estado.", "Dentro de otros componentes (Button, Input, Tab…)."],
       whenNotToUse: ["Como única forma de comunicar algo crítico → acompañá con texto o `title`.", "Para ilustraciones grandes — no es un sistema ilustrativo."],
       anatomy: ["SVG 16×16, stroke currentColor 1.5.", "Glyph — uno de los 8 del set."],

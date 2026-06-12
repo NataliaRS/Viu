@@ -19,6 +19,8 @@ figma.connect(
         Search: "Search",
         Info: "Info",
         Alert: "Alert",
+        Eye: "Eye",
+        EyeOff: "EyeOff",
       }),
     },
     example: ({ glyph }) => <Icon glyph={glyph} />,
