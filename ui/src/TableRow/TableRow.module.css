@@ -1,0 +1,32 @@
+.row {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  transition-property: background-color;
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-ease-standard);
+}
+.interactive {
+  cursor: pointer;
+}
+.interactive:hover {
+  background: var(--color-bg-hover);
+}
+.selected {
+  background: var(--color-bg-brand-2-subtle);
+}
+.checkCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 48px;
+}
+.chevronCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 56px;
+  color: var(--color-text-tertiary);
+}

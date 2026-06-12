@@ -141,3 +141,21 @@ export type { DropzoneProps } from "./Dropzone/Dropzone";
 
 export { FileRow } from "./FileRow/FileRow";
 export type { FileRowProps, FileRowState } from "./FileRow/FileRow";
+
+export { PasswordInput } from "./PasswordInput/PasswordInput";
+export type { PasswordInputProps } from "./PasswordInput/PasswordInput";
+
+export { TableRow } from "./TableRow/TableRow";
+export type { TableRowProps } from "./TableRow/TableRow";
+
+export { TreeItem } from "./TreeItem/TreeItem";
+export type { TreeItemProps } from "./TreeItem/TreeItem";
+
+export { Toolbar } from "./Toolbar/Toolbar";
+export type { ToolbarProps } from "./Toolbar/Toolbar";
+
+export { Quote } from "./Quote/Quote";
+export type { QuoteProps } from "./Quote/Quote";
+
+export { RichText } from "./RichText/RichText";
+export type { RichTextProps } from "./RichText/RichText";
