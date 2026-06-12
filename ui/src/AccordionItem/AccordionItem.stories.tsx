@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=174-19",
       overview: "Sección colapsable individual: header con título + chevron y un cuerpo que se muestra al expandir.",
       whenToUse: ["Una unidad de contenido colapsable.", "Componer un Accordion."],

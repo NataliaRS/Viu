@@ -39,7 +39,10 @@ skill — nunca quedan divergentes.
   única (RESUELTO jun-2026, A1): `Draft / Reviewed / Stable / Deprecated`** (la del estándar de doc;
   el Storybook ya usa `status`). El vocabulario viejo `experimental/estable/obsoleto` queda
   deprecado; mapeo de transición: experimental→Draft·Reviewed, estable→Stable, obsoleto→Deprecated.
-  ⚠️ En cola: actualizar la etiqueta de madurez de los componentes a la escala única.
+  **✅ A1 EJECUTADO (jun-2026):** los componentes ya están en la escala única en código — `ViuDocs.tsx`
+  tipa `status: "Draft"|"Reviewed"|"Stable"|"Deprecated"` y las stories quedaron 67 `Stable` + 2
+  `Reviewed` (Tooltip/Slider, ex-`beta`). El badge mapea Draft→warning · Reviewed→info · Stable→success
+  · Deprecated→danger.
 - Antes de crear un componente, distinguir: (1) existe pero no está publicado, (2) gap real
   reusable, (3) one-off que NO debe entrar a la librería. No conflar Badge/Tag/Pill/Chip/
   Notification badge (cada uno tiene rol y doc propios; no crearlos en batch).
@@ -136,8 +139,9 @@ quedó atrás. Este lo absorbe entero.
      (alineado a Figma, mejor nombre semántico). Code Connect mapea `Visibility_off`→`VisibilityOff`.
   2. ~~**B3** · `.figma.tsx` de Icon container~~ ✅ HECHO (jun-2026). Surgió un gap nuevo: el nodo
      Figma tiene `style`/`tone` (48 var) que el código no expone — anotado en code-build §14.
-  3. **A1** · actualizar la etiqueta de madurez de los componentes a la escala única
-     Draft/Reviewed/Stable/Deprecated.
+  3. ~~**A1** · actualizar la etiqueta de madurez de los componentes a la escala única
+     Draft/Reviewed/Stable/Deprecated~~ ✅ HECHO (jun-2026). `ViuDocs.tsx` retipado + stories
+     migradas (67 Stable, 2 Reviewed); tipo viejo `stable|beta|wip` obsoleto.
   4. ~~**B1** · migrar componentes de `disabled` por opacidad a `bg-disabled`/`text-disabled`~~
      ✅ HECHO (jun-2026). Resultaron solo **4** (no ~15): ListItem, MenuItem, Tab (usaban `opacity:
      var(--state-disabled)`) + TimePicker/PickerField (`opacity: 0.5` mágico). Regla aplicada:

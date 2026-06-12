@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=24-279",
       overview: "Interruptor on/off para un ajuste de efecto inmediato.",
       whenToUse: ["Activar/desactivar una configuración al instante (sin “guardar”).", "Ajustes binarios."],

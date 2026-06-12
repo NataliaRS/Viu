@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=409-6",
       overview: "Campo de hora: dispara el selector nativo de hora. Incluye label, ayuda/error y estados.",
       whenToUse: ["Capturar una hora.", "Junto a un Datepicker para fecha + hora."],

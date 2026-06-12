@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=237-49",
       overview: "Fila de un archivo en carga: tipo, nombre y estado (cargando con progreso, completo o error).",
       whenToUse: ["Listar archivos subidos o en proceso (junto a un Dropzone).", "Mostrar progreso y resultado por archivo."],

@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=339-66",
       overview: "Progreso a través de una secuencia de pasos (compone Step), con conectores entre ellos.",
       whenToUse: ["Flujos lineales de varios pasos (onboarding, checkout, wizard).", "Mostrar dónde está y cuánto falta."],

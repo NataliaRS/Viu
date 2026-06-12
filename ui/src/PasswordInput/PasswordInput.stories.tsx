@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=407-6",
       overview: "Campo de contraseña con botón para mostrar/ocultar el valor (Visibility / VisibilityOff).",
       whenToUse: ["Capturar contraseñas u otros datos sensibles.", "Dentro de un FormField en formularios de acceso."],

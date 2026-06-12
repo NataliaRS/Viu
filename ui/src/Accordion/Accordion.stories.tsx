@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=399-7",
       overview: "Agrupa secciones colapsables (AccordionItem) separadas por divisores.",
       whenToUse: ["FAQ o contenido extenso dividido en secciones.", "Reducir scroll mostrando lo esencial."],

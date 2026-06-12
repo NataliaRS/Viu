@@ -12,7 +12,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=288-7",
       overview:
         "Patrón de flujo multipaso: un Stepper marca el progreso, se muestra el paso actual y un pie con Atrás/Continuar. Para tareas largas o ramificadas.",

@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=414-7",
       overview: "Reproductor embebido con póster y botón de play (16:9). Al reproducir, cargá el player real.",
       whenToUse: ["Mostrar un video con un póster antes de reproducir.", "Diferir la carga del player pesado hasta el play."],

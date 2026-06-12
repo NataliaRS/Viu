@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=168-32",
       overview: "Control para recorrer páginas de un conjunto de resultados. Numerada (con elipsis) o simple.",
       whenToUse: ["Dividir listas/tablas largas en páginas.", "Cuando el total de páginas es conocido."],

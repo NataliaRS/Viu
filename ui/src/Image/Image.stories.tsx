@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=543-62",
       overview: "Media con relación de aspecto fija y estados de carga/error. 5 ratios.",
       whenToUse: ["Mostrar imágenes manteniendo proporción.", "Galerías, cards, thumbnails (ratio chico)."],

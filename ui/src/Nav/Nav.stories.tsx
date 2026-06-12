@@ -10,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=401-7",
       overview: "Landmark de navegación vertical. Agrupa varios NavItem (con ícono, label y estado activo).",
       whenToUse: ["Navegación lateral de una app o sección.", "Listas de destinos persistentes."],

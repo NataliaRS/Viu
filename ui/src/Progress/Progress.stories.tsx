@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=22-184",
       overview: "Barra de progreso determinada (0–100) o indeterminada. 3 tamaños.",
       whenToUse: ["Mostrar avance medible (carga, pasos %).", "Indeterminado para esperas sin % conocido."],

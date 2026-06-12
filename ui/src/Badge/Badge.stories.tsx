@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=14-77",
       overview: "Etiqueta de estado o categoría no interactiva. 6 tonos (neutral + feedback).",
       whenToUse: ["Comunicar estado o conteo categórico (Nuevo, Activo, 3).", "Clasificar un ítem acompañándolo."],

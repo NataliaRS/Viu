@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=411-19",
       overview: "Nodo de un árbol jerárquico: chevron de expandir, indentación por nivel y selección.",
       whenToUse: ["Estructuras jerárquicas (carpetas, categorías).", "Navegación en árbol (tree view)."],

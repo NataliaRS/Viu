@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=20-209",
       overview: "Indicador de carga indeterminado. 3 tamaños.",
       whenToUse: ["Esperas cortas sin progreso conocido.", "Dentro de botones o áreas que cargan."],

@@ -12,7 +12,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=140-57",
       overview:
         "Diálogo modal centrado sobre un scrim. Atrapa el foco, cierra con Esc o clic en el fondo, y vuelve el foco al disparador al cerrar.",

@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=19-90",
       overview: "Representación de un usuario: imagen o iniciales sobre superficie de marca. 5 tamaños.",
       whenToUse: ["Identificar a una persona o entidad.", "Listas, comentarios, headers."],

@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=24-227",
       overview: "Botón de opción para elegir UNA entre varias mutuamente excluyentes.",
       whenToUse: ["Elección única entre 2–5 opciones visibles.", "Agrupadas por el mismo `name`."],

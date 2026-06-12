@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=22-137",
       overview: "Enlace de texto inline para navegar a otra página, sección o recurso.",
       whenToUse: ["Navegar a una URL o ancla.", "Acción secundaria de texto dentro de un párrafo."],

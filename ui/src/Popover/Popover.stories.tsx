@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=187-69",
       overview:
         "Superficie flotante anclada a un disparador, con caret. Para contenido contextual breve y acciones. Cierra con Esc, clic afuera o el botón cerrar.",

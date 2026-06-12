@@ -17,7 +17,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=282-7",
       overview:
         "Patrón de formulario: superficie con título, banner opcional, una columna de campos y un pie de acciones a la derecha. Para crear/editar entidades, configuración, checkout u onboarding.",

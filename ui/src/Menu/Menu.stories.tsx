@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=377-6",
       overview: "Superficie flotante con una lista de acciones (MenuItem). El posicionamiento lo maneja quien la usa.",
       whenToUse: ["Acciones contextuales de un disparador (botón “más”, click derecho).", "Comandos rápidos."],

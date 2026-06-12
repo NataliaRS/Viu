@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=17-67",
       overview: "Ficha compacta: entrada removible, con avatar, o de selección (choice).",
       whenToUse: ["Tokens de entrada removibles (tags de un input, destinatarios).", "Selección múltiple tipo choice."],

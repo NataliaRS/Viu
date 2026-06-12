@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=410-43",
       overview: "Calificación por estrellas (0–5), de lectura o interactiva.",
       whenToUse: ["Mostrar o capturar una valoración.", "Reseñas, encuestas."],

@@ -10,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=135-84",
       overview: "Mensaje contextual persistente dentro del layout. 5 tonos, con acción y cierre opcionales.",
       whenToUse: ["Comunicar un estado del sistema o de la página (info, error, éxito).", "Avisos que permanecen hasta que el usuario actúa."],

@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=15-42",
       overview: "Etiqueta de clasificación no interactiva. 3 tonos (neutral/brand/indigo).",
       whenToUse: ["Clasificar o etiquetar contenido (categorías, temas).", "Mostrar metadatos de un ítem."],

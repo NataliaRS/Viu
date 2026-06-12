@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "beta",
+      status: "Reviewed",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=23-167",
       overview: "Etiqueta flotante con info breve al hover/focus del trigger. (CSS-only, sin colisión/flip.)",
       whenToUse: ["Aclarar un ícono o acción ambigua.", "Mostrar el nombre de un control compacto."],

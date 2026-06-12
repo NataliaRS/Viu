@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=8-53",
       overview:
         "Acción de una interfaz. Comunica la operación de un contexto y la jerarquiza por variante (primary → secondary → tertiary).",

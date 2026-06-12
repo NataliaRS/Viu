@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=413-7",
       overview: "Cita destacada con línea de acento y atribución opcional.",
       whenToUse: ["Resaltar un testimonio o cita.", "Dar voz a un autor dentro del contenido."],

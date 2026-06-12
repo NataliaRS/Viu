@@ -121,10 +121,15 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
   Lee `parameters.viu` del meta y renderiza: Título + status badge + link "Ver en Figma" → Overview →
   Cuándo usar / Evitar (2 cards) → Vista general (Primary) → Propiedades (Controls) → Anatomía →
   Accesibilidad → Do & Don't (2 cards) → Ejemplos (Stories). Campos faltantes degradan elegante.
+  **Status badge — escala única (A1, jun-2026):** `Draft`→feedback-warning · `Reviewed`→feedback-info ·
+  `Stable`→feedback-success · `Deprecated`→feedback-danger (mapa `STATUS` en ViuDocs.tsx). Migración
+  hecha: el sistema tenía `stable`(67)+`beta`(2) → `stable→Stable`, `beta→Reviewed` (las 2 `beta`
+  eran Tooltip y Slider, con feature pendiente B5/B4). El tipo viejo `"stable"|"beta"|"wip"` quedó
+  OBSOLETO.
 - **Cada `meta` DEBE incluir** (espeja el doc canónico de Figma):
   ```ts
   parameters: { viu: {
-    status: "stable" | "beta" | "wip",
+    status: "Draft" | "Reviewed" | "Stable" | "Deprecated", // escala única (A1, jun-2026)
     figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=<id>",
     overview: "1–2 frases: qué es y para qué.",
     whenToUse: ["…"], whenNotToUse: ["… → usá <otro componente>"],

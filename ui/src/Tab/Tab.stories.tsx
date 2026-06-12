@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=161-43",
       overview: "Pestaña individual de navegación entre vistas. Estilo línea o segmentado.",
       whenToUse: ["Alternar entre vistas del mismo contexto.", "Agrupar varias en un Tabs (molécula)."],

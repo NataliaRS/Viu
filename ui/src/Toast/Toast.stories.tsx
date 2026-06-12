@@ -10,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=176-101",
       overview: "Notificación transitoria y flotante que confirma una acción o informa un evento. 4 tonos.",
       whenToUse: ["Confirmar una acción (guardado, enviado).", "Avisos breves que se autodescartan."],

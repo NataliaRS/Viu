@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=185-37",
       overview: "Conjunto de avatares solapados que representa un grupo de personas, con resumen +N.",
       whenToUse: ["Mostrar participantes/colaboradores de algo.", "Resumir muchos usuarios en poco espacio."],

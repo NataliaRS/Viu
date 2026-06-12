@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=233-19",
       overview: "Ítem individual de navegación: ícono + label, con estados default/hover/activo.",
       whenToUse: ["Cada destino dentro de un Nav."],

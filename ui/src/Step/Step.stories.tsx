@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=189-25",
       overview: "Paso individual de un proceso secuencial: completado, actual o pendiente.",
       whenToUse: ["Mostrar avance en un flujo de pasos (wizard, checkout).", "Componer varios en un Stepper."],

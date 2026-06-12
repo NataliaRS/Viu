@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=229-10",
       overview: "Placeholder de carga que anticipa la forma del contenido. text/rect/circle.",
       whenToUse: ["Carga de contenido estructurado (cards, listas).", "Evitar saltos de layout."],

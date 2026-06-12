@@ -10,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=27-255",
       overview: "Envoltorio de formulario: asocia un label (y requerido) a un control, con texto de ayuda o error.",
       whenToUse: ["Cualquier control de formulario (Input, Select, Textarea…).", "Para mostrar ayuda contextual o el motivo de un error."],

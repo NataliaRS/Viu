@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=26-347",
       overview: "Campo de búsqueda: input con ícono de lupa y botón de limpiar.",
       whenToUse: ["Buscar/filtrar dentro de una vista o lista.", "Como entrada destacada de búsqueda."],

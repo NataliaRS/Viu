@@ -16,7 +16,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=285-7",
       overview:
         "Patrón de tabla de datos: toolbar (búsqueda/filtros/acciones) + tabla con filas seleccionables + pie (conteo + paginación). Para explorar y gestionar muchos registros.",

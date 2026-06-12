@@ -21,7 +21,7 @@ const meta = {
   parameters: {
     layout: "fullscreen",
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=274-7",
       overview:
         "Marco de aplicación: navegación lateral persistente + barra superior enmarcando un área de contenido con scroll. El shell no cambia al navegar; solo cambia el contenido.",

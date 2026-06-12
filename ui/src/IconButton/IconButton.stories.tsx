@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=393-190",
       overview: "Botón cuadrado de solo ícono. Misma jerarquía que Button (primary/secondary/tertiary) en 3 tamaños.",
       whenToUse: ["Acción reconocible sin texto (cerrar, buscar, más).", "Toolbars o áreas con espacio limitado."],

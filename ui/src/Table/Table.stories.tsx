@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=372-6",
       overview: "Contenedor tabular: header de columnas + filas (TableRow), con divisores.",
       whenToUse: ["Datos en columnas comparables.", "Listados con orden/selección."],

@@ -10,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=195-58",
       overview: "Fila de una tabla: selección opcional, celdas de contenido y chevron, con estados hover/seleccionado.",
       whenToUse: ["Datos tabulares con columnas (personas, registros).", "Tablas con selección por fila."],

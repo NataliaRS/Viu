@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=28-386",
       overview: "Campo de fecha: dispara el selector nativo de fecha. Incluye label, ayuda/error y estados.",
       whenToUse: ["Capturar una fecha.", "Filtros o formularios con fechas."],

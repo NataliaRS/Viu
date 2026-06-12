@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "beta",
+      status: "Reviewed",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=225-16",
       overview: "Selector de un valor dentro de un rango continuo. (Modo Único; el Rango/doble thumb está pendiente.)",
       whenToUse: ["Valores aproximados en un rango (volumen, brillo).", "Cuando el ajuste importa más que el valor exacto."],

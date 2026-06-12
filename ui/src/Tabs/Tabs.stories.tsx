@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=366-6",
       overview: "Grupo de pestañas (Tab) con navegación por teclado, en estilo línea o segmentado.",
       whenToUse: ["Alternar entre vistas del mismo contexto.", "Secciones de una misma página/panel."],

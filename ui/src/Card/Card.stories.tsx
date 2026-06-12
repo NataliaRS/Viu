@@ -11,7 +11,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=434-6",
       overview: "Superficie contenedora flexible: media, contenido y footer, en 3 superficies y 2 orientaciones.",
       whenToUse: ["Agrupar información relacionada en una unidad.", "Grillas de contenido (proyectos, artículos)."],

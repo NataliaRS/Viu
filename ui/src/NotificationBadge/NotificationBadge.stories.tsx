@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=18-75",
       overview: "Indicador de notificaciones sobre un ícono: punto o conteo (con overflow “99+”).",
       whenToUse: ["Señalar items nuevos o no leídos sobre un ícono/avatar.", "Conteo de pendientes."],

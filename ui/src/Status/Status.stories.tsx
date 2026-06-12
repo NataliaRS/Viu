@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=20-150",
       overview: "Indicador de presencia/disponibilidad: online, busy, away, offline.",
       whenToUse: ["Mostrar presencia de un usuario o servicio.", "Junto a un Avatar o nombre."],

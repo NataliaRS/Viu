@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=163-19",
       overview: "Ruta de navegación jerárquica hasta la página actual, con separador chevron o barra.",
       whenToUse: ["Mostrar la ubicación dentro de una jerarquía.", "Permitir volver a niveles superiores."],

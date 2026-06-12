@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=24-167",
       overview: "Casilla para selección múltiple o binaria, con estado indeterminado.",
       whenToUse: ["Activar/desactivar una opción.", "Seleccionar varias de una lista (indeterminate en el padre)."],

@@ -12,7 +12,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=227-53",
       overview:
         "Panel lateral que entra desde el borde sobre un scrim. Atrapa el foco y cierra con Esc o clic en el fondo. Para flujos y contenido más extensos que un Modal.",

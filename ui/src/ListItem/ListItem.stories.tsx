@@ -9,7 +9,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=165-41",
       overview: "Fila de una lista: contenido principal (título/subtítulo) con leading y trailing opcionales.",
       whenToUse: ["Cada elemento de un List.", "Filas con avatar/ícono, meta y chevron."],

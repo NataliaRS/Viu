@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=235-28",
       overview: "Área para subir archivos arrastrando o haciendo click, con estados default/activo/error.",
       whenToUse: ["Subida de archivos (imágenes, documentos).", "Cuando el drag & drop agrega valor."],

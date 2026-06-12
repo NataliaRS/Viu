@@ -10,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=172-29",
       overview: "Agrupación horizontal de acciones (Icon button / Button), con divisores opcionales.",
       whenToUse: ["Barras de acciones de un editor o vista.", "Agrupar controles relacionados."],

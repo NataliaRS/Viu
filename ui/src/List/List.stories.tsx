@@ -10,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=400-7",
       overview: "Contenedor vertical de filas (ListItem): avatar/ícono, título, subtítulo, meta y chevron.",
       whenToUse: ["Listados de personas, archivos, resultados.", "Filas seleccionables o navegables."],

@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=26-293",
       overview: "Selector de una opción de una lista corta, con chevron.",
       whenToUse: ["Elegir 1 entre varias opciones predefinidas (5–15).", "Ahorrar espacio frente a radios."],

@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=16-63",
       overview: "Chip de filtro accionable y seleccionable (toggle on/off).",
       whenToUse: ["Filtros rápidos seleccionables (categorías).", "Conjunto de opciones tipo toggle."],

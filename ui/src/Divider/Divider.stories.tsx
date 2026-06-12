@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=20-97",
       overview: "Separador visual horizontal o vertical, con label opcional.",
       whenToUse: ["Separar grupos de contenido.", "Dividir secciones (“o”) con label."],

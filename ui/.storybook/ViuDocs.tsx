@@ -7,7 +7,8 @@ import { Title, Description, Primary, Controls, Stories, Markdown, useOf } from 
  * `parameters.viu` block to its meta; missing fields degrade gracefully.
  */
 export interface ViuMeta {
-  status?: "stable" | "beta" | "wip";
+  /** Madurez — escala única del sistema (A1): Draft → Reviewed → Stable → Deprecated. */
+  status?: "Draft" | "Reviewed" | "Stable" | "Deprecated";
   /** Figma node URL — renders a "View in Figma" link. */
   figma?: string;
   /** Markdown overview. */
@@ -21,9 +22,10 @@ export interface ViuMeta {
 }
 
 const STATUS: Record<NonNullable<ViuMeta["status"]>, { label: string; surface: string; text: string }> = {
-  stable: { label: "Stable", surface: "var(--color-feedback-success-surface)", text: "var(--color-feedback-success-text)" },
-  beta: { label: "Beta", surface: "var(--color-feedback-warning-surface)", text: "var(--color-feedback-warning-text)" },
-  wip: { label: "WIP", surface: "var(--color-feedback-info-surface)", text: "var(--color-feedback-info-text)" },
+  Draft: { label: "Draft", surface: "var(--color-feedback-warning-surface)", text: "var(--color-feedback-warning-text)" },
+  Reviewed: { label: "Reviewed", surface: "var(--color-feedback-info-surface)", text: "var(--color-feedback-info-text)" },
+  Stable: { label: "Stable", surface: "var(--color-feedback-success-surface)", text: "var(--color-feedback-success-text)" },
+  Deprecated: { label: "Deprecated", surface: "var(--color-feedback-danger-surface)", text: "var(--color-feedback-danger-text)" },
 };
 
 const h2: React.CSSProperties = {

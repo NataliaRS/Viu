@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       overview: "Superficie enmarcada para un ícono (bg/elevated + border/subtle + radius). 3 tamaños. Derivado del recipe de Card (sin nodo propio en Figma).",
       whenToUse: ["Destacar un ícono como featurette (empty states, cards).", "Dar peso visual a un glifo."],
       whenNotToUse: ["Para acciones → usá Icon button.", "Ícono inline en texto → Icon."],

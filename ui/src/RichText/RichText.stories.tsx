@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=402-7",
       overview: "Contenedor de prosa que aplica la escala tipográfica VIU a contenido rico (títulos, párrafos, listas, links).",
       whenToUse: ["Contenido editorial o de ayuda con formato.", "Renderizar HTML/Markdown ya convertido."],

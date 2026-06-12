@@ -8,7 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "stable",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=415-7",
       overview: "Pie de página con enlaces y aviso de copyright, separado por un borde superior.",
       whenToUse: ["Cerrar una página con links secundarios y legales."],
