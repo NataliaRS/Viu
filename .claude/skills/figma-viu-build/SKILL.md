@@ -26,6 +26,8 @@ description: Construir y mantener el VIU Design System en Figma vía el MCP de F
 6. Ante cualquier duda del estado, LEERLO del archivo (no de memoria). El screenshot a veces va con lag en texto recién sobreescrito por propiedad → el dato del nodo es la verdad.
 
 ## 2. Mapa de keys VIU (revalidar en el primer arranque, §11)
+> Inventario COMPLETO de las 5 colecciones de variables (331 tokens) auditado en §13. Acá van solo las keys de import más usadas para construir en Figma.
+
 **Chrome de doc (Componentes):** `_Header`=`7:22` (overrides Eyebrow/Title/Description) · `_Footer`=`7:26`.
 
 **Tokens semánticos (importVariableByKeyAsync) — hex Dark:**
@@ -146,10 +148,11 @@ Layout ABSOLUTO: logo VIU+punto, eyebrow crimson, título, descripción, Índice
 Átomo = primitivo. Molécula = composición (`Field / X`; página `Molecule ·`). Organismo = bloque complejo/superficie. Badge/Tag comunican (no interactivos); Pill/Chip se accionan; Notification badge se monta encima. No son el mismo componente.
 
 ## 10. Paridad con código / design-to-code
-- Fuente de verdad de tokens = la VARIABLE de Figma; CSS/JSON/React se derivan. El text style se mantiene en sync a mano con la variable de familia (§2).
-- `get_design_context` (code + screenshot + metadata por nodo) y `get_variable_defs` (resuelve los tokens aplicados a un nodo) para extraer specs.
-- Exportar tokens: leer Primitives+Semantic+Scales+Type Scale → CSS vars/JSON. Borders → white-16/28/40; tipografía → Google Sans (body/reading), General Sans (labels), PP Neue (display/title).
-- **Escribir a disco / sync a repo NO se puede solo con el MCP de Figma** (requiere sesión con file tools). Si no están, entregar el contenido como texto para pegar. (Por eso este SKILL.md se entrega como texto.)
+- Fuente de verdad de tokens = la VARIABLE de Figma; el código (`tokens.json → CSS`) se deriva. Las text styles NO bindean fontFamily a la variable → mantener en sync a mano (§2).
+- Extraer specs por nodo: `get_design_context` (code+screenshot+metadata) y `get_variable_defs` (tokens aplicados a ESE nodo).
+- **Auditar TODO el sistema de tokens: NO uses `get_variable_defs`** (solo devuelve lo pegado a un nodo → incompleto). Usá `getLocalVariablesAsync` vía `use_figma` (§11) y compará contra el inventario completo (§13).
+- Las 5 colecciones del archivo Tokens (auditadas jun-2026, §13): Primitives(183) · Semantic(52) · Scales(70) · Type Scale(23) · Grid(3) = **331 variables**.
+- **Sync a repo:** el MCP de Figma NO escribe a disco. Pero las **sesiones web de Claude Code SÍ tienen file tools + git** → el código vive en el repo `NataliaRS/Viu` (§14). En sesiones sin file tools, entregar el contenido como texto.
 
 ## 11. Primer arranque (revalidar keys)
 
@@ -168,5 +171,47 @@ En Componentes, ubicar componentes/páginas por nombre iterando `figma.root.chil
 - Imagen por hash: leer `fills.find(f=>f.type==='IMAGE').imageHash` del origen; aplicar `node.fills=fills.map(f=>f.type==='IMAGE'?Object.assign({},f,{imageHash:TARGET}):f)`; barrido "todo menos avatar" salta ancestros "avatar" y nodos dentro de instancias (heredan del master).
 - Responder español rioplatense, nivel Director, conciso, con tradeoffs honestos. Cambio + verificación de datos en la misma llamada; screenshot aparte.
 
+## 13. Sistema de tokens — inventario completo (auditado vía `getLocalVariablesAsync`, jun 2026)
+5 colecciones / **331 variables**. Nombres con "/" = jerarquía. Los aliases SIEMPRE apuntan a Primitives.
+
+**Primitives (183, mode `Value`):**
+- `color/{red 300-700, neutral 0-1000 (incl 650=#3a3a3e), green/amber/alert/blue 50-700, indigo 300-900}` · `alpha/{white-06/12/16/24/28/40/72, black-08/14/24/72, red-12/24/32, green-14, amber-16, alert-14, blue-14, indigo-14/24}`
+- `space/{0,2,4,6,8,12,16,20,24,32,40,48,64,96,128,192,256}` · `radius/{none0,xs4,sm6,md8,lg12,xl16,2xl24,round9999}`
+- `border-width/{0,1,2,3,4}` · `icon-size/{xs16,sm20,md24,lg32,xl40,2xl48}` · `opacity/{0,5,8,12,16,24,38,60,100}`
+- `z/{hide -1, base 0, raised 100, docked 300, dropdown 1000, sticky 1100, banner 1200, overlay 1300, modal 1400, popover 1500, toast 1600, tooltip 1700}`
+- `breakpoint/{xs320,sm768,md1024,lg1280,xl1440,2xl1920}` · `duration/{instant0,fast160,base240,moderate320,slow400,emphasized480,deliberate600}ms`
+- `font-size/{50:11,75:12,100:14,200:16,300:18,400:20,500:22,600:25,700:28,800:32,900:36,1000:40,1100:45,1200:51,1300:58,1400:65,1500:73,1600:82}`
+- `font-weight/{regular400,medium500,semibold600,bold700}` · `line-height/{tight1.2,snug1.3,relaxed1.5}` · `tracking/{tight -0.02em, normal 0, wide 0.04em}`
+- `font-family/{display:"PP Neue Montreal",Satoshi,"Söhne Breit"; body & reading:"Google Sans","General Sans",Inter; mono:"JetBrains Mono"}`
+- `easing/{standard,enter,exit,emphasized}` · `aspect-ratio/{square,4-3,3-2,16-9,21-9,golden}`
+
+**Semantic (52, `Dark`/`Light`):** `color/bg/*` (16, incl `strong`=neutral/650 Dark · neutral/100 Light), `text/*` (11), `border/*` (5), `feedback/*` (20 = success/warning/danger/info × text/border/surface/solid/on-solid).
+
+**Scales (70, `Value` — aliases):** `space/{3xs..6xl + stack-*/inline-*/inset-*}`, `radius/{xs,control=md,surface=lg,pill=round}`, `border-width/{default1,strong2,heavy4}`, `z/*`, `font-weight/emphasis=semibold`, `icon/{sm,md,lg,xl}`, `state/{hover=op8,focus=op12,pressed=op16,dragged=op24,disabled=op38}`, `size/target-min=space24`, `aspect/*`, `motion/{duration-micro..loop, ease-*}`.
+
+**Type Scale (23, `Mobile`/`Desktop` — aliases a `font-size/*`):** oversize/display/headline/title L·M·S, body XL·L·M·S, label 2XL·XL·L·M·S, code M·S. Cada uno con alias distinto por modo (ej. `title-l` Mobile={500}=22 / Desktop={700}=28). body/label/code son iguales en ambos modos.
+
+**Grid (3, modos base/sm/md/lg/xl/2xl):** `grid-columns` 4/8/8/12/12/12 · `grid-gutter` 16/24/24/32/32/32 · `grid-margin` 16/32/48/48/64/96.
+
+**Text styles** (separados de las variables): Oversize/Display/Headline/Title → PP Neue Montreal Medium; Body → Google Sans Regular; Label → General Sans Medium; Code → JetBrains Mono. `letterSpacing` en **%** → tight=-2% (=-0.02em); Label/S=4% (=0.04em, NO 4px). `lineHeight`: display/headline 120%, title 130%, body/label/code 150%.
+
+> GOTCHA de auditoría: `get_variable_defs` solo ve variables PEGADAS a un nodo. Una extracción previa "por frames" se perdió ~250 variables (todo lo no-color: border-width, icon-size, opacity, z, duration, font-size numéricos, easing, aspect-ratio, scales semánticas, modo Mobile del Type Scale). Auditar SIEMPRE con `getLocalVariablesAsync`.
+
+## 14. Repo de código — `@viu/design-tokens` + `@viu/ui` (`NataliaRS/Viu`, público)
+Repo trabajado en sesiones web de Claude Code (rama `claude/*`). Storybook en vivo: **https://nataliars.github.io/Viu/**
+
+**Tokens (raíz):** `tokens/{primitives,semantic,scales,type-scale,grid}.json` espejan 1:1 las 5 colecciones (§13). `scripts/build-tokens.mjs` (sin deps) resuelve alias y emite `dist/{tokens.css,tokens.json,tokens.js,.d.ts}`. Comando: `npm run build:tokens`.
+- CSS: primitivos + scales + grid en `:root`; Semantic black-first (`:root`=Dark, `[data-theme="light"]`, `prefers-color-scheme`); Type Scale responsive (Mobile en `:root`, Desktop en `@media (min-width:1024px)` — **el disparador 1024px es decisión de código**; Figma cambia el modo por frame, no hay breakpoint oficial). Clases `.viu-type-*`, contenedor `.viu-grid`.
+- Naming CSS: `color/bg/base`→`--color-bg-base`, `space/md`→`--space-md`. Derivados de código (NO son variables Figma): `--font-family-label` (=General Sans, tomado de la text style Label) y `--font-family-code` (=mono).
+
+**Componentes:** `ui/` = paquete `@viu/ui` (React 18 + TS + CSS Modules). Consumen SOLO semantic/scales/type (nunca primitivos/hex). tsup→dist, Vitest, playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada componente: `Componente.tsx` + `.module.css` + `.stories.tsx` + `.figma.tsx` (Code Connect).
+- Hechos (13): Button, Icon, IconButton, Link, Badge, Tag, Status, Pill, Chip, Divider, Avatar, Spinner, Skeleton. Pendiente: resto del registro §2b (design-to-code con `get_design_context`/`get_variable_defs` por nodo).
+- Iconos: SVG stroke a mano (`currentColor`) — el sandbox bloquea descargar assets de Figma; reemplazables por los exportados.
+
+**CI/deploy:** `.github/workflows/deploy-storybook.yml` → build + GitHub Pages en cada push. Pages se habilita 1 vez (Settings→Pages→Source: GitHub Actions). La GitHub App de Claude Code necesita permiso **Contents: write** para pushear.
+
+**Correcciones halladas en la auditoría (ya aplicadas en código):** `bg/strong` Light = neutral/100 (no 200) · `breakpoint/xs`=320 (no 375) · Type Scale es responsive (no solo Desktop) → corrige iniciales de Avatar LG (18px Mobile) · letterSpacing de Figma en % → micro-labels (Badge/Tag/Status/Label-S) usan `tracking/wide`=0.04em (no 4px).
+
 ## Estado actual (junio 2026)
-Tipografía Google Sans (body/reading); Merriweather eliminado (0 nodos). 67 componentes: 27 átomos · 31 moléculas · 9 organismos + 5 patrones. Sections en archivo aparte. Card modular (45 var): Disposición Arriba/Lateral/Abajo, ícono desacoplado, autor al pie, tags, leer más, barra, footer 2 botones, badge que sigue a la imagen. Portada con índice por nivel atómico. Homepage de prueba en `Test · Homepage`. Gaps opcionales: Segmented control, Radio/Checkbox group, Combobox/Autocomplete, Date range picker, Kbd. Átomo Image (15 var: Aspect ratio × Estado) como primitiva de media; thumbnail = Image en ratio chico (no es componente aparte). Video sigue siendo molécula (Video embed `414:7`); su poster puede instanciar Image a futuro.
+**Tokens:** auditados 1:1 contra Figma (331 vars / 5 colecciones, §13) y espejados en código (repo §14); paridad verificada. **Código:** `@viu/design-tokens` (pipeline tokens→CSS) + `@viu/ui` con 13 átomos en Storybook desplegado.
+Tipografía Google Sans (body/reading); Merriweather eliminado (0 nodos). 67 componentes en Figma: 27 átomos · 31 moléculas · 9 organismos + 5 patrones. Sections en archivo aparte. Card modular (45 var): Disposición Arriba/Lateral/Abajo, ícono desacoplado, autor al pie, tags, leer más, barra, footer 2 botones, badge que sigue a la imagen. Portada con índice por nivel atómico. Homepage de prueba en `Test · Homepage`. Gaps opcionales: Segmented control, Radio/Checkbox group, Combobox/Autocomplete, Date range picker, Kbd. Átomo Image (15 var: Aspect ratio × Estado) como primitiva de media; thumbnail = Image en ratio chico (no es componente aparte). Video sigue siendo molécula (Video embed `414:7`); su poster puede instanciar Image a futuro.
