@@ -21,8 +21,22 @@ const meta = {
       donts: ["No lo uses para mensajes efímeros.", "No dependas solo del color del tono."],
     },
   },
-  args: { tone: "info", title: "Título del mensaje", children: "Descripción con el detalle que el usuario necesita para entender y actuar." },
-  argTypes: { tone: { control: "inline-radio", options: tones } },
+  args: { tone: "info", title: "Título del mensaje", children: "Descripción con el detalle que el usuario necesita para entender y actuar.", link: false },
+  argTypes: {
+    tone: { control: "inline-radio", options: tones },
+    // Boolean toggle that maps to the actual link node (override the global slot disable).
+    link: {
+      control: "boolean",
+      mapping: {
+        true: (
+          <Link href="#" style={{ textDecoration: "underline" }}>
+            Más información
+          </Link>
+        ),
+        false: undefined,
+      },
+    },
+  },
   decorators: [(S) => <div style={{ width: 560, maxWidth: "100%" }}>{S()}</div>],
 } satisfies Meta<typeof Banner>;
 
@@ -31,15 +45,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 export const WithLinkAndClose: Story = {
-  args: {
-    tone: "warning",
-    link: (
-      <Link href="#" style={{ textDecoration: "underline" }}>
-        Más información
-      </Link>
-    ),
-    onClose: () => {},
-  },
+  args: { tone: "warning", link: true, onClose: () => {} },
 };
 export const AllTones: Story = {
   parameters: { controls: { disable: true } },
