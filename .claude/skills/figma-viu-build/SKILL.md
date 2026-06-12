@@ -223,7 +223,10 @@ Repo trabajado en sesiones web de Claude Code (rama `claude/*`). Storybook en vi
 
 **Consumir desde JS/TS** (`@viu/design-tokens`): claves con **slash**. `tokens.semantic.{dark,light}["color/bg/base"]` · `tokens.scales["space/md"]` · `tokens.type.{mobile,desktop}["font-size/title-l"]` · `tokens.grid["grid-columns"][mode]`. (El `preview.html` del repo las usa así.)
 
-**CI/deploy:** `.github/workflows/deploy-storybook.yml` → build + GitHub Pages en cada push. Pages se habilita 1 vez (Settings→Pages→Source: GitHub Actions). La GitHub App de Claude Code necesita permiso **Contents: write** para pushear.
+**CI/deploy:** `.github/workflows/deploy-storybook.yml` → build tokens + `build-storybook -w ui` + GitHub Pages. Pages se habilita 1 vez (Settings→Pages→Source: GitHub Actions). La GitHub App de Claude Code necesita permiso **Contents: write** para pushear.
+- **GOTCHA branch-gated (jun-2026):** el deploy dispara SOLO en `push.branches` listadas en el yaml (hoy `claude/kind-wozniak-mzuumz` + `claude/viu-overlays-modal-drawer-c6ujcb`), NO en cada push. Si trabajás en otra rama `claude/*`, el Storybook en vivo (https://nataliars.github.io/Viu/) NO se actualiza hasta: (a) pushear a una rama listada, o (b) agregar tu rama al `branches:` (ese mismo push ya usa el yaml actualizado y dispara). Antes de prometer "ya está en el Storybook", confirmá la rama contra el trigger.
+- `concurrency.group: "pages"` → hay UN solo sitio publicado; si dos ramas deployan casi a la vez, el último gana. Verificar el run con `actions_list`/`actions_get` (la salida de runs es enorme → filtrar con jq por `head_branch`/`status`).
+- **Sesión web efímera:** el container clona limpio → correr `npm install` en la raíz ANTES del gate (si falta `node_modules`, `tsc` falla con "Cannot find type definition file"). `dist/tokens.css` (raíz) lo consume `preview.tsx` vía `../../dist/tokens.css`; si falta, `npm run build:tokens` en la raíz.
 
 **Correcciones halladas en la auditoría (ya aplicadas en código):** `bg/strong` Light = neutral/100 (no 200) · `breakpoint/xs`=320 (no 375) · Type Scale es responsive (no solo Desktop) → corrige iniciales de Avatar LG (18px Mobile) · letterSpacing de Figma en % → micro-labels (Badge/Tag/Status/Label-S) usan `tracking/wide`=0.04em (no 4px).
 
@@ -274,6 +277,13 @@ Aprendido construyendo el Tramo 3. Aplicar a todo lo compuesto:
 
 **Superficies flotantes (Toast/Popover/Menu/Modal):** `bg/elevated` + `border/subtle` + `box-shadow: var(--shadow-overlay)` + `radius/surface`. Capa con `z/*` correspondiente.
 
+**Overlays con foco/scrim (Modal/Drawer/Popover — Tramo 4, aprendido jun-2026):**
+- Hook compartido `src/overlay/useFocusTrap.ts` (NO exportado del index): `useFocusTrap(active, ref, onDismiss, {closeOnEsc})` = foco al primer focusable al abrir + Tab/Shift+Tab cíclico + Esc + restore de foco al disparador. Handlers leídos por `ref` interno y deps `[active, ref]` → NO re-foca en cada render del padre (bug si ponés `onDismiss` en deps con arrow inline). + `useScrollLock(active)` para Modal/Drawer.
+- Modal/Drawer: `createPortal(…, document.body)`, scrim full-bleed con **`var(--alpha-black-72)`** (NO hay token semántico de scrim; el primitivo alpha es la excepción honesta, como font-family/icon-size en §14) en `z/modal`; `role=dialog` + `aria-modal` + `aria-labelledby`(title)/`aria-describedby`(subtitle); dialog `tabIndex=-1`; cierre por scrim con `onMouseDown` + `e.target===e.currentTarget` (no cierra al arrastrar desde adentro).
+- Popover: anclado (NO portal) — `position:relative` root con slot `trigger` + panel `absolute` `z/popover`; non-modal pero reusa el focus-trap; cierre extra por click-outside (`pointerdown` capture, fuera del root). Caret = cuadrado rotado 45° (literal 10px, no hay token de caret). Sin colisión/flip (misma deuda que Tooltip): elige lado por prop `side` (Figma `Posición` Abajo/Arriba), no detecta viewport.
+- Props controladas: Modal/Drawer `open`+`onClose`; Popover `open`+`onOpenChange`. `size` Modal SM/MD/LG = max-width 400/520/680; Drawer `side` right/left, 420px.
+- Tokens confirmados por nodo: scrim `--alpha-black-72` `#0a0a0bb8` · `--shadow-overlay` · `--radius-surface`=12 · `--z-modal`=1400 · `--z-popover`=1500. **`bg/elevated` hoy lee `#2e2e31`** en los nodos (el §2 lista `#1c1c1f` — desactualizado; consumir SIEMPRE el token, no el hex).
+
 **Mensajes con tono (Banner/Toast/…):** mapear tono→glifo con el set de 8 íconos: info/neutral→Info, success→Check, warning/danger→Alert. El set es limitado: si un componente necesita otro glifo, primero agregarlo al átomo Icon (y a Figma), no inventarlo inline.
 
 **Patrones de a11y por tipo:**
@@ -284,7 +294,9 @@ Aprendido construyendo el Tramo 3. Aplicar a todo lo compuesto:
 
 **`Field/*` de Figma (Input/Password/Select/Textarea):** = `FormField` + el control correspondiente. NO crear un componente nuevo salvo que el diseño agregue estructura propia; por defecto, componer `FormField` con `<Input>`/`<Select>`/`<Textarea>` (Password = Input con toggle de visibilidad).
 
-**Verificación obligatoria por batch:** `typecheck` · `test` · `build` (lib) · `figma connect parse` · `build-storybook`. Todo verde antes de commitear.
+**Verificación obligatoria por batch:** `npm install` si el container es nuevo → `typecheck` · `test` · `build` (lib) · `figma connect parse` · `build-storybook`. Todo verde antes de commitear.
+
+**Actualizar el skill es parte de cerrar el batch (regla permanente):** el skill es la fuente de verdad y debe crecer con cada sesión. ANTES (o junto) al commit de un batch, actualizá: (a) "Estado actual" + §14 (qué quedó hecho / pendiente, conteos), (b) la sección de convenciones que toque (§6/§15/§16) con los gotchas nuevos, (c) keys/IDs/tokens si cambiaron. No dejes aprendizajes solo en el chat: si algo causó un rollback, un error de TS, un bug de foco, una sorpresa de CI o una corrección de token, queda escrito acá. Un batch sin update del skill está incompleto.
 
 ## Estado actual (junio 2026)
 **Tokens:** auditados 1:1 contra Figma (331 vars / 5 colecciones, §13) y espejados en código (repo §14); paridad verificada. **Código:** `@viu/design-tokens` (pipeline tokens→CSS) + `@viu/ui` con los **28 átomos completos** en Storybook desplegado, con **chrome de marca + docs estándar (§15)** y Foundations interactivas (copy, contraste WCAG, dark/light). Docs ricos completos en los 28 átomos. **Átomos (28) + Moléculas (31) + Organismos (9) COMPLETOS** (§14 lista). Convenciones de composición en §16. Overlays cerrados (Modal/Drawer/Popover): focus-trap/Esc/scroll-lock compartidos en `src/overlay/`, scrim `alpha/black-72`, `z/modal` y `z/popover`. Próximo: Patrones (5). Deudas: Eye/EyeOff agregados en código → falta sumarlos al Icon de Figma; revisar paridad de radius al re-leer (ej. Search era `radius/control` 8px, no pill — verificar siempre el nodo, no asumir).
