@@ -18,7 +18,17 @@ const preview: Preview = {
     a11y: { context: "#storybook-root" },
     docs: { theme, page: ViuDocs },
     options: {
-      storySort: { order: ["Get started", "Foundations", "Components", "*"] },
+      storySort: {
+        method: "alphabetical",
+        order: [
+          "Get started",
+          "Foundations",
+          ["Tokens", "Colors", "Typography", "Spacing & Radius", "Grid", "Effects"],
+          "Components",
+          ["Atoms", "Molecules", "Organisms", "Patterns"],
+          "*",
+        ],
+      },
     },
   },
   // Slot props are ReactNode — disable their Controls so they don't render the
