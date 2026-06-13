@@ -218,6 +218,14 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     `render`-only) tira TS2322 "args is missing / never". Fix: tipá el meta contra UN miembro concreto
     (`satisfies Meta<SingleSliderProps>` / `Meta<RadioChoiceGroupProps>`) y manejá los otros modos por
     `render`. Si además hay props requeridas, sumá `args` mínimos del miembro elegido.
+  - **Controles usables para componentes con props `ReactNode`/slots (Card, y cualquier rico).** Los
+    Controls de Storybook NO saben renderizar props `ReactNode` (aparecen como objetos inertes → no se
+    pueden ver/togglear en el panel "Propiedades" de ViuDocs). Patrón (jun-2026, Card): definí una
+    interface de args "demo" con primitivas — booleanos para mostrar/quitar cada parte, `text` para el
+    copy, `inline-radio` para variantes — tipá `satisfies Meta<CardDemoArgs>` (SIN `component`, para que
+    docgen no reinyecte los controles `ReactNode`; ViuDocs no necesita `component`, usa `useOf("meta")`)
+    y mapeá los args a las props reales en `render` (texto vacío `|| undefined` = quita esa parte).
+    Espeja el modelo de props de Figma (booleanos + texto + variantes). Mantené `tags:["autodocs"]`.
   - `cx(..., cond && clase)` con `cond: ReactNode` rompe (puede ser null/0). Usá `cond ? clase :
     false`.
   - Merge de refs: `useRef<T | null>(null)` (mutable) y `(ref as any).current = node` para forwardear.
