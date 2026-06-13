@@ -9,8 +9,17 @@ import styles from "./Card.module.css";
 export type CardSurface = "elevated" | "outlined" | "filled";
 /** Media on top (`Arriba`), beside (`Lateral`) or at the bottom (`Abajo`). */
 export type CardOrientation = "vertical" | "horizontal" | "media-bottom";
-/** Title size — one of the system's title type-scale steps. */
-export type CardTitleSize = "title-s" | "title-m" | "title-l";
+/** Title size — any heading step of the system type scale (title → headline → display). */
+export type CardTitleSize =
+  | "title-s"
+  | "title-m"
+  | "title-l"
+  | "headline-s"
+  | "headline-m"
+  | "headline-l"
+  | "display-s"
+  | "display-m"
+  | "display-l";
 
 export interface CardAuthor {
   name: ReactNode;
