@@ -31,10 +31,14 @@ interface CardDemoArgs {
   primaryAction: boolean;
   secondaryAction: boolean;
   showAuthor: boolean;
+  showEyebrow: boolean;
   eyebrow: string;
+  showTitle: boolean;
   title: string;
   titleSize: CardTitleSize;
+  showSubtitle: boolean;
   subtitle: string;
+  showBody: boolean;
   body: string;
 }
 
@@ -58,12 +62,12 @@ const renderCard = (a: CardDemoArgs) => (
     badge={a.badge ? <Badge>Etiqueta</Badge> : undefined}
     icon={a.showIcon ? <Icon glyph="Info" size={24} /> : undefined}
     tags={a.tags ? sampleTags : undefined}
-    eyebrow={a.eyebrow || undefined}
-    title={a.title || undefined}
+    eyebrow={a.showEyebrow ? a.eyebrow || undefined : undefined}
+    title={a.showTitle ? a.title || undefined : undefined}
     titleSize={a.titleSize}
-    subtitle={a.subtitle || undefined}
+    subtitle={a.showSubtitle ? a.subtitle || undefined : undefined}
     action={a.showAction ? <Icon glyph="Plus" size={20} /> : undefined}
-    body={a.body || undefined}
+    body={a.showBody ? a.body || undefined : undefined}
     link={a.showLink ? <Link href="#">Leer más</Link> : undefined}
     primaryAction={a.primaryAction ? <Button variant="primary" size="sm">Aplicar</Button> : undefined}
     secondaryAction={a.secondaryAction ? <Button variant="secondary" size="sm">Después</Button> : undefined}
@@ -92,10 +96,14 @@ const meta = {
     primaryAction: true,
     secondaryAction: true,
     showAuthor: true,
+    showEyebrow: true,
     eyebrow: "Categoría",
+    showTitle: true,
     title: "Título de la card",
     titleSize: "title-s",
+    showSubtitle: true,
     subtitle: "Subtítulo o metadato",
+    showBody: true,
     body: "Texto de cuerpo de la card: una descripción breve que da contexto al contenido y guía la siguiente acción.",
   },
   argTypes: {
@@ -114,18 +122,23 @@ const meta = {
     primaryAction: { type: { name: "boolean" }, control: "boolean", description: "Botón primario del footer.", table: { category: "Estructura" } },
     secondaryAction: { type: { name: "boolean" }, control: "boolean", description: "Botón secundario del footer.", table: { category: "Estructura" } },
     showAuthor: { type: { name: "boolean" }, control: "boolean", description: "Bloque de autor (avatar + nombre + meta) tras un divisor.", table: { category: "Estructura" } },
-    eyebrow: { type: { name: "string" }, control: "text", description: "Kicker sobre el título. Vaciá el campo para quitarlo.", table: { category: "Texto" } },
-    title: { type: { name: "string" }, control: "text", description: "Título. Vaciá para quitarlo.", table: { category: "Texto" } },
+    showEyebrow: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el eyebrow (kicker sobre el título).", table: { category: "Texto" } },
+    eyebrow: { type: { name: "string" }, control: "text", description: "Texto del eyebrow.", table: { category: "Texto" } },
+    showTitle: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el título.", table: { category: "Texto" } },
+    title: { type: { name: "string" }, control: "text", description: "Texto del título.", table: { category: "Texto" } },
     titleSize: { type: { name: "enum", value: ["title-s", "title-m", "title-l", "headline-s", "headline-m", "headline-l", "display-s", "display-m", "display-l", "oversize-s", "oversize-m", "oversize-l"] }, control: "select", options: ["title-s", "title-m", "title-l", "headline-s", "headline-m", "headline-l", "display-s", "display-m", "display-l", "oversize-s", "oversize-m", "oversize-l"], description: "Tamaño del título según la escala tipográfica del sistema (title → headline → display → oversize).", table: { category: "Texto" } },
-    subtitle: { type: { name: "string" }, control: "text", description: "Subtítulo / metadato. Vaciá para quitarlo.", table: { category: "Texto" } },
-    body: { type: { name: "string" }, control: "text", description: "Texto de cuerpo. Vaciá para quitarlo.", table: { category: "Texto" } },
+    showSubtitle: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el subtítulo / metadato.", table: { category: "Texto" } },
+    subtitle: { type: { name: "string" }, control: "text", description: "Texto del subtítulo / metadato.", table: { category: "Texto" } },
+    showBody: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el cuerpo.", table: { category: "Texto" } },
+    body: { type: { name: "string" }, control: "text", description: "Texto de cuerpo.", table: { category: "Texto" } },
   },
   parameters: {
     controls: {
       include: [
         "surface", "orientation", "selected", "disabled", "interactive", "accent",
         "media", "badge", "showIcon", "tags", "showAction", "showLink", "primaryAction",
-        "secondaryAction", "showAuthor", "eyebrow", "title", "titleSize", "subtitle", "body",
+        "secondaryAction", "showAuthor", "showEyebrow", "eyebrow", "showTitle", "title",
+        "titleSize", "showSubtitle", "subtitle", "showBody", "body",
       ],
     },
     viu: {
