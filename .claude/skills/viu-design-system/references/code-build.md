@@ -255,6 +255,14 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     *(Historia: diagnostiqué mal 2 veces antes de hallar §4 — primero "docgen deshabilita ReactNode"
     [falso: media/badge andaban], luego "sacar component" [rompió el binding] y "name override" [colapsó
     el panel]. El verdadero culpable era el disable global del preview.)*
+    7. **ROLLOUT COMPLETO (jun-2026): los 14 ricos de Tier 1 tienen este playground** — Card, Banner,
+       Toast, EmptyState, ListItem, MenuItem, NavItem, AccordionItem, PageHeader, Dropzone, FileRow,
+       Chip, Modal, Drawer, Popover. Props `children`/`title` REQUERIDAS se incluyen en los demo-args
+       (con `name:"label"`/`"body"` opcional para etiqueta linda — seguro porque no chocan con otra prop).
+    8. **Overlays (Modal/Drawer/Popover):** portan a `<body>` con scrim → NO renderizar abiertos en
+       Docs (taparían la página). El `render` usa un trigger + `useState` para abrir; `open` (y el
+       `trigger` de Popover) se incluyen en los demo-args para satisfacer las props requeridas pero van
+       **state-driven/fijos y excluidos de `controls.include`**.
   - `cx(..., cond && clase)` con `cond: ReactNode` rompe (puede ser null/0). Usá `cond ? clase :
     false`.
   - Merge de refs: `useRef<T | null>(null)` (mutable) y `(ref as any).current = node` para forwardear.
