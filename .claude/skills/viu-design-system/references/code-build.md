@@ -218,27 +218,34 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     `render`-only) tira TS2322 "args is missing / never". Fix: tipá el meta contra UN miembro concreto
     (`satisfies Meta<SingleSliderProps>` / `Meta<RadioChoiceGroupProps>`) y manejá los otros modos por
     `render`. Si además hay props requeridas, sumá `args` mínimos del miembro elegido.
-  - **Controles usables para componentes con props `ReactNode`/slots (Card, y cualquier rico).** Los
-    Controls de Storybook NO saben renderizar props `ReactNode` (aparecen como objetos inertes → no se
-    pueden ver/togglear en el panel "Propiedades" de ViuDocs). Patrón (jun-2026, Card): definí una
-    interface de args "demo" con primitivas — booleanos para mostrar/quitar cada parte, `text` para el
-    copy, `inline-radio` para variantes — `satisfies Meta<CardDemoArgs>` y mapeá los args a las props
-    reales en `render` (texto vacío `|| undefined` = quita esa parte). Espeja el modelo de props de
-    Figma (booleanos + texto + variantes). **CLAVES (corregido jun-2026 — sacar `component` ROMPE el
-    binding: los controles no manejaban el render):** (1) MANTENÉ `component: C` + `render` + `args`
-    (es el wiring estándar que ViuDocs `<Controls/>` necesita; Card sin `component` no actualizaba).
-    (2) Para que `satisfies Meta<DemoArgs>` acepte `component: C`, los args demo deben ser asignables a
-    las props del componente → renombrá los toggles que choquen de tipo (ej. `author:boolean` vs prop
-    `author:CardAuthor` → usá `showAuthor`); `boolean`/`string` SÍ son asignables a `ReactNode`, esos no
-    chocan. (3) `parameters.controls.include:[...]` lista solo los args amigables, para ocultar las
-    props `ReactNode` que docgen reinyecta. Mantené `tags:["autodocs"]`.
-    **(4) CRÍTICO (corregido jun-2026, 2º intento): DESACOPLÁ los nombres de los args de los de las
-    props.** Si el arg demo se llama igual que una prop `ReactNode` (`icon`, `link`, `media`…), docgen
-    le pega el tipo `ReactNode` y Storybook DESHABILITA el control aunque pongas `control:"boolean"`
-    (pasó: `icon`/`link` salían sin toggle). Usá keys `show*` / `*Text` (ej. `showIcon`, `eyebrowText`)
-    + `name:"icon"` en el argType para la etiqueta linda; el `render` mapea `showIcon` → `icon`. Los
-    args primitivos (surface/orientation/selected/disabled/interactive) sí pueden conservar el nombre
-    de la prop (docgen los infiere como boolean/select y el control funciona).
+  - **Controles usables para componentes con props `ReactNode`/slots (Card, y cualquier rico) —
+    RESUELTO Y VERIFICADO jun-2026.** Los Controls de Storybook no editan props `ReactNode` (slots):
+    para poder mostrar/quitar cada parte desde el panel "Propiedades", se define una interface de args
+    "demo" con primitivas (booleanos toggle + `text` para copy + `inline-radio` para variantes) y se
+    mapean a las props reales en `render` (texto vacío `|| undefined` = quita esa parte). Receta que
+    FUNCIONA:
+    1. `satisfies Meta<DemoArgs>` + **MANTENÉ `component: C`** + `render` + `args`. (Sin `component`,
+       ViuDocs `<Controls/>` no se engancha al `<Primary/>` → los controles no actualizan el render.)
+    2. Para que `Meta<DemoArgs>` acepte `component: C`, los args demo deben ser asignables a las props
+       → si un toggle choca de TIPO con su prop (ej. prop `author: CardAuthor` vs arg boolean), usá una
+       key distinta (`showAuthor`). `boolean`/`string` SÍ son asignables a `ReactNode`, esos no chocan.
+    3. `parameters.controls.include:[...]` lista solo los args demo.
+    4. **CAUSA RAÍZ del bug "icon/link/action no tienen toggle" (verificada): `.storybook/preview.tsx`
+       desactiva GLOBALMENTE el control de los args llamados `icon`, `link`, `action`, `avatar`,
+       `leadingIcon`, `trailingIcon`** (`argTypes: { icon: { control: false }, … }` — puesto para que
+       esos slots no muestren el "objeto React" feo en TODOS los componentes). Ese disable global gana
+       sobre el `control:"boolean"` del story. → Para un playground con toggles de esos slots, **usá una
+       key que NO esté en esa lista** (`showIcon`/`showLink`/`showAction`) y el `render` mapea
+       `showIcon → icon`. NO toques el `preview.tsx` global (lo necesitan los otros componentes).
+    5. **NO uses `name:"icon"` (etiqueta linda) en esos args:** duplica el display-name contra el
+       argType que docgen ya generó para la prop real → colapsa/oculta controles. Dejá la etiqueta
+       como la key (`showIcon`). Trade-off aceptado: etiqueta `showIcon` en vez de `icon`.
+    6. Las demás props (las que NO están en la lista global de §4 ni chocan de tipo) conservan su
+       nombre real y funcionan (media, badge, tags, title, subtitle, body, primaryAction…). Mantené
+       `tags:["autodocs"]`.
+    *(Historia: diagnostiqué mal 2 veces antes de hallar §4 — primero "docgen deshabilita ReactNode"
+    [falso: media/badge andaban], luego "sacar component" [rompió el binding] y "name override" [colapsó
+    el panel]. El verdadero culpable era el disable global del preview.)*
   - `cx(..., cond && clase)` con `cond: ReactNode` rompe (puede ser null/0). Usá `cond ? clase :
     false`.
   - Merge de refs: `useRef<T | null>(null)` (mutable) y `(ref as any).current = node` para forwardear.
