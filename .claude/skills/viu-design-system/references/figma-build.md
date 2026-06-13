@@ -299,10 +299,11 @@ global: `page.backgrounds` `#1A1A1A`; cada frame de Doc stroke 1px border/subtle
 Layout ABSOLUTO: logo VIU+punto, eyebrow crimson, título, descripción, Índice `31:421`, _Footer.
 Índice por nivel atómico (**ÁTOMOS·29** / MOLÉCULAS·35 / ORGANISMOS·9 / PATRONES·4): por bloque,
 rótulo crimson (Label/S, reusar el estilo/fill existente) + párrafo con nombres separados por " · ".
-*(corregido jun-2026: la portada listaba ÁTOMOS·26; el conteo real por enumeración es 29.)* ⚠️
-PENDIENTE: el índice de la portada en Figma debe sumar las entradas nuevas — Kbd (átomos), y
-Segmented control / Choice group / Combobox / Date range picker (moléculas) — y reflejar 29/35.
-Verificar/actualizar en Figma. Cuidado con el gotcha de §5 en los
+*(corregido jun-2026: la portada listaba ÁTOMOS·26; el conteo real por enumeración es 29.)* ✅
+ACTUALIZADO Y VERIFICADO (jun-2026): el índice ya lista las 5 entradas nuevas — Kbd (átomos), y
+Segmented control / Choice group / Combobox / Date range picker (moléculas) — y refleja 29/35. El
+bloque de moléculas colapsa "Field (Input/Password/Textarea)" en un label = 3 componentes (por eso
+33 labels = 35). Cuidado con el gotcha de §5 en los
 bloques (poner AUTO tras poblar, o clipea). Las Sections NO van (archivo aparte). La página `Marketing
 · LinkedIn` (collateral) tampoco va en el índice atómico.
 
