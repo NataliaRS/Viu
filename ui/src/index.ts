@@ -32,6 +32,8 @@ export type {
 } from "./ChoiceGroup/ChoiceGroup";
 export { Combobox } from "./Combobox/Combobox";
 export type { ComboboxProps, ComboboxOption } from "./Combobox/Combobox";
+export { DateRangePicker } from "./DateRangePicker/DateRangePicker";
+export type { DateRangePickerProps, DateRange } from "./DateRangePicker/DateRangePicker";
 
 export { Status } from "./Status/Status";
 export type { StatusProps, StatusKind } from "./Status/Status";

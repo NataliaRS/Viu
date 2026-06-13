@@ -128,11 +128,11 @@ quedó atrás. Este lo absorbe entero.
   removido (jun-2026). Card modular SET(45). Portada con índice por nivel atómico (⚠️ falta sumarle
   las 5 entradas nuevas en Figma — figma-build §7b). Sections en archivo aparte; `Marketing · LinkedIn`
   fuera del índice. Sandbox de pruebas: `zmTSs2J5H3EIkItlF85rfc`.
-- **Código (`NataliaRS/Viu`, rama `claude/viu-design-system`):** **29 átomos + 34 moléculas + 9
-  organismos + 4 patrones** en `@viu/ui`, Storybook en vivo (https://nataliars.github.io/Viu/) con
-  chrome de marca, ViuDocs y Foundations interactivas. **C1 design-to-code en curso (4/5):** ✅ Kbd
-  + ✅ SegmentedControl + ✅ ChoiceGroup + ✅ Combobox portados; Figma va 1 adelante (falta Date range
-  picker).
+- **Código (`NataliaRS/Viu`, rama `claude/viu-design-system`):** **29 átomos + 35 moléculas + 9
+  organismos + 4 patrones = 73 componentes** en `@viu/ui`, Storybook en vivo
+  (https://nataliars.github.io/Viu/) con chrome de marca, ViuDocs y Foundations interactivas.
+  **C1 design-to-code COMPLETO (5/5):** ✅ Kbd + ✅ SegmentedControl + ✅ ChoiceGroup + ✅ Combobox +
+  ✅ DateRangePicker portados. **Paridad Figma↔código restaurada** (29/35/9 en ambos lados).
 - **A11y:** 0 fallas WCAG reales; `success-solid` = green-700; contraste de borde = excepción
   documentada (1.4.11). Cuatro gates limpios — `token-usage · ghost-check · lint-literals ·
   contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
@@ -163,7 +163,8 @@ quedó atrás. Este lo absorbe entero.
   (Radio/Checkbox) `728:35` · Combobox `730:40` · Date range picker `732:120` · Kbd `721:7`. Se
   siguió el proceso decidido (PRIMERO en Figma, fuente de verdad). Reuso estricto aplicado
   (figma-build §14): Combobox→Search+Menu item; Choice group→Radio+Checkbox; Date range
-  picker→Datepicker ×2. **Design-to-code a `@viu/ui` EN CURSO (4/5):** ✅ Kbd (átomo, `<kbd>` mono) +
-  ✅ SegmentedControl (radiogroup, thumb activo elevado) + ✅ ChoiceGroup (fieldset+legend reusando
-  Radio/Checkbox) + ✅ Combobox (reusa Search/MenuItem, patrón WAI-ARIA combobox+listbox) portados con
-  gate completo + tests. Falta Date range picker (reusa Datepicker ×2 + calendario de rango custom).
+  picker→Datepicker ×2. **Design-to-code a `@viu/ui` COMPLETO (5/5, jun-2026):** ✅ Kbd + ✅
+  SegmentedControl + ✅ ChoiceGroup + ✅ Combobox + ✅ DateRangePicker, todos con gate completo + tests
+  (38 tests en total). El DateRangePicker usa calendario de rango CUSTOM con campos read-only
+  (divergencia honesta: el Datepicker nativo abriría el picker del SO — ver code-build §14). **C1
+  cerrado; paridad Figma↔código restaurada (73 componentes ambos lados).**

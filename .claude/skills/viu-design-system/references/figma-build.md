@@ -162,8 +162,8 @@ todos los tipos de campo.) En CÓDIGO sí son componentes de layout reusables (v
 > **Total Figma (jun-2026, por enumeración de `figma.root.children`): 29 átomos + 35 moléculas + 9
 > organismos = 73 componentes + 4 patrones (frames, sin nodo). Todos publicables (unused-props = []).**
 > *(Crecimiento jun-2026: +Kbd átomo; +Segmented control / Choice group / Combobox / Date range picker
-> moléculas — los 5 gaps de C1. El CÓDIGO `@viu/ui` aún NO los tiene → Figma va 5 componentes adelante;
-> design-to-code pendiente, ver code-build §14.)*
+> moléculas — los 5 gaps de C1. **Design-to-code a `@viu/ui` COMPLETO (jun-2026): los 5 ya están en
+> código → paridad Figma↔código 73=73 restaurada**, ver code-build §14.)*
 
 ## 3. Cargar fuentes (siempre, antes de `characters`/`textAutoResize`)
 ```js

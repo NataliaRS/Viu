@@ -1,0 +1,184 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+/* ---- fields ---- */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.fieldWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+.fieldLabel {
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-tertiary);
+}
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 280px;
+  height: 40px;
+  padding-inline: var(--space-md);
+  background: var(--color-bg-subtle);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  text-align: left;
+  transition-property: border-color, background-color;
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-ease-standard);
+}
+.field:focus-visible {
+  outline: var(--border-width-strong) solid var(--color-border-focus);
+  outline-offset: var(--space-3xs);
+}
+.field:disabled {
+  background: var(--color-bg-disabled);
+  border-color: var(--color-border-subtle);
+  cursor: not-allowed;
+}
+.value,
+.placeholder {
+  flex: 1 1 0;
+  min-width: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-m);
+  line-height: var(--line-height-relaxed);
+}
+.value {
+  color: var(--color-text-primary);
+}
+.placeholder {
+  color: var(--color-text-tertiary);
+}
+.fieldIcon {
+  flex: none;
+  color: var(--color-text-secondary);
+  transform: rotate(90deg);
+}
+
+/* ---- calendar popover ---- */
+.calendar {
+  position: absolute;
+  top: calc(100% + var(--space-2xs));
+  left: 0;
+  z-index: var(--z-dropdown);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  background: var(--color-bg-elevated);
+  border: var(--border-width-default) solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-overlay);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-micro) var(--motion-ease-standard);
+}
+.nav:hover {
+  background: var(--color-bg-hover);
+}
+.nav:focus-visible {
+  outline: var(--border-width-strong) solid var(--color-border-focus);
+  outline-offset: var(--space-3xs);
+}
+.prev {
+  transform: rotate(180deg);
+}
+.month {
+  flex: 1 1 0;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+
+.weekdays,
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 34px);
+  gap: var(--space-3xs);
+}
+.weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-s);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-tertiary);
+}
+
+.day,
+.blank {
+  width: 34px;
+  height: 34px;
+}
+.day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-s);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-micro) var(--motion-ease-standard);
+}
+.day:hover {
+  background: var(--color-bg-hover);
+}
+.day:focus-visible {
+  outline: var(--border-width-strong) solid var(--color-border-focus);
+  outline-offset: calc(-1 * var(--border-width-default));
+}
+/* in-range: brand-subtle band (square), endpoints: brand circle */
+.inRange {
+  background: var(--color-bg-brand-subtle);
+  border-radius: 0;
+  color: var(--color-text-primary);
+}
+.inRange:hover {
+  background: var(--color-bg-brand-subtle);
+}
+.endpoint,
+.endpoint:hover {
+  background: var(--color-bg-brand);
+  color: var(--color-text-on-brand);
+}

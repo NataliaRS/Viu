@@ -21,14 +21,15 @@ colecciones (`figma-build.md` §13). `scripts/build-tokens.mjs` (sin deps) resue
 playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada componente:
 `Componente.tsx` + `.module.css` + `.stories.tsx` + `.figma.tsx` (Code Connect).
 
-**Hechos: 29 átomos + 34 moléculas + 9 organismos + 4 patrones** *(jun-2026: +Kbd átomo,
-+SegmentedControl +ChoiceGroup +Combobox moléculas — C1 design-to-code en curso, 4/5).*
+**Hechos: 29 átomos + 35 moléculas + 9 organismos + 4 patrones = 73 componentes** *(jun-2026: C1
+design-to-code COMPLETO 5/5 — +Kbd átomo; +SegmentedControl +ChoiceGroup +Combobox +DateRangePicker
+moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
 - **Átomos (29):** Icon (10 glifos, +Visibility/VisibilityOff), IconButton, Button, Badge, Link, Tag, Status, Pill,
   Chip, Notification badge, Avatar, Divider, Progress, Tooltip, Checkbox, Radio, Switch, Slider,
   Input, Skeleton, Spinner, Select, Step, Textarea, Tab, Rating, Image, Icon container, **Kbd**
   (`<kbd>`, JetBrains Mono; sombra inferior literal `0 1px 0 rgba(0,0,0,.45)` + `min-width:26px` =
   excepciones honestas del keycap, sin token).
-- **Moléculas (29 componentes + 3 recetas Field):** FormField, Search, Tabs, Breadcrumb, Banner,
+- **Moléculas (30 componentes + 3 recetas Field):** FormField, Search, Tabs, Breadcrumb, Banner,
   Toast, Pagination, Nav, NavItem, Accordion, AccordionItem, List, ListItem, AvatarGroup, Stepper,
   Menu, MenuItem, Dropzone, FileRow, PasswordInput, TableRow, TreeItem, Toolbar, Quote, RichText,
   VideoEmbed, TimePicker, Datepicker, **SegmentedControl** (radiogroup sobre radios nativos; thumb
@@ -37,8 +38,14 @@ playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada co
   unión discriminada radio→`value:string` / checkbox→`value:string[]`; helper vía aria-describedby),
   **Combobox** (reusa Search+MenuItem; patrón WAI-ARIA combobox+listbox: foco en el input,
   aria-activedescendant, ↑↓/Enter/Esc, filtrado, click-outside; opción activa = bg/hover por inline
-  style para ganarle al `:hover` de MenuItem de forma robusta). Field/Input·Select·Textarea = recetas
-  FormField+control (story `Fields`).
+  style para ganarle al `:hover` de MenuItem de forma robusta), **DateRangePicker** (campos
+  Desde/Hasta + calendario de rango CUSTOM: extremos círculo bg/brand, intermedios banda
+  bg/brand-subtle, semana lunes-primero ES, selección 2 clics, Date math sin libs. **Divergencia vs
+  Figma honesta:** Figma reusa el visual del Datepicker para los campos, pero el Datepicker de código
+  abre el picker nativo del SO → chocaría con el calendario custom; por eso los campos son triggers
+  read-only y el calendario es el único selector. No hay glifo de calendario en el Icon set → el
+  afford es el Chevron estándar de los fields). Field/Input·Select·Textarea = recetas FormField+control
+  (story `Fields`).
 - **Organismos (9):** Card, EmptyState, PageHeader, Footer, Table, TreeView, Modal, Drawer, Popover.
   Overlays comparten `src/overlay/useFocusTrap.ts` (foco atrapado + Esc + restore) y `useScrollLock`;
   Modal/Drawer van por `createPortal` con scrim `alpha/black-72` en `z/modal`; Popover es anclado
@@ -52,10 +59,9 @@ playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada co
 `onValueChange([lo,hi])`, clamping lo≤hi, dos `<input type=range>` superpuestos (thumbs grabbables por
 z-index dinámico). ~~Tooltip/Popover sin colisión/flip~~ → **RESUELTO (B5, jun-2026):** hook compartido
 `src/overlay/useFlipSide.ts` voltea al lado opuesto cuando el preferido se sale del viewport (Tooltip
-mide en hover/focus; Popover en open + scroll/resize). **C1 design-to-code EN CURSO (jun-2026, 4/5):** ✅ Kbd `721:7` + ✅ SegmentedControl `724:28` +
-✅ ChoiceGroup `728:35` + ✅ Combobox `730:40` portados a `@viu/ui`. Falta: Date range picker
-`732:120` (reusa Datepicker ×2 + calendario de rango custom — el más complejo) — detalle/IDs en
-figma-build §2b/§14. **Icon container — Code
+mide en hover/focus; Popover en open + scroll/resize). **C1 design-to-code COMPLETO (jun-2026, 5/5):** ✅ Kbd `721:7` + ✅ SegmentedControl `724:28` +
+✅ ChoiceGroup `728:35` + ✅ Combobox `730:40` + ✅ DateRangePicker `732:120` portados a `@viu/ui`.
+**Paridad Figma↔código restaurada** (29 átomos / 35 moléculas / 9 organismos en ambos lados). **Icon container — Code
 Connect creado (jun-2026, B3, `.figma.tsx` → nodo `574:150`).
 Gap de paridad PENDIENTE:** el nodo Figma tiene 3 ejes (Size × `style` Filled/Stroke × `tone`
 Brand/Neutral/Inverse/Danger/Warning/Success/Info/Disable = 48 variantes), pero el componente de
