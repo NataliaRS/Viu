@@ -1,6 +1,6 @@
 .toast {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Figma: ícono y cierre al tope (counterAxis MIN), no centrados */
   gap: var(--space-sm);
   width: 380px;
   max-width: 100%;
