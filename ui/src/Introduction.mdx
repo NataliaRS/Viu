@@ -15,8 +15,10 @@ import { Meta } from "@storybook/blocks";
   </div>
   <h1 className="viu-type-display-s" style={{ margin: 0, color: "var(--color-text-primary)" }}>Design System</h1>
   <p className="viu-type-body-l" style={{ color: "var(--color-text-secondary)", maxWidth: "60ch", marginTop: "var(--space-sm)" }}>
-    Sistema de diseño <strong>black-first</strong>, acento crimson <code>#B5262E</code>, secundario índigo.
-    Tokens con paridad 1:1 con Figma, y componentes React construidos sobre ellos.
+    Sistema de diseño <strong>black-first</strong> de VIU: premium y editorial, con la autoridad de
+    casi 20 años de práctica. Un acento crimson <code>#B5262E</code>, un índigo frío que lo apoya sin
+    competir, y una regla que manda sobre las demás — <strong>ante la duda, se quita</strong>. Diseño
+    y código, una sola fuente.
   </p>
 </div>
 
@@ -24,11 +26,26 @@ import { Meta } from "@storybook/blocks";
 
 VIU es la **fuente única de verdad** del producto: tokens (primitivos → semánticos → temas)
 y una biblioteca de componentes que los consumen. Lo que ves acá se genera desde las mismas
-variables que viven en Figma, así que **diseño y código no se desincronizan**.
+variables que viven en Figma, así que **diseño y código no se desincronizan**. No es un catálogo de
+piezas sueltas: es un criterio compartido para construir con la misma voz.
 
 - **Foundations** — colores, tipografía, espaciado, radios, efectos y grid, leídos de los tokens.
-- **Components** — átomos (y, próximamente, moléculas, organismos y patrones), cada uno con sus
-  variantes, estados y mapeo a Figma vía Code Connect.
+- **Components** — un sistema de átomos, moléculas, organismos y patrones, cada uno con sus
+  variantes, estados, accesibilidad verificada y mapeo a Figma vía Code Connect.
+
+## Principios que lo gobiernan
+
+Cinco reglas, en voz propia, detrás de cada decisión del sistema.
+
+- **El sistema desaparece.** La mejor interfaz no se nota: lógica clara y cero fricción. Si una pieza
+  llama la atención sobre sí misma, sobra.
+- **Autoridad, no novedad.** Calidad editorial y contención antes que adorno o tendencia; nada lee
+  como tentativo.
+- **Cada elemento comunica — o se quita.** Retícula, jerarquía y un solo acento por superficie.
+- **Accesible y humana, sin excepción.** WCAG 2.2 AA verificado con números (4.5:1 texto, 3:1
+  grande/UI), foco siempre visible, estado por color + información. Es piso, no un extra.
+- **Específica, nunca genérica.** Si una decisión podría aparecer igual en cualquier otro sistema, se
+  replantea.
 
 ## Instalación y uso
 
