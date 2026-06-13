@@ -1,16 +1,82 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Drawer } from "./Drawer";
+import { Drawer, type DrawerSide } from "./Drawer";
 import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
 import { Textarea } from "../Textarea/Textarea";
 import { FormField } from "../FormField/FormField";
 
+/**
+ * Friendly playground controls (Card pattern). Opened via a trigger (portals to
+ * <body>); `open` satisfies the required prop but is state-driven and excluded from
+ * the controls panel.
+ */
+interface DrawerDemoArgs {
+  open: boolean;
+  side: DrawerSide;
+  title: string;
+  showClose: boolean;
+  showFooter: boolean;
+  body: string;
+}
+
+const editFooter = (
+  <>
+    <Button variant="secondary">Cancelar</Button>
+    <Button variant="primary">Guardar cambios</Button>
+  </>
+);
+
+const editBody = (
+  <>
+    <FormField label="Nombre" htmlFor="drawer-name">
+      <Input id="drawer-name" defaultValue="Rediseño 2026" />
+    </FormField>
+    <FormField label="Descripción" htmlFor="drawer-desc">
+      <Textarea id="drawer-desc" defaultValue="Rework del onboarding y la home." />
+    </FormField>
+  </>
+);
+
 const meta = {
   title: "Components/Organisms/Drawer",
   component: Drawer,
   tags: ["autodocs"],
+  render: (a: DrawerDemoArgs) => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Abrir drawer</Button>
+        <Drawer
+          open={open}
+          onClose={() => setOpen(false)}
+          side={a.side}
+          title={a.title}
+          showClose={a.showClose}
+          footer={a.showFooter ? editFooter : undefined}
+        >
+          {a.body}
+        </Drawer>
+      </>
+    );
+  },
+  args: {
+    open: true,
+    side: "right",
+    title: "Editar proyecto",
+    showClose: true,
+    showFooter: true,
+    body: "Contenido del panel: formularios, detalle o filtros que no justifican una página entera.",
+  },
+  argTypes: {
+    side: { type: { name: "enum", value: ["right", "left"] }, control: "inline-radio", options: ["right", "left"], description: "Lado de entrada.", table: { category: "Variante" } },
+    title: { type: { name: "string" }, control: "text", description: "Título del panel.", table: { category: "Texto" } },
+    body: { type: { name: "string" }, control: "text", description: "Contenido del cuerpo.", table: { category: "Texto" } },
+    showClose: { type: { name: "boolean" }, control: "boolean", description: "Botón de cierre.", table: { category: "Estructura" } },
+    showFooter: { type: { name: "boolean" }, control: "boolean", description: "Footer con acciones.", table: { category: "Estructura" } },
+  },
   parameters: {
+    controls: { include: ["side", "title", "body", "showClose", "showFooter"] },
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=227-53",
@@ -40,68 +106,26 @@ const meta = {
         "Esc cierra; el foco vuelve al disparador.",
         "El botón cerrar tiene aria-label; el scrim cierra al clickear.",
       ],
-      dos: [
-        "Título que nombre la tarea.",
-        "Acciones persistentes en el footer (guardar / cancelar).",
-        "Permití scroll del body sin perder header/footer.",
-      ],
-      donts: [
-        "No metas flujos de varios pasos sin progreso visible.",
-        "No quites la salida (Esc + cerrar + scrim).",
-        "No lo uses para mensajes efímeros.",
-      ],
+      dos: ["Título que nombre la tarea.", "Acciones persistentes en el footer (guardar / cancelar).", "Permití scroll del body sin perder header/footer."],
+      donts: ["No metas flujos de varios pasos sin progreso visible.", "No quites la salida (Esc + cerrar + scrim).", "No lo uses para mensajes efímeros."],
     },
   },
-  args: {
-    open: true,
-    side: "right",
-    title: "Editar proyecto",
-    showClose: true,
-  },
-  argTypes: {
-    side: { control: "inline-radio", options: ["right", "left"] },
-    footer: { control: false },
-  },
-} satisfies Meta<typeof Drawer>;
+} satisfies Meta<DrawerDemoArgs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const editFooter = (
-  <>
-    <Button variant="secondary">Cancelar</Button>
-    <Button variant="primary">Guardar cambios</Button>
-  </>
-);
+export const Playground: Story = {};
 
-const editBody = (
-  <>
-    <FormField label="Nombre" htmlFor="drawer-name">
-      <Input id="drawer-name" defaultValue="Rediseño 2026" />
-    </FormField>
-    <FormField label="Descripción" htmlFor="drawer-desc">
-      <Textarea id="drawer-desc" defaultValue="Rework del onboarding y la home." />
-    </FormField>
-  </>
-);
-
-/** Open/close driven by a trigger, with focus return on close. */
-export const Playground: Story = {
-  args: { children: editBody, footer: editFooter },
-  render: (args) => {
-    const [open, setOpen] = useState(false);
+/** A form inside the body, sliding in from the left. */
+export const FromLeft: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => {
+    const [open, setOpen] = useState(true);
     return (
-      <>
-        <Button onClick={() => setOpen(true)}>Editar proyecto</Button>
-        <Drawer {...args} open={open} onClose={() => setOpen(false)} footer={editFooter}>
-          {editBody}
-        </Drawer>
-      </>
+      <Drawer open={open} onClose={() => setOpen(false)} side="left" title="Filtros" footer={editFooter}>
+        {editBody}
+      </Drawer>
     );
   },
-};
-
-/** Slides in from either edge. */
-export const FromLeft: Story = {
-  args: { side: "left", title: "Filtros", children: editBody, footer: editFooter },
 };

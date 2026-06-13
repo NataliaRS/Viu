@@ -1,13 +1,71 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Popover } from "./Popover";
+import { Popover, type PopoverSide } from "./Popover";
 import { Button } from "../Button/Button";
+
+/**
+ * Friendly playground controls (Card pattern). Popover is anchored (no full-screen
+ * scrim), so the trigger toggles it open in place. `open`/`trigger` satisfy the
+ * required props but are state-driven / fixed and excluded from the controls panel.
+ */
+interface PopoverDemoArgs {
+  open: boolean;
+  trigger: ReactNode;
+  side: PopoverSide;
+  showTitle: boolean;
+  title: string;
+  showClose: boolean;
+  showActions: boolean;
+  children: string;
+}
+
+const savedFilterActions = (
+  <>
+    <Button size="sm" variant="secondary">Después</Button>
+    <Button size="sm" variant="primary">Aplicar</Button>
+  </>
+);
 
 const meta = {
   title: "Components/Organisms/Popover",
   component: Popover,
   tags: ["autodocs"],
+  render: (a: PopoverDemoArgs) => {
+    const [open, setOpen] = useState(false);
+    return (
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
+        side={a.side}
+        title={a.showTitle ? a.title || undefined : undefined}
+        showClose={a.showClose}
+        trigger={<Button variant="secondary">Filtros</Button>}
+        actions={a.showActions ? savedFilterActions : undefined}
+      >
+        {a.children}
+      </Popover>
+    );
+  },
+  args: {
+    open: true,
+    trigger: <Button variant="secondary">Filtros</Button>,
+    side: "bottom",
+    showTitle: true,
+    title: "Filtros guardados",
+    showClose: true,
+    showActions: true,
+    children: "Aplicá uno de tus filtros guardados o creá uno nuevo a partir de la vista actual.",
+  },
+  argTypes: {
+    side: { type: { name: "enum", value: ["bottom", "top"] }, control: "inline-radio", options: ["bottom", "top"], description: "Lado del disparador (voltea si no entra).", table: { category: "Variante" } },
+    showTitle: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el header con título.", table: { category: "Texto" } },
+    title: { type: { name: "string" }, control: "text", description: "Texto del título.", table: { category: "Texto" } },
+    children: { name: "body", type: { name: "string" }, control: "text", description: "Contenido del cuerpo.", table: { category: "Texto" } },
+    showClose: { type: { name: "boolean" }, control: "boolean", description: "Botón de cierre (requiere título).", table: { category: "Estructura" } },
+    showActions: { type: { name: "boolean" }, control: "boolean", description: "Acciones (botones SM a la derecha).", table: { category: "Estructura" } },
+  },
   parameters: {
+    controls: { include: ["side", "showTitle", "title", "children", "showClose", "showActions"] },
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=187-69",
@@ -38,69 +96,17 @@ const meta = {
         "Esc cierra; un clic fuera del ancla + superficie también cierra.",
         "El botón cerrar tiene aria-label.",
       ],
-      dos: [
-        "Anclá la superficie al control que la origina.",
-        "Contenido breve y accionable.",
-        "Elegí Posición según el espacio disponible.",
-      ],
-      donts: [
-        "No metas flujos largos ni muchos campos.",
-        "No lo uses para mensajes globales del sistema.",
-        "No abuses de acciones; una primaria alcanza.",
-      ],
+      dos: ["Anclá la superficie al control que la origina.", "Contenido breve y accionable.", "Elegí Posición según el espacio disponible."],
+      donts: ["No metas flujos largos ni muchos campos.", "No lo uses para mensajes globales del sistema.", "No abuses de acciones; una primaria alcanza."],
     },
   },
-  args: {
-    open: true,
-    side: "bottom",
-    title: "Filtros guardados",
-    showClose: true,
-    trigger: <Button variant="secondary">Filtros</Button>,
-    children: "Aplicá uno de tus filtros guardados o creá uno nuevo a partir de la vista actual.",
-  },
-  argTypes: {
-    side: { control: "inline-radio", options: ["bottom", "top"] },
-    trigger: { control: false },
-    actions: { control: false },
-  },
   decorators: [(S) => <div style={{ padding: "var(--space-4xl) 0", textAlign: "center" }}>{S()}</div>],
-} satisfies Meta<typeof Popover>;
+} satisfies Meta<PopoverDemoArgs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const savedFilterActions = (
-  <>
-    <Button size="sm" variant="secondary">
-      Después
-    </Button>
-    <Button size="sm" variant="primary">
-      Aplicar
-    </Button>
-  </>
-);
-
-/** Controlled, anchored to a trigger, with caret + actions. */
-export const Playground: Story = {
-  args: {
-    children: "Aplicá uno de tus filtros guardados o creá uno nuevo a partir de la vista actual.",
-    actions: savedFilterActions,
-  },
-  render: (args) => {
-    const [open, setOpen] = useState(false);
-    return (
-      <Popover
-        {...args}
-        open={open}
-        onOpenChange={setOpen}
-        trigger={<Button variant="secondary">Filtros</Button>}
-        actions={savedFilterActions}
-      >
-        Aplicá uno de tus filtros guardados o creá uno nuevo a partir de la vista actual.
-      </Popover>
-    );
-  },
-};
+export const Playground: Story = {};
 
 /** Caret above (Abajo) vs below (Arriba) the trigger. */
 export const Positions: Story = {
@@ -122,22 +128,4 @@ export const Positions: Story = {
       ))}
     </div>
   ),
-};
-
-/** Body only — no header, no actions. */
-export const BodyOnly: Story = {
-  args: { title: undefined, showClose: false, actions: undefined },
-  render: (args) => {
-    const [open, setOpen] = useState(true);
-    return (
-      <Popover
-        {...args}
-        open={open}
-        onOpenChange={setOpen}
-        trigger={<Button variant="secondary">Ayuda</Button>}
-      >
-        Este campo acepta hasta 280 caracteres y admite menciones con @.
-      </Popover>
-    );
-  },
 };
