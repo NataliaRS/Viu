@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { EmptyState } from "./EmptyState";
 import { Button } from "../Button/Button";
+import { Icon } from "../Icon/Icon";
 
 const meta = {
   title: "Components/Organisms/EmptyState",
@@ -23,25 +24,54 @@ const meta = {
     variant: "first",
     title: "Creá tu primer proyecto",
     description: "Organizá tu trabajo en proyectos. Creá el primero o importá uno existente para empezar.",
+    icon: false,
+    actions: true,
   },
-  argTypes: { variant: { control: "inline-radio", options: ["first", "empty", "error"] } },
+  argTypes: {
+    variant: { control: "inline-radio", options: ["first", "empty", "error"], description: "Variante: primer uso / sin resultados / error." },
+    title: { control: "text", description: "Título." },
+    description: { control: "text", description: "Descripción (opcional). Vaciá para quitarla." },
+    // `mapping` overrides the global `icon: control:false`; false = usa el ícono de la variante.
+    icon: {
+      control: "boolean",
+      description: "Ícono personalizado (si no, usa el de la variante).",
+      mapping: { true: <Icon glyph="Search" size={24} />, false: undefined },
+    },
+    actions: {
+      control: "boolean",
+      description: "Mostrar acciones (primaria + secundaria).",
+      mapping: {
+        true: (
+          <>
+            <Button variant="primary">Crear proyecto</Button>
+            <Button variant="secondary">Importar</Button>
+          </>
+        ),
+        false: undefined,
+      },
+    },
+  },
   decorators: [(S) => <div style={{ width: 440, maxWidth: "100%" }}>{S()}</div>],
 } satisfies Meta<typeof EmptyState>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    actions: (
-      <>
-        <Button variant="primary">Crear proyecto</Button>
-        <Button variant="secondary">Importar</Button>
-      </>
-    ),
-  },
+export const Default: Story = {};
+export const NoResults: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <EmptyState variant="empty" title="Sin resultados" description="Probá con otros términos o quitá filtros." />
+  ),
 };
-export const NoResults: Story = { args: { variant: "empty", title: "Sin resultados", description: "Probá con otros términos o quitá filtros." } };
 export const ErrorState: Story = {
-  args: { variant: "error", title: "Algo salió mal", description: "No pudimos cargar el contenido.", actions: <Button variant="primary">Reintentar</Button> },
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <EmptyState
+      variant="error"
+      title="Algo salió mal"
+      description="No pudimos cargar el contenido."
+      actions={<Button variant="primary">Reintentar</Button>}
+    />
+  ),
 };

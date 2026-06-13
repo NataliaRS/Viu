@@ -21,8 +21,25 @@ const meta = {
       donts: ["No metas contenido largo o crítico.", "No apiles demasiados a la vez."],
     },
   },
-  args: { tone: "success", title: "Cambios guardados", children: "Tu información se actualizó correctamente.", onClose: () => {} },
-  argTypes: { tone: { control: "inline-radio", options: tones } },
+  args: { tone: "success", title: "Cambios guardados", children: "Tu información se actualizó correctamente.", action: false, onClose: () => {} },
+  argTypes: {
+    tone: { control: "inline-radio", options: tones, description: "Tono (info/success/warning/danger)." },
+    title: { control: "text", description: "Título (opcional). Vaciá para quitarlo." },
+    children: { control: "text", description: "Mensaje." },
+    // `mapping` overrides the global `action: control:false` while keeping the real name.
+    action: {
+      control: "boolean",
+      description: "Mostrar una acción (ej. Deshacer).",
+      mapping: {
+        true: (
+          <Button variant="tertiary" size="sm">
+            Deshacer
+          </Button>
+        ),
+        false: undefined,
+      },
+    },
+  },
 } satisfies Meta<typeof Toast>;
 
 export default meta;
@@ -30,7 +47,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 export const WithAction: Story = {
-  args: { tone: "info", title: undefined, children: "Se archivó el proyecto.", action: <Button variant="tertiary" size="sm">Deshacer</Button> },
+  args: { tone: "info", title: undefined, children: "Se archivó el proyecto.", action: true },
 };
 export const AllTones: Story = {
   parameters: { controls: { disable: true } },

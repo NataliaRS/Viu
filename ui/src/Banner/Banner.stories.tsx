@@ -23,10 +23,14 @@ const meta = {
   },
   args: { tone: "info", title: "Título del mensaje", children: "Descripción con el detalle que el usuario necesita para entender y actuar.", link: false },
   argTypes: {
-    tone: { control: "inline-radio", options: tones },
-    // Boolean toggle that maps to the actual link node (override the global slot disable).
+    tone: { control: "inline-radio", options: tones, description: "Tono del mensaje (info/success/warning/danger/neutral)." },
+    title: { control: "text", description: "Título (opcional). Vaciá el campo para quitarlo." },
+    children: { control: "text", description: "Mensaje del banner." },
+    // Boolean toggle mapped to the real link node — `mapping` overrides the global slot
+    // `control: false` while keeping the real prop name (nice label).
     link: {
       control: "boolean",
+      description: "Mostrar un link inline.",
       mapping: {
         true: (
           <Link href="#" style={{ textDecoration: "underline" }}>
