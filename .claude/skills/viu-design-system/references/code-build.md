@@ -60,6 +60,11 @@ moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
     **selected=`bg/brand-2-subtle`+inset `border/brand-2`** (superficie+signifier, P5);
     disabled=texto `text-disabled`+no interactiva. Disposición `media-bottom` (Abajo) = `flex-direction:
     column-reverse` (DOM [media,content]). Clickable → `role=button`+tabIndex+Enter/Espacio.
+    **`titleSize` (jun-2026):** prop que elige el paso de la escala tipográfica del sistema para el
+    título — `title-s|m|l · headline-s|m|l · display-s|m|l · oversize-s|m|l` (12, default `title-s`).
+    Aplica la clase global `viu-type-${titleSize}` al `<h3>` (que aporta familia/peso/line-height/
+    tracking + responsive); el CSS `.title` solo lleva color/margin. **Patrón reusable:** para exponer
+    un tamaño de la type scale como prop, NO hardcodees font-size — bindeá la clase `viu-type-*`.
   - **LECCIÓN (design-to-code de componentes ricos):** exponé la anatomía de Figma como **props
     estructuradas opcionales**, NO la colapses a slots genéricos + children — colapsar pierde las
     props de texto/toggle del componente de Figma y rompe la paridad. Verificá `componentPropertyDefinitions`
@@ -191,8 +196,11 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
 - **Props slot (ReactNode) en Controls:** los slots (`icon`, `leadingIcon`, `trailingIcon`, `link`,
   `action`, `avatar`) tienen `control: false` GLOBAL en `preview.tsx`. Si agregás un slot con otro
   nombre, sumalo a esa lista global (no a `children`). Para hacer un slot toggleable en una story
-  puntual: `argTypes: { link: { control: "boolean", mapping: { true: <Nodo/>, false: undefined } } }`
-  y `args: { link: false }` (ej. Banner).
+  puntual: opción liviana → `argTypes: { link: { control: "boolean", mapping: { true: <Nodo/>, false:
+  undefined } } }` + `args: { link: false }` (ej. Banner). ⚠️ **Si el control NO aparece** (el disable
+  global le gana al override del story — confirmado en Card jun-2026 con `control:"boolean"` sin
+  `mapping`), usá una KEY que NO esté en la lista global (`showLink`/`showIcon`/`showAction`) y mapeá en
+  el `render`. Patrón completo de controles amigables (playground con toggles + texto) → §15.
 - **Foundations:** token-driven (leen `dist/tokens.js`, no hardcodear). Patrones ya hechos: swatches
   copy-to-click, matriz de contraste WCAG, dark/light lado a lado, galerías de
   spacing/radius/type/effects/grid. Al agregar tokens nuevos → sumar su visualización.
