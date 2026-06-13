@@ -222,10 +222,16 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     Controls de Storybook NO saben renderizar props `ReactNode` (aparecen como objetos inertes → no se
     pueden ver/togglear en el panel "Propiedades" de ViuDocs). Patrón (jun-2026, Card): definí una
     interface de args "demo" con primitivas — booleanos para mostrar/quitar cada parte, `text` para el
-    copy, `inline-radio` para variantes — tipá `satisfies Meta<CardDemoArgs>` (SIN `component`, para que
-    docgen no reinyecte los controles `ReactNode`; ViuDocs no necesita `component`, usa `useOf("meta")`)
-    y mapeá los args a las props reales en `render` (texto vacío `|| undefined` = quita esa parte).
-    Espeja el modelo de props de Figma (booleanos + texto + variantes). Mantené `tags:["autodocs"]`.
+    copy, `inline-radio` para variantes — `satisfies Meta<CardDemoArgs>` y mapeá los args a las props
+    reales en `render` (texto vacío `|| undefined` = quita esa parte). Espeja el modelo de props de
+    Figma (booleanos + texto + variantes). **CLAVES (corregido jun-2026 — sacar `component` ROMPE el
+    binding: los controles no manejaban el render):** (1) MANTENÉ `component: C` + `render` + `args`
+    (es el wiring estándar que ViuDocs `<Controls/>` necesita; Card sin `component` no actualizaba).
+    (2) Para que `satisfies Meta<DemoArgs>` acepte `component: C`, los args demo deben ser asignables a
+    las props del componente → renombrá los toggles que choquen de tipo (ej. `author:boolean` vs prop
+    `author:CardAuthor` → usá `showAuthor`); `boolean`/`string` SÍ son asignables a `ReactNode`, esos no
+    chocan. (3) `parameters.controls.include:[...]` lista solo los args amigables, para ocultar las
+    props `ReactNode` que docgen reinyecta. Mantené `tags:["autodocs"]`.
   - `cx(..., cond && clase)` con `cond: ReactNode` rompe (puede ser null/0). Usá `cond ? clase :
     false`.
   - Merge de refs: `useRef<T | null>(null)` (mutable) y `(ref as any).current = node` para forwardear.
