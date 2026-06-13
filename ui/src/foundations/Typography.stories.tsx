@@ -29,7 +29,7 @@ export const Scale: Story = {
                   <code style={{ ...mono, color: "var(--color-text-tertiary)", width: 160, flex: "none" }}>
                     {short} · {m === d ? m : `${m}→${d}`}
                   </code>
-                  <span className={`viu-type-${short}`}>El veloz murciélago</span>
+                  <span className={`viu-type-${short}`}>Crecer es posible</span>
                 </div>
               );
             })}
