@@ -30,7 +30,7 @@ interface CardDemoArgs {
   link: boolean;
   primaryAction: boolean;
   secondaryAction: boolean;
-  author: boolean;
+  showAuthor: boolean;
   eyebrow: string;
   title: string;
   subtitle: string;
@@ -65,12 +65,13 @@ const renderCard = (a: CardDemoArgs) => (
     link={a.link ? <Link href="#">Leer más</Link> : undefined}
     primaryAction={a.primaryAction ? <Button variant="primary" size="sm">Aplicar</Button> : undefined}
     secondaryAction={a.secondaryAction ? <Button variant="secondary" size="sm">Después</Button> : undefined}
-    author={a.author ? { name: "Natalia Rodríguez", meta: "12 may 2026 · 5 min de lectura", avatar: <Avatar initials="NR" /> } : undefined}
+    author={a.showAuthor ? { name: "Natalia Rodríguez", meta: "12 may 2026 · 5 min de lectura", avatar: <Avatar initials="NR" /> } : undefined}
   />
 );
 
 const meta = {
   title: "Components/Organisms/Card",
+  component: Card,
   tags: ["autodocs"],
   render: renderCard,
   args: {
@@ -88,7 +89,7 @@ const meta = {
     link: true,
     primaryAction: true,
     secondaryAction: true,
-    author: true,
+    showAuthor: true,
     eyebrow: "Categoría",
     title: "Título de la card",
     subtitle: "Subtítulo o metadato",
@@ -109,13 +110,20 @@ const meta = {
     link: { control: "boolean", table: { category: "Estructura" } },
     primaryAction: { control: "boolean", table: { category: "Estructura" } },
     secondaryAction: { control: "boolean", table: { category: "Estructura" } },
-    author: { control: "boolean", table: { category: "Estructura" } },
+    showAuthor: { control: "boolean", table: { category: "Estructura" } },
     eyebrow: { control: "text", table: { category: "Texto" } },
     title: { control: "text", table: { category: "Texto" } },
     subtitle: { control: "text", table: { category: "Texto" } },
     body: { control: "text", table: { category: "Texto" } },
   },
   parameters: {
+    controls: {
+      include: [
+        "surface", "orientation", "selected", "disabled", "interactive", "accent",
+        "media", "badge", "icon", "tags", "action", "link", "primaryAction",
+        "secondaryAction", "showAuthor", "eyebrow", "title", "subtitle", "body",
+      ],
+    },
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=434-6",
