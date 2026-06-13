@@ -18,7 +18,8 @@ export type GlyphName =
   | "Info"
   | "Alert"
   | "Visibility"
-  | "VisibilityOff";
+  | "VisibilityOff"
+  | "Folder";
 
 export const glyphs: Record<GlyphName, ReactNode> = {
   Plus: (
@@ -74,4 +75,5 @@ export const glyphs: Record<GlyphName, ReactNode> = {
       <path d="M2.5 2.5l11 11" />
     </>
   ),
+  Folder: <path d="M2.5 12.5 L2.5 5.5 L6 5.5 L7.5 7 L13.5 7 L13.5 12.5 Z" />,
 };

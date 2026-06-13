@@ -124,8 +124,10 @@ quedó atrás. Este lo absorbe entero.
   Natalia construyó los 5 gaps de C1 en Figma — **Kbd** `721:7` átomo + **Segmented control** `724:28`
   / **Choice group** `728:35` / **Combobox** `730:40` / **Date range picker** `732:120` moléculas;
   detalle e IDs en figma-build §2b. Antes: 28/31/68 — el registro venía de "27 átomos / 66" y la
-  portada "ÁTOMOS·26"; el faltante histórico era Icon container `574:150`.)* Banner `135:84`: CTA
-  removido (jun-2026). Card modular SET(45). Portada con índice por nivel atómico (⚠️ falta sumarle
+  portada "ÁTOMOS·26"; el faltante histórico era Icon container `574:150`.)* **Icon set = 11 glifos**
+  (+Folder `815:6`, jun-2026; pendiente File). **Tree item `411:19` completo: 12 var** (Expansión ×
+  Estado) + Icono/Checkbox. Banner `135:84`: CTA removido / Toast `176:101`: acción removida (jun-2026).
+  Card modular SET(45). Portada con índice por nivel atómico (⚠️ falta sumarle
   las 5 entradas nuevas en Figma — figma-build §7b). Sections en archivo aparte; `Marketing · LinkedIn`
   fuera del índice. Sandbox de pruebas: `zmTSs2J5H3EIkItlF85rfc`.
 - **Código (`NataliaRS/Viu`, rama `claude/viu-design-system`):** **29 átomos + 35 moléculas + 9

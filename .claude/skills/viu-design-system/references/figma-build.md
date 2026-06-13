@@ -103,9 +103,11 @@ Body/L `1b1f4a805f78a665a9f2f7e6b8575ea8167a0a3f` · Body/M `28bd418f889fa4fafa9
 Instanciar con `getNodeByIdAsync(id)`. SET(n)=set de n variantes; COMP=componente único.
 
 **ÁTOMOS (29):** *(jun-2026: 27→28 al contar Icon container [tiene nodo]; 28→29 sumó Kbd.)*
-Icon `56:431` SET(10) Glyph:Plus/Check/Chevron/Close/Arrow/Search/Info/Alert/**Visibility
-`726:3273`/Visibility_off `726:71`** *(jun-2026, B2: glifos del toggle de password; en código
-`Visibility`/`VisibilityOff`, Code Connect mapea `Visibility_off`→`VisibilityOff`)* · Icon button
+Icon `56:431` SET(11) Glyph:Plus/Check/Chevron/Close/Arrow/Search/Info/Alert/**Visibility
+`726:3273`/Visibility_off `726:71`/Folder `815:6`** *(jun-2026: B2 sumó Visibility/Visibility_off
+[toggle password]; luego +Folder [vector stroke 1.6, join/cap ROUND, path `M2.5 12.5 L2.5 5.5 L6 5.5
+L7.5 7 L13.5 7 L13.5 12.5 Z`] para árboles. Pendiente Glyph=File para hojas. Código alineado: glifos
+`Visibility`/`VisibilityOff`/`Folder`; Code Connect mapea `Visibility_off`→`VisibilityOff`)* · Icon button
 `393:190`
 SET(36) Variant·State·Size · Button `8:53` SET(45) Variant Primary/Secondary/Tertiary·State
 Default/Hover/Pressed/Disabled/Focus·Size MD/SM/LG (`Label#53:0`) · Badge `14:77` SET(6) Tone
@@ -130,7 +132,10 @@ con el texto; borde + sombra inferior; doc `Atom · Kbd`.
 **MOLÉCULAS (35):** Search `26:347` SET(4) (`Texto#84:18`) · Datepicker `28:386` SET(5) · Toast
 `176:101` SET(4) Tono *(props: `Título#176:5` bool [default off], `Cerrar#176:7`, `Texto título#176:8`,
 `Texto mensaje#176:9`; **sin acción** — la "Deshacer" se removió en Figma jun-2026; el código quitó el
-prop `action` para mantener paridad)* · Field/Textarea `223:46` SET(4) · Stepper `339:66` COMP · Accordion item
+prop `action` para mantener paridad. **Alineación tipo Banner:** root `counterAxisAlignItems='MIN'`
+(ícono + cerrar arriba, no centrados) + Content `counterAxis MIN` con Título/Mensaje `textAlign LEFT`.
+Doc `177:24` al día [sección "Con título", props sin Acción]. Código alineado: `.toast` `align-items:
+flex-start`)* · Field/Textarea `223:46` SET(4) · Stepper `339:66` COMP · Accordion item
 `174:19` SET(2) · Accordion `399:7` COMP · Avatar group `185:37` SET(2) · Banner `135:84` SET(5) Tono
 — *(jun-2026: CTA removido, prop Acción borrada)* props `Icono#135:7` · `Título#135:8` ·
 `Mensaje#135:9` · `Cerrar#135:11` · `Texto título#135:12` · `Texto mensaje#135:13` · `Link#683:0`
@@ -140,11 +145,16 @@ Dropzone `235:28` SET(3) · File row `237:49` SET(3) · Breadcrumb `163:19` SET(
 SET(4) · Menu item `170:21` SET(3) · Table row `195:58` SET(3) · Field/Input `362:6` SET(4) ·
 Field/Password `407:6` SET(4) · Tabs `366:6` COMP · Field/Select `191:33` (pág "Select field") SET(4)
 · Pagination `168:32` SET(2) · Toolbar `172:29` COMP · Nav item `233:19` SET(3) · Nav `401:7` COMP ·
-List `400:7` COMP · Quote `413:7` COMP · Tree item `411:19` SET *(actualizado jun-2026: ejes
-**Expansión** [Expandido/Colapsado/Hoja] × **Estado** [Default/Hover/Seleccionado/**Deshabilitado**]
-+ booleanos **Icono** y **Checkbox**; Seleccionado = `bg/brand-subtle` + `text/brand`; orden
-checkbox→chevron→icono→label. Código alineado: props `disabled`/`checkbox`/`checked`/`onCheckedChange`
-sumadas, selected bg `subtle`→`brand-subtle`)* · Rich text `402:7` COMP · Time
+List `400:7` COMP · Quote `413:7` COMP · **Tree item `411:19` SET(12): Expansión (Expandido ↓ ·
+Colapsado → · Hoja) × Estado (Default · Hover · Seleccionado · Deshabilitado).** Props: `Label#411:0`
+(text) · `Icono#819:0` (bool off — instancia Folder `815:6`, recolor por estado) · `Checkbox#819:13`
+(bool off — reusa Checkbox `24:167`). Orden de hijos `[TreeCheckbox, Chevron, TreeIcon, Label]`.
+Chevron: Expandido rot 0, Colapsado rot 90; **Hoja = chevron VISIBLE con su Vector interno oculto** →
+queda de espaciador 16px para alinear la etiqueta sin padding hack (paddingLeft constante 8). Estilo:
+Default bg none/label pri/icono+chev ter·sec; Hover bg/subtle; **Seleccionado bg/brand-subtle + label/
+icono/chev en `text/brand`**; Deshabilitado bg none/label ter/chev ter. *(Código alineado jun-2026:
+props `disabled`/`checkbox`/`checked`/`onCheckedChange`; selected bg `subtle`→`brand-subtle` + chevron
+brand.)* · Rich text `402:7` COMP · Time
 picker `409:6` SET(4) · Video embed `414:7` COMP · **Segmented control `724:28` SET(3)
 Activo=Izquierda/Centro/Derecha** — track + 3 segmentos, thumb activo elevado; 3 textos editables
 (Texto izquierda/centro/derecha) · **Choice group `728:35` SET(2) Tipo=Radio/Checkbox** — etiqueta de
@@ -158,6 +168,9 @@ construidos en Figma jun-2026; pendiente design-to-code a `@viu/ui`.)*
 **ORGANISMOS (9):** Table `372:6` COMP · Card `434:6` SET(45) (§6b) · Modal `140:57` SET(3) Tamaño ·
 Page header `147:89` SET(3) (`Título#147:17`,`Texto subtítulo#147:18`,`Texto breadcrumb#147:19`) ·
 Empty state `157:55` SET(3) · Drawer `227:53` COMP · Popover `187:69` SET(2) · Tree view `412:7` COMP
+*(compone 8 Tree item con indentación por nivel = paddingLeft 8/28/48 por instancia; ejemplo canónico
+= árbol realista: carpetas Expandido/Colapsado con Icono on, hojas Hoja con Icono off, un nodo
+Seleccionado; doc `412:42`)*
 · Footer `415:7` COMP.
 
 **PATRONES (4, frames de composición — NO componentes; páginas `Pattern ·`):** Form `282:7` · App
@@ -235,6 +248,12 @@ function setLabel(inst,val){const k=Object.keys(inst.componentProperties||{})
   `textAutoResize='WIDTH_AND_HEIGHT'`. Si se necesita un tope, usar `maxWidth` +
   `textTruncation='ENDING'`, no un ancho fijo. (Bug real: el Pill tenía FIXED=80px y no crecía; el
   resto de la familia pill/chip/tag/badge/botón/link ya estaba en hug — auditado jun-2026.)
+- **Rotación del glifo Chevron:** rotation `0` = ↓ (abajo), `90` = → (derecha), `-90` = ← (izquierda).
+  (Verificado jun-2026: combobox=0, date-range prev=-90/next=90, tree colapsado=90.)
+- **Espaciador de alineación (mantener el hueco de un ícono oculto):** ocultá el **VECTOR interno**, NO
+  la instancia. Una instancia con `visible=false` NO ocupa espacio en auto-layout; la instancia visible
+  con su vector oculto SÍ deja el hueco. (Usado en Tree item Hoja para alinear hojas con los nodos que
+  tienen chevron, sin padding hack.)
 
 ## 6. Componentes / variantes (recetas)
 - Hermano: `set.clone()` (clona variantes+props con refs recableadas; releer keys del clon). Ej.:
@@ -255,6 +274,18 @@ function setLabel(inst,val){const k=Object.keys(inst.componentProperties||{})
   dentro del frame es más robusto que por nombre.
 - Mover nodo entre páginas: `destPage.appendChild(node)` (ids/refs persisten). No se puede borrar la
   página actual (cambiar primero).
+- **Extender un set con un eje de variante NUEVO (jun-2026, Tree item 3→12 var):** renombrá TODAS las
+  variantes existentes al formato nuevo consistente `"PropA=X, PropB=Y"`, después `set.appendChild(clone)`
+  por cada combinación faltante (el clone se vuelve variante). Preserva el ID del set y sus instancias.
+  El SET **NO auto-crece** → `set.resize(w,h)` explícito al final.
+- **Agregar prop BOOLEAN a un set:** `const key=set.addComponentProperty('Icono','BOOLEAN',false)`;
+  luego en cada variante `node.componentPropertyReferences={visible:key}` + `node.visible=false`.
+- **`.clone()` DROPEA `componentPropertyReferences`** → re-wirear tras clonar (ej.
+  `lbl.componentPropertyReferences={characters:'Label#411:0'}`).
+- **GOTCHA "render negro" (caja oscura, label invisible):** una variante puede arrastrar un
+  *explicit variable-mode override* que hace resolver `bg/subtle`/`text/primary` a valores oscuros. La
+  DATA se ve bien (`fills` SOLID:var) pero renderiza mal — NO es lag. Fix: reemplazar esa variante por
+  un CLON limpio de una variante que funciona.
 - Estrellas (Rating): `createStar()`. Triángulo play: `createVector()`
   `vectorPaths=[{windingRule:'NONZERO',data:'M 0 0 L 22 13 L 0 26 Z'}]`.
 - **Orphaned props / pre-publish check:** correr el snippet de detección de propiedades sin uso ANTES

@@ -21,6 +21,7 @@ figma.connect(
         Alert: "Alert",
         Visibility: "Visibility",
         Visibility_off: "VisibilityOff",
+        Folder: "Folder",
       }),
     },
     example: ({ glyph }) => <Icon glyph={glyph} />,

@@ -69,7 +69,7 @@ function ProjectsTree({
           onExpandedChange={() => setExpanded((p) => toggle(p, node.id))}
           selected={!checkboxes && selected === node.id}
           onSelect={() => setSelected(node.id)}
-          icon={icons ? <Icon glyph={hasChildren ? "Info" : "Search"} size={16} /> : undefined}
+          icon={icons && hasChildren ? <Icon glyph="Folder" size={16} /> : undefined}
           checkbox={checkboxes}
           checked={checked.has(node.id)}
           onCheckedChange={() => setChecked((p) => toggle(p, node.id))}
