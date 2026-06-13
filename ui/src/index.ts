@@ -58,7 +58,7 @@ export { Switch } from "./Switch/Switch";
 export type { SwitchProps } from "./Switch/Switch";
 
 export { Slider } from "./Slider/Slider";
-export type { SliderProps } from "./Slider/Slider";
+export type { SliderProps, SingleSliderProps, RangeSliderProps } from "./Slider/Slider";
 
 export { Progress } from "./Progress/Progress";
 export type { ProgressProps, ProgressSize } from "./Progress/Progress";

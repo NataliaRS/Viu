@@ -8,6 +8,7 @@ import {
 } from "react";
 import { Icon } from "../Icon/Icon";
 import { useFocusTrap } from "../overlay/useFocusTrap";
+import { useFlipSide } from "../overlay/useFlipSide";
 import styles from "./Popover.module.css";
 
 export type PopoverSide = "bottom" | "top";
@@ -54,8 +55,23 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
   const rootRef = useRef<HTMLSpanElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const titleId = useId();
+  const { side: resolvedSide, recompute } = useFlipSide(side);
 
   useFocusTrap(open, panelRef, () => onOpenChange?.(false), { closeOnEsc });
+
+  // Flip to the opposite side when the surface would overflow the viewport.
+  // Re-measure on open and while it stays open (scroll/resize).
+  useEffect(() => {
+    if (!open) return;
+    const measure = () => recompute(rootRef.current, panelRef.current);
+    measure();
+    window.addEventListener("resize", measure);
+    window.addEventListener("scroll", measure, true);
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("scroll", measure, true);
+    };
+  }, [open, recompute]);
 
   // Dismiss on a pointer press outside the anchor + surface.
   useEffect(() => {
@@ -86,7 +102,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
           role="dialog"
           aria-labelledby={title ? titleId : undefined}
           tabIndex={-1}
-          className={cx(styles.panel, styles[side], className)}
+          className={cx(styles.panel, styles[resolvedSide], className)}
           {...rest}
         >
           <span className={styles.caret} aria-hidden />

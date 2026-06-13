@@ -38,8 +38,12 @@ playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada co
   (Stepper + paso + nav controlada), DataTable (toolbar + Table + paginación + estados). Son
   componentes de layout reusables que componen el resto (no stories sueltas).
 
-**Deudas conocidas:** Slider solo modo Único (falta Rango/doble thumb); Tooltip CSS-only sin
-colisión/flip; **C1 design-to-code PENDIENTE (jun-2026):** Natalia construyó en Figma los 5 gaps de
+**Deudas conocidas:** ~~Slider solo modo Único~~ → **RESUELTO (B4, jun-2026):** Slider soporta `range`
+(doble thumb, banda entre extremos) vía unión discriminada `SingleSliderProps | RangeSliderProps`;
+`onValueChange([lo,hi])`, clamping lo≤hi, dos `<input type=range>` superpuestos (thumbs grabbables por
+z-index dinámico). ~~Tooltip/Popover sin colisión/flip~~ → **RESUELTO (B5, jun-2026):** hook compartido
+`src/overlay/useFlipSide.ts` voltea al lado opuesto cuando el preferido se sale del viewport (Tooltip
+mide en hover/focus; Popover en open + scroll/resize). **C1 design-to-code PENDIENTE (jun-2026):** Natalia construyó en Figma los 5 gaps de
 C1 — Kbd `721:7`, Segmented control `724:28`, Choice group `728:35`, Combobox `730:40`, Date range
 picker `732:120` (detalle en figma-build §2b/§14) — pero `@viu/ui` aún NO los tiene → Figma va 5
 componentes adelante; portarlos por demanda real de producto (no en batch). **Icon container — Code
@@ -128,7 +132,8 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
   **Status badge — escala única (A1, jun-2026):** `Draft`→feedback-warning · `Reviewed`→feedback-info ·
   `Stable`→feedback-success · `Deprecated`→feedback-danger (mapa `STATUS` en ViuDocs.tsx). Migración
   hecha: el sistema tenía `stable`(67)+`beta`(2) → `stable→Stable`, `beta→Reviewed` (las 2 `beta`
-  eran Tooltip y Slider, con feature pendiente B5/B4). El tipo viejo `"stable"|"beta"|"wip"` quedó
+  eran Tooltip y Slider; al cerrarse B4/B5 jun-2026 ambos pasaron a `Stable` → hoy 69 Stable, 0
+  Reviewed). El tipo viejo `"stable"|"beta"|"wip"` quedó
   OBSOLETO.
 - **Cada `meta` DEBE incluir** (espeja el doc canónico de Figma):
   ```ts
@@ -196,8 +201,13 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     arrastrar desde adentro).
   - Popover: anclado (NO portal) — `position:relative` root con slot `trigger` + panel `absolute`
     `z/popover`; non-modal pero reusa el focus-trap; cierre extra por click-outside (`pointerdown`
-    capture, fuera del root). Caret = cuadrado rotado 45° (literal 10px, no hay token de caret). Sin
-    colisión/flip (misma deuda que Tooltip): elige lado por prop `side`, no detecta viewport.
+    capture, fuera del root). Caret = cuadrado rotado 45° (literal 10px, no hay token de caret).
+  - **Flip/colisión (B5, jun-2026):** hook compartido `src/overlay/useFlipSide.ts` (NO exportado del
+    index) — `useFlipSide(preferred)` devuelve `{side, recompute}`; `recompute(anchor, floating)` mide
+    rects contra el viewport (gap 8px) y voltea al lado opuesto solo si el preferido no entra Y el
+    opuesto sí. Popover llama `recompute` en open + listeners scroll/resize; Tooltip en
+    `onPointerEnter`/`onFocusCapture` (la burbuja vive en DOM con `opacity:0`, mide siempre). Misma
+    lógica para ambos. En jsdom los rects son 0 → puede resolver al lado por defecto; no romper tests.
   - Props controladas: Modal/Drawer `open`+`onClose`; Popover `open`+`onOpenChange`. `size` Modal
     SM/MD/LG = max-width 400/520/680; Drawer `side` right/left, 420px.
   - Tokens confirmados por nodo: scrim `--alpha-black-72` `#0a0a0bb8` · `--shadow-overlay` ·

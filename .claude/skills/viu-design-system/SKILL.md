@@ -150,8 +150,12 @@ quedó atrás. Este lo absorbe entero.
      ✅ HECHO (jun-2026). Resultaron solo **4** (no ~15): ListItem, MenuItem, Tab (usaban `opacity:
      var(--state-disabled)`) + TimePicker/PickerField (`opacity: 0.5` mágico). Regla aplicada:
      rellenos→`bg-disabled`+`text-disabled`; transparentes→solo `text-disabled` (ver interaction §2).
-  5. **B4** · Slider modo Rango (doble thumb) en código. *(decidido: hacer)*
-  6. **B5** · resolver colisión/flip de Tooltip + Popover juntos (misma lógica). *(decidido)*
+  5. ~~**B4** · Slider modo Rango (doble thumb) en código~~ ✅ HECHO (jun-2026). Unión discriminada
+     `SingleSliderProps | RangeSliderProps`; `range` + `onValueChange([lo,hi])`, clamping lo≤hi, dos
+     inputs superpuestos con z-index dinámico para grabbability. Tests de clamping agregados.
+  6. ~~**B5** · colisión/flip de Tooltip + Popover (misma lógica)~~ ✅ HECHO (jun-2026). Hook
+     compartido `overlay/useFlipSide.ts`; Tooltip mide en hover/focus, Popover en open + scroll/resize.
+  *(Cola B/A completa. Slider y Tooltip pasaron de Reviewed → Stable. Pendiente sólo C1 design-to-code.)*
 - **A4 (RESUELTO): átomo `Marker` DESCARTADO** — no es gap real; "Marker, no CheckCircle" sigue
   siendo solo la regla de nombrar por rol (figma-build §12), no un componente a construir.
 - **Gaps C1 — ✅ construidos en Figma (jun-2026):** Segmented control `724:28` · Choice group

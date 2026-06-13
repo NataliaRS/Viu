@@ -8,12 +8,12 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     viu: {
-      status: "Reviewed",
+      status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=23-167",
-      overview: "Etiqueta flotante con info breve al hover/focus del trigger. (CSS-only, sin colisión/flip.)",
+      overview: "Etiqueta flotante con info breve al hover/focus del trigger. Voltea al lado opuesto si el preferido se sale del viewport.",
       whenToUse: ["Aclarar un ícono o acción ambigua.", "Mostrar el nombre de un control compacto."],
       whenNotToUse: ["Para contenido esencial → ponelo visible.", "Para contenido interactivo o largo → usá Popover."],
-      anatomy: ["Burbuja (bg/elevated + text), 4 lados."],
+      anatomy: ["Burbuja (bg/elevated + text), 4 lados.", "Flip al borde del viewport (lado → opuesto)."],
       accessibility: ["Aparece en hover Y focus (teclado).", "role=tooltip; nunca pongas info crítica solo acá."],
       dos: ["Texto muy corto.", "Asegurá que aparezca con teclado."],
       donts: ["No pongas acciones adentro.", "No lo uses para info imprescindible."],

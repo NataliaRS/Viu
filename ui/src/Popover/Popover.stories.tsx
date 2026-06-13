@@ -27,7 +27,7 @@ const meta = {
       anatomy: [
         "Disparador — el control anclado (slot trigger).",
         "Superficie — bg/elevated + shadow/overlay + radius/surface, capa z/popover.",
-        "Caret — apunta al disparador según Posición (Abajo/Arriba).",
+        "Caret — apunta al disparador según Posición (Abajo/Arriba); voltea al lado opuesto si no entra en el viewport.",
         "Header opcional — título (Label/L) + botón cerrar.",
         "Body — texto o contenido (Body/M).",
         "Acciones opcionales — botones SM alineados a la derecha.",
