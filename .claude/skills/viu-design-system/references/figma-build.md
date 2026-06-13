@@ -140,7 +140,11 @@ Dropzone `235:28` SET(3) · File row `237:49` SET(3) · Breadcrumb `163:19` SET(
 SET(4) · Menu item `170:21` SET(3) · Table row `195:58` SET(3) · Field/Input `362:6` SET(4) ·
 Field/Password `407:6` SET(4) · Tabs `366:6` COMP · Field/Select `191:33` (pág "Select field") SET(4)
 · Pagination `168:32` SET(2) · Toolbar `172:29` COMP · Nav item `233:19` SET(3) · Nav `401:7` COMP ·
-List `400:7` COMP · Quote `413:7` COMP · Tree item `411:19` SET(3) · Rich text `402:7` COMP · Time
+List `400:7` COMP · Quote `413:7` COMP · Tree item `411:19` SET *(actualizado jun-2026: ejes
+**Expansión** [Expandido/Colapsado/Hoja] × **Estado** [Default/Hover/Seleccionado/**Deshabilitado**]
++ booleanos **Icono** y **Checkbox**; Seleccionado = `bg/brand-subtle` + `text/brand`; orden
+checkbox→chevron→icono→label. Código alineado: props `disabled`/`checkbox`/`checked`/`onCheckedChange`
+sumadas, selected bg `subtle`→`brand-subtle`)* · Rich text `402:7` COMP · Time
 picker `409:6` SET(4) · Video embed `414:7` COMP · **Segmented control `724:28` SET(3)
 Activo=Izquierda/Centro/Derecha** — track + 3 segmentos, thumb activo elevado; 3 textos editables
 (Texto izquierda/centro/derecha) · **Choice group `728:35` SET(2) Tipo=Radio/Checkbox** — etiqueta de
