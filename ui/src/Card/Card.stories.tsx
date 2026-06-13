@@ -24,10 +24,10 @@ interface CardDemoArgs {
   accent: boolean;
   media: boolean;
   badge: boolean;
-  icon: boolean;
+  showIcon: boolean;
   tags: boolean;
-  action: boolean;
-  link: boolean;
+  showAction: boolean;
+  showLink: boolean;
   primaryAction: boolean;
   secondaryAction: boolean;
   showAuthor: boolean;
@@ -55,14 +55,14 @@ const renderCard = (a: CardDemoArgs) => (
     accent={a.accent}
     media={a.media ? <Image ratio="16:9" src="https://picsum.photos/seed/viu/480/270" alt="Portada" /> : undefined}
     badge={a.badge ? <Badge>Etiqueta</Badge> : undefined}
-    icon={a.icon ? <Icon glyph="Info" size={24} /> : undefined}
+    icon={a.showIcon ? <Icon glyph="Info" size={24} /> : undefined}
     tags={a.tags ? sampleTags : undefined}
     eyebrow={a.eyebrow || undefined}
     title={a.title || undefined}
     subtitle={a.subtitle || undefined}
-    action={a.action ? <Icon glyph="Plus" size={20} /> : undefined}
+    action={a.showAction ? <Icon glyph="Plus" size={20} /> : undefined}
     body={a.body || undefined}
-    link={a.link ? <Link href="#">Leer más</Link> : undefined}
+    link={a.showLink ? <Link href="#">Leer más</Link> : undefined}
     primaryAction={a.primaryAction ? <Button variant="primary" size="sm">Aplicar</Button> : undefined}
     secondaryAction={a.secondaryAction ? <Button variant="secondary" size="sm">Después</Button> : undefined}
     author={a.showAuthor ? { name: "Natalia Rodríguez", meta: "12 may 2026 · 5 min de lectura", avatar: <Avatar initials="NR" /> } : undefined}
@@ -83,10 +83,10 @@ const meta = {
     accent: false,
     media: true,
     badge: true,
-    icon: false,
+    showIcon: false,
     tags: true,
-    action: true,
-    link: true,
+    showAction: true,
+    showLink: true,
     primaryAction: true,
     secondaryAction: true,
     showAuthor: true,
@@ -104,10 +104,10 @@ const meta = {
     accent: { type: { name: "boolean" }, control: "boolean", description: "Barra de acento crimson en el borde superior.", table: { category: "Estructura" } },
     media: { type: { name: "boolean" }, control: "boolean", description: "Imagen/medio (en la story, una Image 16:9).", table: { category: "Estructura" } },
     badge: { type: { name: "boolean" }, control: "boolean", description: "Badge flotante sobre la esquina superior derecha.", table: { category: "Estructura" } },
-    icon: { type: { name: "boolean" }, control: "boolean", description: "Caja de ícono 48×48 al tope del contenido (desacoplada de la media).", table: { category: "Estructura" } },
+    showIcon: { type: { name: "boolean" }, control: "boolean", description: "Caja de ícono 48×48 al tope del contenido (desacoplada de la media).", table: { category: "Estructura" } },
     tags: { type: { name: "boolean" }, control: "boolean", description: "Fila de tags de clasificación.", table: { category: "Estructura" } },
-    action: { type: { name: "boolean" }, control: "boolean", description: "Acción del encabezado: ícono a la derecha del eyebrow (ej. +, ⋯, guardar).", table: { category: "Estructura" } },
-    link: { type: { name: "boolean" }, control: "boolean", description: "Enlace 'Leer más' debajo del cuerpo.", table: { category: "Estructura" } },
+    showAction: { type: { name: "boolean" }, control: "boolean", description: "Acción del encabezado: ícono a la derecha del eyebrow (ej. +, ⋯, guardar).", table: { category: "Estructura" } },
+    showLink: { type: { name: "boolean" }, control: "boolean", description: "Enlace 'Leer más' debajo del cuerpo.", table: { category: "Estructura" } },
     primaryAction: { type: { name: "boolean" }, control: "boolean", description: "Botón primario del footer.", table: { category: "Estructura" } },
     secondaryAction: { type: { name: "boolean" }, control: "boolean", description: "Botón secundario del footer.", table: { category: "Estructura" } },
     showAuthor: { type: { name: "boolean" }, control: "boolean", description: "Bloque de autor (avatar + nombre + meta) tras un divisor.", table: { category: "Estructura" } },
@@ -120,7 +120,7 @@ const meta = {
     controls: {
       include: [
         "surface", "orientation", "selected", "disabled", "interactive", "accent",
-        "media", "badge", "icon", "tags", "action", "link", "primaryAction",
+        "media", "badge", "showIcon", "tags", "showAction", "showLink", "primaryAction",
         "secondaryAction", "showAuthor", "eyebrow", "title", "subtitle", "body",
       ],
     },
