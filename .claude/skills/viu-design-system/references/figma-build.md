@@ -128,7 +128,9 @@ code-build §14)* · Kbd `721:7` COMP — keycap mono (prop `Tecla#721:0`); anch
 con el texto; borde + sombra inferior; doc `Atom · Kbd`.
 
 **MOLÉCULAS (35):** Search `26:347` SET(4) (`Texto#84:18`) · Datepicker `28:386` SET(5) · Toast
-`176:101` SET(4) Tono · Field/Textarea `223:46` SET(4) · Stepper `339:66` COMP · Accordion item
+`176:101` SET(4) Tono *(props: `Título#176:5` bool [default off], `Cerrar#176:7`, `Texto título#176:8`,
+`Texto mensaje#176:9`; **sin acción** — la "Deshacer" se removió en Figma jun-2026; el código quitó el
+prop `action` para mantener paridad)* · Field/Textarea `223:46` SET(4) · Stepper `339:66` COMP · Accordion item
 `174:19` SET(2) · Accordion `399:7` COMP · Avatar group `185:37` SET(2) · Banner `135:84` SET(5) Tono
 — *(jun-2026: CTA removido, prop Acción borrada)* props `Icono#135:7` · `Título#135:8` ·
 `Mensaje#135:9` · `Cerrar#135:11` · `Texto título#135:12` · `Texto mensaje#135:13` · `Link#683:0`

@@ -36,9 +36,6 @@
   line-height: var(--line-height-relaxed);
   color: var(--color-text-secondary);
 }
-.actions {
-  flex: none;
-}
 .close {
   flex: none;
   display: inline-flex;
