@@ -2,11 +2,33 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { NavItem } from "./NavItem";
 import { Icon } from "../Icon/Icon";
 
+/** Friendly playground controls (Card pattern). `icon` is in the global slot disable
+ * list → decoupled as `showIcon`; the label stays editable. */
+interface NavItemDemoArgs {
+  showIcon: boolean;
+  children: string;
+  active: boolean;
+}
+
+const renderNavItem = (a: NavItemDemoArgs) => (
+  <NavItem icon={a.showIcon ? <Icon glyph="Info" /> : undefined} active={a.active} href="#">
+    {a.children}
+  </NavItem>
+);
+
 const meta = {
   title: "Components/Molecules/NavItem",
   component: NavItem,
   tags: ["autodocs"],
+  render: renderNavItem,
+  args: { showIcon: true, children: "Inicio", active: false },
+  argTypes: {
+    showIcon: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el ícono.", table: { category: "Estructura" } },
+    children: { name: "label", type: { name: "string" }, control: "text", description: "Etiqueta del destino.", table: { category: "Texto" } },
+    active: { type: { name: "boolean" }, control: "boolean", description: "Estado activo (aria-current=page).", table: { category: "Estado" } },
+  },
   parameters: {
+    controls: { include: ["showIcon", "children", "active"] },
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=233-19",
@@ -19,10 +41,8 @@ const meta = {
       donts: ["No uses NavItem para acciones."],
     },
   },
-  args: { children: "Inicio", icon: <Icon glyph="Info" />, href: "#" },
-  argTypes: { active: { control: "boolean" } },
   decorators: [(S) => <div style={{ width: 240 }}>{S()}</div>],
-} satisfies Meta<typeof NavItem>;
+} satisfies Meta<NavItemDemoArgs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

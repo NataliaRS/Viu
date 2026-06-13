@@ -3,11 +3,39 @@ import { MenuItem } from "./MenuItem";
 import { Menu } from "../Menu/Menu";
 import { Icon } from "../Icon/Icon";
 
+/** Friendly playground controls (Card pattern). `icon` is in the global slot disable
+ * list → decoupled as `showIcon`; `shortcut` and the label stay editable. */
+interface MenuItemDemoArgs {
+  showIcon: boolean;
+  children: string;
+  shortcut: string;
+  disabled: boolean;
+}
+
+const renderMenuItem = (a: MenuItemDemoArgs) => (
+  <MenuItem
+    icon={a.showIcon ? <Icon glyph="Search" /> : undefined}
+    shortcut={a.shortcut || undefined}
+    disabled={a.disabled}
+  >
+    {a.children}
+  </MenuItem>
+);
+
 const meta = {
   title: "Components/Molecules/MenuItem",
   component: MenuItem,
   tags: ["autodocs"],
+  render: renderMenuItem,
+  args: { showIcon: true, children: "Opción del menú", shortcut: "⌘K", disabled: false },
+  argTypes: {
+    showIcon: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el ícono.", table: { category: "Estructura" } },
+    children: { name: "label", type: { name: "string" }, control: "text", description: "Etiqueta de la acción.", table: { category: "Texto" } },
+    shortcut: { type: { name: "string" }, control: "text", description: "Atajo de teclado (opcional). Vaciá para quitarlo.", table: { category: "Texto" } },
+    disabled: { type: { name: "boolean" }, control: "boolean", description: "Deshabilitado.", table: { category: "Estado" } },
+  },
   parameters: {
+    controls: { include: ["showIcon", "children", "shortcut", "disabled"] },
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=170-21",
@@ -20,10 +48,8 @@ const meta = {
       donts: ["No mezcles destinos de navegación con acciones sin distinguir."],
     },
   },
-  args: { children: "Opción del menú", icon: <Icon glyph="Search" />, shortcut: "⌘K" },
-  argTypes: { disabled: { control: "boolean" } },
   decorators: [(S) => <Menu aria-label="demo" style={{ width: 240 }}>{S()}</Menu>],
-} satisfies Meta<typeof MenuItem>;
+} satisfies Meta<MenuItemDemoArgs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
