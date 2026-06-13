@@ -9,6 +9,8 @@ import styles from "./Card.module.css";
 export type CardSurface = "elevated" | "outlined" | "filled";
 /** Media on top (`Arriba`), beside (`Lateral`) or at the bottom (`Abajo`). */
 export type CardOrientation = "vertical" | "horizontal" | "media-bottom";
+/** Title size — one of the system's title type-scale steps. */
+export type CardTitleSize = "title-s" | "title-m" | "title-l";
 
 export interface CardAuthor {
   name: ReactNode;
@@ -41,6 +43,8 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, "title">
   /** Kicker above the title (CATEGORÍA). */
   eyebrow?: ReactNode;
   title?: ReactNode;
+  /** Title type-scale step (defaults to `title-s`). */
+  titleSize?: CardTitleSize;
   subtitle?: ReactNode;
   /** Header action, aligned right of the eyebrow (e.g. an icon / IconButton). */
   action?: ReactNode;
@@ -77,6 +81,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
     subtitle,
     action,
     body,
+    titleSize = "title-s",
     link,
     primaryAction,
     secondaryAction,
@@ -136,7 +141,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
                 {action != null ? <span className={styles.action}>{action}</span> : null}
               </div>
             ) : null}
-            {title != null ? <h3 className={styles.title}>{title}</h3> : null}
+            {title != null ? <h3 className={cx(styles.title, `viu-type-${titleSize}`)}>{title}</h3> : null}
             {subtitle != null ? <p className={styles.subtitle}>{subtitle}</p> : null}
           </div>
         ) : null}

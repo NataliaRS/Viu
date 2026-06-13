@@ -151,11 +151,8 @@
   color: var(--color-text-secondary);
 }
 .title {
+  /* typography comes from the `viu-type-title-*` class (titleSize prop) */
   margin: 0;
-  font-family: var(--font-family-display);
-  font-size: var(--font-size-title-s);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-snug);
   color: var(--color-text-primary);
 }
 .subtitle {

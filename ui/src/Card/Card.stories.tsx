@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Card, type CardSurface, type CardOrientation } from "./Card";
+import { Card, type CardSurface, type CardOrientation, type CardTitleSize } from "./Card";
 import { Image } from "../Image/Image";
 import { Button } from "../Button/Button";
 import { Tag } from "../Tag/Tag";
@@ -33,6 +33,7 @@ interface CardDemoArgs {
   showAuthor: boolean;
   eyebrow: string;
   title: string;
+  titleSize: CardTitleSize;
   subtitle: string;
   body: string;
 }
@@ -59,6 +60,7 @@ const renderCard = (a: CardDemoArgs) => (
     tags={a.tags ? sampleTags : undefined}
     eyebrow={a.eyebrow || undefined}
     title={a.title || undefined}
+    titleSize={a.titleSize}
     subtitle={a.subtitle || undefined}
     action={a.showAction ? <Icon glyph="Plus" size={20} /> : undefined}
     body={a.body || undefined}
@@ -92,6 +94,7 @@ const meta = {
     showAuthor: true,
     eyebrow: "Categoría",
     title: "Título de la card",
+    titleSize: "title-s",
     subtitle: "Subtítulo o metadato",
     body: "Texto de cuerpo de la card: una descripción breve que da contexto al contenido y guía la siguiente acción.",
   },
@@ -113,6 +116,7 @@ const meta = {
     showAuthor: { type: { name: "boolean" }, control: "boolean", description: "Bloque de autor (avatar + nombre + meta) tras un divisor.", table: { category: "Estructura" } },
     eyebrow: { type: { name: "string" }, control: "text", description: "Kicker sobre el título. Vaciá el campo para quitarlo.", table: { category: "Texto" } },
     title: { type: { name: "string" }, control: "text", description: "Título. Vaciá para quitarlo.", table: { category: "Texto" } },
+    titleSize: { type: { name: "enum", value: ["title-s", "title-m", "title-l"] }, control: "inline-radio", options: ["title-s", "title-m", "title-l"], description: "Tamaño del título según la escala tipográfica del sistema (18 / 20 / 22px).", table: { category: "Texto" } },
     subtitle: { type: { name: "string" }, control: "text", description: "Subtítulo / metadato. Vaciá para quitarlo.", table: { category: "Texto" } },
     body: { type: { name: "string" }, control: "text", description: "Texto de cuerpo. Vaciá para quitarlo.", table: { category: "Texto" } },
   },
@@ -121,7 +125,7 @@ const meta = {
       include: [
         "surface", "orientation", "selected", "disabled", "interactive", "accent",
         "media", "badge", "showIcon", "tags", "showAction", "showLink", "primaryAction",
-        "secondaryAction", "showAuthor", "eyebrow", "title", "subtitle", "body",
+        "secondaryAction", "showAuthor", "eyebrow", "title", "titleSize", "subtitle", "body",
       ],
     },
     viu: {
