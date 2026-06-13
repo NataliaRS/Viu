@@ -198,9 +198,21 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
   - `satisfies Meta<typeof C>` EXIGE `args` en el meta si el componente tiene props requeridas sin
     default (ej. Tabs, AppShell `sidebar`+`children`, Form/Wizard/DataTable). Agregá `args` mínimos
     aunque uses `render`.
+  - **Props en UNIÓN DISCRIMINADA → `args` colapsa a `never` (gotcha real, pegó 3× en jun-2026:
+    Slider, SegmentedControl, ChoiceGroup).** `satisfies Meta<typeof C>` sobre un componente con props
+    `A | B` hace que Storybook intersecte los miembros y tipe `args: never` → toda story (incluso
+    `render`-only) tira TS2322 "args is missing / never". Fix: tipá el meta contra UN miembro concreto
+    (`satisfies Meta<SingleSliderProps>` / `Meta<RadioChoiceGroupProps>`) y manejá los otros modos por
+    `render`. Si además hay props requeridas, sumá `args` mínimos del miembro elegido.
   - `cx(..., cond && clase)` con `cond: ReactNode` rompe (puede ser null/0). Usá `cond ? clase :
     false`.
   - Merge de refs: `useRef<T | null>(null)` (mutable) y `(ref as any).current = node` para forwardear.
+  - **Reuso con override de `role`/atributos:** los átomos ponen `role="…"` ANTES de `{...rest}` (ej.
+    Search `role="searchbox"`, MenuItem `role="menuitem"`) → al reusarlos podés pisar el role vía
+    props (Combobox: Search→`role="combobox"`+ARIA, MenuItem→`role="option"`+`tabIndex={-1}`). Para
+    forzar un estado visual que el átomo solo da por `:hover` (ej. opción activa por teclado), pasá
+    `style={{background:"var(--color-bg-hover)"}}` inline — le gana al `:hover` sin pelear con el
+    orden de los CSS modules.
 - **Superficies flotantes (Toast/Popover/Menu/Modal):** `bg/elevated` + `border/subtle` +
   `box-shadow: var(--shadow-overlay)` + `radius/surface`. Capa con `z/*` correspondiente.
 - **Overlays con foco/scrim (Modal/Drawer/Popover — aprendido jun-2026):**
