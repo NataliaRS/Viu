@@ -50,7 +50,7 @@ figma.connect(
         body={body}
         link={<Link href="#">Leer más</Link>}
         primaryAction={<Button variant="primary" size="sm">Aplicar</Button>}
-        secondaryAction={<Button variant="tertiary" size="sm">Después</Button>}
+        secondaryAction={<Button variant="secondary" size="sm">Después</Button>}
         author={{ name: authorName, meta: authorMeta, avatar: <Avatar initials="NR" /> }}
       />
     ),

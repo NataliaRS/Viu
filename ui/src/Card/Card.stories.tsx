@@ -64,7 +64,7 @@ const fullProps = {
     </Button>
   ),
   secondaryAction: (
-    <Button variant="tertiary" size="sm">
+    <Button variant="secondary" size="sm">
       Después
     </Button>
   ),
