@@ -27,8 +27,24 @@
   outline-offset: -2px;
 }
 .selected {
-  background: var(--color-bg-subtle);
+  background: var(--color-bg-brand-subtle);
   color: var(--color-text-brand);
+}
+.selected .chevron {
+  color: var(--color-text-brand);
+}
+.disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.disabled .chevron,
+.disabled .icon {
+  color: var(--color-text-disabled);
+}
+.checkbox {
+  flex: none;
+  display: inline-flex;
 }
 .chevron {
   flex: none;

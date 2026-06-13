@@ -97,3 +97,44 @@ export const Projects: Story = {
   parameters: { controls: { disable: true } },
   render: () => <ProjectsTree />,
 };
+
+/** Selectable tree with leading checkboxes; "Operaciones" is disabled. */
+function CheckboxTree() {
+  const [expanded, setExpanded] = useState<Set<string>>(new Set(["proyectos", "producto", "marketing"]));
+  const [checked, setChecked] = useState<Set<string>>(new Set(["diseno"]));
+
+  const toggle = (set: Set<string>, id: string) => {
+    const next = new Set(set);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    return next;
+  };
+
+  const renderNodes = (nodes: Node[], level: number): ReactElement[] =>
+    nodes.flatMap((node) => {
+      const hasChildren = !!node.children?.length;
+      const isOpen = expanded.has(node.id);
+      const row = (
+        <TreeItem
+          key={node.id}
+          label={node.label}
+          level={level}
+          hasChildren={hasChildren}
+          expanded={isOpen}
+          onExpandedChange={() => setExpanded((p) => toggle(p, node.id))}
+          checkbox
+          checked={checked.has(node.id)}
+          onCheckedChange={() => setChecked((p) => toggle(p, node.id))}
+          disabled={node.id === "operaciones"}
+        />
+      );
+      return hasChildren && isOpen ? [row, ...renderNodes(node.children!, level + 1)] : [row];
+    });
+
+  return <TreeView aria-label="Proyectos">{renderNodes(tree, 0)}</TreeView>;
+}
+
+export const Checkboxes: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => <CheckboxTree />,
+};

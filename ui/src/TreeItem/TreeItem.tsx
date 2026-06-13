@@ -1,18 +1,24 @@
 import { type ReactNode } from "react";
 import { Icon } from "../Icon/Icon";
+import { Checkbox } from "../Checkbox/Checkbox";
 import styles from "./TreeItem.module.css";
 
 export interface TreeItemProps {
   label: ReactNode;
   /** Indent level (0-based). */
   level?: number;
-  /** Has children → renders an expand chevron. */
+  /** Has children → renders an expand chevron (Figma `Expansión`: Expandido/Colapsado vs Hoja). */
   hasChildren?: boolean;
   expanded?: boolean;
   onExpandedChange?: (expanded: boolean) => void;
   selected?: boolean;
   onSelect?: () => void;
+  disabled?: boolean;
   icon?: ReactNode;
+  /** Show a leading checkbox (selectable trees). */
+  checkbox?: boolean;
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
   className?: string;
 }
 
@@ -26,7 +32,11 @@ export function TreeItem({
   onExpandedChange,
   selected,
   onSelect,
+  disabled,
   icon,
+  checkbox,
+  checked,
+  onCheckedChange,
   className,
 }: TreeItemProps) {
   return (
@@ -35,11 +45,21 @@ export function TreeItem({
       aria-selected={selected || undefined}
       aria-expanded={hasChildren ? !!expanded : undefined}
       aria-level={level + 1}
-      tabIndex={selected ? 0 : -1}
-      className={cx(styles.item, selected && styles.selected, className)}
+      aria-disabled={disabled || undefined}
+      tabIndex={disabled ? -1 : selected ? 0 : -1}
+      className={cx(styles.item, selected && styles.selected, disabled && styles.disabled, className)}
       style={{ paddingLeft: `calc(var(--space-xs) + ${level} * var(--space-md))` }}
-      onClick={onSelect}
+      onClick={disabled ? undefined : onSelect}
     >
+      {checkbox ? (
+        <span className={styles.checkbox} onClick={(e) => e.stopPropagation()}>
+          <Checkbox
+            checked={checked}
+            disabled={disabled}
+            onChange={(e) => onCheckedChange?.(e.target.checked)}
+          />
+        </span>
+      ) : null}
       {hasChildren ? (
         <span
           className={cx(styles.chevron, expanded && styles.open)}
@@ -47,7 +67,7 @@ export function TreeItem({
           aria-label={expanded ? "Colapsar" : "Expandir"}
           onClick={(e) => {
             e.stopPropagation();
-            onExpandedChange?.(!expanded);
+            if (!disabled) onExpandedChange?.(!expanded);
           }}
         >
           <Icon glyph="Chevron" size={16} />
