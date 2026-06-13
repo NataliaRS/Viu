@@ -34,6 +34,7 @@ export function TreeItem({
       role="treeitem"
       aria-selected={selected || undefined}
       aria-expanded={hasChildren ? !!expanded : undefined}
+      aria-level={level + 1}
       tabIndex={selected ? 0 : -1}
       className={cx(styles.item, selected && styles.selected, className)}
       style={{ paddingLeft: `calc(var(--space-xs) + ${level} * var(--space-md))` }}
