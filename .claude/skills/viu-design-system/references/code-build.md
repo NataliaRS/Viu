@@ -21,8 +21,8 @@ colecciones (`figma-build.md` §13). `scripts/build-tokens.mjs` (sin deps) resue
 playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada componente:
 `Componente.tsx` + `.module.css` + `.stories.tsx` + `.figma.tsx` (Code Connect).
 
-**Hechos: 29 átomos + 33 moléculas + 9 organismos + 4 patrones** *(jun-2026: +Kbd átomo,
-+SegmentedControl +ChoiceGroup moléculas — C1 design-to-code en curso, 3/5).*
+**Hechos: 29 átomos + 34 moléculas + 9 organismos + 4 patrones** *(jun-2026: +Kbd átomo,
++SegmentedControl +ChoiceGroup +Combobox moléculas — C1 design-to-code en curso, 4/5).*
 - **Átomos (29):** Icon (10 glifos, +Visibility/VisibilityOff), IconButton, Button, Badge, Link, Tag, Status, Pill,
   Chip, Notification badge, Avatar, Divider, Progress, Tooltip, Checkbox, Radio, Switch, Slider,
   Input, Skeleton, Spinner, Select, Step, Textarea, Tab, Rating, Image, Icon container, **Kbd**
@@ -34,8 +34,11 @@ playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada co
   VideoEmbed, TimePicker, Datepicker, **SegmentedControl** (radiogroup sobre radios nativos; thumb
   activo = bg/elevated + shadow/raised; paddings off-grid de Figma 3/7px redondeados a tokens
   `3xs`/`xs` → misma altura externa 38px), **ChoiceGroup** (fieldset+legend; reusa Radio/Checkbox;
-  unión discriminada radio→`value:string` / checkbox→`value:string[]`; helper vía aria-describedby).
-  Field/Input·Select·Textarea = recetas FormField+control (story `Fields`).
+  unión discriminada radio→`value:string` / checkbox→`value:string[]`; helper vía aria-describedby),
+  **Combobox** (reusa Search+MenuItem; patrón WAI-ARIA combobox+listbox: foco en el input,
+  aria-activedescendant, ↑↓/Enter/Esc, filtrado, click-outside; opción activa = bg/hover por inline
+  style para ganarle al `:hover` de MenuItem de forma robusta). Field/Input·Select·Textarea = recetas
+  FormField+control (story `Fields`).
 - **Organismos (9):** Card, EmptyState, PageHeader, Footer, Table, TreeView, Modal, Drawer, Popover.
   Overlays comparten `src/overlay/useFocusTrap.ts` (foco atrapado + Esc + restore) y `useScrollLock`;
   Modal/Drawer van por `createPortal` con scrim `alpha/black-72` en `z/modal`; Popover es anclado
@@ -49,9 +52,9 @@ playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada co
 `onValueChange([lo,hi])`, clamping lo≤hi, dos `<input type=range>` superpuestos (thumbs grabbables por
 z-index dinámico). ~~Tooltip/Popover sin colisión/flip~~ → **RESUELTO (B5, jun-2026):** hook compartido
 `src/overlay/useFlipSide.ts` voltea al lado opuesto cuando el preferido se sale del viewport (Tooltip
-mide en hover/focus; Popover en open + scroll/resize). **C1 design-to-code EN CURSO (jun-2026, 3/5):** ✅ Kbd `721:7` + ✅ SegmentedControl `724:28` +
-✅ ChoiceGroup `728:35` portados a `@viu/ui`. Faltan: Combobox `730:40` (reusa Search+MenuItem),
-Date range picker `732:120` (reusa Datepicker ×2 + calendario custom) — detalle/IDs en
+mide en hover/focus; Popover en open + scroll/resize). **C1 design-to-code EN CURSO (jun-2026, 4/5):** ✅ Kbd `721:7` + ✅ SegmentedControl `724:28` +
+✅ ChoiceGroup `728:35` + ✅ Combobox `730:40` portados a `@viu/ui`. Falta: Date range picker
+`732:120` (reusa Datepicker ×2 + calendario de rango custom — el más complejo) — detalle/IDs en
 figma-build §2b/§14. **Icon container — Code
 Connect creado (jun-2026, B3, `.figma.tsx` → nodo `574:150`).
 Gap de paridad PENDIENTE:** el nodo Figma tiene 3 ejes (Size × `style` Filled/Stroke × `tone`

@@ -30,6 +30,8 @@ export type {
   RadioChoiceGroupProps,
   CheckboxChoiceGroupProps,
 } from "./ChoiceGroup/ChoiceGroup";
+export { Combobox } from "./Combobox/Combobox";
+export type { ComboboxProps, ComboboxOption } from "./Combobox/Combobox";
 
 export { Status } from "./Status/Status";
 export type { StatusProps, StatusKind } from "./Status/Status";
