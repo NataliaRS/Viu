@@ -23,6 +23,13 @@ export type {
   SegmentedControlProps,
   SegmentedControlOption,
 } from "./SegmentedControl/SegmentedControl";
+export { ChoiceGroup } from "./ChoiceGroup/ChoiceGroup";
+export type {
+  ChoiceGroupProps,
+  ChoiceOption,
+  RadioChoiceGroupProps,
+  CheckboxChoiceGroupProps,
+} from "./ChoiceGroup/ChoiceGroup";
 
 export { Status } from "./Status/Status";
 export type { StatusProps, StatusKind } from "./Status/Status";

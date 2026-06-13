@@ -1,0 +1,32 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-inline-size: 0;
+}
+
+.legend {
+  padding: 0;
+  font-family: var(--font-family-label);
+  font-size: var(--font-size-label-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.helper {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-s);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-tertiary);
+}
