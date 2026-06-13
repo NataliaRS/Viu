@@ -116,7 +116,7 @@ const meta = {
     showAuthor: { type: { name: "boolean" }, control: "boolean", description: "Bloque de autor (avatar + nombre + meta) tras un divisor.", table: { category: "Estructura" } },
     eyebrow: { type: { name: "string" }, control: "text", description: "Kicker sobre el título. Vaciá el campo para quitarlo.", table: { category: "Texto" } },
     title: { type: { name: "string" }, control: "text", description: "Título. Vaciá para quitarlo.", table: { category: "Texto" } },
-    titleSize: { type: { name: "enum", value: ["title-s", "title-m", "title-l", "headline-s", "headline-m", "headline-l", "display-s", "display-m", "display-l"] }, control: "select", options: ["title-s", "title-m", "title-l", "headline-s", "headline-m", "headline-l", "display-s", "display-m", "display-l"], description: "Tamaño del título según la escala tipográfica del sistema (title → headline → display).", table: { category: "Texto" } },
+    titleSize: { type: { name: "enum", value: ["title-s", "title-m", "title-l", "headline-s", "headline-m", "headline-l", "display-s", "display-m", "display-l", "oversize-s", "oversize-m", "oversize-l"] }, control: "select", options: ["title-s", "title-m", "title-l", "headline-s", "headline-m", "headline-l", "display-s", "display-m", "display-l", "oversize-s", "oversize-m", "oversize-l"], description: "Tamaño del título según la escala tipográfica del sistema (title → headline → display → oversize).", table: { category: "Texto" } },
     subtitle: { type: { name: "string" }, control: "text", description: "Subtítulo / metadato. Vaciá para quitarlo.", table: { category: "Texto" } },
     body: { type: { name: "string" }, control: "text", description: "Texto de cuerpo. Vaciá para quitarlo.", table: { category: "Texto" } },
   },
