@@ -2,9 +2,9 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: var(--space-2xs);
+  gap: var(--space-6); /* Figma: gap 6px */
   width: 100%;
-  padding: var(--space-2xs) var(--space-xs);
+  padding: var(--space-6) var(--space-xs); /* Figma: 6px vertical / 8px horizontal */
   border: 0;
   border-radius: var(--radius-control);
   background: transparent;
