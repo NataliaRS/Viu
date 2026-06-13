@@ -195,12 +195,13 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
   para interactivos.
 - **Props slot (ReactNode) en Controls:** los slots (`icon`, `leadingIcon`, `trailingIcon`, `link`,
   `action`, `avatar`) tienen `control: false` GLOBAL en `preview.tsx`. Si agregás un slot con otro
-  nombre, sumalo a esa lista global (no a `children`). Para hacer un slot toggleable en una story
-  puntual: opción liviana → `argTypes: { link: { control: "boolean", mapping: { true: <Nodo/>, false:
-  undefined } } }` + `args: { link: false }` (ej. Banner). ⚠️ **Si el control NO aparece** (el disable
-  global le gana al override del story — confirmado en Card jun-2026 con `control:"boolean"` sin
-  `mapping`), usá una KEY que NO esté en la lista global (`showLink`/`showIcon`/`showAction`) y mapeá en
-  el `render`. Patrón completo de controles amigables (playground con toggles + texto) → §15.
+  nombre, sumalo a esa lista global (no a `children`). **Para hacer un slot toggleable en una story:
+  el `control:"boolean"` a nivel story NO vence al disable global — NI con `mapping`** (confirmado
+  jun-2026: Card con `showX` renderiza; Banner/Toast/EmptyState con `mapping`+nombre real NO mostraban
+  el control). La nota vieja que recomendaba `mapping` con el nombre real era FALSA. → **Único método
+  que funciona: usá una KEY que NO esté en la lista global** (`showLink`/`showAction`/`showIcon`) en una
+  interface demo-args, y mapeá `showX → prop` en el `render`. Slots NO listados (footer, actions, media,
+  badge, tags…) sí funcionan con nombre real como boolean. Patrón completo → §15.
 - **Foundations:** token-driven (leen `dist/tokens.js`, no hardcodear). Patrones ya hechos: swatches
   copy-to-click, matriz de contraste WCAG, dark/light lado a lado, galerías de
   spacing/radius/type/effects/grid. Al agregar tokens nuevos → sumar su visualización.
