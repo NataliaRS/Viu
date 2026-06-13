@@ -9,11 +9,11 @@ import { Avatar } from "../Avatar/Avatar";
 import { Icon } from "../Icon/Icon";
 
 /**
- * Friendly control args (mirrors the Figma component properties): booleans to
- * show/hide each anatomy piece, text fields for the copy, and selects for the
- * variants. The render maps them to the real `ReactNode` props of <Card/>, so
- * the Docs "Propiedades" panel is fully usable (toggle parts on/off, edit text;
- * clear a text field to remove that piece).
+ * Friendly control args (mirrors the Figma component properties). The toggle/text
+ * arg names are intentionally DECOUPLED from the component prop names (show*, *Text)
+ * so react-docgen can't disable the controls — Card's real props are ReactNode,
+ * which Storybook renders as inert/non-editable. The render maps these primitives
+ * to the real `ReactNode` props. Clear a text field to remove that piece.
  */
 interface CardDemoArgs {
   surface: CardSurface;
@@ -21,20 +21,20 @@ interface CardDemoArgs {
   selected: boolean;
   disabled: boolean;
   interactive: boolean;
-  accent: boolean;
-  media: boolean;
-  badge: boolean;
-  icon: boolean;
-  tags: boolean;
-  action: boolean;
-  link: boolean;
-  primaryAction: boolean;
-  secondaryAction: boolean;
+  showAccent: boolean;
+  showMedia: boolean;
+  showBadge: boolean;
+  showIcon: boolean;
+  showTags: boolean;
+  showAction: boolean;
+  showLink: boolean;
+  showPrimary: boolean;
+  showSecondary: boolean;
   showAuthor: boolean;
-  eyebrow: string;
-  title: string;
-  subtitle: string;
-  body: string;
+  eyebrowText: string;
+  titleText: string;
+  subtitleText: string;
+  bodyText: string;
 }
 
 const sampleTags = (
@@ -52,19 +52,19 @@ const renderCard = (a: CardDemoArgs) => (
     selected={a.selected}
     disabled={a.disabled}
     interactive={a.interactive}
-    accent={a.accent}
-    media={a.media ? <Image ratio="16:9" src="https://picsum.photos/seed/viu/480/270" alt="Portada" /> : undefined}
-    badge={a.badge ? <Badge>Etiqueta</Badge> : undefined}
-    icon={a.icon ? <Icon glyph="Info" size={24} /> : undefined}
-    tags={a.tags ? sampleTags : undefined}
-    eyebrow={a.eyebrow || undefined}
-    title={a.title || undefined}
-    subtitle={a.subtitle || undefined}
-    action={a.action ? <Icon glyph="Plus" size={20} /> : undefined}
-    body={a.body || undefined}
-    link={a.link ? <Link href="#">Leer más</Link> : undefined}
-    primaryAction={a.primaryAction ? <Button variant="primary" size="sm">Aplicar</Button> : undefined}
-    secondaryAction={a.secondaryAction ? <Button variant="secondary" size="sm">Después</Button> : undefined}
+    accent={a.showAccent}
+    media={a.showMedia ? <Image ratio="16:9" src="https://picsum.photos/seed/viu/480/270" alt="Portada" /> : undefined}
+    badge={a.showBadge ? <Badge>Etiqueta</Badge> : undefined}
+    icon={a.showIcon ? <Icon glyph="Info" size={24} /> : undefined}
+    tags={a.showTags ? sampleTags : undefined}
+    eyebrow={a.eyebrowText || undefined}
+    title={a.titleText || undefined}
+    subtitle={a.subtitleText || undefined}
+    action={a.showAction ? <Icon glyph="Plus" size={20} /> : undefined}
+    body={a.bodyText || undefined}
+    link={a.showLink ? <Link href="#">Leer más</Link> : undefined}
+    primaryAction={a.showPrimary ? <Button variant="primary" size="sm">Aplicar</Button> : undefined}
+    secondaryAction={a.showSecondary ? <Button variant="secondary" size="sm">Después</Button> : undefined}
     author={a.showAuthor ? { name: "Natalia Rodríguez", meta: "12 may 2026 · 5 min de lectura", avatar: <Avatar initials="NR" /> } : undefined}
   />
 );
@@ -80,48 +80,49 @@ const meta = {
     selected: false,
     disabled: false,
     interactive: false,
-    accent: false,
-    media: true,
-    badge: true,
-    icon: false,
-    tags: true,
-    action: true,
-    link: true,
-    primaryAction: true,
-    secondaryAction: true,
+    showAccent: false,
+    showMedia: true,
+    showBadge: true,
+    showIcon: false,
+    showTags: true,
+    showAction: true,
+    showLink: true,
+    showPrimary: true,
+    showSecondary: true,
     showAuthor: true,
-    eyebrow: "Categoría",
-    title: "Título de la card",
-    subtitle: "Subtítulo o metadato",
-    body: "Texto de cuerpo de la card: una descripción breve que da contexto al contenido y guía la siguiente acción.",
+    eyebrowText: "Categoría",
+    titleText: "Título de la card",
+    subtitleText: "Subtítulo o metadato",
+    bodyText: "Texto de cuerpo de la card: una descripción breve que da contexto al contenido y guía la siguiente acción.",
   },
   argTypes: {
-    surface: { control: "inline-radio", options: ["elevated", "outlined", "filled"], description: "Estilo de superficie: Elevated (sombra) · Outlined (borde) · Filled (relleno sutil).", table: { category: "Variante" } },
-    orientation: { control: "inline-radio", options: ["vertical", "horizontal", "media-bottom"], description: "Posición de la media: arriba (vertical), al lado (horizontal) o al pie (media-bottom).", table: { category: "Variante" } },
-    selected: { control: "boolean", description: "Estado seleccionado persistente (superficie brand-2 + borde).", table: { category: "Estado" } },
-    disabled: { control: "boolean", description: "Deshabilitada: texto atenuado y no interactiva.", table: { category: "Estado" } },
-    interactive: { control: "boolean", description: "Hace toda la card operable (click + teclado) con foco visible.", table: { category: "Estado" } },
-    accent: { control: "boolean", description: "Barra de acento crimson en el borde superior.", table: { category: "Estructura" } },
-    media: { control: "boolean", description: "Imagen/medio (en la story, una Image 16:9).", table: { category: "Estructura" } },
-    badge: { control: "boolean", description: "Badge flotante sobre la esquina superior derecha.", table: { category: "Estructura" } },
-    icon: { control: "boolean", description: "Caja de ícono 48×48 al tope del contenido (desacoplada de la media).", table: { category: "Estructura" } },
-    tags: { control: "boolean", description: "Fila de tags de clasificación.", table: { category: "Estructura" } },
-    action: { control: "boolean", description: "Acción del encabezado: ícono a la derecha del eyebrow (ej. +, ⋯, guardar).", table: { category: "Estructura" } },
-    link: { control: "boolean", description: "Enlace 'Leer más' debajo del cuerpo.", table: { category: "Estructura" } },
-    primaryAction: { control: "boolean", description: "Botón primario del footer.", table: { category: "Estructura" } },
-    secondaryAction: { control: "boolean", description: "Botón secundario del footer.", table: { category: "Estructura" } },
-    showAuthor: { control: "boolean", description: "Bloque de autor (avatar + nombre + meta) tras un divisor.", table: { category: "Estructura" } },
-    eyebrow: { control: "text", description: "Kicker sobre el título. Vaciá el campo para quitarlo.", table: { category: "Texto" } },
-    title: { control: "text", description: "Título. Vaciá para quitarlo.", table: { category: "Texto" } },
-    subtitle: { control: "text", description: "Subtítulo / metadato. Vaciá para quitarlo.", table: { category: "Texto" } },
-    body: { control: "text", description: "Texto de cuerpo. Vaciá para quitarlo.", table: { category: "Texto" } },
+    surface: { name: "surface", control: "inline-radio", options: ["elevated", "outlined", "filled"], description: "Estilo de superficie: Elevated (sombra) · Outlined (borde) · Filled (relleno sutil).", table: { category: "Variante" } },
+    orientation: { name: "orientation", control: "inline-radio", options: ["vertical", "horizontal", "media-bottom"], description: "Posición de la media: arriba (vertical), al lado (horizontal) o al pie (media-bottom).", table: { category: "Variante" } },
+    selected: { name: "selected", control: "boolean", description: "Estado seleccionado persistente (superficie brand-2 + borde).", table: { category: "Estado" } },
+    disabled: { name: "disabled", control: "boolean", description: "Deshabilitada: texto atenuado y no interactiva.", table: { category: "Estado" } },
+    interactive: { name: "interactive", control: "boolean", description: "Hace toda la card operable (click + teclado) con foco visible.", table: { category: "Estado" } },
+    showAccent: { name: "accent", control: "boolean", description: "Barra de acento crimson en el borde superior.", table: { category: "Estructura" } },
+    showMedia: { name: "media", control: "boolean", description: "Imagen/medio (en la story, una Image 16:9).", table: { category: "Estructura" } },
+    showBadge: { name: "badge", control: "boolean", description: "Badge flotante sobre la esquina superior derecha.", table: { category: "Estructura" } },
+    showIcon: { name: "icon", control: "boolean", description: "Caja de ícono 48×48 al tope del contenido (desacoplada de la media).", table: { category: "Estructura" } },
+    showTags: { name: "tags", control: "boolean", description: "Fila de tags de clasificación.", table: { category: "Estructura" } },
+    showAction: { name: "action", control: "boolean", description: "Acción del encabezado: ícono a la derecha del eyebrow (ej. +, ⋯, guardar).", table: { category: "Estructura" } },
+    showLink: { name: "link", control: "boolean", description: "Enlace 'Leer más' debajo del cuerpo.", table: { category: "Estructura" } },
+    showPrimary: { name: "primaryAction", control: "boolean", description: "Botón primario del footer.", table: { category: "Estructura" } },
+    showSecondary: { name: "secondaryAction", control: "boolean", description: "Botón secundario del footer.", table: { category: "Estructura" } },
+    showAuthor: { name: "author", control: "boolean", description: "Bloque de autor (avatar + nombre + meta) tras un divisor.", table: { category: "Estructura" } },
+    eyebrowText: { name: "eyebrow", control: "text", description: "Kicker sobre el título. Vaciá el campo para quitarlo.", table: { category: "Texto" } },
+    titleText: { name: "title", control: "text", description: "Título. Vaciá para quitarlo.", table: { category: "Texto" } },
+    subtitleText: { name: "subtitle", control: "text", description: "Subtítulo / metadato. Vaciá para quitarlo.", table: { category: "Texto" } },
+    bodyText: { name: "body", control: "text", description: "Texto de cuerpo. Vaciá para quitarlo.", table: { category: "Texto" } },
   },
   parameters: {
     controls: {
       include: [
-        "surface", "orientation", "selected", "disabled", "interactive", "accent",
-        "media", "badge", "icon", "tags", "action", "link", "primaryAction",
-        "secondaryAction", "showAuthor", "eyebrow", "title", "subtitle", "body",
+        "surface", "orientation", "selected", "disabled", "interactive", "showAccent",
+        "showMedia", "showBadge", "showIcon", "showTags", "showAction", "showLink",
+        "showPrimary", "showSecondary", "showAuthor", "eyebrowText", "titleText",
+        "subtitleText", "bodyText",
       ],
     },
     viu: {

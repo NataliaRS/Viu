@@ -232,6 +232,13 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     `author:CardAuthor` → usá `showAuthor`); `boolean`/`string` SÍ son asignables a `ReactNode`, esos no
     chocan. (3) `parameters.controls.include:[...]` lista solo los args amigables, para ocultar las
     props `ReactNode` que docgen reinyecta. Mantené `tags:["autodocs"]`.
+    **(4) CRÍTICO (corregido jun-2026, 2º intento): DESACOPLÁ los nombres de los args de los de las
+    props.** Si el arg demo se llama igual que una prop `ReactNode` (`icon`, `link`, `media`…), docgen
+    le pega el tipo `ReactNode` y Storybook DESHABILITA el control aunque pongas `control:"boolean"`
+    (pasó: `icon`/`link` salían sin toggle). Usá keys `show*` / `*Text` (ej. `showIcon`, `eyebrowText`)
+    + `name:"icon"` en el argType para la etiqueta linda; el `render` mapea `showIcon` → `icon`. Los
+    args primitivos (surface/orientation/selected/disabled/interactive) sí pueden conservar el nombre
+    de la prop (docgen los infiere como boolean/select y el control funciona).
   - `cx(..., cond && clase)` con `cond: ReactNode` rompe (puede ser null/0). Usá `cond ? clase :
     false`.
   - Merge de refs: `useRef<T | null>(null)` (mutable) y `(ref as any).current = node` para forwardear.
