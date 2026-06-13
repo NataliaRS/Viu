@@ -11,7 +11,8 @@ interface EmptyStateDemoArgs {
   variant: EmptyStateVariant;
   title: string;
   description: string;
-  actions: boolean;
+  showPrimary: boolean;
+  showSecondary: boolean;
 }
 
 const renderEmptyState = (a: EmptyStateDemoArgs) => (
@@ -20,10 +21,10 @@ const renderEmptyState = (a: EmptyStateDemoArgs) => (
     title={a.title}
     description={a.description || undefined}
     actions={
-      a.actions ? (
+      a.showPrimary || a.showSecondary ? (
         <>
-          <Button variant="primary">Crear proyecto</Button>
-          <Button variant="secondary">Importar</Button>
+          {a.showPrimary ? <Button variant="primary">Crear proyecto</Button> : null}
+          {a.showSecondary ? <Button variant="secondary">Importar</Button> : null}
         </>
       ) : undefined
     }
@@ -39,16 +40,18 @@ const meta = {
     variant: "first",
     title: "Creá tu primer proyecto",
     description: "Organizá tu trabajo en proyectos. Creá el primero o importá uno existente para empezar.",
-    actions: true,
+    showPrimary: true,
+    showSecondary: true,
   },
   argTypes: {
     variant: { type: { name: "enum", value: ["first", "empty", "error"] }, control: "inline-radio", options: ["first", "empty", "error"], description: "Variante: primer uso / sin resultados / error.", table: { category: "Variante" } },
     title: { type: { name: "string" }, control: "text", description: "Título.", table: { category: "Texto" } },
     description: { type: { name: "string" }, control: "text", description: "Descripción (opcional). Vaciá para quitarla.", table: { category: "Texto" } },
-    actions: { type: { name: "boolean" }, control: "boolean", description: "Mostrar acciones (primaria + secundaria).", table: { category: "Estructura" } },
+    showPrimary: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el botón primario.", table: { category: "Estructura" } },
+    showSecondary: { type: { name: "boolean" }, control: "boolean", description: "Mostrar el botón secundario.", table: { category: "Estructura" } },
   },
   parameters: {
-    controls: { include: ["variant", "title", "description", "actions"] },
+    controls: { include: ["variant", "title", "description", "showPrimary", "showSecondary"] },
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=157-55",
