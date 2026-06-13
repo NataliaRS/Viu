@@ -50,6 +50,20 @@ moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
   Overlays comparten `src/overlay/useFocusTrap.ts` (foco atrapado + Esc + restore) y `useScrollLock`;
   Modal/Drawer van por `createPortal` con scrim `alpha/black-72` en `z/modal`; Popover es anclado
   (trigger slot + caret + click-outside) en `z/popover`.
+  - **Card — REESCRITA jun-2026 (props estructuradas, paridad con Figma `434:6`).** Estaba portada
+    como contenedor genérico (solo `surface`/`orientation`/`media`/`footer`/`badge`/`accent`+children)
+    → había **perdido ~15 de las 20 props** de la Card de Figma. Ahora expone toda la anatomía como
+    props opcionales: `icon` (caja 48×48), `tags`, `eyebrow`, `title`, `subtitle`, `action`, `body`,
+    `link`, `primaryAction`/`secondaryAction`, `author{name,meta,avatar}` (tras divisor), + `children`
+    como escape hatch. Superficies fieles a Figma: Elevated=`bg/elevated`+`shadow/raised`,
+    Outlined=`bg/base`+`border/default`, Filled=`bg/subtle`. Estados: focus=outline `border/focus`;
+    **selected=`bg/brand-2-subtle`+inset `border/brand-2`** (superficie+signifier, P5);
+    disabled=texto `text-disabled`+no interactiva. Disposición `media-bottom` (Abajo) = `flex-direction:
+    column-reverse` (DOM [media,content]). Clickable → `role=button`+tabIndex+Enter/Espacio.
+  - **LECCIÓN (design-to-code de componentes ricos):** exponé la anatomía de Figma como **props
+    estructuradas opcionales**, NO la colapses a slots genéricos + children — colapsar pierde las
+    props de texto/toggle del componente de Figma y rompe la paridad. Verificá `componentPropertyDefinitions`
+    del set ANTES de portar.
 - **Patrones (4):** AppShell (sidebar+topbar+content), Form (layout + banner + acciones), Wizard
   (Stepper + paso + nav controlada), DataTable (toolbar + Table + paginación + estados). Son
   componentes de layout reusables que componen el resto (no stories sueltas).

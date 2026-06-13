@@ -189,7 +189,7 @@ export type { DatepickerProps } from "./Datepicker/Datepicker";
 
 /* ---- organisms (Tramo 4) ---- */
 export { Card } from "./Card/Card";
-export type { CardProps, CardSurface, CardOrientation } from "./Card/Card";
+export type { CardProps, CardSurface, CardOrientation, CardAuthor } from "./Card/Card";
 
 export { EmptyState } from "./EmptyState/EmptyState";
 export type { EmptyStateProps, EmptyStateVariant } from "./EmptyState/EmptyState";

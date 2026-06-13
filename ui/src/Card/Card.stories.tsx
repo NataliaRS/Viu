@@ -4,6 +4,9 @@ import { Image } from "../Image/Image";
 import { Button } from "../Button/Button";
 import { Tag } from "../Tag/Tag";
 import { Badge } from "../Badge/Badge";
+import { Link } from "../Link/Link";
+import { Avatar } from "../Avatar/Avatar";
+import { Icon } from "../Icon/Icon";
 
 const meta = {
   title: "Components/Organisms/Card",
@@ -13,20 +16,25 @@ const meta = {
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=434-6",
-      overview: "Superficie contenedora flexible: media, contenido y footer, en 3 superficies y 2 orientaciones.",
-      whenToUse: ["Agrupar información relacionada en una unidad.", "Grillas de contenido (proyectos, artículos)."],
+      overview: "Superficie de contenido con anatomía completa: media, badge, barra de acento, ícono, tags, encabezado (eyebrow/título/subtítulo + acción), cuerpo, link, footer (1–2 botones) y bloque de autor. 3 superficies × 3 disposiciones × estados.",
+      whenToUse: ["Agrupar contenido relacionado en una unidad (artículo, proyecto, recurso).", "Grillas de contenido escaneable.", "Tarjetas seleccionables (estado Selected)."],
       whenNotToUse: ["Listas densas → usá List.", "Contenido de página completa → no necesita Card."],
-      anatomy: ["Media (opcional).", "Cuerpo (slots libres).", "Footer (acciones).", "Badge / barra de acento / orientación."],
-      accessibility: ["Si es clickable, hacela operable por teclado (envolvé el contenido en un link/botón).", "Las imágenes llevan alt."],
-      dos: ["Una acción primaria por card.", "Jerarquía clara (título > cuerpo)."],
-      donts: ["No metas demasiados elementos compitiendo.", "No la hagas clickable sin foco/teclado."],
+      anatomy: [
+        "Media (opcional) + Badge flotante + Barra de acento.",
+        "Ícono (caja 48×48 desacoplada) + Tags.",
+        "Encabezado: eyebrow + título + subtítulo, con acción a la derecha.",
+        "Cuerpo + Link ('Leer más').",
+        "Footer: botón primario y/o secundario.",
+        "Autor: avatar + nombre + meta, tras un divisor.",
+      ],
+      accessibility: [
+        "Con `interactive`/`onClick` la card es operable por teclado (Enter/Espacio) y muestra foco.",
+        "Selected usa superficie brand-2 + borde (color + signifier, no solo color).",
+        "Las imágenes llevan alt.",
+      ],
+      dos: ["Una acción primaria por card.", "Jerarquía clara: eyebrow → título → cuerpo."],
+      donts: ["No metas elementos que compitan.", "No anides controles interactivos si la card entera es clickable."],
     },
-  },
-  args: { surface: "elevated", orientation: "vertical" },
-  argTypes: {
-    surface: { control: "inline-radio", options: ["elevated", "outlined", "filled"] },
-    orientation: { control: "inline-radio", options: ["vertical", "horizontal"] },
-    accent: { control: "boolean" },
   },
   decorators: [(S) => <div style={{ width: 360 }}>{S()}</div>],
 } satisfies Meta<typeof Card>;
@@ -34,21 +42,112 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => (
-    <Card
-      {...args}
-      media={<Image ratio="16:9" src="https://picsum.photos/seed/card/480/270" alt="Portada" />}
-      badge={<Badge tone="brand">Nuevo</Badge>}
-      footer={<Button variant="primary" size="sm">Abrir</Button>}
-    >
-      <Tag tone="indigo">Proyecto</Tag>
-      <h3 className="viu-type-title-s" style={{ margin: 0, color: "var(--color-text-primary)" }}>
-        Rediseño del sistema
-      </h3>
-      <p className="viu-type-body-m" style={{ margin: 0, color: "var(--color-text-secondary)" }}>
-        Una breve descripción del contenido de la tarjeta y su propósito.
-      </p>
-    </Card>
+const fullProps = {
+  media: <Image ratio="16:9" src="https://picsum.photos/seed/viu/480/270" alt="Portada" />,
+  badge: <Badge>Etiqueta</Badge>,
+  tags: (
+    <>
+      <Tag>Diseño</Tag>
+      <Tag>Investigación</Tag>
+      <Tag>Sistemas</Tag>
+    </>
   ),
+  eyebrow: "Categoría",
+  title: "Título de la card",
+  subtitle: "Subtítulo o metadato",
+  action: <Icon glyph="Plus" size={20} />,
+  body: "Texto de cuerpo de la card: una descripción breve que da contexto al contenido y guía la siguiente acción.",
+  link: <Link href="#">Leer más</Link>,
+  primaryAction: (
+    <Button variant="primary" size="sm">
+      Aplicar
+    </Button>
+  ),
+  secondaryAction: (
+    <Button variant="tertiary" size="sm">
+      Después
+    </Button>
+  ),
+  author: {
+    name: "Natalia Rodríguez",
+    meta: "12 may 2026 · 5 min de lectura",
+    avatar: <Avatar initials="NR" />,
+  },
+} as const;
+
+/** The full anatomy, mirroring the Figma component. */
+export const Default: Story = { args: { ...fullProps } };
+
+/** Elevated · Outlined · Filled. */
+export const Surfaces: Story = {
+  parameters: { controls: { disable: true } },
+  decorators: [(S) => <div style={{ display: "grid", gap: "var(--space-lg)", gridTemplateColumns: "repeat(3, 280px)" }}>{S()}</div>],
+  render: () => (
+    <>
+      {(["elevated", "outlined", "filled"] as const).map((surface) => (
+        <Card
+          key={surface}
+          surface={surface}
+          eyebrow={surface}
+          title="Título de la card"
+          body="Una descripción breve del contenido."
+          link={<Link href="#">Leer más</Link>}
+        />
+      ))}
+    </>
+  ),
+};
+
+/** Media on top, beside, or at the bottom. */
+export const Orientations: Story = {
+  parameters: { controls: { disable: true } },
+  decorators: [(S) => <div style={{ display: "grid", gap: "var(--space-lg)", width: 520 }}>{S()}</div>],
+  render: () => (
+    <>
+      {(["vertical", "horizontal", "media-bottom"] as const).map((orientation) => (
+        <Card
+          key={orientation}
+          orientation={orientation}
+          media={<Image ratio="16:9" src="https://picsum.photos/seed/viu2/480/270" alt="" />}
+          eyebrow={orientation}
+          title="Título de la card"
+          body="Una descripción breve del contenido."
+        />
+      ))}
+    </>
+  ),
+};
+
+/** Selectable card (persistent selected state). */
+export const Selected: Story = {
+  args: {
+    selected: true,
+    interactive: true,
+    title: "Tarjeta seleccionada",
+    body: "Estado persistente: superficie brand-2 + borde.",
+    tags: <Tag tone="indigo">Elegida</Tag>,
+  },
+};
+
+/** Disabled. */
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    title: "Tarjeta deshabilitada",
+    body: "No disponible por ahora.",
+    primaryAction: (
+      <Button variant="primary" size="sm" disabled>
+        Aplicar
+      </Button>
+    ),
+  },
+};
+
+/** Minimal — just the pieces you need. */
+export const Minimal: Story = {
+  args: {
+    surface: "outlined",
+    title: "Solo título y cuerpo",
+    body: "La anatomía es opcional: pasá únicamente las partes que necesités.",
+  },
 };
