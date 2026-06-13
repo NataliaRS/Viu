@@ -1,0 +1,18 @@
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px; /* keycap min square — component-specific literal */
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--color-bg-elevated);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  /* keycap bottom edge — crisp 1px depth cue, no matching shadow token */
+  box-shadow: 0 var(--border-width-default) 0 0 rgba(0, 0, 0, 0.45);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-code-s);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}

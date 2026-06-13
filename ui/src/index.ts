@@ -16,6 +16,13 @@ export type { BadgeProps, BadgeTone } from "./Badge/Badge";
 
 export { Tag } from "./Tag/Tag";
 export type { TagProps, TagTone } from "./Tag/Tag";
+export { Kbd } from "./Kbd/Kbd";
+export type { KbdProps } from "./Kbd/Kbd";
+export { SegmentedControl } from "./SegmentedControl/SegmentedControl";
+export type {
+  SegmentedControlProps,
+  SegmentedControlOption,
+} from "./SegmentedControl/SegmentedControl";
 
 export { Status } from "./Status/Status";
 export type { StatusProps, StatusKind } from "./Status/Status";

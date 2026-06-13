@@ -21,15 +21,20 @@ colecciones (`figma-build.md` §13). `scripts/build-tokens.mjs` (sin deps) resue
 playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada componente:
 `Componente.tsx` + `.module.css` + `.stories.tsx` + `.figma.tsx` (Code Connect).
 
-**Hechos — sistema CERRADO: 28 átomos + 31 moléculas + 9 organismos + 4 patrones.**
-- **Átomos (28):** Icon (10 glifos, +Visibility/VisibilityOff), IconButton, Button, Badge, Link, Tag, Status, Pill,
+**Hechos: 29 átomos + 32 moléculas + 9 organismos + 4 patrones** *(jun-2026: +Kbd átomo,
++SegmentedControl molécula — C1 design-to-code en curso, 2/5).*
+- **Átomos (29):** Icon (10 glifos, +Visibility/VisibilityOff), IconButton, Button, Badge, Link, Tag, Status, Pill,
   Chip, Notification badge, Avatar, Divider, Progress, Tooltip, Checkbox, Radio, Switch, Slider,
-  Input, Skeleton, Spinner, Select, Step, Textarea, Tab, Rating, Image, Icon container.
-- **Moléculas (28 componentes + 3 recetas Field):** FormField, Search, Tabs, Breadcrumb, Banner,
+  Input, Skeleton, Spinner, Select, Step, Textarea, Tab, Rating, Image, Icon container, **Kbd**
+  (`<kbd>`, JetBrains Mono; sombra inferior literal `0 1px 0 rgba(0,0,0,.45)` + `min-width:26px` =
+  excepciones honestas del keycap, sin token).
+- **Moléculas (29 componentes + 3 recetas Field):** FormField, Search, Tabs, Breadcrumb, Banner,
   Toast, Pagination, Nav, NavItem, Accordion, AccordionItem, List, ListItem, AvatarGroup, Stepper,
   Menu, MenuItem, Dropzone, FileRow, PasswordInput, TableRow, TreeItem, Toolbar, Quote, RichText,
-  VideoEmbed, TimePicker, Datepicker. Field/Input·Select·Textarea = recetas FormField+control (story
-  `Fields`).
+  VideoEmbed, TimePicker, Datepicker, **SegmentedControl** (radiogroup sobre radios nativos; thumb
+  activo = bg/elevated + shadow/raised; paddings off-grid de Figma 3/7px redondeados a tokens
+  `3xs`/`xs` → misma altura externa 38px). Field/Input·Select·Textarea = recetas FormField+control
+  (story `Fields`).
 - **Organismos (9):** Card, EmptyState, PageHeader, Footer, Table, TreeView, Modal, Drawer, Popover.
   Overlays comparten `src/overlay/useFocusTrap.ts` (foco atrapado + Esc + restore) y `useScrollLock`;
   Modal/Drawer van por `createPortal` con scrim `alpha/black-72` en `z/modal`; Popover es anclado
@@ -43,10 +48,10 @@ playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada co
 `onValueChange([lo,hi])`, clamping lo≤hi, dos `<input type=range>` superpuestos (thumbs grabbables por
 z-index dinámico). ~~Tooltip/Popover sin colisión/flip~~ → **RESUELTO (B5, jun-2026):** hook compartido
 `src/overlay/useFlipSide.ts` voltea al lado opuesto cuando el preferido se sale del viewport (Tooltip
-mide en hover/focus; Popover en open + scroll/resize). **C1 design-to-code PENDIENTE (jun-2026):** Natalia construyó en Figma los 5 gaps de
-C1 — Kbd `721:7`, Segmented control `724:28`, Choice group `728:35`, Combobox `730:40`, Date range
-picker `732:120` (detalle en figma-build §2b/§14) — pero `@viu/ui` aún NO los tiene → Figma va 5
-componentes adelante; portarlos por demanda real de producto (no en batch). **Icon container — Code
+mide en hover/focus; Popover en open + scroll/resize). **C1 design-to-code EN CURSO (jun-2026, 2/5):** ✅ Kbd `721:7` + ✅ SegmentedControl `724:28`
+portados a `@viu/ui`. Faltan: Choice group `728:35` (reusa Radio+Checkbox), Combobox `730:40`
+(reusa Search+MenuItem), Date range picker `732:120` (reusa Datepicker ×2 + calendario custom) —
+detalle/IDs en figma-build §2b/§14. **Icon container — Code
 Connect creado (jun-2026, B3, `.figma.tsx` → nodo `574:150`).
 Gap de paridad PENDIENTE:** el nodo Figma tiene 3 ejes (Size × `style` Filled/Stroke × `tone`
 Brand/Neutral/Inverse/Danger/Warning/Success/Info/Disable = 48 variantes), pero el componente de
