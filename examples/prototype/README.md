@@ -3,6 +3,10 @@
 Plantilla mínima para prototipar **respetando la marca**: usa los componentes de
 `@viu/ui` y los tokens de `@viu/design-tokens`.
 
+> **Publicado en GitHub Pages:** https://nataliars.github.io/Viu/prototype/
+> (el Storybook vive en `/Viu/`; este prototipo en `/Viu/prototype/` — un solo
+> deploy publica ambos, ver `.github/workflows/deploy-storybook.yml`).
+
 ## Correr (dentro de este monorepo)
 
 ```bash

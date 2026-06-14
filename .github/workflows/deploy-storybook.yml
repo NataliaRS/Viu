@@ -1,4 +1,4 @@
-name: Deploy Storybook to Pages
+name: Deploy Storybook + prototype to Pages
 
 on:
   push:
@@ -27,8 +27,14 @@ jobs:
         run: npm ci
       - name: Build tokens
         run: npm run build:tokens
+      - name: Build UI package (dist consumed by the prototype)
+        run: npm run build -w @viu/ui
       - name: Build Storybook
         run: npm run build-storybook -w ui
+      - name: Build prototype
+        run: npm run build -w @viu/prototype
+      - name: Bundle prototype under /prototype
+        run: cp -r examples/prototype/dist ui/storybook-static/prototype
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:

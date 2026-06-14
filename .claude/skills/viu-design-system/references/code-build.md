@@ -128,6 +128,13 @@ Un componente nunca usa hex ni números sueltos. Mapa de tokenización para CADA
 
 ### CI / deploy (gotchas reales, jun-2026)
 - `.github/workflows/deploy-storybook.yml` → build tokens + `build-storybook -w ui` + GitHub Pages.
+  **Publica DOS cosas en el mismo Pages (jun-2026):** Storybook en `/Viu/` + la app de ejemplo
+  `examples/prototype` en `/Viu/prototype/` (un repo = un solo Pages). El workflow ahora también corre
+  `build -w @viu/ui` (dist que consume el prototipo) + `build -w @viu/prototype` y copia
+  `examples/prototype/dist → ui/storybook-static/prototype` antes del upload. El prototipo usa
+  Vite `base:"/Viu/prototype/"` en build (y `/` en dev). **Acople a tener en cuenta:** si el build del
+  prototipo falla, el deploy entero (incl. Storybook) falla. Plantilla de consumo del DS: `@viu/ui` +
+  tokens vía `@viu/design-tokens/css` (alias en monorepo) + `@viu/ui/styles` + `data-theme`.
   Pages se habilita 1 vez (Settings→Pages→Source: GitHub Actions). La GitHub App de Claude Code
   necesita permiso **Contents: write**.
 - **Rama de trabajo actual = `claude/viu-design-system`** (renombrada desde `kind-wozniak`,
