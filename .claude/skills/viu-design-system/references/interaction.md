@@ -93,6 +93,16 @@ Button original usaba opacidad del elemento completo; ese patrón no se replica.
 - **NO se tocan** (ya consistentes en brand sólido / `text-brand` rojo): form controls on
   (Checkbox/Radio/Switch), Tab/Step activo, y Pill **seleccionado**.
 - **Texto sobre los tintes:** `text/on-brand-2` y `text/primary` mantienen contraste sobre AMBOS.
+- ⚠️ **EXCEPCIONES verificadas contra Figma (jun-2026) — NO unificar a crimson:** algunos componentes
+  con estado seleccionado/activo usan **índigo a propósito** y su Figma así lo confirma; la regla
+  crimson NO les aplica:
+  - **Card** (`434:6`) seleccionada → `bg/brand-2-subtle` + `border/brand-2` (índigo). ✓ ya en código.
+  - **Pagination** (`168:32`) página actual → borde `border/brand-2` + `bg/brand-2-subtle` (índigo). ✓.
+  - **DateRangePicker** (`732:120`) → paleta **solo crimson** (rango = `bg/brand-subtle`, endpoints =
+    `bg/brand`); Figma NO define índigo ni hover de día → el `.day:hover` neutro NO se cambia a índigo.
+  - **SegmentedControl** → familia Tab (segmento activo = `bg/elevated` + sombra), no brand.
+  - **Combobox** (`730:40`) opción resaltada (active-descendant) → `bg/brand-2-subtle` (índigo). ✓
+    corregido jun-2026 (antes usaba `bg/hover` inline). Las opciones reusan MenuItem (hover índigo ya).
 - ✅ **Paridad de código RESUELTA y CROSS-CHECKED contra Figma (jun-2026):** verificada nodo-a-nodo
   con `get_variable_defs` + `get_screenshot` (ver rutina en `code-build.md`) sobre Tree/List/Table/
   Nav/Menu/Pill/Chip — Hover=índigo / Seleccionado=crimson mapean 1:1. Aplicada en los 9 puntos:

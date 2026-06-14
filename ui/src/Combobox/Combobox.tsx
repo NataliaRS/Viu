@@ -160,7 +160,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
                 aria-selected={o.value === selectedValue}
                 tabIndex={-1}
                 disabled={o.disabled}
-                style={i === activeIndex ? { background: "var(--color-bg-hover)" } : undefined}
+                style={i === activeIndex ? { background: "var(--color-bg-brand-2-subtle)" } : undefined}
                 onMouseEnter={() => setActiveIndex(i)}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => select(o)}
