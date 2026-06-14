@@ -7,3 +7,4 @@ node_modules/
 ui/dist/
 ui/demo-dist/
 ui/storybook-static/
+examples/*/dist/
