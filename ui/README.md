@@ -40,6 +40,24 @@ Storybook (React + Vite) trae addon de accesibilidad (`@storybook/addon-a11y`) y
 un switch de tema **dark/light** en la toolbar. Stories: `Atoms/Button`, `Atoms/Icon`
 (incluye `AllVariants` / `AllGlyphs`).
 
+## Fuentes de marca
+
+Los tokens definen las **familias** (`--font-family-display/body/label/mono`) pero NO
+cargan los archivos. En tu app, agregá estos `<link>` al `<head>` (mismas que usa el
+Storybook vía `.storybook/preview-head.html`):
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Google Sans (body) + JetBrains Mono (code) -->
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!-- General Sans (labels) + Satoshi (fallback de display) — Fontshare -->
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+```
+
+**PP Neue Montreal** (display/títulos) es comercial; sin licencia, el stack cae a
+Satoshi → system-ui. Con licencia, sumá su `@font-face`.
+
 ## Code Connect
 
 Cada componente trae su `*.figma.tsx` que mapea las _variant properties_ de Figma

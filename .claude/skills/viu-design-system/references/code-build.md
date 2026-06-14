@@ -194,6 +194,12 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
 - **Chrome de marca (ya montado, no re-hacer):** `.storybook/theme.ts` + `manager.ts` (dark, crimson,
   fuentes VIU) y `parameters.docs.theme` (Docs oscuro). El decorator de `preview.tsx` es
   *viewMode-aware* (sin bloques 100vh en Docs).
+- **Fuentes de marca (jun-2026):** los tokens declaran las FAMILIAS pero no cargan archivos → hay que
+  cargar webfonts. Cargadas vía `<link>`+preconnect en: `.storybook/preview-head.html` (canvas SB),
+  `examples/prototype/index.html` (prototipo), y documentadas en `ui/README` para consumidores. Google
+  Sans (body) + JetBrains Mono (code) por Google Fonts; General Sans (label) + Satoshi (fallback display)
+  por Fontshare (gratis). **PP Neue Montreal (display) es comercial — sin CDN libre**; el stack cae a
+  Satoshi → system-ui hasta sumar su `@font-face` con licencia.
 - **Página de docs reutilizable:** `.storybook/ViuDocs.tsx` seteada global (`parameters.docs.page`).
   Lee `parameters.viu` del meta y renderiza: Título + status badge + link "Ver en Figma" → Overview →
   Cuándo usar / Evitar (2 cards) → Vista general (Primary) → Propiedades (Controls) → Anatomía →
