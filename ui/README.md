@@ -24,6 +24,24 @@ import { Button, Icon } from "@viu/ui";
 `Icon`: `glyph` (Plus · Check · Chevron · Close · Arrow · Search · Info · Alert),
 `size`, `title` (a11y).
 
+## Fuentes
+
+Los tokens declaran los stacks; cargá las webfonts en tu app (`<head>`):
+
+```html
+<!-- Body (Google Sans) + Code (JetBrains Mono) — Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!-- Labels (General Sans) + display fallback (Satoshi) — Fontshare -->
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&f[]=satoshi@500&display=swap" rel="stylesheet" />
+```
+
+> **Display** = *PP Neue Montreal* (comercial, sin CDN libre). Con licencia, agregá su
+> `@font-face`; si no, cae a Satoshi → system-ui (ya contemplado en el token
+> `font-family/display`). En Storybook estas fuentes se cargan vía
+> `.storybook/preview-head.html`.
+
 ## Scripts
 
 ```bash
