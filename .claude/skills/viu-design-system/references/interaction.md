@@ -87,6 +87,19 @@ Button original usaba opacidad del elemento completo; ese patrón no se replica.
   construir el primer componente con `selected` (chips/listas/filas seleccionables); ahí se decide
   si alcanza `bg/brand-subtle` o se crea un semántico `bg/selected` dedicado.
 
+**Paridad de color de estado en componentes de selección/lista — CONVENCIÓN (jun-2026, Figma):**
+- **Hover → `bg/brand-2-subtle`** (índigo). **Seleccionado/Activo → `bg/brand-subtle`** (crimson).
+- **Aplica a:** Tree item, Nav item, List item, Menu item, Table row, Pill (hover), Chip (hover).
+- **NO se tocan** (ya consistentes en brand sólido / `text-brand` rojo): form controls on
+  (Checkbox/Radio/Switch), Tab/Step activo, y Pill **seleccionado**.
+- **Texto sobre los tintes:** `text/on-brand-2` y `text/primary` mantienen contraste sobre AMBOS.
+- ⚠️ **Paridad de código PENDIENTE (auditado jun-2026):** hay divergencias en ambos ejes.
+  - **Hover (debe ser `bg/brand-2-subtle`):** TreeItem usa `bg/subtle`; NavItem/ListItem/MenuItem/
+    TableRow/Pill/Chip(input,avatar) usan `bg/hover` (neutro). Chip `choice:hover` ya está ✓.
+  - **Seleccionado/Activo (debe ser `bg/brand-subtle` crimson):** TreeItem ✓ y Chip choice ✓ ya;
+    pero **ListItem `.selected`, TableRow `.selected` y NavItem `.active` están en `brand-2-subtle`
+    (índigo) → hay que FLIPearlos a `brand-subtle`**. Pill seleccionado se deja (brand sólido).
+
 ## 3 · Motion (`--motion-*`) — cómo se aplica
 El motion comunica causa-efecto y continuidad; nunca decora. Regla raíz: micro-interacciones rápidas,
 entradas un poco más lentas, nada que estorbe (P2).
