@@ -17,9 +17,20 @@ colecciones (`figma-build.md` §13). `scripts/build-tokens.mjs` (sin deps) resue
   variables Figma): `--font-family-label` (=General Sans, tomado de la text style Label) y
   `--font-family-code` (=mono).
 
-**Componentes:** `ui/` = paquete `@viu/ui` (React 18 + TS + CSS Modules). tsup→dist, Vitest,
-playground Vite, Storybook 8 (react-vite + addon-a11y + switch de tema). Cada componente:
-`Componente.tsx` + `.module.css` + `.stories.tsx` + `.figma.tsx` (Code Connect).
+**Componentes:** `ui/` = paquete `@viu/ui` (React 18 + TS + CSS Modules). **Build = Vite lib
+(`vite.lib.config.ts`) + `tsc -p tsconfig.build.json` para los .d.ts** → `dist/index.js` +
+`dist/index.css` + tipos. Vitest, playground Vite, Storybook 8. Cada componente: `Componente.tsx` +
+`.module.css` + `.stories.tsx` + `.figma.tsx` (Code Connect).
+- **🔴 BUG CRÍTICO RESUELTO (jun-2026): tsup dejaba el paquete SIN ESTILOS.** El build viejo con tsup
+  (`loader:{".module.css":"local-css"}`) emitía el CSS pero dejaba el mapeo de clases VACÍO en el JS
+  (`var Button_default = {}`), así que `styles.button` era `undefined` → los componentes salían sin
+  ninguna clase. **Storybook se veía bien (usa Vite desde fuente), pero el paquete publicado renderizaba
+  sin marca en cualquier consumidor externo** (lo detectó Natalia viendo el prototipo en Pages: fondo
+  negro [tokens] OK, pero botones/cards/banners planos). Fix: buildear con Vite lib (mismo motor que
+  Storybook → hashea las clases consistentes en JS y CSS) + `tsc` para tipos. Verificación: tras
+  buildear, `dist/index.js` debe referenciar clases hasheadas (`button_xxxx`) que EXISTAN en
+  `dist/index.css` — no `{}`. Regla: cualquier cambio de build del paquete se valida consumiéndolo
+  (el prototipo), no solo en Storybook.
 
 **Hechos: 29 átomos + 35 moléculas + 9 organismos + 4 patrones = 73 componentes** *(jun-2026: C1
 design-to-code COMPLETO 5/5 — +Kbd átomo; +SegmentedControl +ChoiceGroup +Combobox +DateRangePicker
