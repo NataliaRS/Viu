@@ -144,6 +144,17 @@ Un componente nunca usa hex ni números sueltos. Mapa de tokenización para CADA
 - `concurrency.group: "pages"` → hay UN solo sitio publicado; si dos cosas deployan casi a la vez, el
   último gana. La salida de `actions_list` runs es ENORME → filtrar con `per_page:1` + filtro de
   rama, o jq por `head_branch`/`conclusion`.
+- **RUTINA OBLIGATORIA post-push (jun-2026, pedida por Natalia): verificar SIEMPRE que el cambio llegó
+  a Storybook, en cada push.** Tras pushear, consultar el run de `deploy-storybook.yml` del commit
+  pusheado (GitHub MCP `actions_list list_workflow_runs` filtrando por rama; luego `list_workflow_jobs`
+  del run) y confirmar que **AMBOS jobs = `conclusion: success`**: `build` (pasos *Build Storybook* +
+  *Upload artifact*) **y** `deploy` (paso *Deploy to GitHub Pages*). Recién ahí declarar "publicado",
+  con el sha + timestamp. NO alcanza con que el gate local pase ni con que el run "arranque".
+- **Si CI está verde pero el usuario "no ve cambios":** es caché del CLIENTE, no el pipeline. Verificado
+  jun-2026: el build NO genera service worker; los assets van hasheados; GitHub Pages cachea el HTML
+  ~10 min. Desde el sandbox NO se puede abrir `nataliars.github.io` (host fuera del allowlist → 403),
+  así que no puedo inspeccionar el sitio vivo — la verificación es por CI. Bypass para el usuario:
+  abrir en **incógnito**, o URL con query-bust `…/Viu/?v=<ts>`, o DevTools→Network "Disable cache".
 - **Sesión web efímera:** el container clona limpio → correr `npm install` en la raíz ANTES del gate
   (si falta `node_modules`, `tsc` falla con "Cannot find type definition file"). `dist/tokens.css`
   (raíz) lo consume `preview.tsx` vía `../../dist/tokens.css`; si falta, `npm run build:tokens` en la
