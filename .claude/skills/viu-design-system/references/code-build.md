@@ -69,6 +69,12 @@ moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
     estructuradas opcionales**, NO la colapses a slots genéricos + children — colapsar pierde las
     props de texto/toggle del componente de Figma y rompe la paridad. Verificá `componentPropertyDefinitions`
     del set ANTES de portar.
+  - **TreeView/TreeItem (jun-2026):** TreeView es contenedor compositional (role=tree); el ejemplo
+    canónico es el árbol Proyectos de Figma con expand/collapse + render de hijos REAL (estado por
+    nodo con Set; el ejemplo viejo estaba roto: handler vacío + sin hijos). TreeItem sumó props
+    `disabled`, `checkbox`/`checked`/`onCheckedChange` (reusa el atom Checkbox antes del chevron) y
+    `aria-level`; selected pasó a `bg-brand-subtle` + chevron `text-brand`; Hoja = sin chevron (spacer
+    16px). Orden: checkbox → chevron/spacer → icon → label. Usa el glifo `Folder` para carpetas.
 - **Patrones (4):** AppShell (sidebar+topbar+content), Form (layout + banner + acciones), Wizard
   (Stepper + paso + nav controlada), DataTable (toolbar + Table + paginación + estados). Son
   componentes de layout reusables que componen el resto (no stories sueltas).
@@ -268,8 +274,11 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     el panel]. El verdadero culpable era el disable global del preview.)*
     7. **ROLLOUT COMPLETO (jun-2026): los 14 ricos de Tier 1 tienen este playground** — Card, Banner,
        Toast, EmptyState, ListItem, MenuItem, NavItem, AccordionItem, PageHeader, Dropzone, FileRow,
-       Chip, Modal, Drawer, Popover. Props `children`/`title` REQUERIDAS se incluyen en los demo-args
-       (con `name:"label"`/`"body"` opcional para etiqueta linda — seguro porque no chocan con otra prop).
+       Chip, Modal, Drawer, Popover. **+ TreeView y TreeItem** (sumados después, mismo patrón:
+       TreeView con `showCheckboxes`/`showIcons` + árbol Proyectos de Figma; TreeItem con
+       `expansion`/`state`/`level`/`showIcon`/`checkbox` + galería States). Props `children`/`title`
+       REQUERIDAS se incluyen en los demo-args (con `name:"label"`/`"body"` opcional para etiqueta linda
+       — seguro porque no chocan con otra prop).
     8. **Overlays (Modal/Drawer/Popover):** portan a `<body>` con scrim → NO renderizar abiertos en
        Docs (taparían la página). El `render` usa un trigger + `useState` para abrir; `open` (y el
        `trigger` de Popover) se incluyen en los demo-args para satisfacer las props requeridas pero van
