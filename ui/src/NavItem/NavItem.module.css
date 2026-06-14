@@ -20,11 +20,11 @@
   transition-timing-function: var(--motion-ease-standard);
 }
 .item:hover {
-  background: var(--color-bg-hover);
+  background: var(--color-bg-brand-2-subtle);
   color: var(--color-text-primary);
 }
 .active {
-  background: var(--color-bg-brand-2-subtle);
+  background: var(--color-bg-brand-subtle);
   color: var(--color-text-primary);
 }
 .item:focus-visible {

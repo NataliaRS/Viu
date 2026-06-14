@@ -10,10 +10,10 @@
   cursor: pointer;
 }
 .interactive:hover {
-  background: var(--color-bg-hover);
+  background: var(--color-bg-brand-2-subtle);
 }
 .selected {
-  background: var(--color-bg-brand-2-subtle);
+  background: var(--color-bg-brand-subtle);
 }
 .checkCell {
   display: flex;

@@ -93,12 +93,15 @@ Button original usaba opacidad del elemento completo; ese patrón no se replica.
 - **NO se tocan** (ya consistentes en brand sólido / `text-brand` rojo): form controls on
   (Checkbox/Radio/Switch), Tab/Step activo, y Pill **seleccionado**.
 - **Texto sobre los tintes:** `text/on-brand-2` y `text/primary` mantienen contraste sobre AMBOS.
-- ⚠️ **Paridad de código PENDIENTE (auditado jun-2026):** hay divergencias en ambos ejes.
-  - **Hover (debe ser `bg/brand-2-subtle`):** TreeItem usa `bg/subtle`; NavItem/ListItem/MenuItem/
-    TableRow/Pill/Chip(input,avatar) usan `bg/hover` (neutro). Chip `choice:hover` ya está ✓.
-  - **Seleccionado/Activo (debe ser `bg/brand-subtle` crimson):** TreeItem ✓ y Chip choice ✓ ya;
-    pero **ListItem `.selected`, TableRow `.selected` y NavItem `.active` están en `brand-2-subtle`
-    (índigo) → hay que FLIPearlos a `brand-subtle`**. Pill seleccionado se deja (brand sólido).
+- ✅ **Paridad de código RESUELTA (jun-2026):** aplicada en los 9 puntos auditados.
+  - **Hover → `bg/brand-2-subtle`:** TreeItem (`.item:hover`), NavItem (`.item:hover`), ListItem
+    (`.interactive:hover`), MenuItem (`.item:hover`), TableRow (`.interactive:hover`), Pill
+    (`.pill:hover`), Chip (`.input:hover`/`.avatar:hover`). Chip `choice:hover` ya estaba ✓.
+  - **Seleccionado/Activo → `bg/brand-subtle` (crimson):** flipeados ListItem `.selected`, TableRow
+    `.selected` y NavItem `.active` (antes índigo); TreeItem `.selected` y Chip choice ya estaban ✓.
+  - **NO tocados (correcto):** Pill `.selected`/`.selected:hover` (brand sólido + `text/on-brand`),
+    form controls on, Tab/Step activo. Texto sobre tintes = `text/primary` (TreeItem selected usa
+    `text/brand`, que ya leía sobre crimson).
 
 ## 3 · Motion (`--motion-*`) — cómo se aplica
 El motion comunica causa-efecto y continuidad; nunca decora. Regla raíz: micro-interacciones rápidas,

@@ -20,7 +20,7 @@
   transition-timing-function: var(--motion-ease-standard);
 }
 .item:hover {
-  background: var(--color-bg-subtle);
+  background: var(--color-bg-brand-2-subtle);
 }
 .item:focus-visible {
   outline: var(--border-width-strong) solid var(--color-border-focus);

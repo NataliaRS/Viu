@@ -19,7 +19,7 @@
   transition-timing-function: var(--motion-ease-standard);
 }
 .item:hover:not(:disabled) {
-  background: var(--color-bg-hover);
+  background: var(--color-bg-brand-2-subtle);
 }
 .item:focus-visible {
   outline: var(--border-width-strong) solid var(--color-border-focus);
