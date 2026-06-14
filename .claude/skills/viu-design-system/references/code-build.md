@@ -174,6 +174,21 @@ Un componente nunca usa hex ni números sueltos. Mapa de tokenización para CADA
   del run) y confirmar que **AMBOS jobs = `conclusion: success`**: `build` (pasos *Build Storybook* +
   *Upload artifact*) **y** `deploy` (paso *Deploy to GitHub Pages*). Recién ahí declarar "publicado",
   con el sha + timestamp. NO alcanza con que el gate local pase ni con que el run "arranque".
+- **RUTINA OBLIGATORIA: cross-check con Figma ANTE CUALQUIER CAMBIO (jun-2026, pedida por Natalia).**
+  Todo cambio que toque la apariencia/anatomía/estados/props de un componente se valida **contra
+  Figma como fuente de verdad ANTES de declararlo hecho** — no basta con aplicar una convención "de
+  memoria" o dictada; hay que confirmarla nodo-a-nodo en Figma. Método (file `Componentes`
+  `kjEg0KpLID4cH00DruERTN`; node-ids en `figma-build.md`):
+  1. `get_variable_defs(nodeId)` del set → confirma QUÉ variables/tokens usa (p.ej. que existan
+     `bg/brand-2-subtle` #5a55a8 y `bg/brand-subtle` #b5262e).
+  2. `get_screenshot(nodeId, enableBase64Response:true)` del set → confirma QUÉ estado mapea a QUÉ
+     token (columnas/filas = variantes: Default/Hover/Seleccionado/Deshabilitado). **El sandbox
+     bloquea egress a `figma.com`**, así que `curl` del `image_url` falla ("Host not in allowlist") →
+     SIEMPRE pedir el screenshot con `enableBase64Response:true` para verlo inline.
+  3. Comparar el `bg`/`color` real de cada estado contra el `.module.css` y dejar registrado el
+     resultado (✓ por componente, con el sha). Si diverge, es bug de código, no de la convención.
+  Verificado así jun-2026 la paridad de estados (Tree `411:19` · List `165:41` · Table `195:58` ·
+  Nav `233:19` · Menu `170:21` · Pill `16:63` · Chip `17:67`): Hover=índigo / Sel.=crimson, 1:1.
 - **Si CI está verde pero el usuario "no ve cambios":** es caché del CLIENTE, no el pipeline. Verificado
   jun-2026: el build NO genera service worker; los assets van hasheados; GitHub Pages cachea el HTML
   ~10 min. Desde el sandbox NO se puede abrir `nataliars.github.io` (host fuera del allowlist → 403),

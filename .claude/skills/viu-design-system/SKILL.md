@@ -85,7 +85,10 @@ Figma manda, el código se deriva, las text styles se sincronizan a mano).
    arranque.
 5. QA gates antes de cerrar: Figma → pre-publish check de props huérfanas + contraste; código →
    `typecheck · test · build · figma connect parse · build-storybook`; doc → quality bar de
-   doc-standard.md. Ubicación del tooling: los gates de gobernanza (`build/token-usage.mjs`,
+   doc-standard.md. **Cross-check obligatorio con Figma ante CUALQUIER cambio visual/de componente:
+   Figma es la fuente de verdad — confirmar nodo-a-nodo (`get_variable_defs` + `get_screenshot` con
+   `enableBase64Response:true`, el sandbox bloquea egress a figma.com) antes de declarar hecho; no
+   aplicar convenciones "de memoria" sin verificarlas. Detalle del método en `code-build.md`.** Ubicación del tooling: los gates de gobernanza (`build/token-usage.mjs`,
    ghost-check, `lint-literals.mjs`, `contrast-audit.py`) viven en el proyecto de gobernanza, NO en
    `NataliaRS/Viu` (verificado jun-2026: ausentes en el repo de código); los gates de código viven
    en el repo.

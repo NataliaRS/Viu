@@ -93,7 +93,9 @@ Button original usaba opacidad del elemento completo; ese patrón no se replica.
 - **NO se tocan** (ya consistentes en brand sólido / `text-brand` rojo): form controls on
   (Checkbox/Radio/Switch), Tab/Step activo, y Pill **seleccionado**.
 - **Texto sobre los tintes:** `text/on-brand-2` y `text/primary` mantienen contraste sobre AMBOS.
-- ✅ **Paridad de código RESUELTA (jun-2026):** aplicada en los 9 puntos auditados.
+- ✅ **Paridad de código RESUELTA y CROSS-CHECKED contra Figma (jun-2026):** verificada nodo-a-nodo
+  con `get_variable_defs` + `get_screenshot` (ver rutina en `code-build.md`) sobre Tree/List/Table/
+  Nav/Menu/Pill/Chip — Hover=índigo / Seleccionado=crimson mapean 1:1. Aplicada en los 9 puntos:
   - **Hover → `bg/brand-2-subtle`:** TreeItem (`.item:hover`), NavItem (`.item:hover`), ListItem
     (`.interactive:hover`), MenuItem (`.item:hover`), TableRow (`.interactive:hover`), Pill
     (`.pill:hover`), Chip (`.input:hover`/`.avatar:hover`). Chip `choice:hover` ya estaba ✓.
