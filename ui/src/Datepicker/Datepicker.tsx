@@ -29,7 +29,7 @@ const MONTHS = [
   "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
 ];
-const WEEKDAYS = ["L", "M", "X", "J", "V", "S", "D"];
+const WEEKDAYS = ["L", "M", "M", "J", "V", "S", "D"];
 
 const cx = (...a: Array<string | false | undefined>) => a.filter(Boolean).join(" ");
 const pad = (n: number) => String(n).padStart(2, "0");
