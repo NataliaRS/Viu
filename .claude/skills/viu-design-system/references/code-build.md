@@ -49,14 +49,22 @@ moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
   unión discriminada radio→`value:string` / checkbox→`value:string[]`; helper vía aria-describedby),
   **Combobox** (reusa Search+MenuItem; patrón WAI-ARIA combobox+listbox: foco en el input,
   aria-activedescendant, ↑↓/Enter/Esc, filtrado, click-outside; opción activa = bg/hover por inline
-  style para ganarle al `:hover` de MenuItem de forma robusta), **DateRangePicker** (campos
-  Desde/Hasta + calendario de rango CUSTOM: extremos círculo bg/brand, intermedios banda
-  bg/brand-subtle, semana lunes-primero ES, selección 2 clics, Date math sin libs. **Divergencia vs
-  Figma honesta:** Figma reusa el visual del Datepicker para los campos, pero el Datepicker de código
-  abre el picker nativo del SO → chocaría con el calendario custom; por eso los campos son triggers
-  read-only y el calendario es el único selector. No hay glifo de calendario en el Icon set → el
-  afford es el Chevron estándar de los fields). Field/Input·Select·Textarea = recetas FormField+control
-  (story `Fields`).
+  style para ganarle al `:hover` de MenuItem de forma robusta), **Datepicker + DateRangePicker**
+  (ver abajo). Field/Input·Select·Textarea = recetas FormField+control (story `Fields`).
+- **Datepicker / DateRangePicker — REFACTOR de reuso (jun-2026, pedido por Natalia; cross-check Figma
+  `28:386` / `732:17`).** Espejan a Figma: el range picker **compone dos Datepicker** + un Calendar.
+  En código se extrajeron **dos primitivos internos compartidos** (carpetas propias, NO exportados en
+  `index.ts`): `Calendar/` (popover con header navegable + grilla; `mode:"single"|"range"`; single =
+  círculo `bg/brand` + anillo `today` con `border/strong`; range = extremos círculo + banda
+  `bg/brand-subtle`; lunes-primero, ES; remonta en cada open → `defaultMonth` siembra el mes) y
+  `DateField/` (label + valor/placeholder + **glifo de calendario SVG inline** — en Figma el ícono es
+  un vector dentro del campo, NO una instancia del Icon set, así que va como SVG local, no se toca el
+  set de 11 glifos). `Datepicker` = DateField + Calendar single; `DateRangePicker` = 2×DateField +
+  Calendar range. `calendarUtils.ts` centraliza MONTHS/WEEKDAYS(`L M M J V S D`, dos M como Figma)/
+  fmt/sameDay/monthCells. **OBSOLETO:** el Datepicker ya NO envuelve `<input type=date>` nativo; los
+  campos del range ya NO son triggers read-only duplicados (eran divergencia). Accesibilidad: DateField
+  asocia `<label htmlFor>` (nombre accesible = label; los tests del range pasaron de `"Hasta: …"` a
+  `"Hasta"` + assert del valor por `getByText`).
 - **Organismos (9):** Card, EmptyState, PageHeader, Footer, Table, TreeView, Modal, Drawer, Popover.
   Overlays comparten `src/overlay/useFocusTrap.ts` (foco atrapado + Esc + restore) y `useScrollLock`;
   Modal/Drawer van por `createPortal` con scrim `alpha/black-72` en `z/modal`; Popover es anclado

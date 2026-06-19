@@ -28,7 +28,9 @@ describe("DateRangePicker", () => {
     render(<Controlled initial={{ from: new Date(2026, 5, 1), to: null }} />);
     fireEvent.click(screen.getByRole("button", { name: /Desde/ }));
     fireEvent.click(screen.getByRole("button", { name: "10 / 06 / 2026" }));
-    expect(screen.getByRole("button", { name: "Hasta: 10 / 06 / 2026" })).toBeInTheDocument();
+    // both field values are shown
+    expect(screen.getByText("01 / 06 / 2026")).toBeInTheDocument();
+    expect(screen.getByText("10 / 06 / 2026")).toBeInTheDocument();
     // endpoints are pressed
     expect(screen.getByRole("button", { name: "01 / 06 / 2026" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("button", { name: "10 / 06 / 2026" })).toHaveAttribute("aria-pressed", "true");
@@ -38,8 +40,9 @@ describe("DateRangePicker", () => {
     render(<Controlled initial={{ from: new Date(2026, 5, 10), to: null }} />);
     fireEvent.click(screen.getByRole("button", { name: /Desde/ }));
     fireEvent.click(screen.getByRole("button", { name: "05 / 06 / 2026" }));
-    expect(screen.getByRole("button", { name: "Desde: 05 / 06 / 2026" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Hasta: sin fecha" })).toBeInTheDocument();
+    expect(screen.getByText("05 / 06 / 2026")).toBeInTheDocument();
+    // the Hasta field falls back to the placeholder
+    expect(screen.getByText("DD / MM / AAAA")).toBeInTheDocument();
   });
 
   it("navigates months", () => {
