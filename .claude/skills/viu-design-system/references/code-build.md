@@ -58,8 +58,8 @@ moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
   círculo `bg/brand` + anillo `today` con `border/strong`; range = extremos círculo + banda
   `bg/brand-subtle`; lunes-primero, ES; remonta en cada open → `defaultMonth` siembra el mes) y
   `DateField/` (label + valor/placeholder + **glifo de calendario SVG inline** — en Figma el ícono es
-  un vector dentro del campo, NO una instancia del Icon set, así que va como SVG local, no se toca el
-  set de 11 glifos). `Datepicker` = DateField + Calendar single; `DateRangePicker` = 2×DateField +
+  un vector dentro del campo, NO una instancia del set de íconos, así que va como SVG local, no
+  depende del sistema de íconos). `Datepicker` = DateField + Calendar single; `DateRangePicker` = 2×DateField +
   Calendar range. `calendarUtils.ts` centraliza MONTHS/WEEKDAYS(`L M M J V S D`, dos M como Figma)/
   fmt/sameDay/monthCells. **OBSOLETO:** el Datepicker ya NO envuelve `<input type=date>` nativo; los
   campos del range ya NO son triggers read-only duplicados (eran divergencia). Accesibilidad: DateField

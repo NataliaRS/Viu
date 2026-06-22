@@ -103,14 +103,19 @@ Body/L `1b1f4a805f78a665a9f2f7e6b8575ea8167a0a3f` · Body/M `28bd418f889fa4fafa9
 Instanciar con `getNodeByIdAsync(id)`. SET(n)=set de n variantes; COMP=componente único.
 
 **ÁTOMOS (29):** *(jun-2026: 27→28 al contar Icon container [tiene nodo]; 28→29 sumó Kbd.)*
-Icon `56:431` SET(11) Glyph:Plus/Check/Chevron/Close/Arrow/Search/Info/Alert/**Visibility
-`726:3273`/Visibility_off `726:71`/Folder `815:6`** *(jun-2026: B2 sumó Visibility/Visibility_off
-[toggle password]; luego +Folder [vector stroke 1.6, join/cap ROUND, path `M2.5 12.5 L2.5 5.5 L6 5.5
-L7.5 7 L13.5 7 L13.5 12.5 Z`] para árboles. Pendiente Glyph=File para hojas. Código alineado: glifos
-`Visibility`/`VisibilityOff`/`Folder`; Code Connect mapea `Visibility_off`→`VisibilityOff`)* · Icon button
+Icon = wrapper **«Icon»** (key `71c7115a767b41fd94237eaf736cfc0a3aaae7ed`, local `944:6`) SET(6) Size
+xs/sm/md/lg/xl/2xl con W/H ligado a `icon-size/*` + «Glyph» anidada swappeable (color text/* override).
+Glifos = librería **«Glyph»** (archivo Icon `5rV8Ad6qqHx5mocSpObi0k`, set `24:10626`, key
+`d1ef2b816438e4f91b31fc7c67138b50c3c886ae`): 2.864 Material Symbols snake_case. *(jun-2026: REEMPLAZA
+al set local `56:431` SET(11), migrado y eliminado — ver "Migración de íconos al wrapper" abajo y el
+canon. Pendiente: renombrar la librería `24:10626` "Icon"→"Glyph" para evitar dos sets "Icon".
+Código `@viu/ui` AÚN usa el Icon local de 11 glifos → gap de paridad pendiente.)* · Icon button
 `393:190`
 SET(36) Variant·State·Size · Button `8:53` SET(45) Variant Primary/Secondary/Tertiary·State
-Default/Hover/Pressed/Disabled/Focus·Size MD/SM/LG (`Label#53:0`) · Badge `14:77` SET(6) Tone
+Default/Hover/Pressed/Disabled/Focus·Size MD/SM/LG (`Label#53:0`; props bool `iconoIzquierda`/
+`iconoDerecha`/`text` + slots `Leading`/`Trailing` con Glyph wrapper) *(jun-2026: gap ícono↔label =
+`space/2xs` 4px en los 3 tamaños [antes 8px]; padding SM/MD/LG = `space/sm,md,lg`. Código alineado.)* ·
+Badge `14:77` SET(6) Tone
 (`Label#65:0`) · Link `22:137` SET(5) State (`Label#65:19`) · Tag `15:42` SET(3) Tone
 Neutral/Brand/Indigo (`Label#65:7`) · Status `20:150` SET(4) Online/Busy/Away/Offline · Pill `16:63`
 SET(6) State (`Label#65:23`) · Chip `17:67` SET(12) Type Input/Con avatar/Choice·State · Notification
@@ -500,3 +505,57 @@ gaps de C1: **Combobox** → Search (`26:347`) + Menu item (`170:21`); **Choice 
   construir custom y documentarlo COMO tal — no inventar un reuso forzado.
 - **Standalone justificado** (no es falta de reuso): **Segmented control** (Tab es navegación,
   semánticamente distinto — §9) y **Kbd** (primitiva; no hay nada menor que reusar).
+
+## 15. Migración de íconos al wrapper (jun-2026)
+
+### Mapeo glifo viejo → Material Symbol
+| Viejo | Nuevo |
+|---|---|
+| Plus | `add` |
+| Check | `check` |
+| Close | `close` |
+| Search | `search` |
+| Info | `info` |
+| Folder | `folder` |
+| Visibility / Visibility_off | `visibility` |
+| Alert | `warning` \| `error` (por contexto) |
+| Chevron | rot 0→`stat_minus_1` · 180→`stat_1` · 90→`chevron_right` · 270→`chevron_left` |
+| Arrow | rot 0→`arrow_forward` · 90→`arrow_upward` · 180→`arrow_back` · 270→`arrow_downward` |
+
+### Orientaciones base VIU (glifo viejo a rotación 0)
+- Chevron rot 0 = **abajo** ↓; Arrow rot 0 = **derecha** →.
+- En direccionales (Chevron/Arrow): tras el swap, **resetear `rotation=0`** (el glifo nuevo ya viene orientado).
+
+### Reglas
+- **Tamaño:** redondear el ancho viejo al token icon-size más cercano (16/20/24/32/40/48).
+- **Color:** leer la variable de color ligada del glifo viejo y **reaplicarla** al glifo nuevo tras el swap.
+- **Alert por contexto** (`alertCtx`): subir por ancestros; `/danger|error|crit|destruct|peligro/i`→`error`, `/warn|advert|caution/i`→`warning`, default `warning`. Verificado: Toast/Banner resuelven solos warning vs error por el nombre del tono.
+- **Masters primero:** filtrar instancias con `mc.parent.id===<oldSetId>`, sin `;` en el id, y con ancestro COMPONENT/COMPONENT_SET. Los ejemplos heredan.
+- **Sueltas/doc:** procesar por **id explícito** (incluye overrides anidados `I…;…`, que swappean bien).
+- `importComponentSetByKeyAsync(wrapperKey)` resuelve consistente a **un solo** wrapper local (944:6); ids tipo 940:6 son transitorios. Verificar que no haya sets «Icon» duplicados.
+
+### Gotcha — espaciador de hoja (Tree item)
+Variantes que usaban el frame del chevron como espaciador con el **vector interno oculto** se rompen al migrar (el wrapper muestra el glifo). Fix: tras migrar, poner `nestedGlyph.visible=false` en esas variantes (mantiene el slot de 16px sin mostrar ícono).
+
+### Helper (re-pegar en cada llamada; stateless)
+
+```js
+const wrapSet=await figma.importComponentSetByKeyAsync('71c7115a767b41fd94237eaf736cfc0a3aaae7ed');
+const glyphSet=await figma.importComponentSetByKeyAsync('d1ef2b816438e4f91b31fc7c67138b50c3c886ae');
+const wrapBy={};for(const c of wrapSet.children)wrapBy[c.name.replace('Size=','')]=c;
+const need=['add','check','close','search','info','folder','warning','error','stat_minus_1','stat_1','chevron_right','chevron_left','arrow_forward','arrow_back','arrow_upward','arrow_downward','visibility'];
+const gBy={};for(const n of need){const c=glyphSet.children.find(x=>x.name==='Icon='+n);if(c)gBy[n]=c;}
+const SCALE=[['xs',16],['sm',20],['md',24],['lg',32],['xl',40],['2xl',48]];
+const near=w=>{let b='md',bd=1e9;for(const[n,v]of SCALE){const d=Math.abs(w-v);if(d<bd){bd=d;b=n;}}return b;};
+function tgt(name,rot,ctx){const r=((Math.round(rot)%360)+360)%360;switch(name){
+ case 'Plus':return['add',false];case 'Check':return['check',false];case 'Close':return['close',false];
+ case 'Search':return['search',false];case 'Info':return['info',false];case 'Folder':return['folder',false];
+ case 'Visibility':case 'Visibility_off':return['visibility',false];
+ case 'Alert':return[ctx==='error'?'error':'warning',false];
+ case 'Chevron':return[r===180?'stat_1':r===90?'chevron_right':r===270?'chevron_left':'stat_minus_1',true];
+ case 'Arrow':return[r===90?'arrow_upward':r===180?'arrow_back':r===270?'arrow_downward':'arrow_forward',true];}return null;}
+function alertCtx(node){let p=node;while(p){if(/danger|error|crit|destruct|peligro/i.test(p.name||''))return 'error';if(/warn|advert|caution/i.test(p.name||''))return 'warning';p=p.parent;}return 'warning';}
+// por instancia vieja:
+// const nm=old.mainComponent.name.replace(/^Glyph=/,''); const t=tgt(nm,old.rotation||0,nm==='Alert'?alertCtx(old):null);
+// leer color var → old.swapComponent(wrapBy[near(old.width)]) → if(t[1])old.rotation=0 → swap «Glyph» anidada a gBy[t[0]] → reaplicar color.
+```

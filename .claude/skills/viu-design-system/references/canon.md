@@ -213,6 +213,21 @@ Cada decisión de paradigma del sistema, enunciada de forma explícita y con su 
 13. *(jun-2026, C1)* Los componentes-gap nuevos se crean PRIMERO en Figma (fuente de verdad) y luego
     design-to-code. *Razón:* la paridad manda desde el diseño; el código se deriva.
 
+## Sistema de íconos
+
+El sistema NO tiene glifos propios. Los íconos son **Material Symbols (Google)**, en dos piezas:
+
+- **Librería «Glyph»** (archivo Icon `5rV8Ad6qqHx5mocSpObi0k`, set `24:10626`, key `d1ef2b816438e4f91b31fc7c67138b50c3c886ae`): 2.864 variantes, propiedad `Icon`, nombres en snake_case (`Icon=add`, `Icon=stat_minus_1`…). Nombres ya limpiados (sin sufijos `_24dp_…`).
+- **Wrapper «Icon»** (key `71c7115a767b41fd94237eaf736cfc0a3aaae7ed`; importado en Componentes resuelve SIEMPRE a local `944:6`): 6 variantes `Size` (xs/sm/md/lg/xl/2xl) con ancho/alto ligados a `icon-size/*`, una instancia anidada «Glyph» swappeable, y color por token de texto (overrideable, currentColor).
+
+**Tokens icon-size** (primitives, scope WIDTH_HEIGHT): xs 16 · sm 20 · md 24 · lg 32 · xl 40 · 2xl 48.
+
+**Uso:** poné un «Icon», elegí `Size`, swappeá la «Glyph» anidada. El color hereda del texto contiguo.
+
+**Deprecado:** el set local VIU `56:431` (11 glifos: Plus/Check/Chevron/Close/Arrow/Search/Info/Alert/Visibility/Visibility_off/Folder) fue **migrado y eliminado**. No reintroducir glifos locales.
+
+**Decisión clave de chevron:** la librería NO trae chevron fino arriba/abajo (no hay `expand_more`/`chevron_down`). Se usa `stat_minus_1` (⌄ abajo) y `stat_1` (⌃ arriba) — los "trend chevrons" finos de Material, que calzan con la estética VIU. Los laterales sí: `chevron_left`/`chevron_right`.
+
 ## 11 · Glosario de foundations que el sistema debe documentar
 Para estar completo a nivel enterprise, el sistema documenta tanto las foundations de tokens/estilos
 como las conceptuales. Ninguna se da por supuesta.

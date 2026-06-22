@@ -127,8 +127,12 @@ quedó atrás. Este lo absorbe entero.
   Natalia construyó los 5 gaps de C1 en Figma — **Kbd** `721:7` átomo + **Segmented control** `724:28`
   / **Choice group** `728:35` / **Combobox** `730:40` / **Date range picker** `732:120` moléculas;
   detalle e IDs en figma-build §2b. Antes: 28/31/68 — el registro venía de "27 átomos / 66" y la
-  portada "ÁTOMOS·26"; el faltante histórico era Icon container `574:150`.)* **Icon set = 11 glifos**
-  (+Folder `815:6`, jun-2026; pendiente File). **Tree item `411:19` completo: 12 var** (Expansión ×
+  portada "ÁTOMOS·26"; el faltante histórico era Icon container `574:150`.)* **Íconos = Material Symbols
+  (jun-2026):** wrapper «Icon» `944:6` (6 Size) + librería «Glyph» `24:10626` (2.864 glifos snake_case,
+  archivo Icon `5rV8Ad6qqHx5mocSpObi0k`); el set local `56:431` (11 glifos) fue migrado y ELIMINADO.
+  Chevron fino = `stat_minus_1`/`stat_1`; laterales `chevron_left/right`. Detalle/migración en
+  canon §Íconos + figma-build §15. ⚠️ Código `@viu/ui` aún con Icon local de 11 glifos → paridad
+  pendiente. **Tree item `411:19` completo: 12 var** (Expansión ×
   Estado) + Icono/Checkbox. Banner `135:84`: CTA removido / Toast `176:101`: acción removida (jun-2026).
   Card modular SET(45). Portada con índice por nivel atómico (⚠️ falta sumarle
   las 5 entradas nuevas en Figma — figma-build §7b). Sections en archivo aparte; `Marketing · LinkedIn`

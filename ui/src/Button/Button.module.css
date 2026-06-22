@@ -5,7 +5,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-xs);
+  gap: var(--space-2xs); /* Figma 8:53 — ícono↔label = space/2xs (4px), jun-2026 */
   border: 1.5px solid transparent; /* Figma uses a literal 1.5px stroke here */
   border-radius: var(--radius-control);
   font-family: var(--font-family-label);
