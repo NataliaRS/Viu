@@ -25,10 +25,10 @@ const meta = {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=56-431",
       overview:
-        "Glifo de 16px con stroke en currentColor. Set del sistema: Plus, Check, Chevron, Close, Arrow, Search, Info, Alert, Visibility, VisibilityOff, Folder.",
+        "Íconos = Material Symbols (Google). La prop `glyph` acepta los nombres legacy del sistema (Plus, Check, Chevron, Close, Arrow, Search, Info, Alert, Visibility, VisibilityOff, Folder) — mapeados a símbolos Material — o directamente un nombre Material (p.ej. `calendar_month`). Color = currentColor; tamaño = font-size.",
       whenToUse: ["Reforzar el significado de una acción o estado.", "Dentro de otros componentes (Button, Input, Tab…)."],
       whenNotToUse: ["Como única forma de comunicar algo crítico → acompañá con texto o `title`.", "Para ilustraciones grandes — no es un sistema ilustrativo."],
-      anatomy: ["SVG 16×16, stroke currentColor 1.5.", "Glyph — uno de los 11 del set."],
+      anatomy: ["Ligadura de la fuente «Material Symbols Outlined» (la carga la app).", "Direccionales: Chevron→chevron_right, Arrow→arrow_forward (rotan por CSS)."],
       accessibility: ["Decorativo por defecto (aria-hidden).", "Con `title` se expone como imagen con nombre accesible.", "Hereda el color del texto (currentColor)."],
       dos: ["Heredá el color del contexto.", "Usá `title` cuando el ícono tiene significado propio."],
       donts: ["No reescales rompiendo la grilla de 16.", "No uses íconos fuera del set sin sumarlos al sistema."],

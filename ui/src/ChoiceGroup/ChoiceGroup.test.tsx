@@ -31,13 +31,14 @@ describe("ChoiceGroup", () => {
       return <ChoiceGroup type="checkbox" label="Canales" options={options} value={v} onValueChange={setV} />;
     }
     render(<Controlled />);
-    fireEvent.click(screen.getByLabelText("Opción uno"));
-    fireEvent.click(screen.getByLabelText("Opción dos"));
-    expect(screen.getByLabelText("Opción uno")).toBeChecked();
-    expect(screen.getByLabelText("Opción dos")).toBeChecked();
+    // role-based name (excludes the aria-hidden check icon, unlike getByLabelText)
+    fireEvent.click(screen.getByRole("checkbox", { name: "Opción uno" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Opción dos" }));
+    expect(screen.getByRole("checkbox", { name: "Opción uno" })).toBeChecked();
+    expect(screen.getByRole("checkbox", { name: "Opción dos" })).toBeChecked();
     // untoggle one
-    fireEvent.click(screen.getByLabelText("Opción uno"));
-    expect(screen.getByLabelText("Opción uno")).not.toBeChecked();
+    fireEvent.click(screen.getByRole("checkbox", { name: "Opción uno" }));
+    expect(screen.getByRole("checkbox", { name: "Opción uno" })).not.toBeChecked();
   });
 
   it("disables every control via the fieldset", () => {

@@ -109,7 +109,8 @@ Glifos = librería **«Glyph»** (archivo Icon `5rV8Ad6qqHx5mocSpObi0k`, set `24
 `d1ef2b816438e4f91b31fc7c67138b50c3c886ae`): 2.864 Material Symbols snake_case. *(jun-2026: REEMPLAZA
 al set local `56:431` SET(11), migrado y eliminado — ver "Migración de íconos al wrapper" abajo y el
 canon. Pendiente: renombrar la librería `24:10626` "Icon"→"Glyph" para evitar dos sets "Icon".
-Código `@viu/ui` AÚN usa el Icon local de 11 glifos → gap de paridad pendiente.)* · Icon button
+Código `@viu/ui` MIGRADO jun-2026: `Icon` = ligadura Material Symbols, `glyph` legacy→Material — ver
+code-build.)* · Icon button
 `393:190`
 SET(36) Variant·State·Size · Button `8:53` SET(45) Variant Primary/Secondary/Tertiary·State
 Default/Hover/Pressed/Disabled/Focus·Size MD/SM/LG (`Label#53:0`; props bool `iconoIzquierda`/

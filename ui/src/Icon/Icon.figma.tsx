@@ -2,28 +2,27 @@ import figma from "@figma/code-connect";
 import { Icon } from "./Icon";
 
 /**
- * Code Connect — maps the Figma Icon (set 56:431) to <Icon/>.
- * Publish with: `npx figma connect publish` (needs a Figma access token).
+ * Code Connect — mapea el wrapper «Icon» de Material Symbols al `<Icon/>`.
+ * El set local viejo (56:431, 11 glifos) se migró y eliminó; el wrapper vive en
+ * el archivo Icon (`5rV8Ad6qqHx5mocSpObi0k`, local 944:6) con property `Size` y
+ * una «Glyph» anidada swappeable. La `glyph` del código acepta el nombre Material
+ * directamente (snake_case) o un nombre legacy (que se resuelve internamente).
+ * Publish con `npx figma connect publish` (necesita token de Figma).
  */
 figma.connect(
   Icon,
-  "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=56-431",
+  "https://www.figma.com/design/5rV8Ad6qqHx5mocSpObi0k/Icon?node-id=944-6",
   {
     props: {
-      glyph: figma.enum("Glyph", {
-        Plus: "Plus",
-        Check: "Check",
-        Chevron: "Chevron",
-        Close: "Close",
-        Arrow: "Arrow",
-        Search: "Search",
-        Info: "Info",
-        Alert: "Alert",
-        Visibility: "Visibility",
-        Visibility_off: "VisibilityOff",
-        Folder: "Folder",
+      size: figma.enum("Size", {
+        xs: 16,
+        sm: 20,
+        md: 24,
+        lg: 32,
+        xl: 40,
+        "2xl": 48,
       }),
     },
-    example: ({ glyph }) => <Icon glyph={glyph} />,
+    example: ({ size }) => <Icon glyph="search" size={size} />,
   },
 );

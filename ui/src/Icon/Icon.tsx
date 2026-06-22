@@ -1,11 +1,14 @@
-import { forwardRef, type SVGProps } from "react";
-import { glyphs, type GlyphName } from "./glyphs";
+import { forwardRef, type HTMLAttributes } from "react";
+import { resolveSymbol, type GlyphName } from "./glyphs";
 import styles from "./Icon.module.css";
 
-export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
-  /** Which VIU glyph to render. */
-  glyph: GlyphName;
-  /** Pixel size (width & height). Defaults to 16, the Figma source size. */
+export interface IconProps extends Omit<HTMLAttributes<HTMLSpanElement>, "ref" | "children"> {
+  /**
+   * Ícono a renderizar. Acepta los nombres legacy del sistema (`"Chevron"`,
+   * `"Plus"`…) o directamente un nombre de Material Symbol (`"calendar_month"`).
+   */
+  glyph: GlyphName | (string & {});
+  /** Pixel size (width & height & font-size). Defaults to 16. */
   size?: number | string;
   /**
    * Accessible label. When provided the icon is exposed as an image with this
@@ -16,29 +19,29 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
 
 const cx = (...a: Array<string | false | undefined>) => a.filter(Boolean).join(" ");
 
-export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
-  { glyph, size = 16, title, className, ...rest },
+/**
+ * Ícono del sistema VIU = **Material Symbols** (fuente "Material Symbols Outlined",
+ * cargada por la app — ver ui/README). Renderiza la ligadura del símbolo; el color
+ * hereda de `currentColor` y el tamaño del `font-size`.
+ */
+export const Icon = forwardRef<HTMLSpanElement, IconProps>(function Icon(
+  { glyph, size = 16, title, className, style, ...rest },
   ref,
 ) {
+  const symbol = resolveSymbol(glyph);
   return (
-    <svg
+    <span
       ref={ref}
       className={cx(styles.icon, className)}
-      width={size}
-      height={size}
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      data-icon={symbol}
+      style={{ fontSize: size, ...style }}
       role={title ? "img" : undefined}
       aria-label={title}
       aria-hidden={title ? undefined : true}
+      translate="no"
       {...rest}
     >
-      {title ? <title>{title}</title> : null}
-      {glyphs[glyph]}
-    </svg>
+      {symbol}
+    </span>
   );
 });

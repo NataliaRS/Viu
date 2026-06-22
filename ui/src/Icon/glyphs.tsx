@@ -1,12 +1,16 @@
-import type { ReactNode } from "react";
-
 /**
- * The glyphs of the VIU `Icon` component (Figma set 56:431).
- * Authored as 16×16 line icons (stroke = currentColor, 1.5) to match the
- * Figma source, which uses strokes rather than fills for these glyphs.
- * NOTE: Visibility / VisibilityOff (password toggle) están en el set Figma como
- * `Visibility` y `Visibility_off` (nodos 726:3273 / 726:71). El código usa
- * `VisibilityOff` (PascalCase); el Code Connect mapea `Visibility_off`→`VisibilityOff`.
+ * Mapeo del set legacy de glifos VIU → nombres de Material Symbols (Google).
+ *
+ * El sistema de íconos pasó a **Material Symbols** (ver canon §Sistema de íconos):
+ * el `Icon` ahora renderiza la ligadura de la fuente "Material Symbols Outlined".
+ * Para no tocar los ~48 usos del repo, la prop `glyph` sigue aceptando los 11
+ * nombres legacy y se resuelven acá al símbolo Material correspondiente.
+ *
+ * Direccionales (Chevron/Arrow): el baseline del CÓDIGO es derecha (el viejo
+ * glyph apuntaba →), y los componentes rotan por CSS. Por eso Chevron→`chevron_right`
+ * y Arrow→`arrow_forward` (apuntan a la derecha): todas las rotaciones existentes
+ * (rotate 90→abajo, 180→izquierda, 270→arriba) se conservan sin tocar CSS.
+ * (En Figma el baseline es abajo y por eso allí Chevron rot0→`stat_minus_1`.)
  */
 export type GlyphName =
   | "Plus"
@@ -21,59 +25,43 @@ export type GlyphName =
   | "VisibilityOff"
   | "Folder";
 
-export const glyphs: Record<GlyphName, ReactNode> = {
-  Plus: (
-    <>
-      <path d="M8 3v10" />
-      <path d="M3 8h10" />
-    </>
-  ),
-  Check: <path d="M3.5 8.5l3 3 6-6.5" />,
-  Chevron: <path d="M6 4l4 4-4 4" />,
-  Close: (
-    <>
-      <path d="M4 4l8 8" />
-      <path d="M12 4l-8 8" />
-    </>
-  ),
-  Arrow: (
-    <>
-      <path d="M2.5 8h11" />
-      <path d="M9 4l4 4-4 4" />
-    </>
-  ),
-  Search: (
-    <>
-      <circle cx="6.5" cy="6.5" r="4.5" />
-      <path d="M11 11l3 3" />
-    </>
-  ),
-  Info: (
-    <>
-      <circle cx="8" cy="8" r="6" />
-      <path d="M8 7.5v3.5" />
-      <path d="M8 5h.01" />
-    </>
-  ),
-  Alert: (
-    <>
-      <path d="M8 2.5l6.5 11.5h-13z" />
-      <path d="M8 6.5v3.5" />
-      <path d="M8 12h.01" />
-    </>
-  ),
-  Visibility: (
-    <>
-      <path d="M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8s-2.4 4.5-6.5 4.5S1.5 8 1.5 8Z" />
-      <circle cx="8" cy="8" r="2" />
-    </>
-  ),
-  VisibilityOff: (
-    <>
-      <path d="M6.3 6.3a2 2 0 0 0 2.7 2.7" />
-      <path d="M9.8 3.3A6.6 6.6 0 0 1 14.5 8s-.6 1.1-1.7 2.2M4.7 4.7C2.8 5.8 1.5 8 1.5 8s2.4 4.5 6.5 4.5c1 0 1.9-.3 2.7-.7" />
-      <path d="M2.5 2.5l11 11" />
-    </>
-  ),
-  Folder: <path d="M2.5 12.5 L2.5 5.5 L6 5.5 L7.5 7 L13.5 7 L13.5 12.5 Z" />,
+/** Legacy glyph → Material Symbol (ligature name). */
+export const glyphToSymbol: Record<GlyphName, string> = {
+  Plus: "add",
+  Check: "check",
+  Chevron: "chevron_right",
+  Close: "close",
+  Arrow: "arrow_forward",
+  Search: "search",
+  Info: "info",
+  Alert: "warning",
+  Visibility: "visibility",
+  VisibilityOff: "visibility_off",
+  Folder: "folder",
 };
+
+/**
+ * Resuelve el símbolo Material a renderizar. Acepta un nombre legacy
+ * (`"Chevron"`) o directamente un símbolo Material (`"calendar_month"`).
+ */
+export function resolveSymbol(glyph: string): string {
+  return (glyphToSymbol as Record<string, string>)[glyph] ?? glyph;
+}
+
+/**
+ * Símbolos Material usados por el sistema. Se pasan a Google Fonts como
+ * `icon_names=` para subsetear la fuente (ver ui/README + preview-head.html).
+ */
+export const USED_SYMBOLS = [
+  "add",
+  "arrow_forward",
+  "check",
+  "chevron_right",
+  "close",
+  "folder",
+  "info",
+  "search",
+  "visibility",
+  "visibility_off",
+  "warning",
+] as const;

@@ -35,7 +35,7 @@ colecciones (`figma-build.md` §13). `scripts/build-tokens.mjs` (sin deps) resue
 **Hechos: 29 átomos + 35 moléculas + 9 organismos + 4 patrones = 73 componentes** *(jun-2026: C1
 design-to-code COMPLETO 5/5 — +Kbd átomo; +SegmentedControl +ChoiceGroup +Combobox +DateRangePicker
 moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
-- **Átomos (29):** Icon (10 glifos, +Visibility/VisibilityOff), IconButton, Button, Badge, Link, Tag, Status, Pill,
+- **Átomos (29):** Icon (Material Symbols vía ligadura; glyph legacy o Material directo), IconButton, Button, Badge, Link, Tag, Status, Pill,
   Chip, Notification badge, Avatar, Divider, Progress, Tooltip, Checkbox, Radio, Switch, Slider,
   Input, Skeleton, Spinner, Select, Step, Textarea, Tab, Rating, Image, Icon container, **Kbd**
   (`<kbd>`, JetBrains Mono; sombra inferior literal `0 1px 0 rgba(0,0,0,.45)` + `min-width:26px` =
@@ -118,8 +118,18 @@ por opacidad a tokens explícitos completa; eran solo 4 componentes (ListItem/Me
 TimePicker/PickerField), no ~15 — el resto ya consumía `bg-disabled`/`text-disabled`. Patrón:
 rellenos→`bg-disabled`+`text-disabled`; transparentes→solo `text-disabled` (interaction §2).
 
-**Iconos:** SVG stroke a mano (`currentColor`) — el sandbox bloquea descargar assets de Figma;
-reemplazables por los exportados.
+**Iconos — MIGRADO a Material Symbols (jun-2026):** `Icon` ya NO dibuja SVG local; renderiza la
+**ligadura de la fuente «Material Symbols Outlined»** (`<span class=icon data-icon=...>nombre</span>`,
+`font-size` = size, color `currentColor`). La prop `glyph` acepta los 11 nombres legacy (resueltos a
+Material en `glyphs.tsx`: Chevron→`chevron_right`, Plus→`add`, Alert→`warning`, VisibilityOff→
+`visibility_off`…) **o** un nombre Material directo (`calendar_month`). **Direccionales:** el baseline
+del código es derecha → Chevron→`chevron_right`/Arrow→`arrow_forward`, y las rotaciones CSS existentes
+(rotate 90→abajo…) se conservan SIN tocar CSS (en Figma el baseline es abajo, por eso allí
+Chevron→`stat_minus_1`). **La fuente la carga la app** (Google Fonts, subset `icon_names=`): está en
+`preview-head.html`, `examples/prototype/index.html` y documentada en `ui/README`; sin ella los íconos
+no se ven. **Gotcha test:** la ligadura mete texto en el DOM; en un `<label>` envolvente (Checkbox) el
+ícono va `aria-hidden` (el nombre accesible real lo excluye), pero `getByLabelText` usa textContent
+crudo y se contamina → en tests usar `getByRole(..,{name})`. `data-icon` = selector estable en tests.
 
 ### Regla de consumo de tokens (código) — CERO valores mágicos
 Un componente nunca usa hex ni números sueltos. Mapa de tokenización para CADA componente nuevo:
@@ -366,9 +376,9 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
   - Tokens confirmados por nodo: scrim `--alpha-black-72` `#0a0a0bb8` · `--shadow-overlay` ·
     `--radius-surface`=12 · `--z-modal`=1400 · `--z-popover`=1500. `bg/elevated` hoy lee `#2e2e31` en
     los nodos — consumir SIEMPRE el token, no el hex.
-- **Mensajes con tono (Banner/Toast/…):** mapear tono→glifo con el set de íconos: info/neutral→Info,
-  success→Check, warning/danger→Alert. El set es limitado: si un componente necesita otro glifo,
-  primero agregarlo al átomo Icon (y a Figma), no inventarlo inline.
+- **Mensajes con tono (Banner/Toast/…):** mapear tono→glifo: info/neutral→Info, success→Check,
+  warning/danger→Alert (`warning`). Con Material Symbols podés pasar cualquier símbolo directo
+  (p.ej. `error` para danger); si lo usás, sumalo al `icon_names=` del `<link>` (subset de la fuente).
 - **Patrones de a11y por tipo:**
   - Tabs → `role=tablist` + roving tabindex (activa=0, resto=-1) + flechas; `aria-selected`; conectar
     `aria-controls` al panel.

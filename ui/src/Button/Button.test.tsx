@@ -33,7 +33,7 @@ describe("Button", () => {
         Crear
       </Button>,
     );
-    expect(screen.getByRole("button").querySelectorAll("svg")).toHaveLength(2);
+    expect(screen.getByRole("button").querySelectorAll("[data-icon]")).toHaveLength(2);
   });
 
   it("forwards disabled", () => {
