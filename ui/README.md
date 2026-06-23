@@ -53,15 +53,13 @@ Storybook vía `.storybook/preview-head.html`):
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <!-- General Sans (labels) + Satoshi (fallback de display) — Fontshare -->
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
-<!-- Material Symbols Outlined — ÍCONOS del sistema (obligatorio para <Icon/>) -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&icon_names=add,arrow_forward,check,chevron_right,close,error,folder,info,search,visibility,visibility_off,warning&display=block" rel="stylesheet" />
 ```
 
-`Icon` usa **Material Symbols (Google)**: renderiza la ligadura de la fuente
-«Material Symbols Outlined». Si no cargás esa fuente, los íconos no se ven. La prop
-`glyph` acepta los nombres legacy (`Plus`, `Chevron`, `Close`…) que se mapean a
-símbolos Material, o directamente un nombre Material (`calendar_month`). Si usás
-glifos nuevos, sumalos al `icon_names=` del `<link>` para que entren en el subset.
+`Icon` usa **Material Symbols (Google)** como **SVG embebidos** (estilo Outlined,
+del repo `google/material-design-icons`) — **no requiere ninguna fuente de íconos**.
+La prop `glyph` acepta los nombres legacy (`Plus`, `Chevron`, `Close`…) que se
+mapean a símbolos Material, o directamente un nombre Material embebido (`error`).
+Para sumar un ícono nuevo, copiá su path desde el repo a `Icon/glyphs.tsx`.
 
 **PP Neue Montreal** (display/títulos) es comercial; sin licencia, el stack cae a
 Satoshi → system-ui. Con licencia, sumá su `@font-face`.

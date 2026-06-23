@@ -1,14 +1,14 @@
-import { forwardRef, type HTMLAttributes } from "react";
-import { resolveSymbol, type GlyphName } from "./glyphs";
+import { forwardRef, type SVGProps } from "react";
+import { resolveSymbol, symbolPath, type GlyphName } from "./glyphs";
 import styles from "./Icon.module.css";
 
-export interface IconProps extends Omit<HTMLAttributes<HTMLSpanElement>, "ref" | "children"> {
+export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
   /**
    * Ícono a renderizar. Acepta los nombres legacy del sistema (`"Chevron"`,
-   * `"Plus"`…) o directamente un nombre de Material Symbol (`"calendar_month"`).
+   * `"Plus"`…) o directamente un nombre de Material Symbol embebido (`"error"`).
    */
   glyph: GlyphName | (string & {});
-  /** Pixel size (width & height & font-size). Defaults to 16. */
+  /** Pixel size (width & height). Defaults to 16. */
   size?: number | string;
   /**
    * Accessible label. When provided the icon is exposed as an image with this
@@ -20,28 +20,32 @@ export interface IconProps extends Omit<HTMLAttributes<HTMLSpanElement>, "ref" |
 const cx = (...a: Array<string | false | undefined>) => a.filter(Boolean).join(" ");
 
 /**
- * Ícono del sistema VIU = **Material Symbols** (fuente "Material Symbols Outlined",
- * cargada por la app — ver ui/README). Renderiza la ligadura del símbolo; el color
- * hereda de `currentColor` y el tamaño del `font-size`.
+ * Ícono del sistema VIU = **Material Symbols (Google)**, SVG oficial embebido
+ * (Outlined 400, viewBox `0 -960 960 960`, fill = currentColor). Sin dependencia
+ * de fuente. El color hereda del texto; el tamaño es width/height.
  */
-export const Icon = forwardRef<HTMLSpanElement, IconProps>(function Icon(
-  { glyph, size = 16, title, className, style, ...rest },
+export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
+  { glyph, size = 16, title, className, ...rest },
   ref,
 ) {
   const symbol = resolveSymbol(glyph);
+  const d = symbolPath(glyph);
   return (
-    <span
+    <svg
       ref={ref}
       className={cx(styles.icon, className)}
       data-icon={symbol}
-      style={{ fontSize: size, ...style }}
+      width={size}
+      height={size}
+      viewBox="0 -960 960 960"
+      fill="currentColor"
       role={title ? "img" : undefined}
       aria-label={title}
       aria-hidden={title ? undefined : true}
-      translate="no"
       {...rest}
     >
-      {symbol}
-    </span>
+      {title ? <title>{title}</title> : null}
+      {d ? <path d={d} /> : null}
+    </svg>
   );
 });

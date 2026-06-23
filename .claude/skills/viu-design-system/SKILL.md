@@ -131,9 +131,9 @@ quedó atrás. Este lo absorbe entero.
   (jun-2026):** wrapper «Icon» `944:6` (6 Size) + librería «Glyph» `24:10626` (2.864 glifos snake_case,
   archivo Icon `5rV8Ad6qqHx5mocSpObi0k`); el set local `56:431` (11 glifos) fue migrado y ELIMINADO.
   Chevron fino = `stat_minus_1`/`stat_1`; laterales `chevron_left/right`. Detalle/migración en
-  canon §Íconos + figma-build §15. **Código `@viu/ui` MIGRADO (jun-2026):** `Icon` renderiza la
-  ligadura de «Material Symbols Outlined» (no más SVG local); `glyph` acepta nombres legacy
-  (mapeados) o Material directo. Ver code-build. **Tree item `411:19` completo: 12 var** (Expansión ×
+  canon §Íconos + figma-build §15. **Código `@viu/ui` MIGRADO (jun-2026):** `Icon` dibuja el SVG
+  oficial de Material Symbols embebido (repo google/material-design-icons, Outlined; SIN fuente);
+  `glyph` acepta nombres legacy (mapeados) o Material embebido directo. Ver code-build. **Tree item `411:19` completo: 12 var** (Expansión ×
   Estado) + Icono/Checkbox. Banner `135:84`: CTA removido / Toast `176:101`: acción removida (jun-2026).
   Card modular SET(45). Portada con índice por nivel atómico (⚠️ falta sumarle
   las 5 entradas nuevas en Figma — figma-build §7b). Sections en archivo aparte; `Marketing · LinkedIn`

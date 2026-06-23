@@ -2,23 +2,26 @@ import { render } from "@testing-library/react";
 import { Icon } from "./Icon";
 
 describe("Icon", () => {
-  it("renders the mapped Material Symbol, decorative by default", () => {
+  it("renders an svg (Material Symbol), decorative by default, 16px", () => {
     const { container } = render(<Icon glyph="Search" />);
-    const el = container.querySelector("[data-icon]")!;
-    expect(el).toBeInTheDocument();
-    expect(el).toHaveAttribute("data-icon", "search");
-    expect(el).toHaveTextContent("search");
-    expect(el).toHaveAttribute("aria-hidden", "true");
+    const svg = container.querySelector("svg")!;
+    expect(svg).toBeInTheDocument();
+    expect(svg).toHaveAttribute("width", "16");
+    expect(svg).toHaveAttribute("data-icon", "search");
+    expect(svg).toHaveAttribute("aria-hidden", "true");
+    expect(svg.querySelector("path")).toBeInTheDocument();
   });
 
   it("maps direction glyphs to right-pointing Material Symbols", () => {
     const { container } = render(<Icon glyph="Chevron" />);
-    expect(container.querySelector("[data-icon]")).toHaveAttribute("data-icon", "chevron_right");
+    expect(container.querySelector("svg")).toHaveAttribute("data-icon", "chevron_right");
   });
 
-  it("passes through a raw Material Symbol name", () => {
-    const { container } = render(<Icon glyph="calendar_month" />);
-    expect(container.querySelector("[data-icon]")).toHaveAttribute("data-icon", "calendar_month");
+  it("accepts a raw Material Symbol name", () => {
+    const { container } = render(<Icon glyph="error" />);
+    const svg = container.querySelector("svg")!;
+    expect(svg).toHaveAttribute("data-icon", "error");
+    expect(svg.querySelector("path")).toBeInTheDocument();
   });
 
   it("is exposed as an image when titled", () => {
@@ -26,8 +29,8 @@ describe("Icon", () => {
     expect(getByRole("img", { name: "Información" })).toBeInTheDocument();
   });
 
-  it("honors a custom size via font-size", () => {
+  it("honors a custom size", () => {
     const { container } = render(<Icon glyph="Check" size={24} />);
-    expect(container.querySelector("[data-icon]")).toHaveStyle({ fontSize: "24px" });
+    expect(container.querySelector("svg")).toHaveAttribute("width", "24");
   });
 });
