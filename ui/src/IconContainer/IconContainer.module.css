@@ -8,9 +8,10 @@
   border-radius: var(--radius-control);
   color: var(--color-text-primary);
 }
-.sm { width: 32px; height: 32px; }
-.md { width: 40px; height: 40px; }
-.lg { width: 48px; height: 48px; }
+/* Tamaños 1:1 con Figma 574:150 — contenedor 24/32/40, ícono 16/24/32 */
+.sm { width: 24px; height: 24px; }
+.md { width: 32px; height: 32px; }
+.lg { width: 40px; height: 40px; }
 .sm :global(svg) { width: var(--icon-size-xs); height: var(--icon-size-xs); }
-.md :global(svg) { width: var(--icon-size-sm); height: var(--icon-size-sm); }
-.lg :global(svg) { width: var(--icon-size-md); height: var(--icon-size-md); }
+.md :global(svg) { width: var(--icon-size-md); height: var(--icon-size-md); }
+.lg :global(svg) { width: var(--icon-size-lg); height: var(--icon-size-lg); }
