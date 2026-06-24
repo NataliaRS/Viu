@@ -152,8 +152,9 @@ quedó atrás. Este lo absorbe entero.
   1. ~~**B2** · sumar Eye/EyeOff al Icon de Figma~~ ✅ HECHO (jun-2026). Natalia los creó en Figma
      como `Visibility`/`Visibility_off`; el código se renombró a `Visibility`/`VisibilityOff`
      (alineado a Figma, mejor nombre semántico). Code Connect mapea `Visibility_off`→`VisibilityOff`.
-  2. ~~**B3** · `.figma.tsx` de Icon container~~ ✅ HECHO (jun-2026). Surgió un gap nuevo: el nodo
-     Figma tiene `style`/`tone` (48 var) que el código no expone — anotado en code-build §14.
+  2. ~~**B3** · `.figma.tsx` de Icon container~~ ✅ HECHO (jun-2026). El gap de `style`/`tone` que
+     surgió quedó **RESUELTO**: el componente se reconstruyó con paridad completa (círculo + `tone`
+     ×8 + `appearance` filled/stroke + tamaños), ver code-build.
   3. ~~**A1** · actualizar la etiqueta de madurez de los componentes a la escala única
      Draft/Reviewed/Stable/Deprecated~~ ✅ HECHO (jun-2026). `ViuDocs.tsx` retipado + stories
      migradas (67 Stable, 2 Reviewed); tipo viejo `stable|beta|wip` obsoleto.
@@ -174,7 +175,8 @@ quedó atrás. Este lo absorbe entero.
   siguió el proceso decidido (PRIMERO en Figma, fuente de verdad). Reuso estricto aplicado
   (figma-build §14): Combobox→Search+Menu item; Choice group→Radio+Checkbox; Date range
   picker→Datepicker ×2. **Design-to-code a `@viu/ui` COMPLETO (5/5, jun-2026):** ✅ Kbd + ✅
-  SegmentedControl + ✅ ChoiceGroup + ✅ Combobox + ✅ DateRangePicker, todos con gate completo + tests
-  (38 tests en total). El DateRangePicker usa calendario de rango CUSTOM con campos read-only
-  (divergencia honesta: el Datepicker nativo abriría el picker del SO — ver code-build §14). **C1
+  SegmentedControl + ✅ ChoiceGroup + ✅ Combobox + ✅ DateRangePicker, todos con gate completo + tests.
+  **Datepicker/DateRangePicker REFACTORIZADOS (jun-2026):** ambos reusan `Calendar` + `DateField`
+  compartidos (espeja Figma, que compone el DateRangePicker con 2 Datepicker); el Datepicker ya NO
+  envuelve el `<input type=date>` nativo — calendario propio de marca. Ver code-build. **C1
   cerrado; paridad Figma↔código restaurada (73 componentes ambos lados).**

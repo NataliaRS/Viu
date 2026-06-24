@@ -131,8 +131,8 @@ Error=Alert + "Sin imagen"; doc `Atom · Image` · Icon container `574:150` SET(
 (Brand/Neutral/Inverse/Danger/Warning/Success/Info/Disable) × Size (Large40/Medium32/Small24) × Style
 (Filled/Stroke) — contenedor circular, glifo Info expuesto; Filled=`*-surface/subtle` + `*-text`,
 Stroke=borde+ícono tonal; Inverse=disco text/primary + ícono bg/base; doc `Atom · Icon container`
-*(Code Connect creado en B3; el código solo expone `size` — gap style/tone sin exponer, ver
-code-build §14)* · Kbd `721:7` COMP — keycap mono (prop `Tecla#721:0`); ancho mínimo cuadrado, crece
+*(Code Connect + PARIDAD COMPLETA en código jun-2026: `size` + `tone`×8 + `appearance` filled/stroke,
+círculo `radius/pill`; los 3 ejes mapeados en `.figma.tsx`. Ver code-build)* · Kbd `721:7` COMP — keycap mono (prop `Tecla#721:0`); ancho mínimo cuadrado, crece
 con el texto; borde + sombra inferior; doc `Atom · Kbd`.
 
 **MOLÉCULAS (35):** Search `26:347` SET(4) (`Texto#84:18`) · Datepicker `28:386` SET(5) · Toast

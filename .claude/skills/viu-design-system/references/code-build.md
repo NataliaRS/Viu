@@ -35,7 +35,7 @@ colecciones (`figma-build.md` §13). `scripts/build-tokens.mjs` (sin deps) resue
 **Hechos: 29 átomos + 35 moléculas + 9 organismos + 4 patrones = 73 componentes** *(jun-2026: C1
 design-to-code COMPLETO 5/5 — +Kbd átomo; +SegmentedControl +ChoiceGroup +Combobox +DateRangePicker
 moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
-- **Átomos (29):** Icon (Material Symbols vía ligadura; glyph legacy o Material directo), IconButton, Button, Badge, Link, Tag, Status, Pill,
+- **Átomos (29):** Icon (Material Symbols vía SVG oficial embebido; glyph legacy o Material directo), IconButton, Button, Badge, Link, Tag, Status, Pill,
   Chip, Notification badge, Avatar, Divider, Progress, Tooltip, Checkbox, Radio, Switch, Slider,
   Input, Skeleton, Spinner, Select, Step, Textarea, Tab, Rating, Image, Icon container, **Kbd**
   (`<kbd>`, JetBrains Mono; sombra inferior literal `0 1px 0 rgba(0,0,0,.45)` + `min-width:26px` =
@@ -383,7 +383,8 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     los nodos — consumir SIEMPRE el token, no el hex.
 - **Mensajes con tono (Banner/Toast/…):** mapear tono→glifo: info/neutral→Info, success→Check,
   warning/danger→Alert (`warning`). Con Material Symbols podés pasar cualquier símbolo directo
-  (p.ej. `error` para danger); si lo usás, sumalo al `icon_names=` del `<link>` (subset de la fuente).
+  (p.ej. `error` para danger); si el símbolo no está embebido todavía, copiá su path a `symbolPaths`
+  en `Icon/glyphs.tsx` (desde el repo `google/material-design-icons`).
 - **Patrones de a11y por tipo:**
   - Tabs → `role=tablist` + roving tabindex (activa=0, resto=-1) + flechas; `aria-selected`; conectar
     `aria-controls` al panel.
