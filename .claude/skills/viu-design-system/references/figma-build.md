@@ -560,3 +560,36 @@ function alertCtx(node){let p=node;while(p){if(/danger|error|crit|destruct|pelig
 // const nm=old.mainComponent.name.replace(/^Glyph=/,''); const t=tgt(nm,old.rotation||0,nm==='Alert'?alertCtx(old):null);
 // leer color var → old.swapComponent(wrapBy[near(old.width)]) → if(t[1])old.rotation=0 → swap «Glyph» anidada a gBy[t[0]] → reaplicar color.
 ```
+
+## 16. Reemplazo texto/vector → Icon + recetas de componentes (jun-2026)
+
+### Reemplazo texto/vector → Icon (helper reusable)
+Para ▾/✓/✕ texto o lupas/calendarios vector. Por cada nodo viejo: leer color (fills→strokes, var o solid) → crear instancia wrapper (Size=xs/sm) o Glyph crudo → swap nested "Glyph" → reaplicar color → insertChild en mismo índice → remove(). Preservar x/y si el parent no es auto-layout; centrar si hace falta.
+- Select ▾: `stat_minus_1`. Search: frame [Ellipse+Rectangle] → `search`. Datepicker: frame 16px [2 Rectangles] → `calendar_today` @xs. Nav: ellipse "Punto" → `home` @sm. Checkbox ✓: Glyph `check` @12px (centrar manual si no auto-layout).
+
+### Tab — slot trailing
+`set.addComponentProperty('Icono fin','BOOLEAN',false)` → por variante: clonar el Icono leading, swap glyph a `close`, appendChild en el Inner (queda trailing), `inst.componentPropertyReferences={...,visible:propId}` (re-apuntar al prop nuevo, NO al leading), `inst.visible=false`.
+
+### Avatar — Type=Ícono
+Clonar las 5 variantes Iniciales → renombrar `Type=Iniciales`→`Type=Ícono`, posicionar en fila nueva (los sets NO auto-acomodan: setear x/y por columna + `set.resize`). Reemplazar el texto de iniciales por Glyph `account_circle` al `width` del avatar, color = color del texto. `clipsContent=true`.
+
+### Time picker — Estado=Abierto
+Clonar variante Focus → `Estado=Abierto`. Chevron del control: swap glyph a `stat_1` (arriba). Clonar el dropdown del doc (`409:58`), convertir su ✓ a Icon `check` (color de la fila = `text/brand`), insertChild después del Control. `dropdown.layoutAlign='STRETCH'` + filas `layoutAlign='STRETCH'` + fila seleccionada `primaryAxisAlignItems='SPACE_BETWEEN'`. Resize variante + set.
+
+### Data table — search
+Reemplazar el frame search a mano por instancia de `26:347` (variante State=Default). Placeholder por prop (`Texto#84:18`) o override del texto anidado. Width 280, insertChild en el índice del viejo en el Toolbar, remove() del viejo.
+
+### Badge — sólido (rebind)
+Por variante `Tone=X`: `v.fills=[setBoundVariableForPaint(...,'color', importVariableByKeyAsync(SOLID))]`; textos + dots → `ON-SOLID`. Keys:
+- Brand: bg/brand `8c1696cc425e0b0d8bc98130d76e3a5c4273ae41` / on-brand `774bff01c82efe80d874a5afd90b74baad12a8fc`
+- Success solid `2e9317f051cf30a68ac5cf49ba91f59f26d7745b` / on `174c1764ab9bc7c8471f56693097026748139589`
+- Warning solid `bb13772944f41e0ed7de4cf7032e6ae77a7bacd4` / on `a73e8ecdf92bff06d26d5ac5cc3891daa1267b60`
+- Danger solid `cb9c620a4c4e03ee49b75e41358825d91a17cca1` / on `6b5b4ce8674cf039de9e2d358263e29fda0106a8`
+- Info solid `8ff92d4806cd299765cabe41f889738785d7328c` / on `34e01860dd87c4bc9033fbc86d53c8e35444a01d`
+
+### Gotchas nuevos
+- La librería Glyph NO tiene `person` ni `expand_more`. Verificar nombre con `glyphSet.children.find(c=>c.name==='Icon=...')` antes de swap; fallback (`account_circle`, `stat_minus_1`).
+- Clonar variante para prop nueva: re-apuntar `componentPropertyReferences.visible` al prop nuevo, o queda atado al prop original.
+- `set.addComponentProperty` devuelve `nombre#id` — usar ese id para los bindings.
+- Sets no auto-acomodan: posicionar variantes nuevas + `set.resize`.
+- get_screenshot a escala chica oculta placeholders en `text/tertiary` — verificar por data (chars/visible/color), no solo por imagen.

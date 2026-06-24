@@ -77,3 +77,10 @@ como normativo.
 
 **Regla:** el contenido es uno solo; las tres superficies lo espejan. Si difieren, gana el `.md` de
 gobernanza y se corrige el resto.
+
+## Notas por componente
+
+### Time picker — doc
+La fila seleccionada del dropdown "Abierto" usa check **Icon** (`check`, `text/brand`), no ✓ texto. El
+componente y el doc comparten el mismo patrón de seleccionado (`bg/brand-subtle` + `text/brand` + check
+Icon, space-between).

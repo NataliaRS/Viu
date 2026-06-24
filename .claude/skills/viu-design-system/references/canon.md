@@ -228,6 +228,39 @@ El sistema NO tiene glifos propios. Los íconos son **Material Symbols (Google)*
 
 **Decisión clave de chevron:** la librería NO trae chevron fino arriba/abajo (no hay `expand_more`/`chevron_down`). Se usa `stat_minus_1` (⌄ abajo) y `stat_1` (⌃ arriba) — los "trend chevrons" finos de Material, que calzan con la estética VIU. Los laterales sí: `chevron_left`/`chevron_right`.
 
+### Sistema de íconos — estado final
+Cero íconos de texto-carácter o vector casero en componentes. Todo ícono es Icon (wrapper) o Glyph (Material Symbol crudo). Migrados en esta tanda: Select, Search, Nav, Datepicker/Date range, Checkbox, Time picker, Badge dots, Chip.
+
+**Icon (wrapper) vs Glyph (crudo) — regla:**
+- **Icon wrapper** = uso estándar standalone. Tamaños bloqueados a tokens icon-size (xs16/sm20/md24/lg32/xl40/2xl48). Default para trailing/leading de campos, nav, tabs, etc.
+- **Glyph crudo** (sin wrapper) = cuando el contenedor exige <16px. Se sizea libre. Casos: Checkbox `check` @12px (caja 18px), Avatar `account_circle` al tamaño del avatar. NO meter el wrapper donde 16px rompe el bounding box.
+
+### Tab
+Leading-only quedó deprecado: ahora **dos slots de ícono**.
+- `Icono` (bool, leading) + `Icono fin` (bool, trailing, default off). Ambos Icon @xs.
+- Trailing default `close` (tab cerrable) — swappable por instancia.
+
+### Avatar
+Tres `Type`: **Iniciales**, **Imagen**, **Ícono**.
+- **Ícono** = placeholder de persona. Glyph `account_circle` al tamaño del avatar (XS24/SM32/MD40/LG48/XL64), color = el de las iniciales, sobre el bg del avatar. (La librería de glyphs NO tiene `person`; `account_circle` es el fallback canónico.)
+
+### Time picker
+Estados: Default, Focus, Error, Deshabilitado, **Abierto**.
+- **Abierto** = control enfocado + chevron arriba (`stat_1`) + dropdown de horas. La fila seleccionada usa los **colores de seleccionado** (`bg/brand-subtle` + `text/brand`) y un **check Icon** (`check`) a la derecha (space-between). Mismo diseño que el doc, ahora a nivel componente.
+
+### Badge
+Fondos **sólidos** (legibles sobre imágenes), NO superficies tintadas.
+- Brand→`bg/brand`+`text/on-brand`; Success/Warning/Danger/Info→`feedback/{tone}-solid`+`feedback/{tone}-on-solid`. Neutral quedó en `bg/raised` (opaco) — **falta `feedback/neutral-solid`+`neutral-on-solid`** si se quiere paridad saturada.
+
+### Checkbox
+Check = **Glyph `check` @12px** (no wrapper) en caja de 18px. Indeterminate = rectángulo (dash).
+
+### Data table (patrón)
+El search del toolbar es una **instancia de la molécula Search** (`26:347`), no un frame a mano. Placeholder por prop `Texto`.
+
+### Nota: dos Selects
+Coexisten `Select` (`26:293`) y `Field / Select` (`191:33`). Ambos con chevron Icon. No se fusionaron — frontera no tocada sin decisión explícita.
+
 ## 11 · Glosario de foundations que el sistema debe documentar
 Para estar completo a nivel enterprise, el sistema documenta tanto las foundations de tokens/estilos
 como las conceptuales. Ninguna se da por supuesta.
