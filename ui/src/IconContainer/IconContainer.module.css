@@ -1,17 +1,40 @@
+/* IconContainer — 1:1 con Figma 574:150.
+   Círculo. Eje Size (sm/md/lg) × Style (filled/stroke) × Tone (8). */
 .container {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: none;
-  background: var(--color-bg-elevated);
-  border: var(--border-width-default) solid var(--color-border-subtle);
-  border-radius: var(--radius-control);
+  border: var(--border-width-default) solid transparent;
+  border-radius: var(--radius-pill);
   color: var(--color-text-primary);
 }
-/* Tamaños 1:1 con Figma 574:150 — contenedor 24/32/40, ícono 16/24/32 */
+
+/* ---- size: contenedor 24/32/40, ícono 16/24/32 (1:1 Figma) ---- */
 .sm { width: 24px; height: 24px; }
 .md { width: 32px; height: 32px; }
 .lg { width: 40px; height: 40px; }
 .sm :global(svg) { width: var(--icon-size-xs); height: var(--icon-size-xs); }
 .md :global(svg) { width: var(--icon-size-md); height: var(--icon-size-md); }
 .lg :global(svg) { width: var(--icon-size-lg); height: var(--icon-size-lg); }
+
+/* ---- style: Filled (tinte de fondo, sin borde) ---- */
+.filled.brand { background: var(--color-bg-brand-subtle); color: var(--color-text-brand); }
+.filled.neutral { background: var(--color-bg-subtle); color: var(--color-text-secondary); }
+.filled.inverse { background: var(--color-text-primary); color: var(--color-bg-base); }
+.filled.danger { background: var(--color-feedback-danger-surface); color: var(--color-feedback-danger-text); }
+.filled.warning { background: var(--color-feedback-warning-surface); color: var(--color-feedback-warning-text); }
+.filled.success { background: var(--color-feedback-success-surface); color: var(--color-feedback-success-text); }
+.filled.info { background: var(--color-feedback-info-surface); color: var(--color-feedback-info-text); }
+.filled.disabled { background: var(--color-bg-subtle); color: var(--color-text-tertiary); }
+
+/* ---- style: Stroke (borde de color, fondo transparente) ---- */
+.stroke { background: transparent; }
+.stroke.brand { border-color: var(--color-text-brand); color: var(--color-text-brand); }
+.stroke.neutral { border-color: var(--color-text-secondary); color: var(--color-text-secondary); }
+.stroke.inverse { border-color: var(--color-text-primary); color: var(--color-text-primary); }
+.stroke.danger { border-color: var(--color-feedback-danger-text); color: var(--color-feedback-danger-text); }
+.stroke.warning { border-color: var(--color-feedback-warning-text); color: var(--color-feedback-warning-text); }
+.stroke.success { border-color: var(--color-feedback-success-text); color: var(--color-feedback-success-text); }
+.stroke.info { border-color: var(--color-feedback-info-text); color: var(--color-feedback-info-text); }
+.stroke.disabled { border-color: var(--color-text-tertiary); color: var(--color-text-tertiary); }

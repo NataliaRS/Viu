@@ -100,7 +100,12 @@ export { Image } from "./Image/Image";
 export type { ImageProps, ImageRatio, ImageState } from "./Image/Image";
 
 export { IconContainer } from "./IconContainer/IconContainer";
-export type { IconContainerProps, IconContainerSize } from "./IconContainer/IconContainer";
+export type {
+  IconContainerProps,
+  IconContainerSize,
+  IconContainerTone,
+  IconContainerAppearance,
+} from "./IconContainer/IconContainer";
 
 /* ---- molecules (Tramo 3) ---- */
 export { FormField } from "./FormField/FormField";

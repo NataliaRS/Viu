@@ -105,12 +105,15 @@ z-index dinámico). ~~Tooltip/Popover sin colisión/flip~~ → **RESUELTO (B5, j
 `src/overlay/useFlipSide.ts` voltea al lado opuesto cuando el preferido se sale del viewport (Tooltip
 mide en hover/focus; Popover en open + scroll/resize). **C1 design-to-code COMPLETO (jun-2026, 5/5):** ✅ Kbd `721:7` + ✅ SegmentedControl `724:28` +
 ✅ ChoiceGroup `728:35` + ✅ Combobox `730:40` + ✅ DateRangePicker `732:120` portados a `@viu/ui`.
-**Paridad Figma↔código restaurada** (29 átomos / 35 moléculas / 9 organismos en ambos lados). **Icon container — Code
-Connect creado (jun-2026, B3, `.figma.tsx` → nodo `574:150`).
-Gap de paridad PENDIENTE:** el nodo Figma tiene 3 ejes (Size × `style` Filled/Stroke × `tone`
-Brand/Neutral/Inverse/Danger/Warning/Success/Info/Disable = 48 variantes), pero el componente de
-código solo expone `size`; Code Connect mapea solo `size`. Falta llevar `style`/`tone` al código si
-se quiere paridad total. **Eye/EyeOff → RESUELTO (jun-2026, B2):** Natalia los creó en Figma como
+**Paridad Figma↔código restaurada** (29 átomos / 35 moléculas / 9 organismos en ambos lados). **Icon container —
+PARIDAD COMPLETA (jun-2026):** se reconstruyó 1:1 con Figma `574:150` (cross-check vía screenshot +
+variable_defs). Era un círculo en Figma pero el código lo tenía como cuadrado redondeado y construido
+"a ciegas" (la story decía "sin nodo propio"). Ahora: **círculo** (`radius/pill`), 3 ejes — `size`
+(24/32/40, ícono 16/24/32), `appearance` (`filled`=tinte de fondo / `stroke`=borde de color; "style"
+es palabra reservada en React, por eso `appearance`), `tone` (8: brand/neutral/inverse/danger/warning/
+success/info/disabled). Filled: bg `*-subtle`/`*-surface` + ícono color de acento; Inverse filled =
+`text/primary` con ícono `bg/base`. Stroke: borde + ícono del color de acento. Code Connect mapea los 3
+ejes. Único consumidor era su propia story (sin impacto colateral). Default `tone="neutral"`/`appearance="filled"`. **Eye/EyeOff → RESUELTO (jun-2026, B2):** Natalia los creó en Figma como
 `Visibility`/`Visibility_off` (nodos 726:3273/726:71) y el código se renombró `Eye`→`Visibility`,
 `EyeOff`→`VisibilityOff` (mejor nombre semántico, alineado a Figma como fuente de verdad); Code
 Connect mapea `Visibility_off`→`VisibilityOff`. **B1 → RESUELTO (jun-2026):** migración de disabled
