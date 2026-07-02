@@ -119,6 +119,32 @@ queda escrito acá, no solo en el chat.
 Al instalar este skill, **desinstalar `figma-viu-build`**: ambos compiten en triggering y el viejo
 quedó atrás. Este lo absorbe entero.
 
+### 5b. Sync del skill (el repo manda)
+Este skill vive versionado en `NataliaRS/Viu` → `.claude/skills/viu-design-system/` (rama
+`claude/viu-design-system`, repo público). Claude Code lo consume directo del filesystem — cada
+commit lo actualiza al instante de ese lado. La copia instalada en claude.ai es un **snapshot** que
+se republica a mano; nunca se editan las dos copias en paralelo: **el repo es la fuente de verdad
+del skill mismo.**
+- **Rutina "actualizá el skill desde el repo" (en chat, cuando Natalia lo pida):**
+  1. `git clone --depth 1 https://github.com/NataliaRS/Viu.git` en el sandbox (github.com está
+     permitido) y tomar `.claude/skills/viu-design-system/`.
+  2. Verificar punteros SKILL.md↔references antes de empaquetar: que las secciones citadas existan
+     (grep de `§N` referenciados) y los conteos coincidan. Si algo no resuelve → avisar y NO
+     empaquetar (no se instala un skill con punteros rotos).
+  3. Empaquetar con el script del skill-creator desde un directorio ESCRIBIBLE:
+     `cd /home/claude && PYTHONPATH=/mnt/skills/examples/skill-creator python -m
+     scripts.package_skill <ruta-del-skill>` (correrlo desde el dir del skill-creator falla:
+     filesystem read-only).
+  4. Copiar el `.skill` a outputs + `present_files` → Natalia toca **Save skill** (mismo nombre =
+     reemplaza la instalada). Total: un mensaje + un click.
+- **Dirección inversa (el batch se cerró en chat, no en Code):** generar los archivos actualizados
+  del skill, presentarlos, y Natalia le pide a Claude Code que los commitee a
+  `.claude/skills/viu-design-system/`. Después, opcionalmente, correr la rutina de arriba para
+  republicar el snapshot de chat desde el repo.
+- **Regla §5 ampliada:** el cierre de batch en Claude Code incluye commitear la carpeta
+  `.claude/skills/viu-design-system/` en el mismo commit/PR del batch — el repo nunca queda atrás
+  del código.
+
 ## 6. Estado actual (junio 2026)
 - **Tokens:** 331 variables / 5 colecciones, auditadas 1:1 Figma↔código; paridad verificada.
   Effects (sombras/gradients) como Styles → `tokens/effects.json`.
