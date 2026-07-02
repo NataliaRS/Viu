@@ -174,6 +174,7 @@ del skill mismo.**
   contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
   jun-2026: ausentes en el repo de código; el gate del repo es el de 5 pasos: typecheck · test ·
   build · figma connect parse · build-storybook).
+- **Batch jul-2026 (cierre — íconos residuales + Badge soft):** cerrada la cola de afinado de íconos/estructura — **Select** `26:293` (▾→`stat_minus_1`) · **Search** `26:347` (lupa vector→`search`) · **Nav** `233:19` (punto→Icon `home` swappable) · **Datepicker** `28:386`+**Date range** (calendario→`calendar_today`) · **Checkbox** `24:167` (✓→Glyph `check` 12px) · **Tab** `161:43` (+slot trailing `Icono fin`) · **Avatar** `19:90` (+`Type=Ícono` `account_circle`, SET 10→15, grid re-alineado sin auto-layout) · **Time picker** `409:6` (+`Estado=Abierto` a nivel componente, check Icon) · **Data table** `285:7` (search→instancia de molécula Search). **Badge `14:77`:** surface→sólido→**soft /100** (opaco+claro, texto /700, AA) + prop `Icono` leading. **Tokens nuevos:** primitiva `red/100` + 12 `feedback/{tono}-soft`/`-on-soft` (+ interino `neutral-solid`/`-on-solid`). Recetas/keys en figma-build §16; detalle en canon §Badge/§Íconos.
 - **Pendientes — DECIDIDOS jun-2026, en cola de ejecución (orden sugerido):**
   1. ~~**B2** · sumar Eye/EyeOff al Icon de Figma~~ ✅ HECHO (jun-2026). Natalia los creó en Figma
      como `Visibility`/`Visibility_off`; el código se renombró a `Visibility`/`VisibilityOff`

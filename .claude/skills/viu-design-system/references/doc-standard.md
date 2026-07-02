@@ -84,3 +84,7 @@ gobernanza y se corrige el resto.
 La fila seleccionada del dropdown "Abierto" usa check **Icon** (`check`, `text/brand`), no ✓ texto. El
 componente y el doc comparten el mismo patrón de seleccionado (`bg/brand-subtle` + `text/brand` + check
 Icon, space-between).
+
+
+### Badge — doc
+La sección de estilos del doc debe mostrar el fondo **soft** (/100 opaco + texto /700) y las **dos opciones de leading** (`Punto` / `Icono`), no el sólido saturado viejo. _Pendiente de refrescar el doc en Figma (jul-2026)._

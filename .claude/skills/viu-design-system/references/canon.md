@@ -249,8 +249,11 @@ Estados: Default, Focus, Error, Deshabilitado, **Abierto**.
 - **Abierto** = control enfocado + chevron arriba (`stat_1`) + dropdown de horas. La fila seleccionada usa los **colores de seleccionado** (`bg/brand-subtle` + `text/brand`) y un **check Icon** (`check`) a la derecha (space-between). Mismo diseño que el doc, ahora a nivel componente.
 
 ### Badge
-Fondos **sólidos** (legibles sobre imágenes), NO superficies tintadas.
-- Brand→`bg/brand`+`text/on-brand`; Success/Warning/Danger/Info→`feedback/{tone}-solid`+`feedback/{tone}-on-solid`. Neutral quedó en `bg/raised` (opaco) — **falta `feedback/neutral-solid`+`neutral-on-solid`** si se quiere paridad saturada.
+Estado/categoría, no interactivo, comunica. Fondo **soft** (claro, OPACO): `feedback/{tono}-soft` (primitiva /100) + texto/punto/ícono `feedback/{tono}-on-soft` (primitiva /700). Opaco → lee sobre imágenes; claro/pastel, no saturado. 6 tonos: Success/Warning/Danger/Info/Neutral/Brand.
+- **Leading — dos opciones independientes:** `Punto#65:28` (bool, default ON) = dot de apoyo · `Icono#1024:0` (bool, default OFF) = Icon wrapper @xs swappable (glyph default `sell`), al frente (índice 0). Apagar `Punto` al usar `Icono`.
+- **Evolución del fondo (jul-2026)** _(corregido: antes decía "fondos sólidos saturados")_: se descartó el surface translúcido (era alpha → fallaba sobre imágenes) Y el sólido saturado (muy cargado para la marca). Gana **soft /100**: opaco + claro + texto /700 (AA holgado, 7:1+).
+- **Tokens (jul-2026, aliasan primitivas):** primitiva nueva `color/red/100` = `#f2d8d9` (la rampa `red` no tenía pasos claros — el más claro era /300 salmón). 12 semánticas en `feedback/`: `{tono}-soft`→`{ramp}/100`, `-on-soft`→`{ramp}/700`. Rampas: success=green · warning=amber · danger=alert · info=blue · neutral=neutral · brand=red. Grupo `feedback/` uniforme para los 6 tonos (brand y neutral incluidos como tonos de Badge — renombrable a `tone/`, es solo mover).
+- **Legacy (iteración sólida previa):** existen `feedback/*-solid`, `feedback/neutral-solid`, `*-on-solid`, `bg/brand`/`text/on-brand`. El Badge YA NO los usa — quedan para usos sólidos on-image o para depurar.
 
 ### Checkbox
 Check = **Glyph `check` @12px** (no wrapper) en caja de 18px. Indeterminate = rectángulo (dash).

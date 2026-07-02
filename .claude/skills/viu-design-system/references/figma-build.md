@@ -117,11 +117,11 @@ Default/Hover/Pressed/Disabled/Focus·Size MD/SM/LG (`Label#53:0`; props bool `i
 `iconoDerecha`/`text` + slots `Leading`/`Trailing` con Glyph wrapper) *(jun-2026: gap ícono↔label =
 `space/2xs` 4px en los 3 tamaños [antes 8px]; padding SM/MD/LG = `space/sm,md,lg`. Código alineado.)* ·
 Badge `14:77` SET(6) Tone
-(`Label#65:0`) · Link `22:137` SET(5) State (`Label#65:19`) · Tag `15:42` SET(3) Tone
+(`Label#65:0` · `Punto#65:28` bool dot · `Icono#1024:0` bool ícono leading @xs glyph `sell`, jul-2026) · Link `22:137` SET(5) State (`Label#65:19`) · Tag `15:42` SET(3) Tone
 Neutral/Brand/Indigo (`Label#65:7`) · Status `20:150` SET(4) Online/Busy/Away/Offline · Pill `16:63`
 SET(6) State (`Label#65:23`) · Chip `17:67` SET(12) Type Input/Con avatar/Choice·State · Notification
-badge `18:75` SET(3) Dot/Count/Max · Avatar `19:90` SET(10) Size XS–XL·Type Iniciales/Imagen
-(`Iniciales#66:4`) · Divider `20:97` SET(3) · Progress `22:184` SET(3) · Tooltip `23:167` SET(2) ·
+badge `18:75` SET(3) Dot/Count/Max · Avatar `19:90` SET(15) Size XS–XL·Type Iniciales/Imagen/Ícono
+(`Iniciales#66:4`; Ícono=placeholder `account_circle`, jul-2026) · Divider `20:97` SET(3) · Progress `22:184` SET(3) · Tooltip `23:167` SET(2) ·
 Checkbox `24:167` SET(12) · Radio `24:227` SET(8) · Switch `24:279` SET(8) · Slider `225:16` SET(2)
 Único/Rango · Input `26:197` SET(5) · Skeleton `229:10` SET(3) · Spinner `20:209` SET(3) · Select
 `26:293` SET(5) · Step `189:25` SET(3) · Textarea `26:250` SET(5) · Tab `161:43` SET(6) Estilo
@@ -579,13 +579,24 @@ Clonar variante Focus → `Estado=Abierto`. Chevron del control: swap glyph a `s
 ### Data table — search
 Reemplazar el frame search a mano por instancia de `26:347` (variante State=Default). Placeholder por prop (`Texto#84:18`) o override del texto anidado. Width 280, insertChild en el índice del viejo en el Toolbar, remove() del viejo.
 
-### Badge — sólido (rebind)
+### Badge — sólido (rebind) — ⚠️ SUPERSEDED por soft (jul-2026, ver abajo)
 Por variante `Tone=X`: `v.fills=[setBoundVariableForPaint(...,'color', importVariableByKeyAsync(SOLID))]`; textos + dots → `ON-SOLID`. Keys:
 - Brand: bg/brand `8c1696cc425e0b0d8bc98130d76e3a5c4273ae41` / on-brand `774bff01c82efe80d874a5afd90b74baad12a8fc`
 - Success solid `2e9317f051cf30a68ac5cf49ba91f59f26d7745b` / on `174c1764ab9bc7c8471f56693097026748139589`
 - Warning solid `bb13772944f41e0ed7de4cf7032e6ae77a7bacd4` / on `a73e8ecdf92bff06d26d5ac5cc3891daa1267b60`
 - Danger solid `cb9c620a4c4e03ee49b75e41358825d91a17cca1` / on `6b5b4ce8674cf039de9e2d358263e29fda0106a8`
 - Info solid `8ff92d4806cd299765cabe41f889738785d7328c` / on `34e01860dd87c4bc9033fbc86d53c8e35444a01d`
+
+### Badge — SOFT (tokens + rebind + ícono leading, jul-2026) ⭐ VIGENTE
+_El "Badge — sólido (rebind)" de arriba quedó SUPERSEDED. El Badge usa **soft**, no solid._
+
+**Tokens (archivo Tokens `o4tzMPcZIWMzVc67dW6dWW`):** primitiva `color/red/100`=#f2d8d9 en Primitives (mode "Value", scopes de red/500). 12 semánticas en Semantic (Dark y Light = MISMO alias): `feedback/{tone}-soft`→`{ramp}/100`, `feedback/{tone}-on-soft`→`{ramp}/700`. Rampas: success=green·warning=amber·danger=alert·info=blue·neutral=neutral·brand=red. Scopes copiados de success-solid. `createVariable(name, collectionObj, 'COLOR')` + `setValueForMode(modeId, {type:'VARIABLE_ALIAS', id})`. La `key` local ya es estable → sirve para `importVariableByKeyAsync` post-publish.
+
+**Ícono leading:** `set.addComponentProperty('Icono','BOOLEAN',false)`. Por variante: Icon wrapper @xs (swap glyph a `sell`), `insertChild(0, inst)` (al frente, antes del dot), `inst.componentPropertyReferences={visible:propId}`, `inst.visible=false`, color = var del texto del tono (sigue `on-soft`). Independiente del `Punto#65:28`.
+
+**Rebind:** por Tone: `v.fills=bind(soft)`; recolorear TEXT+ELLIPSE+VECTOR/BOOLEAN_OPERATION (texto, punto y glyph del ícono) → `on-soft`. Son 3 foreground por variante. Verificar por data (bind de fill/texto), no por screenshot.
+
+**Keys soft/on-soft:** success `77e354a1ee62b9b8f359e853a8c9f83d4df75a11`/`c33094ad2f5360b4d8469af7f1c5e07bbe256f93` · warning `4a56f8cc49a3aaa4e3b83cbf1651751a72fe5313`/`2618c7862502396d33b7e3f1669779ebff815f55` · danger `58e58b3e389a224cd77ac31845a8843f70233a1a`/`5fd620e7db53c3090711adf5a2c19d3819299ceb` · info `aac8e4f7d1746baf0738875919ca75e24cc821ef`/`f1abb3de985d248c338833858952fac119abb4c4` · neutral `985f477519f00668043c9cc44210bc39cf324036`/`88479ca9f3628509fd1984280bf243b135bf22f8` · brand `bd2e9f10ff0bc9a535647505cd2994910f902185`/`0ce79272e302240251529559190e7a23ffb035c1` · prim red/100 `f0da6d6053aa153467abcfa7743e4d8f87553212`. Legacy: neutral-solid `6a9283e501645cc3297746ccddc497630eba149d`/on `521363bfe1ef91a702163d08cf8787d5e0017f00`.
 
 ### Gotchas nuevos
 - La librería Glyph NO tiene `person` ni `expand_more`. Verificar nombre con `glyphSet.children.find(c=>c.name==='Icon=...')` antes de swap; fallback (`account_circle`, `stat_minus_1`).
