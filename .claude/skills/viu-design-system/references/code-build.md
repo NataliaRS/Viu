@@ -9,6 +9,25 @@ Repo trabajado en sesiones web de Claude Code (rama `claude/*`). Storybook en vi
 **Tokens (raíz):** `tokens/{primitives,semantic,scales,type-scale,grid}.json` espejan 1:1 las 5
 colecciones (`figma-build.md` §13). `scripts/build-tokens.mjs` (sin deps) resuelve alias y emite
 `dist/{tokens.css,tokens.json,tokens.js,.d.ts}`. Comando: `npm run build:tokens`.
+
+**Paridad de tokens Figma↔CSS (jul-2026) — cadena de 2 gates, NO editar el CSS a mano:**
+`snapshot(Figma) ↔ tokens/*.json ↔ dist/*.css`.
+- **El build NO importa de Figma** (es zero-dep, lee `tokens/*.json`). Figma Pro **no** tiene la
+  Variables REST API (Enterprise-only) y el sandbox bloquea `api.figma.com` → **no hay sync headless
+  en CI**. La fuente de verdad se materializa como `scripts/figma-tokens.snapshot.json` (dump de
+  `getLocalVariablesAsync` del archivo Tokens `o4tzMPcZIWMzVc67dW6dWW`).
+- **Refrescar el snapshot (lo hace un agente, no es manual-de-transcribir):** vía MCP `use_figma`
+  correr `getLocalVariablesAsync` sobre el archivo Tokens, resolver aliases→`{nombre}` y colores→hex,
+  y volcar con la forma del snapshot (floats redondeados). Sobrescribir el archivo.
+- **`npm run sync:tokens`** (`scripts/sync-tokens.mjs`): audita snapshot ↔ `tokens/*.json` por token y
+  modo → reporta `FALTA_EN_REPO`/`SOBRA_EN_REPO`/`CAMBIÓ`, exit 1 si hay drift. Normaliza unidades
+  (`48px`≡`48`, `-0.02em`≡`-0.02`, `240ms`≡`240`) para no falsear dimensionales.
+- **`npm run check:tokens`** (`scripts/check-tokens-parity.mjs`): rebuildea y falla si `dist/` drifteó
+  de `tokens/*.json`.
+- Ambos corren en CI (`.github/workflows/tokens-parity.yml`). Flujo al cambiar tokens en Figma:
+  refrescar snapshot → `sync:tokens` (ver diff) → alinear `tokens/*.json` → `build:tokens` →
+  `check:tokens`. *(jul-2026: primer uso — trajo `red/100` + 14 semánticas `feedback/*-soft`+neutral-solid
+  que faltaban; desbloqueó el Badge soft.)*
 - CSS: primitivos + scales + grid en `:root`; Semantic black-first (`:root`=Dark,
   `[data-theme="light"]`, `prefers-color-scheme`); Type Scale responsive (Mobile en `:root`, Desktop
   en `@media (min-width:1024px)` — el disparador 1024px es decisión de código; Figma cambia el modo

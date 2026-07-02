@@ -26,6 +26,7 @@
   "scripts": {
     "build:tokens": "node scripts/build-tokens.mjs",
     "build": "npm run build:tokens",
-    "check:tokens": "node scripts/check-tokens-parity.mjs"
+    "check:tokens": "node scripts/check-tokens-parity.mjs",
+    "sync:tokens": "node scripts/sync-tokens.mjs"
   }
 }

@@ -1,7 +1,8 @@
 {
-  "$description": "VIU — Primitives collection (mode: Value). Raw values, never consumed directly. 1:1 with Figma 'Primitives' (183 variables).",
+  "$description": "VIU — Primitives collection (mode: Value). Raw values, never consumed directly. 1:1 with Figma 'Primitives' (184 variables).",
   "color": {
     "red": {
+      "100": { "$value": "#f2d8d9" },
       "300": { "$value": "#f07178" }, "400": { "$value": "#c92e37" }, "500": { "$value": "#b5262e" },
       "600": { "$value": "#a0212a" }, "700": { "$value": "#841d24" }
     },

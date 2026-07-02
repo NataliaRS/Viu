@@ -1,8 +1,9 @@
-name: Tokens parity (JSON↔CSS)
+name: Tokens parity
 
-# Garantiza que dist/ sea SIEMPRE el build fiel de tokens/*.json.
-# Caza: dist viejo (olvido de rebuild) o ediciones manuales al CSS generado.
-# (La paridad Figma↔JSON la cubre el sync desde Figma — ver scripts/sync-tokens.mjs cuando exista.)
+# Cadena de paridad de tokens: snapshot(Figma) ↔ tokens/*.json ↔ dist/*.css
+#  - sync:tokens  → tokens/*.json espeja el último snapshot de Figma (scripts/figma-tokens.snapshot.json)
+#  - check:tokens → dist/ es el build fiel de tokens/*.json (sin ediciones manuales al CSS)
+# El snapshot lo refresca un agente vía MCP (Figma Pro no tiene la Variables REST API para CI headless).
 
 on:
   push:
@@ -11,12 +12,16 @@ on:
       - "dist/**"
       - "scripts/build-tokens.mjs"
       - "scripts/check-tokens-parity.mjs"
+      - "scripts/sync-tokens.mjs"
+      - "scripts/figma-tokens.snapshot.json"
   pull_request:
     paths:
       - "tokens/**"
       - "dist/**"
       - "scripts/build-tokens.mjs"
       - "scripts/check-tokens-parity.mjs"
+      - "scripts/sync-tokens.mjs"
+      - "scripts/figma-tokens.snapshot.json"
   workflow_dispatch:
 
 jobs:
@@ -27,5 +32,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Rebuild tokens y verificar que dist/ no drifteó
+      - name: Figma↔repo (tokens/*.json espeja el snapshot de Figma)
+        run: npm run sync:tokens
+      - name: JSON↔CSS (dist/ es el build fiel de tokens/*.json)
         run: npm run check:tokens

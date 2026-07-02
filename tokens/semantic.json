@@ -1,5 +1,5 @@
 {
-  "$description": "VIU — Semantic collection (modes: Dark/Light). The only color layer components consume. Each token aliases a primitive per theme. Black-first: Dark is the default (:root). 1:1 with Figma 'Semantic' (52).",
+  "$description": "VIU — Semantic collection (modes: Dark/Light). The only color layer components consume. Each token aliases a primitive per theme. Black-first: Dark is the default (:root). 1:1 with Figma 'Semantic' (66).",
   "color": {
     "bg": {
       "base": { "Dark": "{color/neutral/900}", "Light": "{color/neutral/0}" },
@@ -59,7 +59,21 @@
       "info-border": { "Dark": "{color/blue/500}", "Light": "{color/blue/600}" },
       "info-surface": { "Dark": "{alpha/blue-14}", "Light": "{color/blue/50}" },
       "info-solid": { "Dark": "{color/blue/600}", "Light": "{color/blue/600}" },
-      "info-on-solid": { "Dark": "{color/neutral/0}", "Light": "{color/neutral/0}" }
+      "info-on-solid": { "Dark": "{color/neutral/0}", "Light": "{color/neutral/0}" },
+      "neutral-solid": { "Dark": "{color/neutral/500}", "Light": "{color/neutral/600}" },
+      "neutral-on-solid": { "Dark": "{color/neutral/0}", "Light": "{color/neutral/0}" },
+      "success-soft": { "Dark": "{color/green/100}", "Light": "{color/green/100}" },
+      "success-on-soft": { "Dark": "{color/green/700}", "Light": "{color/green/700}" },
+      "warning-soft": { "Dark": "{color/amber/100}", "Light": "{color/amber/100}" },
+      "warning-on-soft": { "Dark": "{color/amber/700}", "Light": "{color/amber/700}" },
+      "danger-soft": { "Dark": "{color/alert/100}", "Light": "{color/alert/100}" },
+      "danger-on-soft": { "Dark": "{color/alert/700}", "Light": "{color/alert/700}" },
+      "info-soft": { "Dark": "{color/blue/100}", "Light": "{color/blue/100}" },
+      "info-on-soft": { "Dark": "{color/blue/700}", "Light": "{color/blue/700}" },
+      "neutral-soft": { "Dark": "{color/neutral/100}", "Light": "{color/neutral/100}" },
+      "neutral-on-soft": { "Dark": "{color/neutral/700}", "Light": "{color/neutral/700}" },
+      "brand-soft": { "Dark": "{color/red/100}", "Light": "{color/red/100}" },
+      "brand-on-soft": { "Dark": "{color/red/700}", "Light": "{color/red/700}" }
     }
   }
 }

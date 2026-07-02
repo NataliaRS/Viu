@@ -1,6 +1,7 @@
 // VIU Design System — generated tokens. DO NOT EDIT BY HAND.
 export const tokens = {
   "primitive": {
+    "color/red/100": "#f2d8d9",
     "color/red/300": "#f07178",
     "color/red/400": "#c92e37",
     "color/red/500": "#b5262e",
@@ -310,7 +311,21 @@ export const tokens = {
       "color/feedback/info-border": "#4f86ee",
       "color/feedback/info-surface": "#7da9f524",
       "color/feedback/info-solid": "#3a6fd0",
-      "color/feedback/info-on-solid": "#ffffff"
+      "color/feedback/info-on-solid": "#ffffff",
+      "color/feedback/neutral-solid": "#6d6d72",
+      "color/feedback/neutral-on-solid": "#ffffff",
+      "color/feedback/success-soft": "#c9f0db",
+      "color/feedback/success-on-soft": "#14613d",
+      "color/feedback/warning-soft": "#fbe9b8",
+      "color/feedback/warning-on-soft": "#6b4a04",
+      "color/feedback/danger-soft": "#f9d2d3",
+      "color/feedback/danger-on-soft": "#8f2528",
+      "color/feedback/info-soft": "#cbddfb",
+      "color/feedback/info-on-soft": "#27508f",
+      "color/feedback/neutral-soft": "#e8e8eb",
+      "color/feedback/neutral-on-soft": "#2e2e31",
+      "color/feedback/brand-soft": "#f2d8d9",
+      "color/feedback/brand-on-soft": "#841d24"
     },
     "light": {
       "color/bg/base": "#ffffff",
@@ -364,7 +379,21 @@ export const tokens = {
       "color/feedback/info-border": "#3a6fd0",
       "color/feedback/info-surface": "#eaf1fe",
       "color/feedback/info-solid": "#3a6fd0",
-      "color/feedback/info-on-solid": "#ffffff"
+      "color/feedback/info-on-solid": "#ffffff",
+      "color/feedback/neutral-solid": "#48484c",
+      "color/feedback/neutral-on-solid": "#ffffff",
+      "color/feedback/success-soft": "#c9f0db",
+      "color/feedback/success-on-soft": "#14613d",
+      "color/feedback/warning-soft": "#fbe9b8",
+      "color/feedback/warning-on-soft": "#6b4a04",
+      "color/feedback/danger-soft": "#f9d2d3",
+      "color/feedback/danger-on-soft": "#8f2528",
+      "color/feedback/info-soft": "#cbddfb",
+      "color/feedback/info-on-soft": "#27508f",
+      "color/feedback/neutral-soft": "#e8e8eb",
+      "color/feedback/neutral-on-soft": "#2e2e31",
+      "color/feedback/brand-soft": "#f2d8d9",
+      "color/feedback/brand-on-soft": "#841d24"
     }
   },
   "effects": {
