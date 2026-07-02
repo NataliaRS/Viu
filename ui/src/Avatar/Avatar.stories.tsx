@@ -31,6 +31,10 @@ export const Initials: Story = {};
 export const Image: Story = {
   args: { src: "https://i.pravatar.cc/128?img=5", alt: "Retrato" },
 };
+export const Icono: Story = {
+  name: "Ícono (placeholder)",
+  args: { initials: "" },
+};
 export const AllSizes: Story = {
   parameters: { controls: { disable: true } },
   render: () => (

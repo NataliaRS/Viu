@@ -34,6 +34,10 @@ type Story = StoryObj<typeof meta>;
 export const Line: Story = { args: { active: true } };
 export const Segmented: Story = { args: { variant: "segmented", active: true } };
 export const WithIcon: Story = { args: { active: true, icon: <Icon glyph="Search" /> } };
+export const Closable: Story = {
+  name: "Cerrable (trailing)",
+  args: { active: true, children: "Documento", trailingIcon: <Icon glyph="Close" /> },
+};
 
 export const TabRow: Story = {
   parameters: { controls: { disable: true } },
