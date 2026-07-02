@@ -66,7 +66,7 @@ skill — nunca quedan divergentes.
 | Justificar/cuestionar un principio con teoría (Norman, WCAG, Frost, Kholmatova…) | `references/canon.md` |
 | Estados, capas `--state-*`, motion `--motion-*`, reduced-motion, checklist de interacción | `references/interaction.md` |
 | Documentar un componente o foundation (plantillas 11-dim / 6-dim, quality bar, equivalencias MD↔Figma↔Storybook) | `references/doc-standard.md` |
-| Cualquier trabajo en Figma (use_figma, keys, registro de componentes, helpers, recetas, gotchas, inventario de 331 tokens) | `references/figma-build.md` — leer ANTES de la primera llamada a use_figma |
+| Cualquier trabajo en Figma (use_figma, keys, registro de componentes, helpers, recetas, gotchas, inventario de 346 tokens) | `references/figma-build.md` — leer ANTES de la primera llamada a use_figma |
 | Cualquier trabajo en código (repo, regla cero-magic-values, Storybook estándar, convenciones, overlays, CI/deploy) | `references/code-build.md` |
 
 Para builds Figma↔código, leer ambas operativas: comparten la regla de paridad (la variable de
@@ -146,7 +146,7 @@ del skill mismo.**
   del código.
 
 ## 6. Estado actual (junio 2026)
-- **Tokens:** 331 variables / 5 colecciones, auditadas 1:1 Figma↔código; paridad verificada.
+- **Tokens:** 346 variables / 5 colecciones *(corregido jul-2026: antes decía 331; +15 del batch Badge soft — `red/100` + 12 `feedback/*-soft` + 2 interinos `neutral-solid`)*, auditadas 1:1 Figma↔código; paridad verificada y ahora custodiada por el pipeline `snapshot(Figma) ↔ tokens/*.json ↔ dist/*.css` con CI `tokens-parity.yml` (ver code-build).
   Effects (sombras/gradients) como Styles → `tokens/effects.json`.
 - **Figma:** **29 átomos · 35 moléculas · 9 organismos = 73 componentes** + 4 patrones (frames de
   composición, sin nodo de componente). Todos publicables (unused-props = []). *(Crecimiento jun-2026:
