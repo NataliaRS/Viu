@@ -1,0 +1,31 @@
+name: Tokens parity (JSON↔CSS)
+
+# Garantiza que dist/ sea SIEMPRE el build fiel de tokens/*.json.
+# Caza: dist viejo (olvido de rebuild) o ediciones manuales al CSS generado.
+# (La paridad Figma↔JSON la cubre el sync desde Figma — ver scripts/sync-tokens.mjs cuando exista.)
+
+on:
+  push:
+    paths:
+      - "tokens/**"
+      - "dist/**"
+      - "scripts/build-tokens.mjs"
+      - "scripts/check-tokens-parity.mjs"
+  pull_request:
+    paths:
+      - "tokens/**"
+      - "dist/**"
+      - "scripts/build-tokens.mjs"
+      - "scripts/check-tokens-parity.mjs"
+  workflow_dispatch:
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Rebuild tokens y verificar que dist/ no drifteó
+        run: npm run check:tokens
