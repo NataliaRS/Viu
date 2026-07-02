@@ -9,18 +9,18 @@ const meta = {
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=409-6",
-      overview: "Campo de hora: dispara el selector nativo de hora. Incluye label, ayuda/error y estados.",
+      overview: "Campo de hora con dropdown propio de la marca (Figma 409:6, estado Abierto). Reemplaza el selector nativo: lista de horas por `step` (default 30 min); la opción elegida se marca con bg/subtle + text/primary + check Icon.",
       whenToUse: ["Capturar una hora.", "Junto a un Datepicker para fecha + hora."],
       whenNotToUse: ["Texto libre → usá Input.", "Duración/rango → un control específico."],
-      anatomy: ["Label.", "Control (valor + chevron) sobre bg/elevated.", "Ayuda o error."],
-      accessibility: ["Usa <input type=time> nativo (teclado + picker del sistema).", "Asociá el label con htmlFor; el error usa aria-invalid + texto."],
-      dos: ["Mostrá el formato esperado en la ayuda.", "Definí min/max si aplica."],
-      donts: ["No parsees hora con un Input de texto libre."],
+      anatomy: ["Label.", "Control (valor + chevron ↑ al abrir) sobre bg/subtle.", "Dropdown de opciones (opción elegida con check).", "Ayuda o error."],
+      accessibility: ["Control con aria-haspopup=listbox + aria-expanded; opciones role=option con aria-selected.", "Teclado: ↑/↓ mueven, Enter elige, Escape cierra.", "Label asociado por htmlFor; error con aria-invalid + texto."],
+      dos: ["Ajustá `step`/`min`/`max` al caso.", "Preseleccioná una hora razonable."],
+      donts: ["No uses el picker nativo del navegador (rompe la marca).", "No parsees hora con un Input de texto libre."],
     },
   },
   args: { label: "Hora", htmlFor: "tp", helper: "Formato 24 h.", defaultValue: "14:30" },
   argTypes: { error: { control: "text" }, disabled: { control: "boolean" } },
-  decorators: [(S) => <div style={{ width: 320 }}>{S()}</div>],
+  decorators: [(S) => <div style={{ width: 320, minHeight: 360 }}>{S()}</div>],
 } satisfies Meta<typeof TimePicker>;
 
 export default meta;

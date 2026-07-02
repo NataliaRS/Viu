@@ -134,7 +134,22 @@ del repo a `symbolPaths` (clone sparse+blobless: `git clone --depth 1 --filter=b
 **Decisión (jun-2026):** primero se migró a la *fuente* Material Symbols (ligadura) pero, con acceso al
 repo oficial (github sí está en allowlist, figma no), se pasó a SVG embebido — más robusto para
 consumidores (sin FOUT ni texto de ligadura, sin requerir cargar fuente). `data-icon` = selector estable
-en tests; el SVG decorativo va `aria-hidden`.
+en tests; el SVG decorativo va `aria-hidden`. **Símbolos embebidos (`symbolPaths`):** los 12 base +
+`account_circle` (Avatar), `stat_1`/`stat_minus_1` (chevrons ↑/↓ de TimePicker).
+
+**Paridad de la tanda Figma jun-2026 (Badge/Avatar/Tab/TimePicker) — HECHA:**
+- **Badge:** fondos **sólidos** (Brand→`bg/brand`+`text/on-brand`; Success/Warning/Danger/Info→
+  `feedback/*-solid`+`*-on-solid`). Neutral queda en `bg/raised` (Figma aún sin `neutral-solid`).
+- **Avatar:** nuevo `Type=Ícono` — sin `src` ni `initials` renderiza `account_circle` al tamaño del
+  avatar, color = el de las iniciales (`text/on-brand-2`).
+- **Tab:** nuevo slot `trailingIcon` (Figma `Icono fin`); tab cerrable = `<Icon glyph="close" />`.
+  Decorativo salvo que el nodo pasado sea interactivo (button-in-button es inválido — no anidar botón).
+- **TimePicker — REBUILD (Figma `409:6`/`1009:6`):** dejó de envolver `<input type=time>` nativo;
+  ahora control + **dropdown propio** de horas (`step` default 30, `min`/`max` 00:00–23:30). Opción
+  elegida = `bg/subtle` + `text/primary` + **check Icon `text/brand`** (⚠️ el nodo real usa `bg/subtle`,
+  NO `bg/brand-subtle` como resumía el skill — se siguió el nodo). Chevron `stat_1`↑ abierto /
+  `stat_minus_1`↓ cerrado. Teclado ↑/↓/Enter/Escape. **`PickerField` ELIMINADO** (era el wrapper del
+  input nativo; ni Datepicker ni TimePicker lo usan ya). Control 44px (per Figma, no 40).
 
 ### Regla de consumo de tokens (código) — CERO valores mágicos
 Un componente nunca usa hex ni números sueltos. Mapa de tokenización para CADA componente nuevo:
