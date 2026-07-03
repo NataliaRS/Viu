@@ -154,11 +154,18 @@ del repo a `symbolPaths` (clone sparse+blobless: `git clone --depth 1 --filter=b
 repo oficial (github sí está en allowlist, figma no), se pasó a SVG embebido — más robusto para
 consumidores (sin FOUT ni texto de ligadura, sin requerir cargar fuente). `data-icon` = selector estable
 en tests; el SVG decorativo va `aria-hidden`. **Símbolos embebidos (`symbolPaths`):** los 12 base +
-`account_circle` (Avatar), `stat_1`/`stat_minus_1` (chevrons ↑/↓ de TimePicker).
+`account_circle` (Avatar), `stat_1`/`stat_minus_1` (chevrons ↑/↓ de TimePicker), `sell` (ícono default del Badge, jul-2026).
 
 **Paridad de la tanda Figma jun-2026 (Badge/Avatar/Tab/TimePicker) — HECHA:**
-- **Badge:** fondos **sólidos** (Brand→`bg/brand`+`text/on-brand`; Success/Warning/Danger/Info→
-  `feedback/*-solid`+`*-on-solid`). Neutral queda en `bg/raised` (Figma aún sin `neutral-solid`).
+- **Badge — SOFT (jul-2026, alineado a Figma `14:77`):** *(corregido jul-2026: antes decía "fondos
+  **sólidos** … Neutral en `bg/raised`"; eso quedó SUPERSEDED — el Badge de Figma pasó a soft y el CSS
+  de `@viu/ui` se alineó).* los 6 tonos usan `feedback/{tono}-soft` (fondo claro opaco) +
+  `feedback/{tono}-on-soft` (texto /700, AA) — **Brand y Neutral incluidos** ahora que existen los
+  tokens. Nueva prop **`icon?: boolean | ReactNode`** (leading): `true` = `<Icon glyph="sell" />`
+  (Figma prop `Icono#1024:0`), o un `<Icon />` propio; @xs (16px, `.icon svg`→`--icon-size-xs`),
+  decorativo (`aria-hidden`), color heredado del texto (`on-soft`). El glifo `sell` se embebió en
+  `Icon/glyphs.tsx`. En Figma el orden es ícono→punto→label; en código no hay prop `dot`/`punto`
+  (fuera de scope), así que el orden es ícono→label. Code Connect mapea `Tone`/`Icono`/`Label`.
 - **Avatar:** nuevo `Type=Ícono` — sin `src` ni `initials` renderiza `account_circle` al tamaño del
   avatar, color = el de las iniciales (`text/on-brand-2`).
 - **Tab:** nuevo slot `trailingIcon` (Figma `Icono fin`); tab cerrable = `<Icon glyph="close" />`.

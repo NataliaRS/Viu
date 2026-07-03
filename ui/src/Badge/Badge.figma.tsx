@@ -5,6 +5,22 @@ figma.connect(
   Badge,
   "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=14-77",
   {
-    example: () => <Badge tone="neutral">Nuevo</Badge>,
+    props: {
+      tone: figma.enum("Tone", {
+        Neutral: "neutral",
+        Brand: "brand",
+        Success: "success",
+        Warning: "warning",
+        Danger: "danger",
+        Info: "info",
+      }),
+      icon: figma.boolean("Icono"),
+      label: figma.string("Label"),
+    },
+    example: ({ tone, icon, label }) => (
+      <Badge tone={tone} icon={icon}>
+        {label}
+      </Badge>
+    ),
   },
 );
