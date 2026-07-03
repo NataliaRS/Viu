@@ -362,10 +362,10 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     5. **NO uses `name:"icon"` (etiqueta linda) en esos args:** duplica el display-name contra el
        argType que docgen ya generó para la prop real → colapsa/oculta controles. Dejá la etiqueta
        como la key (`showIcon`). Trade-off aceptado: etiqueta `showIcon` en vez de `icon`.
-    6. Las demás props (las que NO están en la lista global de §4 ni chocan de tipo) conservan su
+    6. Las demás props (las que NO están en la lista global del punto 4 de §15 ni chocan de tipo) conservan su
        nombre real y funcionan (media, badge, tags, title, subtitle, body, primaryAction…). Mantené
        `tags:["autodocs"]`.
-    *(Historia: diagnostiqué mal 2 veces antes de hallar §4 — primero "docgen deshabilita ReactNode"
+    *(Historia: diagnostiqué mal 2 veces antes de hallar el punto 4 de §15 — primero "docgen deshabilita ReactNode"
     [falso: media/badge andaban], luego "sacar component" [rompió el binding] y "name override" [colapsó
     el panel]. El verdadero culpable era el disable global del preview.)*
     7. **ROLLOUT COMPLETO (jun-2026): los 14 ricos de Tier 1 tienen este playground** — Card, Banner,

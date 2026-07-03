@@ -85,7 +85,8 @@ Figma manda, el código se deriva, las text styles se sincronizan a mano).
    arranque.
 5. QA gates antes de cerrar: Figma → pre-publish check de props huérfanas + contraste; código →
    `typecheck · test · build · figma connect parse · build-storybook`; doc → quality bar de
-   doc-standard.md. **Cross-check obligatorio con Figma ante CUALQUIER cambio visual/de componente:
+   doc-standard.md; skill → `node .claude/skills/viu-design-system/scripts/verify-pointers.mjs` y
+   `verify-counts.mjs` en 0 (gates mecánicos del propio skill — F1). **Cross-check obligatorio con Figma ante CUALQUIER cambio visual/de componente:
    Figma es la fuente de verdad — confirmar nodo-a-nodo (`get_variable_defs` + `get_screenshot` con
    `enableBase64Response:true`, el sandbox bloquea egress a figma.com) antes de declarar hecho; no
    aplicar convenciones "de memoria" sin verificarlas. Detalle del método en `code-build.md`.** Ubicación del tooling: los gates de gobernanza (`build/token-usage.mjs`,
@@ -114,7 +115,12 @@ son fusiones que preservan todo el detalle previo — nunca un rewrite que pierd
 que evita que el skill acumule mentiras: un dato que quedó FALSO no se preserva, se corrige en el
 lugar con nota (`corregido <fecha>: antes decía X`) — preservar riqueza ≠ preservar errores. Si algo
 causó un rollback, un error de TS, un bug de foco, una sorpresa de CI o una corrección de token:
-queda escrito acá, no solo en el chat.
+queda escrito acá, no solo en el chat. **Verificación mecánica (F1):** los scripts en `scripts/`
+del skill — `verify-pointers.mjs` (punteros §↔headings) · `verify-counts.mjs` (conteos declarados vs.
+snapshot de tokens, carpetas de `ui/src` con story, madurez en stories) · `verify-parity.mjs`
+(manifest `components.json`; SKIPea hasta que exista, Fase 2) — deben salir en 0 antes de cerrar el
+batch. Si `verify-counts` falla, el fix es actualizar el estado con nota de corrección — NUNCA
+aflojar el script ni la EXCLUDE list para silenciarlo.
 
 Al instalar este skill, **desinstalar `figma-viu-build`**: ambos compiten en triggering y el viejo
 quedó atrás. Este lo absorbe entero.
@@ -128,9 +134,9 @@ del skill mismo.**
 - **Rutina "actualizá el skill desde el repo" (en chat, cuando Natalia lo pida):**
   1. `git clone --depth 1 https://github.com/NataliaRS/Viu.git` en el sandbox (github.com está
      permitido) y tomar `.claude/skills/viu-design-system/`.
-  2. Verificar punteros SKILL.md↔references antes de empaquetar: que las secciones citadas existan
-     (grep de `§N` referenciados) y los conteos coincidan. Si algo no resuelve → avisar y NO
-     empaquetar (no se instala un skill con punteros rotos).
+  2. Correr los gates del skill antes de empaquetar: `node .claude/skills/viu-design-system/
+     scripts/verify-pointers.mjs` + `verify-counts.mjs`. Si algo falla → avisar con el output y NO
+     empaquetar (no se instala un skill con punteros rotos o conteos falsos).
   3. Empaquetar con el script del skill-creator desde un directorio ESCRIBIBLE:
      `cd /home/claude && PYTHONPATH=/mnt/skills/examples/skill-creator python -m
      scripts.package_skill <ruta-del-skill>` (correrlo desde el dir del skill-creator falla:
