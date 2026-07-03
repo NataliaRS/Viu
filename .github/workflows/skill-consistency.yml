@@ -1,0 +1,36 @@
+name: Skill consistency (gates F1/F2)
+
+on:
+  push:
+    branches: ["claude/viu-design-system"]
+    paths:
+      - ".claude/skills/**"
+      - "ui/src/**"
+      - "components.json"
+      - "scripts/figma-tokens.snapshot.json"
+  pull_request:
+    paths:
+      - ".claude/skills/**"
+      - "ui/src/**"
+      - "components.json"
+      - "scripts/figma-tokens.snapshot.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      # Los tres gates del skill: si el skill miente sobre el repo, el run falla.
+      - name: verify-pointers (punteros § ↔ headings)
+        run: node .claude/skills/viu-design-system/scripts/verify-pointers.mjs
+      - name: verify-counts (conteos declarados ↔ realidad)
+        run: node .claude/skills/viu-design-system/scripts/verify-counts.mjs
+      - name: verify-parity (manifest ↔ filesystem)
+        run: node .claude/skills/viu-design-system/scripts/verify-parity.mjs

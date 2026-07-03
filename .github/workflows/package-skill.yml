@@ -1,0 +1,39 @@
+name: Package skill (.skill artifact)
+
+on:
+  push:
+    branches: ["claude/viu-design-system"]
+    paths:
+      - ".claude/skills/viu-design-system/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      # Gates primero: nunca se publica un snapshot que miente (regla §5b).
+      - name: Gates del skill
+        run: |
+          node .claude/skills/viu-design-system/scripts/verify-pointers.mjs
+          node .claude/skills/viu-design-system/scripts/verify-counts.mjs
+          node .claude/skills/viu-design-system/scripts/verify-parity.mjs
+      # Formato .skill = zip con la carpeta del skill en la raíz (verificado contra
+      # el empaquetador de referencia: misma estructura de entries).
+      - name: Empaquetar .skill
+        run: |
+          cd .claude/skills
+          zip -rD "$GITHUB_WORKSPACE/viu-design-system.skill" viu-design-system \
+            -x "*/.DS_Store"
+          unzip -l "$GITHUB_WORKSPACE/viu-design-system.skill"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: viu-design-system-skill
+          path: viu-design-system.skill
+          retention-days: 90

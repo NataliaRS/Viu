@@ -144,6 +144,10 @@ del skill mismo.**
      filesystem read-only).
   4. Copiar el `.skill` a outputs + `present_files` → Natalia toca **Save skill** (mismo nombre =
      reemplaza la instalada). Total: un mensaje + un click.
+  - **Vía preferida desde F3 (jul-2026):** cada push que toca la carpeta del skill dispara
+    `package-skill.yml`, que corre los tres gates y sube el `.skill` como artifact (90 días) — bajar
+    el artifact del run verde e instalarlo: cero mensajes, un click. La rutina de arriba queda como
+    fallback y para verificaciones ad-hoc.
 - **Dirección inversa (el batch se cerró en chat, no en Code):** generar los archivos actualizados
   del skill, presentarlos, y Natalia le pide a Claude Code que los commitee a
   `.claude/skills/viu-design-system/`. Después, opcionalmente, correr la rutina de arriba para
@@ -188,6 +192,11 @@ del skill mismo.**
   verde). El mapa de granularidad 73(Figma)+4(patrones frames `282:7`/`274:7`/`288:7`/`285:7`)↔74
   (código) quedó explícito entry por entry. ⚠️ PENDIENTE: nodeId del wrapper Icon `944:6` no
   resolvió vía MCP — confirmar en Figma (ver figma-build §2b).
+- **CI (F3, jul-2026):** tres workflows en Actions — `tokens-parity.yml` (paridad
+  snapshot↔json↔css), `skill-consistency.yml` (los tres gates F1/F2 en cada push/PR que toca skill,
+  `ui/src` o manifest) y `package-skill.yml` (gates + `.skill` como artifact en cada cambio del
+  skill; formato verificado idéntico al empaquetador de referencia). `deploy-storybook.yml` en Node
+  24. Regla viva del pre-flight: leer `conclusion: success` de los runs, no asumir.
 - **A11y:** 0 fallas WCAG reales; `success-solid` = green-700; contraste de borde = excepción
   documentada (1.4.11). Cuatro gates limpios — `token-usage · ghost-check · lint-literals ·
   contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
