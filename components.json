@@ -1,0 +1,925 @@
+{
+  "$note": "Manifest de paridad VIU DS — fuente única del inventario. Generado F2 jul-2026; validado por scripts/verify-parity.mjs. figma.nodeId existe en el archivo Componentes (patrones: frames en páginas Pattern ·). Ediciones: solo con aprobación de la dueña.",
+  "components": [
+    {
+      "name": "Avatar",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "19:90"
+      },
+      "code": {
+        "path": "ui/src/Avatar",
+        "story": "Avatar.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Badge",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "14:77"
+      },
+      "code": {
+        "path": "ui/src/Badge",
+        "story": "Badge.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Button",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "8:53"
+      },
+      "code": {
+        "path": "ui/src/Button",
+        "story": "Button.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Checkbox",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "24:167"
+      },
+      "code": {
+        "path": "ui/src/Checkbox",
+        "story": "Checkbox.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Chip",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "17:67"
+      },
+      "code": {
+        "path": "ui/src/Chip",
+        "story": "Chip.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Divider",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "20:97"
+      },
+      "code": {
+        "path": "ui/src/Divider",
+        "story": "Divider.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Icon",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "944:6",
+        "reviewNote": "⚠️ PENDIENTE: 944:6 no resolvió vía MCP get_metadata (jul-2026) mientras 4 nodos de otras páginas sí — probable ID stale del wrapper tras la migración de íconos. Confirmar en Figma y actualizar acá + figma-build §2b."
+      },
+      "code": {
+        "path": "ui/src/Icon",
+        "story": "Icon.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Icon button",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "393:190"
+      },
+      "code": {
+        "path": "ui/src/IconButton",
+        "story": "IconButton.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Icon container",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "574:150"
+      },
+      "code": {
+        "path": "ui/src/IconContainer",
+        "story": "IconContainer.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Image",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "543:62"
+      },
+      "code": {
+        "path": "ui/src/Image",
+        "story": "Image.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Input",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "26:197"
+      },
+      "code": {
+        "path": "ui/src/Input",
+        "story": "Input.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Kbd",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "721:7"
+      },
+      "code": {
+        "path": "ui/src/Kbd",
+        "story": "Kbd.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Link",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "22:137"
+      },
+      "code": {
+        "path": "ui/src/Link",
+        "story": "Link.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Notification badge",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "18:75"
+      },
+      "code": {
+        "path": "ui/src/NotificationBadge",
+        "story": "NotificationBadge.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Pill",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "16:63"
+      },
+      "code": {
+        "path": "ui/src/Pill",
+        "story": "Pill.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Progress",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "22:184"
+      },
+      "code": {
+        "path": "ui/src/Progress",
+        "story": "Progress.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Radio",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "24:227"
+      },
+      "code": {
+        "path": "ui/src/Radio",
+        "story": "Radio.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Rating",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "410:43"
+      },
+      "code": {
+        "path": "ui/src/Rating",
+        "story": "Rating.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Select",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "26:293"
+      },
+      "code": {
+        "path": "ui/src/Select",
+        "story": "Select.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Skeleton",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "229:10"
+      },
+      "code": {
+        "path": "ui/src/Skeleton",
+        "story": "Skeleton.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Slider",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "225:16"
+      },
+      "code": {
+        "path": "ui/src/Slider",
+        "story": "Slider.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Spinner",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "20:209"
+      },
+      "code": {
+        "path": "ui/src/Spinner",
+        "story": "Spinner.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Status",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "20:150"
+      },
+      "code": {
+        "path": "ui/src/Status",
+        "story": "Status.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Step",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "189:25"
+      },
+      "code": {
+        "path": "ui/src/Step",
+        "story": "Step.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Switch",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "24:279"
+      },
+      "code": {
+        "path": "ui/src/Switch",
+        "story": "Switch.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Tab",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "161:43"
+      },
+      "code": {
+        "path": "ui/src/Tab",
+        "story": "Tab.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Tag",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "15:42"
+      },
+      "code": {
+        "path": "ui/src/Tag",
+        "story": "Tag.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Textarea",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "26:250"
+      },
+      "code": {
+        "path": "ui/src/Textarea",
+        "story": "Textarea.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Tooltip",
+      "tier": "atom",
+      "figma": {
+        "nodeId": "23:167"
+      },
+      "code": {
+        "path": "ui/src/Tooltip",
+        "story": "Tooltip.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Accordion",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "399:7"
+      },
+      "code": {
+        "path": "ui/src/Accordion",
+        "story": "Accordion.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Accordion item",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "174:19"
+      },
+      "code": {
+        "path": "ui/src/AccordionItem",
+        "story": "AccordionItem.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Avatar group",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "185:37"
+      },
+      "code": {
+        "path": "ui/src/AvatarGroup",
+        "story": "AvatarGroup.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Banner",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "135:84"
+      },
+      "code": {
+        "path": "ui/src/Banner",
+        "story": "Banner.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Breadcrumb",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "163:19"
+      },
+      "code": {
+        "path": "ui/src/Breadcrumb",
+        "story": "Breadcrumb.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Choice group",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "728:35"
+      },
+      "code": {
+        "path": "ui/src/ChoiceGroup",
+        "story": "ChoiceGroup.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Combobox",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "730:40"
+      },
+      "code": {
+        "path": "ui/src/Combobox",
+        "story": "Combobox.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Date range picker",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "732:120"
+      },
+      "code": {
+        "path": "ui/src/DateRangePicker",
+        "story": "DateRangePicker.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Datepicker",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "28:386"
+      },
+      "code": {
+        "path": "ui/src/Datepicker",
+        "story": "Datepicker.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Dropzone",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "235:28"
+      },
+      "code": {
+        "path": "ui/src/Dropzone",
+        "story": "Dropzone.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Field/Input",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "362:6"
+      },
+      "code": null,
+      "codeNote": "receta en código: Input + FormField (label/hint/error) — sin carpeta propia"
+    },
+    {
+      "name": "Field/Password",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "407:6"
+      },
+      "code": {
+        "path": "ui/src/PasswordInput",
+        "story": "PasswordInput.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Field/Select",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "191:33"
+      },
+      "code": null,
+      "codeNote": "receta en código: Select + FormField — sin carpeta propia"
+    },
+    {
+      "name": "Field/Textarea",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "223:46"
+      },
+      "code": null,
+      "codeNote": "receta en código: Textarea + FormField — sin carpeta propia"
+    },
+    {
+      "name": "File row",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "237:49"
+      },
+      "code": {
+        "path": "ui/src/FileRow",
+        "story": "FileRow.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Form field",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "27:255"
+      },
+      "code": {
+        "path": "ui/src/FormField",
+        "story": "FormField.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "List",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "400:7"
+      },
+      "code": {
+        "path": "ui/src/List",
+        "story": "List.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "List item",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "165:41"
+      },
+      "code": {
+        "path": "ui/src/ListItem",
+        "story": "ListItem.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Menu",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "377:6"
+      },
+      "code": {
+        "path": "ui/src/Menu",
+        "story": "Menu.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Menu item",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "170:21"
+      },
+      "code": {
+        "path": "ui/src/MenuItem",
+        "story": "MenuItem.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Nav",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "401:7"
+      },
+      "code": {
+        "path": "ui/src/Nav",
+        "story": "Nav.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Nav item",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "233:19"
+      },
+      "code": {
+        "path": "ui/src/NavItem",
+        "story": "NavItem.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Pagination",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "168:32"
+      },
+      "code": {
+        "path": "ui/src/Pagination",
+        "story": "Pagination.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Quote",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "413:7"
+      },
+      "code": {
+        "path": "ui/src/Quote",
+        "story": "Quote.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Rich text",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "402:7"
+      },
+      "code": {
+        "path": "ui/src/RichText",
+        "story": "RichText.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Search",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "26:347"
+      },
+      "code": {
+        "path": "ui/src/Search",
+        "story": "Search.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Segmented control",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "724:28"
+      },
+      "code": {
+        "path": "ui/src/SegmentedControl",
+        "story": "SegmentedControl.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Stepper",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "339:66"
+      },
+      "code": {
+        "path": "ui/src/Stepper",
+        "story": "Stepper.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Table row",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "195:58"
+      },
+      "code": {
+        "path": "ui/src/TableRow",
+        "story": "TableRow.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Tabs",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "366:6"
+      },
+      "code": {
+        "path": "ui/src/Tabs",
+        "story": "Tabs.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Time picker",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "409:6"
+      },
+      "code": {
+        "path": "ui/src/TimePicker",
+        "story": "TimePicker.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Toast",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "176:101"
+      },
+      "code": {
+        "path": "ui/src/Toast",
+        "story": "Toast.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Toolbar",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "172:29"
+      },
+      "code": {
+        "path": "ui/src/Toolbar",
+        "story": "Toolbar.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Tree item",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "411:19"
+      },
+      "code": {
+        "path": "ui/src/TreeItem",
+        "story": "TreeItem.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Video embed",
+      "tier": "molecule",
+      "figma": {
+        "nodeId": "414:7"
+      },
+      "code": {
+        "path": "ui/src/VideoEmbed",
+        "story": "VideoEmbed.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Card",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "434:6"
+      },
+      "code": {
+        "path": "ui/src/Card",
+        "story": "Card.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Drawer",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "227:53"
+      },
+      "code": {
+        "path": "ui/src/Drawer",
+        "story": "Drawer.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Empty state",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "157:55"
+      },
+      "code": {
+        "path": "ui/src/EmptyState",
+        "story": "EmptyState.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Footer",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "415:7"
+      },
+      "code": {
+        "path": "ui/src/Footer",
+        "story": "Footer.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Modal",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "140:57"
+      },
+      "code": {
+        "path": "ui/src/Modal",
+        "story": "Modal.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Page header",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "147:89"
+      },
+      "code": {
+        "path": "ui/src/PageHeader",
+        "story": "PageHeader.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Popover",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "187:69"
+      },
+      "code": {
+        "path": "ui/src/Popover",
+        "story": "Popover.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Table",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "372:6"
+      },
+      "code": {
+        "path": "ui/src/Table",
+        "story": "Table.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Tree view",
+      "tier": "organism",
+      "figma": {
+        "nodeId": "412:7"
+      },
+      "code": {
+        "path": "ui/src/TreeView",
+        "story": "TreeView.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "App shell",
+      "tier": "pattern",
+      "figma": {
+        "nodeId": "274:7",
+        "type": "frame"
+      },
+      "code": {
+        "path": "ui/src/AppShell",
+        "story": "AppShell.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Data table",
+      "tier": "pattern",
+      "figma": {
+        "nodeId": "285:7",
+        "type": "frame"
+      },
+      "code": {
+        "path": "ui/src/DataTable",
+        "story": "DataTable.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Form",
+      "tier": "pattern",
+      "figma": {
+        "nodeId": "282:7",
+        "type": "frame"
+      },
+      "code": {
+        "path": "ui/src/Form",
+        "story": "Form.stories.tsx"
+      },
+      "status": "Stable"
+    },
+    {
+      "name": "Wizard",
+      "tier": "pattern",
+      "figma": {
+        "nodeId": "288:7",
+        "type": "frame"
+      },
+      "code": {
+        "path": "ui/src/Wizard",
+        "story": "Wizard.stories.tsx"
+      },
+      "status": "Stable"
+    }
+  ]
+}

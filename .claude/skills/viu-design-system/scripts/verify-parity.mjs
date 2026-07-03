@@ -32,6 +32,12 @@ const errors = [];
 const covered = new Set();
 for (const e of entries) {
   const id = e.name ?? "(sin nombre)";
+  if (e.code === null) {
+    // entry Figma-only (receta): válida solo si lo declara explícitamente
+    if (!e.codeNote) errors.push(`${id}: code=null sin codeNote que explique la receta`);
+    if (!/^\d+:\d+$/.test(e.figma?.nodeId ?? "")) errors.push(`${id}: figma.nodeId ausente o inválido`);
+    continue;
+  }
   if (!e.code?.path) { errors.push(`${id}: sin code.path`); continue; }
   const p = join(ROOT, e.code.path);
   covered.add(e.code.path.split("/").pop());

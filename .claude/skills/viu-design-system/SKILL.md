@@ -182,6 +182,12 @@ del skill mismo.**
   no cuentan). Iguales en cobertura, distintos en conteo; el mapa 1:1 explícito llega con
   `components.json` en F2. *(nota §5: `verify-counts` compara este número contra la realidad contable de
   `ui/src`.)*
+- **Manifest (F2, jul-2026):** `components.json` en la raíz del repo = **fuente única del
+  inventario** — 77 entries: 74 mapeadas a `ui/src` + 3 recetas Figma-only (`Field/Input·Select·
+  Textarea`, componen Input/Select/Textarea + FormField). Custodiado por `verify-parity` (activo,
+  verde). El mapa de granularidad 73(Figma)+4(patrones frames `282:7`/`274:7`/`288:7`/`285:7`)↔74
+  (código) quedó explícito entry por entry. ⚠️ PENDIENTE: nodeId del wrapper Icon `944:6` no
+  resolvió vía MCP — confirmar en Figma (ver figma-build §2b).
 - **A11y:** 0 fallas WCAG reales; `success-solid` = green-700; contraste de borde = excepción
   documentada (1.4.11). Cuatro gates limpios — `token-usage · ghost-check · lint-literals ·
   contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado

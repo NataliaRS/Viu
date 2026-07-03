@@ -100,6 +100,13 @@ Body/L `1b1f4a805f78a665a9f2f7e6b8575ea8167a0a3f` · Body/M `28bd418f889fa4fafa9
   los estilos por rol. "Inter" usa style "Semi Bold" (con espacio).
 
 ### 2b. Registro de componentes (IDs locales · página = componente)
+> **F2 (jul-2026): el inventario canónico vive en `components.json` (raíz del repo)** — 77 entries
+> (74 con código + 3 recetas Figma-only), custodiado por `scripts/verify-parity.mjs`. Este §2b queda
+> como recetario de keys/props/SETs, NO como fuente de conteo; ante conflicto gana el manifest.
+> **Validación de nodeIds vía MCP:** `get_metadata(fileKey, nodeId)` por nodo — spot-check jul-2026:
+> Button `8:53` ✓ · Kbd `721:7` ✓ · App shell `274:7` ✓ · Table `372:6` ✓ · **Icon `944:6` ✗ (no
+> resuelve; ⚠️ confirmar ID del wrapper)**. La pasada exhaustiva de los 77 se corre por lotes en una
+> sesión con Figma MCP al cerrar batches que tocan Figma.
 Instanciar con `getNodeByIdAsync(id)`. SET(n)=set de n variantes; COMP=componente único.
 
 **ÁTOMOS (29):** *(jun-2026: 27→28 al contar Icon container [tiene nodo]; 28→29 sumó Kbd.)*
