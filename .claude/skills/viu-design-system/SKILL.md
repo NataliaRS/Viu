@@ -40,8 +40,9 @@ skill — nunca quedan divergentes.
   el Storybook ya usa `status`). El vocabulario viejo `experimental/estable/obsoleto` queda
   deprecado; mapeo de transición: experimental→Draft·Reviewed, estable→Stable, obsoleto→Deprecated.
   **✅ A1 EJECUTADO (jun-2026):** los componentes ya están en la escala única en código — `ViuDocs.tsx`
-  tipa `status: "Draft"|"Reviewed"|"Stable"|"Deprecated"` y las stories quedaron 67 `Stable` + 2
-  `Reviewed` (Tooltip/Slider, ex-`beta`). El badge mapea Draft→warning · Reviewed→info · Stable→success
+  tipa `status: "Draft"|"Reviewed"|"Stable"|"Deprecated"` y las stories quedaron **74 `Stable` + 0
+  `Reviewed`** *(corregido jul-2026 §5: al ejecutar A1 eran 67 `Stable` + 2 `Reviewed` [Tooltip/Slider,
+  ex-`beta`]; ambos pasaron a `Stable` al cerrarse B4/B5 y se sumaron componentes nuevos → 74/0)*. El badge mapea Draft→warning · Reviewed→info · Stable→success
   · Deprecated→danger.
 - Antes de crear un componente, distinguir: (1) existe pero no está publicado, (2) gap real
   reusable, (3) one-off que NO debe entrar a la librería. No conflar Badge/Tag/Pill/Chip/
@@ -174,7 +175,13 @@ del skill mismo.**
   organismos + 4 patrones = 73 componentes** en `@viu/ui`, Storybook en vivo
   (https://nataliars.github.io/Viu/) con chrome de marca, ViuDocs y Foundations interactivas.
   **C1 design-to-code COMPLETO (5/5):** ✅ Kbd + ✅ SegmentedControl + ✅ ChoiceGroup + ✅ Combobox +
-  ✅ DateRangePicker portados. **Paridad Figma↔código restaurada** (29/35/9 en ambos lados).
+  ✅ DateRangePicker portados. **Paridad Figma↔código restaurada** — cobertura 1:1. **Conteo de código
+  (F1.1 jul-2026):** en `ui/src` hay **74 carpetas publicables con story** — distinto del 73 de Figma por
+  **granularidad, no por cobertura**: `Field/Input·Select·Textarea` son **recetas** (`FormField`+control)
+  sin carpeta propia en código, y `Calendar`/`DateField` son **internos compartidos sin story** (por eso
+  no cuentan). Iguales en cobertura, distintos en conteo; el mapa 1:1 explícito llega con
+  `components.json` en F2. *(nota §5: `verify-counts` compara este número contra la realidad contable de
+  `ui/src`.)*
 - **A11y:** 0 fallas WCAG reales; `success-solid` = green-700; contraste de borde = excepción
   documentada (1.4.11). Cuatro gates limpios — `token-usage · ghost-check · lint-literals ·
   contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
@@ -190,7 +197,7 @@ del skill mismo.**
      ×8 + `appearance` filled/stroke + tamaños), ver code-build.
   3. ~~**A1** · actualizar la etiqueta de madurez de los componentes a la escala única
      Draft/Reviewed/Stable/Deprecated~~ ✅ HECHO (jun-2026). `ViuDocs.tsx` retipado + stories
-     migradas (67 Stable, 2 Reviewed); tipo viejo `stable|beta|wip` obsoleto.
+     migradas (67 Stable, 2 Reviewed al ejecutar A1; hoy 74 Stable, 0 Reviewed — ver §6); tipo viejo `stable|beta|wip` obsoleto.
   4. ~~**B1** · migrar componentes de `disabled` por opacidad a `bg-disabled`/`text-disabled`~~
      ✅ HECHO (jun-2026). Resultaron solo **4** (no ~15): ListItem, MenuItem, Tab (usaban `opacity:
      var(--state-disabled)`) + TimePicker/PickerField (`opacity: 0.5` mágico). Regla aplicada:
@@ -212,4 +219,5 @@ del skill mismo.**
   **Datepicker/DateRangePicker REFACTORIZADOS (jun-2026):** ambos reusan `Calendar` + `DateField`
   compartidos (espeja Figma, que compone el DateRangePicker con 2 Datepicker); el Datepicker ya NO
   envuelve el `<input type=date>` nativo — calendario propio de marca. Ver code-build. **C1
-  cerrado; paridad Figma↔código restaurada (73 componentes ambos lados).**
+  cerrado; paridad Figma↔código en cobertura 1:1 *(73 es el número **Figma**; **74 carpetas de código con
+  story** — iguales en cobertura, distintos en granularidad; ver bullet "Código" arriba y F1.1)*.**

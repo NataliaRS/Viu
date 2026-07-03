@@ -3,8 +3,11 @@
  * verify-counts.mjs — VIU DS skill
  * Compara los conteos DECLARADOS en el skill contra la realidad CONTABLE del repo:
  *   A. Tokens: SKILL.md y figma-build §13 vs. scripts/figma-tokens.snapshot.json (total y por colección).
- *   B. Componentes en código: total declarado (átomos+moléculas+organismos+patrones) vs.
- *      carpetas de ui/src con ≥1 *.stories.tsx (excluyendo no-componentes: EXCLUDE).
+ *   B. Componentes — dos números con granularidad distinta, cada uno contra su realidad:
+ *      B1 Figma (a·m·o=total): solo aritmética interna; lo real se audita vía MCP/manifest (F2).
+ *      B2 Código ('N carpetas publicables con story'): vs. carpetas de ui/src con ≥1
+ *         *.stories.tsx (excluyendo EXCLUDE). Figma≠código en conteo es VÁLIDO (Field/* =
+ *         recetas; internos sin story); el mapa 1:1 vive en components.json.
  *   C. Madurez: histograma de `status:` en stories vs. lo declarado (si hay declaración).
  * Exit 0 = coincide · Exit 1 = drift (con delta exacto para corregir el skill o el estado).
  * Cero dependencias.
@@ -64,18 +67,23 @@ const withStory = dirs.filter((d) => readdirSync(join(uiSrc, d)).some((f) => f.e
 const components = withStory.filter((d) => !EXCLUDE.has(d)).sort();
 const noStory = dirs.filter((d) => !withStory.includes(d) && !EXCLUDE.has(d)).sort();
 
+// B1. Figma-side: solo consistencia interna (a+m+o = total). La existencia real de esos
+// componentes en Figma se verifica vía MCP/manifest (F2), no acá: el gate no ve Figma.
 const dComp = skillMd.match(/(\d+)\s+átomos\s*[·+]\s*(\d+)\s+moléculas\s*[·+]\s*(\d+)\s*\n?\s*organismos\s*[=+]?\s*(\d+)?\s*componentes/u);
-const dPat = skillMd.match(/(\d+)\s+patrones/u);
-if (!dComp) notes.push("SKILL.md: no encontré la declaración 'A átomos · M moléculas · O organismos'");
-else {
-  const [a, m, o] = [+dComp[1], +dComp[2], +dComp[3]];
-  const declaredTotal = a + m + o + (dPat ? +dPat[1] : 0);
-  if (dComp[4] && a + m + o !== +dComp[4])
-    errors.push(`componentes: la suma declarada no cierra (${a}+${m}+${o} ≠ ${dComp[4]})`);
-  if (declaredTotal !== components.length) {
-    errors.push(`componentes: skill declara ${declaredTotal} (${a}a+${m}m+${o}o${dPat ? `+${dPat[1]}p` : ""}), ui/src tiene ${components.length} carpetas con story`);
-    errors.push(`  → carpetas contadas: ${components.join(", ")}`);
-  }
+if (!dComp) notes.push("SKILL.md: no encontré la declaración Figma 'A átomos · M moléculas · O organismos'");
+else if (dComp[4] && +dComp[1] + +dComp[2] + +dComp[3] !== +dComp[4])
+  errors.push(`figma: la suma declarada no cierra (${dComp[1]}+${dComp[2]}+${dComp[3]} ≠ ${dComp[4]})`);
+
+// B2. Code-side: el skill DEBE declarar "N carpetas publicables con story" (formato F1.1) y
+// ese número se compara contra la realidad contable de ui/src — manzanas con manzanas.
+const dCode = skillMd.match(/(\d+)\s+carpetas\s+(?:publicables\s+)?con\s+story/u);
+if (!dCode) {
+  errors.push(`código: SKILL.md no declara el conteo de código con el formato "N carpetas`
+    + ` publicables con story" (requerido desde F1.1); ui/src tiene ${components.length}`);
+  errors.push(`  → carpetas contadas: ${components.join(", ")}`);
+} else if (+dCode[1] !== components.length) {
+  errors.push(`código: skill declara ${dCode[1]} carpetas con story, ui/src tiene ${components.length}`);
+  errors.push(`  → carpetas contadas: ${components.join(", ")}`);
 }
 if (noStory.length) notes.push(`carpetas sin story (internos compartidos, no cuentan): ${noStory.join(", ")}`);
 
