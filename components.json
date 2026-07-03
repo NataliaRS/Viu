@@ -1,5 +1,5 @@
 {
-  "$note": "Manifest de paridad VIU DS — fuente única del inventario. Generado F2 jul-2026; validado por scripts/verify-parity.mjs. figma.nodeId existe en el archivo Componentes (patrones: frames en páginas Pattern ·). Ediciones: solo con aprobación de la dueña.",
+  "$note": "Manifest de paridad VIU DS — fuente única del inventario. Generado F2 jul-2026; validado por scripts/verify-parity.mjs. figma.nodeId existe en el archivo Componentes (patrones: frames en páginas Pattern ·). Ediciones: solo con aprobación de la dueña. fileKey por defecto = archivo Componentes (kjEg0KpLID4cH00DruERTN); un entry puede overridear con figma.fileKey (cross-file). figma.key = identificador durable (sobrevive mudanzas de archivo; el nodeId no).",
   "components": [
     {
       "name": "Avatar",
@@ -77,8 +77,10 @@
       "name": "Icon",
       "tier": "atom",
       "figma": {
-        "nodeId": "944:6",
-        "reviewNote": "⚠️ PENDIENTE: 944:6 no resolvió vía MCP get_metadata (jul-2026) mientras 4 nodos de otras páginas sí — probable ID stale del wrapper tras la migración de íconos. Confirmar en Figma y actualizar acá + figma-build §2b."
+        "fileKey": "5rV8Ad6qqHx5mocSpObi0k",
+        "nodeId": "34:27",
+        "key": "71c7115a767b41fd94237eaf736cfc0a3aaae7ed",
+        "note": "wrapper vive en el archivo Icon junto a Glyph (verificado vía MCP jul-2026: SET de 6 Size, xs16→2xl48). Corregido jul-2026: antes apuntaba a 944:6 'local en Componentes' — el wrapper se mudó al archivo Icon, no fue borrado."
       },
       "code": {
         "path": "ui/src/Icon",

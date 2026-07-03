@@ -165,7 +165,7 @@ del skill mismo.**
   / **Choice group** `728:35` / **Combobox** `730:40` / **Date range picker** `732:120` moléculas;
   detalle e IDs en figma-build §2b. Antes: 28/31/68 — el registro venía de "27 átomos / 66" y la
   portada "ÁTOMOS·26"; el faltante histórico era Icon container `574:150`.)* **Íconos = Material Symbols
-  (jun-2026):** wrapper «Icon» `944:6` (6 Size) + librería «Glyph» `24:10626` (2.864 glifos snake_case,
+  (jun-2026):** wrapper «Icon» en el archivo Icon, set `34:27` (6 Size; *corregido jul-2026: antes `944:6` local — se mudó junto a Glyph*) + librería «Glyph» `24:10626` (2.864 glifos snake_case,
   archivo Icon `5rV8Ad6qqHx5mocSpObi0k`); el set local `56:431` (11 glifos) fue migrado y ELIMINADO.
   Chevron fino = `stat_minus_1`/`stat_1`; laterales `chevron_left/right`. Detalle/migración en
   canon §Íconos + figma-build §15. **Código `@viu/ui` MIGRADO (jun-2026):** `Icon` dibuja el SVG
@@ -190,8 +190,7 @@ del skill mismo.**
   inventario** — 77 entries: 74 mapeadas a `ui/src` + 3 recetas Figma-only (`Field/Input·Select·
   Textarea`, componen Input/Select/Textarea + FormField). Custodiado por `verify-parity` (activo,
   verde). El mapa de granularidad 73(Figma)+4(patrones frames `282:7`/`274:7`/`288:7`/`285:7`)↔74
-  (código) quedó explícito entry por entry. ⚠️ PENDIENTE: nodeId del wrapper Icon `944:6` no
-  resolvió vía MCP — confirmar en Figma (ver figma-build §2b).
+  (código) quedó explícito entry por entry. El entry Icon es cross-file (archivo Icon `5rV8Ad…` set `34:27` + key durable; resuelto jul-2026 — el wrapper se había mudado, no borrado).
 - **CI (F3, jul-2026):** tres workflows en Actions — `tokens-parity.yml` (paridad
   snapshot↔json↔css), `skill-consistency.yml` (los tres gates F1/F2 en cada push/PR que toca skill,
   `ui/src` o manifest) y `package-skill.yml` (gates + `.skill` como artifact en cada cambio del

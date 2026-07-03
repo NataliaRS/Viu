@@ -104,13 +104,12 @@ Body/L `1b1f4a805f78a665a9f2f7e6b8575ea8167a0a3f` · Body/M `28bd418f889fa4fafa9
 > (74 con código + 3 recetas Figma-only), custodiado por `scripts/verify-parity.mjs`. Este §2b queda
 > como recetario de keys/props/SETs, NO como fuente de conteo; ante conflicto gana el manifest.
 > **Validación de nodeIds vía MCP:** `get_metadata(fileKey, nodeId)` por nodo — spot-check jul-2026:
-> Button `8:53` ✓ · Kbd `721:7` ✓ · App shell `274:7` ✓ · Table `372:6` ✓ · **Icon `944:6` ✗ (no
-> resuelve; ⚠️ confirmar ID del wrapper)**. La pasada exhaustiva de los 77 se corre por lotes en una
+> Button `8:53` ✓ · Kbd `721:7` ✓ · App shell `274:7` ✓ · Table `372:6` ✓ · **Icon: resuelto — el wrapper vive en el archivo Icon `5rV8Ad…` set `34:27` (mudado, no borrado; corregido jul-2026, antes `944:6`)**. La pasada exhaustiva de los 77 se corre por lotes en una
 > sesión con Figma MCP al cerrar batches que tocan Figma.
 Instanciar con `getNodeByIdAsync(id)`. SET(n)=set de n variantes; COMP=componente único.
 
 **ÁTOMOS (29):** *(jun-2026: 27→28 al contar Icon container [tiene nodo]; 28→29 sumó Kbd.)*
-Icon = wrapper **«Icon»** (key `71c7115a767b41fd94237eaf736cfc0a3aaae7ed`, local `944:6`) SET(6) Size
+Icon = wrapper **«Icon»** (key `71c7115a767b41fd94237eaf736cfc0a3aaae7ed`, **archivo Icon `5rV8Ad6qqHx5mocSpObi0k` set `34:27`** — *corregido jul-2026: antes decía local `944:6` en Componentes; el wrapper se MUDÓ al archivo Icon junto a Glyph, no fue borrado; verificado vía MCP*) SET(6) Size
 xs/sm/md/lg/xl/2xl con W/H ligado a `icon-size/*` + «Glyph» anidada swappeable (color text/* override).
 Glifos = librería **«Glyph»** (archivo Icon `5rV8Ad6qqHx5mocSpObi0k`, set `24:10626`, key
 `d1ef2b816438e4f91b31fc7c67138b50c3c886ae`): 2.864 Material Symbols snake_case. *(jun-2026: REEMPLAZA

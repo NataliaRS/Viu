@@ -51,6 +51,8 @@ for (const e of entries) {
     if (m && m[1] !== e.status) errors.push(`${id}: manifest dice ${e.status}, la story dice ${m[1]}`);
   }
   if (!/^\d+:\d+$/.test(e.figma?.nodeId ?? "")) errors.push(`${id}: figma.nodeId ausente o inválido`);
+  if ("fileKey" in (e.figma ?? {}) && !/^[A-Za-z0-9]{15,30}$/.test(e.figma.fileKey))
+    errors.push(`${id}: figma.fileKey presente pero inválido`);
 }
 
 const uiSrc = join(ROOT, "ui/src");
