@@ -1,0 +1,58 @@
+# VIU Design System · Estado actual
+
+**Actualizado: jul-2026 (post F3 + Badge soft + Icon cross-file).** Este archivo es la única fuente
+de estado del sistema: conteos, inventarios y pendientes vivos. Se actualiza en cada batch (regla
+§5 del SKILL.md); la historia de cómo se llegó acá vive en `decision-log.md`. Los conteos de acá
+los custodia `scripts/verify-counts.mjs` contra la realidad del repo.
+
+- **Tokens:** 346 variables / 5 colecciones *(corregido jul-2026: antes decía 331; +15 del batch Badge soft — `red/100` + 12 `feedback/*-soft` + 2 interinos `neutral-solid`)*, auditadas 1:1 Figma↔código; paridad verificada y ahora custodiada por el pipeline `snapshot(Figma) ↔ tokens/*.json ↔ dist/*.css` con CI `tokens-parity.yml` (ver code-build).
+  Effects (sombras/gradients) como Styles → `tokens/effects.json`.
+- **Figma:** **29 átomos · 35 moléculas · 9 organismos = 73 componentes** + 4 patrones (frames de
+  composición, sin nodo de componente). Todos publicables (unused-props = []). *(Crecimiento jun-2026:
+  Natalia construyó los 5 gaps de C1 en Figma — **Kbd** `721:7` átomo + **Segmented control** `724:28`
+  / **Choice group** `728:35` / **Combobox** `730:40` / **Date range picker** `732:120` moléculas;
+  detalle e IDs en figma-build §2b. Antes: 28/31/68 — el registro venía de "27 átomos / 66" y la
+  portada "ÁTOMOS·26"; el faltante histórico era Icon container `574:150`.)* **Íconos = Material Symbols
+  (jun-2026):** wrapper «Icon» en el archivo Icon, set `34:27` (6 Size; *corregido jul-2026: antes `944:6` local — se mudó junto a Glyph*) + librería «Glyph» `24:10626` (2.864 glifos snake_case,
+  archivo Icon `5rV8Ad6qqHx5mocSpObi0k`); el set local `56:431` (11 glifos) fue migrado y ELIMINADO.
+  Chevron fino = `stat_minus_1`/`stat_1`; laterales `chevron_left/right`. Detalle/migración en
+  canon §Íconos + figma-build §15. **Código `@viu/ui` MIGRADO (jun-2026):** `Icon` dibuja el SVG
+  oficial de Material Symbols embebido (repo google/material-design-icons, Outlined; SIN fuente);
+  `glyph` acepta nombres legacy (mapeados) o Material embebido directo. Ver code-build. **Tree item `411:19` completo: 12 var** (Expansión ×
+  Estado) + Icono/Checkbox. Banner `135:84`: CTA removido / Toast `176:101`: acción removida (jun-2026).
+  Card modular SET(45). Portada con índice por nivel atómico (⚠️ falta sumarle
+  las 5 entradas nuevas en Figma — figma-build §7b). Sections en archivo aparte; `Marketing · LinkedIn`
+  fuera del índice. Sandbox de pruebas: `zmTSs2J5H3EIkItlF85rfc`.
+- **Código (`NataliaRS/Viu`, rama `claude/viu-design-system`):** **29 átomos + 35 moléculas + 9
+  organismos + 4 patrones = 73 componentes** en `@viu/ui`, Storybook en vivo
+  (https://nataliars.github.io/Viu/) con chrome de marca, ViuDocs y Foundations interactivas.
+  **C1 design-to-code COMPLETO (5/5):** ✅ Kbd + ✅ SegmentedControl + ✅ ChoiceGroup + ✅ Combobox +
+  ✅ DateRangePicker portados. **Paridad Figma↔código restaurada** — cobertura 1:1. **Conteo de código
+  (F1.1 jul-2026):** en `ui/src` hay **74 carpetas publicables con story** — distinto del 73 de Figma por
+  **granularidad, no por cobertura**: `Field/Input·Select·Textarea` son **recetas** (`FormField`+control)
+  sin carpeta propia en código, y `Calendar`/`DateField` son **internos compartidos sin story** (por eso
+  no cuentan). Iguales en cobertura, distintos en conteo; el mapa 1:1 explícito llega con
+  `components.json` en F2. *(nota §5: `verify-counts` compara este número contra la realidad contable de
+  `ui/src`.)*
+- **Manifest (F2, jul-2026):** `components.json` en la raíz del repo = **fuente única del
+  inventario** — 77 entries: 74 mapeadas a `ui/src` + 3 recetas Figma-only (`Field/Input·Select·
+  Textarea`, componen Input/Select/Textarea + FormField). Custodiado por `verify-parity` (activo,
+  verde). El mapa de granularidad 73(Figma)+4(patrones frames `282:7`/`274:7`/`288:7`/`285:7`)↔74
+  (código) quedó explícito entry por entry. El entry Icon es cross-file (archivo Icon `5rV8Ad…` set `34:27` + key durable; resuelto jul-2026 — el wrapper se había mudado, no borrado). **Pasada exhaustiva de nodeIds vía MCP COMPLETA (jul-2026): los 77 resuelven (77/77); los únicos 4 con nombre `<X> · Doc` son los patrones (frames de composición, esperado). Detalle en figma-build §2b.**
+- **CI (F3, jul-2026):** tres workflows en Actions — `tokens-parity.yml` (paridad
+  snapshot↔json↔css), `skill-consistency.yml` (los tres gates F1/F2 en cada push/PR que toca skill,
+  `ui/src` o manifest) y `package-skill.yml` (gates + `.skill` como artifact en cada cambio del
+  skill; formato verificado idéntico al empaquetador de referencia). `deploy-storybook.yml` en Node
+  24. Regla viva del pre-flight: leer `conclusion: success` de los runs, no asumir.
+- **A11y:** 0 fallas WCAG reales; `success-solid` = green-700; contraste de borde = excepción
+  documentada (1.4.11). Cuatro gates limpios — `token-usage · ghost-check · lint-literals ·
+  contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
+  jun-2026: ausentes en el repo de código; el gate del repo es el de 5 pasos: typecheck · test ·
+  build · figma connect parse · build-storybook).
+
+## Pendientes vivos
+- Migrar los 4 gates de gobernanza (`token-usage` · ghost-check · `lint-literals` ·
+  `contrast-audit`) al repo cuando Natalia ubique el proyecto donde viven (Fase 3.1 del plan
+  enterprise; el CI ya está listo para recibirlos).
+- Renombrar la librería `24:10626` "Icon"→"Glyph" en Figma para evitar dos sets llamados "Icon"
+  (anotado en figma-build §2b desde jun-2026).

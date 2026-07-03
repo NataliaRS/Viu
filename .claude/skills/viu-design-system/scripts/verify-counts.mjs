@@ -24,7 +24,8 @@ while (!existsSync(join(ROOT, "package.json"))) {
   ROOT = up;
 }
 const SKILL = join(ROOT, ".claude/skills/viu-design-system");
-const skillMd = readFileSync(join(SKILL, "SKILL.md"), "utf8");
+const skillMd = readFileSync(join(SKILL, "SKILL.md"), "utf8")
+  + "\n" + readFileSync(join(SKILL, "references/state.md"), "utf8"); // F4: estado en state.md
 const figmaBuild = readFileSync(join(SKILL, "references/figma-build.md"), "utf8");
 
 // Carpetas de ui/src que NO son componentes publicables (internos compartidos quedan

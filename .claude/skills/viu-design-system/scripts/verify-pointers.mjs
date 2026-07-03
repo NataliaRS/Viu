@@ -67,8 +67,11 @@ for (const [fname, text] of Object.entries(files)) {
     if (text[lineStart] === "|") continue; // en tablas, §N = notación de dimensiones
     const before = text.slice(Math.max(0, m.index - 40), m.index);
     if (new RegExp("(" + refAlt + ")(?:\\.md)?`?\\s*$").test(before)) continue; // ya cubierto en (2)
-    if (!headings[fname].has(m[1].toLowerCase()))
-      errors.push(`${fname}: "§${m[1]}" no existe como heading en el propio archivo`);
+    const id = m[1].toLowerCase();
+    // resolución: primero el propio archivo; fallback: el SKILL.md maestro (sus §N son la
+    // numeración canónica del skill y el contenido movido en F4 los cita desde references/)
+    if (!headings[fname].has(id) && !headings["SKILL.md"].has(id))
+      errors.push(`${fname}: "§${m[1]}" no resuelve ni en el propio archivo ni en SKILL.md`);
   }
 }
 

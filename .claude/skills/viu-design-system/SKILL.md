@@ -1,6 +1,8 @@
 ---
 name: viu-design-system
 description: "Skill maestro y única fuente de verdad del VIU Design System — marca, principios, canon teórico, estándar de documentación, y build operativo en Figma (MCP) y en código (repo NataliaRS/Viu, Storybook). Usar SIEMPRE que el trabajo toque cualquier cosa de VIU: crear/editar componentes, variantes, tokens, estilos, docs, patrones, portada o páginas en Figma; escribir o revisar componentes React/CSS/Storybook del repo; decisiones de marca, color, tipografía, voz, accesibilidad o gobernanza; auditorías de tokens/contraste; collateral de marketing con la marca VIU; o cualquier mención de 'VIU', 'el design system', 'el sistema', 'tokens', 'la librería', 'el Storybook' o 'el repo'. Cargar ANTES de la primera llamada a use_figma o al primer cambio en código. Reemplaza y absorbe al skill figma-viu-build."
+metadata:
+  version: "2026.07.03"
 ---
 
 # VIU Design System — skill maestro
@@ -38,12 +40,7 @@ skill — nunca quedan divergentes.
 - Toda decisión relevante va al decision log al tomarse. Versionado semver. **Madurez — escala
   única (RESUELTO jun-2026, A1): `Draft / Reviewed / Stable / Deprecated`** (la del estándar de doc;
   el Storybook ya usa `status`). El vocabulario viejo `experimental/estable/obsoleto` queda
-  deprecado; mapeo de transición: experimental→Draft·Reviewed, estable→Stable, obsoleto→Deprecated.
-  **✅ A1 EJECUTADO (jun-2026):** los componentes ya están en la escala única en código — `ViuDocs.tsx`
-  tipa `status: "Draft"|"Reviewed"|"Stable"|"Deprecated"` y las stories quedaron **74 `Stable` + 0
-  `Reviewed`** *(corregido jul-2026 §5: al ejecutar A1 eran 67 `Stable` + 2 `Reviewed` [Tooltip/Slider,
-  ex-`beta`]; ambos pasaron a `Stable` al cerrarse B4/B5 y se sumaron componentes nuevos → 74/0)*. El badge mapea Draft→warning · Reviewed→info · Stable→success
-  · Deprecated→danger.
+  deprecado; mapeo de transición: experimental→Draft·Reviewed, estable→Stable, obsoleto→Deprecated. *(Ejecución: ver decision-log.md · jun-2026 A1.)*
 - Antes de crear un componente, distinguir: (1) existe pero no está publicado, (2) gap real
   reusable, (3) one-off que NO debe entrar a la librería. No conflar Badge/Tag/Pill/Chip/
   Notification badge (cada uno tiene rol y doc propios; no crearlos en batch).
@@ -63,6 +60,8 @@ skill — nunca quedan divergentes.
 
 | Tarea | Leer |
 |---|---|
+| **Estado actual del sistema (conteos, inventarios, pendientes vivos)** | `references/state.md` — la única fuente de estado; se actualiza en cada batch |
+| **Historia: decisiones cerradas, batches, correcciones** | `references/decision-log.md` — append-only |
 | Decisión de marca, conflicto entre principios, voz, no-objetivos | `references/principles.md` |
 | Justificar/cuestionar un principio con teoría (Norman, WCAG, Frost, Kholmatova…) | `references/canon.md` |
 | Estados, capas `--state-*`, motion `--motion-*`, reduced-motion, checklist de interacción | `references/interaction.md` |
@@ -110,8 +109,12 @@ Figma manda, el código se deriva, las text styles se sincronizan a mano).
 
 ## 5. Regla permanente: actualizar este skill al cerrar cada batch
 Un batch sin update del skill está incompleto. Antes (o junto) al cierre, actualizar: (a) el
-"Estado actual" de abajo y los conteos de code-build.md/figma-build.md, (b) la sección de
-convenciones que toque con los gotchas nuevos, (c) keys/IDs/tokens si cambiaron. Las actualizaciones
+estado en `references/state.md` (conteos, inventarios, pendientes) y los de code-build/figma-build,
+(b) la sección de convenciones que toque con los gotchas nuevos, (c) keys/IDs/tokens si cambiaron,
+(d) **append** de lo cerrado en `references/decision-log.md` (nunca se edita lo ya logueado). Este
+SKILL.md solo se toca si cambió una REGLA (identidad, gobernanza, proceso) — y entonces se bumpea
+`metadata.version` en el frontmatter (fecha del cambio), que sirve para detectar snapshots viejos en
+claude.ai contra el repo. Las actualizaciones
 son fusiones que preservan todo el detalle previo — nunca un rewrite que pierda riqueza. Excepción
 que evita que el skill acumule mentiras: un dato que quedó FALSO no se preserva, se corrige en el
 lugar con nota (`corregido <fecha>: antes decía X`) — preservar riqueza ≠ preservar errores. Si algo
@@ -156,82 +159,3 @@ del skill mismo.**
   `.claude/skills/viu-design-system/` en el mismo commit/PR del batch — el repo nunca queda atrás
   del código.
 
-## 6. Estado actual (junio 2026)
-- **Tokens:** 346 variables / 5 colecciones *(corregido jul-2026: antes decía 331; +15 del batch Badge soft — `red/100` + 12 `feedback/*-soft` + 2 interinos `neutral-solid`)*, auditadas 1:1 Figma↔código; paridad verificada y ahora custodiada por el pipeline `snapshot(Figma) ↔ tokens/*.json ↔ dist/*.css` con CI `tokens-parity.yml` (ver code-build).
-  Effects (sombras/gradients) como Styles → `tokens/effects.json`.
-- **Figma:** **29 átomos · 35 moléculas · 9 organismos = 73 componentes** + 4 patrones (frames de
-  composición, sin nodo de componente). Todos publicables (unused-props = []). *(Crecimiento jun-2026:
-  Natalia construyó los 5 gaps de C1 en Figma — **Kbd** `721:7` átomo + **Segmented control** `724:28`
-  / **Choice group** `728:35` / **Combobox** `730:40` / **Date range picker** `732:120` moléculas;
-  detalle e IDs en figma-build §2b. Antes: 28/31/68 — el registro venía de "27 átomos / 66" y la
-  portada "ÁTOMOS·26"; el faltante histórico era Icon container `574:150`.)* **Íconos = Material Symbols
-  (jun-2026):** wrapper «Icon» en el archivo Icon, set `34:27` (6 Size; *corregido jul-2026: antes `944:6` local — se mudó junto a Glyph*) + librería «Glyph» `24:10626` (2.864 glifos snake_case,
-  archivo Icon `5rV8Ad6qqHx5mocSpObi0k`); el set local `56:431` (11 glifos) fue migrado y ELIMINADO.
-  Chevron fino = `stat_minus_1`/`stat_1`; laterales `chevron_left/right`. Detalle/migración en
-  canon §Íconos + figma-build §15. **Código `@viu/ui` MIGRADO (jun-2026):** `Icon` dibuja el SVG
-  oficial de Material Symbols embebido (repo google/material-design-icons, Outlined; SIN fuente);
-  `glyph` acepta nombres legacy (mapeados) o Material embebido directo. Ver code-build. **Tree item `411:19` completo: 12 var** (Expansión ×
-  Estado) + Icono/Checkbox. Banner `135:84`: CTA removido / Toast `176:101`: acción removida (jun-2026).
-  Card modular SET(45). Portada con índice por nivel atómico (⚠️ falta sumarle
-  las 5 entradas nuevas en Figma — figma-build §7b). Sections en archivo aparte; `Marketing · LinkedIn`
-  fuera del índice. Sandbox de pruebas: `zmTSs2J5H3EIkItlF85rfc`.
-- **Código (`NataliaRS/Viu`, rama `claude/viu-design-system`):** **29 átomos + 35 moléculas + 9
-  organismos + 4 patrones = 73 componentes** en `@viu/ui`, Storybook en vivo
-  (https://nataliars.github.io/Viu/) con chrome de marca, ViuDocs y Foundations interactivas.
-  **C1 design-to-code COMPLETO (5/5):** ✅ Kbd + ✅ SegmentedControl + ✅ ChoiceGroup + ✅ Combobox +
-  ✅ DateRangePicker portados. **Paridad Figma↔código restaurada** — cobertura 1:1. **Conteo de código
-  (F1.1 jul-2026):** en `ui/src` hay **74 carpetas publicables con story** — distinto del 73 de Figma por
-  **granularidad, no por cobertura**: `Field/Input·Select·Textarea` son **recetas** (`FormField`+control)
-  sin carpeta propia en código, y `Calendar`/`DateField` son **internos compartidos sin story** (por eso
-  no cuentan). Iguales en cobertura, distintos en conteo; el mapa 1:1 explícito llega con
-  `components.json` en F2. *(nota §5: `verify-counts` compara este número contra la realidad contable de
-  `ui/src`.)*
-- **Manifest (F2, jul-2026):** `components.json` en la raíz del repo = **fuente única del
-  inventario** — 77 entries: 74 mapeadas a `ui/src` + 3 recetas Figma-only (`Field/Input·Select·
-  Textarea`, componen Input/Select/Textarea + FormField). Custodiado por `verify-parity` (activo,
-  verde). El mapa de granularidad 73(Figma)+4(patrones frames `282:7`/`274:7`/`288:7`/`285:7`)↔74
-  (código) quedó explícito entry por entry. El entry Icon es cross-file (archivo Icon `5rV8Ad…` set `34:27` + key durable; resuelto jul-2026 — el wrapper se había mudado, no borrado). **Pasada exhaustiva de nodeIds vía MCP COMPLETA (jul-2026): los 77 resuelven (77/77); los únicos 4 con nombre `<X> · Doc` son los patrones (frames de composición, esperado). Detalle en figma-build §2b.**
-- **CI (F3, jul-2026):** tres workflows en Actions — `tokens-parity.yml` (paridad
-  snapshot↔json↔css), `skill-consistency.yml` (los tres gates F1/F2 en cada push/PR que toca skill,
-  `ui/src` o manifest) y `package-skill.yml` (gates + `.skill` como artifact en cada cambio del
-  skill; formato verificado idéntico al empaquetador de referencia). `deploy-storybook.yml` en Node
-  24. Regla viva del pre-flight: leer `conclusion: success` de los runs, no asumir.
-- **A11y:** 0 fallas WCAG reales; `success-solid` = green-700; contraste de borde = excepción
-  documentada (1.4.11). Cuatro gates limpios — `token-usage · ghost-check · lint-literals ·
-  contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
-  jun-2026: ausentes en el repo de código; el gate del repo es el de 5 pasos: typecheck · test ·
-  build · figma connect parse · build-storybook).
-- **Batch jul-2026 (cierre — íconos residuales + Badge soft):** cerrada la cola de afinado de íconos/estructura — **Select** `26:293` (▾→`stat_minus_1`) · **Search** `26:347` (lupa vector→`search`) · **Nav** `233:19` (punto→Icon `home` swappable) · **Datepicker** `28:386`+**Date range** (calendario→`calendar_today`) · **Checkbox** `24:167` (✓→Glyph `check` 12px) · **Tab** `161:43` (+slot trailing `Icono fin`) · **Avatar** `19:90` (+`Type=Ícono` `account_circle`, SET 10→15, grid re-alineado sin auto-layout) · **Time picker** `409:6` (+`Estado=Abierto` a nivel componente, check Icon) · **Data table** `285:7` (search→instancia de molécula Search). **Badge `14:77`:** surface→sólido→**soft /100** (opaco+claro, texto /700, AA) + prop `Icono` leading. **Tokens nuevos:** primitiva `red/100` + 12 `feedback/{tono}-soft`/`-on-soft` (+ interino `neutral-solid`/`-on-solid`). Recetas/keys en figma-build §16; detalle en canon §Badge/§Íconos. **Badge en CÓDIGO alineado (jul-2026):** el CSS de `@viu/ui` pasó de `*-solid`/`bg-raised` a `feedback/{tono}-soft`+`-on-soft` en los 6 tonos (Brand y Neutral incluidos) + prop `icon?: boolean|ReactNode` (leading, glifo default `sell` embebido en `Icon/glyphs.tsx`, @xs, decorativo); Code Connect mapea `Tone`/`Icono`/`Label`. Gate de 5 pasos + 3 gates del skill en verde. Detalle en code-build §14 (Paridad de la tanda, bullet Badge SOFT).
-- **Pendientes — DECIDIDOS jun-2026, en cola de ejecución (orden sugerido):**
-  1. ~~**B2** · sumar Eye/EyeOff al Icon de Figma~~ ✅ HECHO (jun-2026). Natalia los creó en Figma
-     como `Visibility`/`Visibility_off`; el código se renombró a `Visibility`/`VisibilityOff`
-     (alineado a Figma, mejor nombre semántico). Code Connect mapea `Visibility_off`→`VisibilityOff`.
-  2. ~~**B3** · `.figma.tsx` de Icon container~~ ✅ HECHO (jun-2026). El gap de `style`/`tone` que
-     surgió quedó **RESUELTO**: el componente se reconstruyó con paridad completa (círculo + `tone`
-     ×8 + `appearance` filled/stroke + tamaños), ver code-build.
-  3. ~~**A1** · actualizar la etiqueta de madurez de los componentes a la escala única
-     Draft/Reviewed/Stable/Deprecated~~ ✅ HECHO (jun-2026). `ViuDocs.tsx` retipado + stories
-     migradas (67 Stable, 2 Reviewed al ejecutar A1; hoy 74 Stable, 0 Reviewed — ver §6); tipo viejo `stable|beta|wip` obsoleto.
-  4. ~~**B1** · migrar componentes de `disabled` por opacidad a `bg-disabled`/`text-disabled`~~
-     ✅ HECHO (jun-2026). Resultaron solo **4** (no ~15): ListItem, MenuItem, Tab (usaban `opacity:
-     var(--state-disabled)`) + TimePicker/PickerField (`opacity: 0.5` mágico). Regla aplicada:
-     rellenos→`bg-disabled`+`text-disabled`; transparentes→solo `text-disabled` (ver interaction §2).
-  5. ~~**B4** · Slider modo Rango (doble thumb) en código~~ ✅ HECHO (jun-2026). Unión discriminada
-     `SingleSliderProps | RangeSliderProps`; `range` + `onValueChange([lo,hi])`, clamping lo≤hi, dos
-     inputs superpuestos con z-index dinámico para grabbability. Tests de clamping agregados.
-  6. ~~**B5** · colisión/flip de Tooltip + Popover (misma lógica)~~ ✅ HECHO (jun-2026). Hook
-     compartido `overlay/useFlipSide.ts`; Tooltip mide en hover/focus, Popover en open + scroll/resize.
-  *(Cola B/A completa. Slider y Tooltip pasaron de Reviewed → Stable. Pendiente sólo C1 design-to-code.)*
-- **A4 (RESUELTO): átomo `Marker` DESCARTADO** — no es gap real; "Marker, no CheckCircle" sigue
-  siendo solo la regla de nombrar por rol (figma-build §12), no un componente a construir.
-- **Gaps C1 — ✅ construidos en Figma (jun-2026):** Segmented control `724:28` · Choice group
-  (Radio/Checkbox) `728:35` · Combobox `730:40` · Date range picker `732:120` · Kbd `721:7`. Se
-  siguió el proceso decidido (PRIMERO en Figma, fuente de verdad). Reuso estricto aplicado
-  (figma-build §14): Combobox→Search+Menu item; Choice group→Radio+Checkbox; Date range
-  picker→Datepicker ×2. **Design-to-code a `@viu/ui` COMPLETO (5/5, jun-2026):** ✅ Kbd + ✅
-  SegmentedControl + ✅ ChoiceGroup + ✅ Combobox + ✅ DateRangePicker, todos con gate completo + tests.
-  **Datepicker/DateRangePicker REFACTORIZADOS (jun-2026):** ambos reusan `Calendar` + `DateField`
-  compartidos (espeja Figma, que compone el DateRangePicker con 2 Datepicker); el Datepicker ya NO
-  envuelve el `<input type=date>` nativo — calendario propio de marca. Ver code-build. **C1
-  cerrado; paridad Figma↔código en cobertura 1:1 *(73 es el número **Figma**; **74 carpetas de código con
-  story** — iguales en cobertura, distintos en granularidad; ver bullet "Código" arriba y F1.1)*.**
