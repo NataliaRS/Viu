@@ -103,9 +103,15 @@ Body/L `1b1f4a805f78a665a9f2f7e6b8575ea8167a0a3f` · Body/M `28bd418f889fa4fafa9
 > **F2 (jul-2026): el inventario canónico vive en `components.json` (raíz del repo)** — 77 entries
 > (74 con código + 3 recetas Figma-only), custodiado por `scripts/verify-parity.mjs`. Este §2b queda
 > como recetario de keys/props/SETs, NO como fuente de conteo; ante conflicto gana el manifest.
-> **Validación de nodeIds vía MCP:** `get_metadata(fileKey, nodeId)` por nodo — spot-check jul-2026:
-> Button `8:53` ✓ · Kbd `721:7` ✓ · App shell `274:7` ✓ · Table `372:6` ✓ · **Icon: resuelto — el wrapper vive en el archivo Icon `5rV8Ad…` set `34:27` (mudado, no borrado; corregido jul-2026, antes `944:6`)**. La pasada exhaustiva de los 77 se corre por lotes en una
-> sesión con Figma MCP al cerrar batches que tocan Figma.
+> **Validación de nodeIds vía MCP — PASADA EXHAUSTIVA COMPLETA (jul-2026):** `get_metadata(fileKey,
+> nodeId)` sobre los **77 nodeId → 77/77 resuelven** (0 stale). Nombre del nodo raíz coincide en 73/77;
+> los 4 "mismatch" son los patrones **App shell `274:7` · Data table `285:7` · Form `282:7` · Wizard
+> `288:7`**, cuyo raíz es `<X> · Doc` (frames de composición, `type:"frame"` en el manifest — esperado, no
+> es error). Los `Field/Input·Password·Select·Textarea` figuran como `Field / X` (con espacios) → matchean.
+> **Icon** resuelve como `Icon` en el archivo Icon `5rV8Ad6qqHx5mocSpObi0k` set `34:27` (cross-file; el
+> wrapper se mudó, no se borró; antes `944:6`, muerto en ambos archivos). Método: subagente que absorbe los
+> árboles de símbolos y devuelve solo la tabla pass/fail (los `get_metadata` de sets con 40+ variantes
+> saturan el contexto del hilo principal). Reejecutar la pasada al cerrar batches que muevan nodos en Figma.
 Instanciar con `getNodeByIdAsync(id)`. SET(n)=set de n variantes; COMP=componente único.
 
 **ÁTOMOS (29):** *(jun-2026: 27→28 al contar Icon container [tiene nodo]; 28→29 sumó Kbd.)*

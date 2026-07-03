@@ -190,7 +190,7 @@ del skill mismo.**
   inventario** — 77 entries: 74 mapeadas a `ui/src` + 3 recetas Figma-only (`Field/Input·Select·
   Textarea`, componen Input/Select/Textarea + FormField). Custodiado por `verify-parity` (activo,
   verde). El mapa de granularidad 73(Figma)+4(patrones frames `282:7`/`274:7`/`288:7`/`285:7`)↔74
-  (código) quedó explícito entry por entry. El entry Icon es cross-file (archivo Icon `5rV8Ad…` set `34:27` + key durable; resuelto jul-2026 — el wrapper se había mudado, no borrado).
+  (código) quedó explícito entry por entry. El entry Icon es cross-file (archivo Icon `5rV8Ad…` set `34:27` + key durable; resuelto jul-2026 — el wrapper se había mudado, no borrado). **Pasada exhaustiva de nodeIds vía MCP COMPLETA (jul-2026): los 77 resuelven (77/77); los únicos 4 con nombre `<X> · Doc` son los patrones (frames de composición, esperado). Detalle en figma-build §2b.**
 - **CI (F3, jul-2026):** tres workflows en Actions — `tokens-parity.yml` (paridad
   snapshot↔json↔css), `skill-consistency.yml` (los tres gates F1/F2 en cada push/PR que toca skill,
   `ui/src` o manifest) y `package-skill.yml` (gates + `.skill` como artifact en cada cambio del
