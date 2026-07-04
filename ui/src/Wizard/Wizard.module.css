@@ -30,5 +30,5 @@
   min-width: 0;
   font-family: var(--font-family-body);
   font-size: var(--font-size-body-s);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
 }

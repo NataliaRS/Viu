@@ -5,7 +5,7 @@ de estado del sistema: conteos, inventarios y pendientes vivos. Se actualiza en 
 §5 del SKILL.md); la historia de cómo se llegó acá vive en `decision-log.md`. Los conteos de acá
 los custodia `scripts/verify-counts.mjs` contra la realidad del repo.
 
-- **Tokens:** 346 variables / 5 colecciones *(corregido jul-2026: antes decía 331; +15 del batch Badge soft — `red/100` + 12 `feedback/*-soft` + 2 interinos `neutral-solid`)*, auditadas 1:1 Figma↔código; paridad verificada y ahora custodiada por el pipeline `snapshot(Figma) ↔ tokens/*.json ↔ dist/*.css` con CI `tokens-parity.yml` (ver code-build).
+- **Tokens:** 346 variables / 5 colecciones *(corregido jul-2026: antes decía 331; +15 del batch Badge soft — `red/100` + 12 `feedback/*-soft` + 2 interinos `neutral-solid`)*, auditadas 1:1 Figma↔código; paridad verificada y ahora custodiada por el pipeline `snapshot(Figma) ↔ tokens/*.json ↔ dist/*.css` con CI `tokens-parity.yml` (ver code-build). *(jul-2026 F5: `alert/400` cambió de valor `#f0565b`→`#f57377` para que `feedback/danger-text` Dark pase AA sobre elevated (3.98→4.90); solo lo consume danger-text Dark. Conteo sin cambio — es un cambio de VALOR, no de token.)*
   Effects (sombras/gradients) como Styles → `tokens/effects.json`.
 - **Figma:** **29 átomos · 35 moléculas · 9 organismos = 73 componentes** + 4 patrones (frames de
   composición, sin nodo de componente). Todos publicables (unused-props = []). *(Crecimiento jun-2026:
@@ -39,16 +39,25 @@ los custodia `scripts/verify-counts.mjs` contra la realidad del repo.
   Textarea`, componen Input/Select/Textarea + FormField). Custodiado por `verify-parity` (activo,
   verde). El mapa de granularidad 73(Figma)+4(patrones frames `282:7`/`274:7`/`288:7`/`285:7`)↔74
   (código) quedó explícito entry por entry. El entry Icon es cross-file (archivo Icon `5rV8Ad…` set `34:27` + key durable; resuelto jul-2026 — el wrapper se había mudado, no borrado). **Pasada exhaustiva de nodeIds vía MCP COMPLETA (jul-2026): los 77 resuelven (77/77); los únicos 4 con nombre `<X> · Doc` son los patrones (frames de composición, esperado). Detalle en figma-build §2b.**
-- **CI (F3, jul-2026):** tres workflows en Actions — `tokens-parity.yml` (paridad
+- **CI (F3+F5, jul-2026):** workflows en Actions — `tokens-parity.yml` (paridad
   snapshot↔json↔css), `skill-consistency.yml` (los tres gates F1/F2 en cada push/PR que toca skill,
-  `ui/src` o manifest) y `package-skill.yml` (gates + `.skill` como artifact en cada cambio del
-  skill; formato verificado idéntico al empaquetador de referencia). `deploy-storybook.yml` en Node
-  24. Regla viva del pre-flight: leer `conclusion: success` de los runs, no asumir.
-- **A11y:** 0 fallas WCAG reales; `success-solid` = green-700; contraste de borde = excepción
-  documentada (1.4.11). Cuatro gates limpios — `token-usage · ghost-check · lint-literals ·
-  contrast-audit` — que **corren en el proyecto de gobernanza, NO en `NataliaRS/Viu`** (verificado
-  jun-2026: ausentes en el repo de código; el gate del repo es el de 5 pasos: typecheck · test ·
-  build · figma connect parse · build-storybook).
+  `ui/src` o manifest), `package-skill.yml` (gates + `.skill` como artifact en cada cambio del
+  skill; formato verificado idéntico al empaquetador de referencia) y **`storybook-verify.yml` (F5):
+  dos jobs — a11y (axe/`@storybook/test-runner` sobre CADA story) + visual (regresión Figma↔story,
+  SKIP hasta baseline)**. `deploy-storybook.yml` en Node 24. Todos root-based `npm ci` (monorepo
+  workspaces, un solo lockfile). Regla viva del pre-flight: leer `conclusion: success` de los runs,
+  no asumir.
+- **A11y (F5, jul-2026 — invariante por commit):** `storybook-verify.yml` corre axe sobre las 80
+  stories en cada push/PR → **0 fallas WCAG dejó de ser auditoría puntual y pasó a gate mecánico.**
+  Estado: **80/80 suites, 203/203 tests, 0 violaciones.** El estreno cazó 35 fallas reales en 19
+  componentes (ver decision-log F5): estructurales/ARIA/label arregladas en código; 17 `color-contrast`
+  remediadas subiendo el texto de-énfasis de `text-tertiary`/`text-disabled`→`text-secondary` (regla en
+  code-build) + `feedback/danger-text` (`alert/400`) aclarado a `#f57377` (pasaba en base pero fallaba
+  en elevated). *(Corrige la afirmación previa "0 fallas WCAG reales": la contrast-audit vieja medía
+  solo sobre `bg/base`; axe cazó los fallos sobre superficies raised/elevated.)* Los 4 gates de
+  gobernanza (`token-usage · ghost-check · lint-literals · contrast-audit`) siguen en el proyecto de
+  gobernanza, NO en `NataliaRS/Viu`; el gate del repo es el de 5 pasos (typecheck · test · build ·
+  figma connect parse · build-storybook) + los de CI.
 
 ## Pendientes vivos
 - Migrar los 4 gates de gobernanza (`token-usage` · ghost-check · `lint-literals` ·
@@ -56,3 +65,14 @@ los custodia `scripts/verify-counts.mjs` contra la realidad del repo.
   enterprise; el CI ya está listo para recibirlos).
 - Renombrar la librería `24:10626` "Icon"→"Glyph" en Figma para evitar dos sets llamados "Icon"
   (anotado en figma-build §2b desde jun-2026).
+- **F5 · rebind Figma del remap de contraste (mismo batch, aprobado por Natalia):** en el archivo
+  Componentes, subir el fill de los text layers de-énfasis de `text/tertiary`→`text/secondary` en
+  Card (eyebrow, autor-meta), Image (caption), Field/FormField (helper message), Menu item (shortcut),
+  Step (label upcoming), Wizard (count); y en Tokens, la primitiva `color/alert/400`→`#f57377`
+  (Natalia la hace, spec en chat). Cross-check nodo-a-nodo antes/después vía MCP; refrescar el snapshot
+  al terminar para confirmar Figma↔repo.
+- **F5 · visual baselines (bloqueado por FIGMA_TOKEN):** correr `FIGMA_TOKEN=… node
+  scripts/capture-baselines.mjs` (POC Badge `14:59`), poner `skip:false` en `visual-baselines/
+  manifest.json`, correr `node scripts/visual-regression.mjs` y reportar el % de diferencia real del
+  POC (sin ajustar el threshold para que pase — el número calibra). Baselines = commit `baseline:`
+  aprobado por Natalia.

@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Badge · Tone=Neutral",
+    "figmaNode": "14:59",
+    "storyId": "components-atoms-badge--default",
+    "baseline": "badge--neutral.png",
+    "threshold": 0.08,
+    "skip": true
+  }
+]

@@ -18,7 +18,7 @@ const meta = {
       donts: ["No uses indeterminate si tenés el %."],
     },
   },
-  args: { value: 60, size: "md" },
+  args: { value: 60, size: "md", label: "Progreso de carga" },
   argTypes: {
     value: { control: { type: "range", min: 0, max: 100 } },
     size: { control: "inline-radio", options: ["sm", "md", "lg"] },
@@ -36,9 +36,9 @@ export const Sizes: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: "grid", gap: "var(--space-md)" }}>
-      <Progress value={40} size="sm" />
-      <Progress value={60} size="md" />
-      <Progress value={80} size="lg" />
+      <Progress value={40} size="sm" label="Progreso — pequeño" />
+      <Progress value={60} size="md" label="Progreso — mediano" />
+      <Progress value={80} size="lg" label="Progreso — grande" />
     </div>
   ),
 };

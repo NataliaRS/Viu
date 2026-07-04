@@ -57,6 +57,7 @@ export function TreeItem({
             checked={checked}
             disabled={disabled}
             onChange={(e) => onCheckedChange?.(e.target.checked)}
+            aria-label={typeof label === "string" ? label : "Seleccionar elemento"}
           />
         </span>
       ) : null}

@@ -23,6 +23,7 @@ export function Stepper({ steps, className, ...rest }: StepperProps) {
         return (
           <Step
             key={i}
+            role="listitem"
             status={s.status}
             number={s.number ?? i + 1}
             label={s.label}

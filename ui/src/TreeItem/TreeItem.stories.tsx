@@ -19,6 +19,8 @@ interface TreeItemDemoArgs {
 }
 
 const renderTreeItem = (a: TreeItemDemoArgs) => (
+  // Un `treeitem` requiere un ancestro `role="tree"` con hijos treeitem directos.
+  <div role="tree" style={{ width: 280 }}>
   <TreeItem
     label={a.label}
     level={a.level}
@@ -33,6 +35,7 @@ const renderTreeItem = (a: TreeItemDemoArgs) => (
     checked={a.checked}
     onCheckedChange={() => {}}
   />
+  </div>
 );
 
 const meta = {
@@ -72,7 +75,9 @@ const meta = {
       donts: ["No uses TreeItem suelto sin un contenedor role=tree."],
     },
   },
-  decorators: [(S) => <div role="tree" style={{ width: 280 }}>{S()}</div>],
+  // El wrapper `role="tree"` lo pone cada story (Playground vía renderTreeItem, States
+  // con su grid) para evitar trees anidados; acá solo padding.
+  decorators: [(S) => <div style={{ padding: "var(--space-md)" }}>{S()}</div>],
 } satisfies Meta<TreeItemDemoArgs>;
 
 export default meta;

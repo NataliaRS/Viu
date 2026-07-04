@@ -180,6 +180,16 @@ en tests; el SVG decorativo va `aria-hidden`. **Símbolos embebidos (`symbolPath
 ### Regla de consumo de tokens (código) — CERO valores mágicos
 Un componente nunca usa hex ni números sueltos. Mapa de tokenización para CADA componente nuevo:
 - color → SOLO Semantic (`--color-bg|text|border|feedback-*`). Nunca primitivos de color ni hex.
+- **Contraste por superficie (F5, jul-2026 — regla de accesibilidad):** `text-tertiary` (#828287)
+  solo alcanza AA (4.5:1) sobre `bg/base` (5.18); sobre `bg/raised` (4.45) y `bg/elevated` (3.54)
+  NO pasa. Para **texto legible** (labels, helper, eyebrow, meta, caption, shortcut, count…) sobre
+  raised/elevated/subtle → usar **`text-secondary`** (pasa en todas: 8.36/7.18/5.72). `text-disabled`
+  es SOLO para contenido realmente inactivo (marcar el elemento/ancestro con `disabled`/`aria-disabled`
+  para que axe lo exima); nunca para de-énfasis de texto activo (era un bug recurrente: Card eyebrow/
+  meta, MenuItem shortcut). Ídem feedback: `feedback/danger-text` fallaba sobre elevated (3.98) →
+  `alert/400` se aclaró a `#f57377` (elevated 4.90). El gate `storybook-verify.yml` (axe sobre cada
+  story) custodia esto por commit; la única excepción documentada es la matriz de `Foundations/Colors`
+  (muestra combos sub-AA a propósito), acotada en `.storybook/test-runner.ts`.
 - espaciado/padding/gap → `--space-*` (Scales) · radios → `--radius-*` (Scales) · z-index → `--z-*`.
 - transiciones → `transition-duration: var(--motion-duration-micro)` + `transition-timing-function:
   var(--motion-ease-standard)` (Scales). Animaciones largas → `--motion-duration-loop`.

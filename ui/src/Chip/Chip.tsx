@@ -42,6 +42,7 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
   return (
     <span
       ref={ref}
+      aria-disabled={disabled || undefined}
       className={cx(styles.chip, styles[variant], disabled && styles.disabled, className)}
       {...rest}
     >

@@ -22,7 +22,7 @@
   font-family: var(--font-family-body);
   font-size: var(--font-size-body-s);
   line-height: var(--line-height-relaxed);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
 }
 .error {
   color: var(--color-feedback-danger-text);

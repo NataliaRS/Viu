@@ -45,5 +45,5 @@
 .shortcut {
   flex: none;
   font-size: var(--font-size-body-s);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
 }

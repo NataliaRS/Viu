@@ -34,7 +34,16 @@ export const DataTable = forwardRef<HTMLDivElement, DataTableProps>(function Dat
     <div ref={ref} className={cx(styles.dataTable, className)} {...rest}>
       {toolbar ? <div className={styles.toolbar}>{toolbar}</div> : null}
       <Table aria-label={ariaLabel} header={header}>
-        {hasRows ? children : empty ? <div className={styles.empty}>{empty}</div> : null}
+        {hasRows ? (
+          children
+        ) : empty ? (
+          // El estado vacío vive dentro del rowgroup → envolverlo como una fila válida
+          // (role=row > role=cell) para que role=table no quede sin filas (axe:
+          // aria-required-children).
+          <div role="row" className={styles.empty}>
+            <div role="cell">{empty}</div>
+          </div>
+        ) : null}
       </Table>
       {caption || pagination ? (
         <div className={styles.footer}>

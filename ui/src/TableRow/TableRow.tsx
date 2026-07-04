@@ -1,7 +1,25 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import {
+  forwardRef,
+  Children,
+  cloneElement,
+  isValidElement,
+  type HTMLAttributes,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 import { Checkbox } from "../Checkbox/Checkbox";
 import { Icon } from "../Icon/Icon";
 import styles from "./TableRow.module.css";
+
+/** WAI-ARIA table: cada hijo de `role="row"` debe tener `role="cell"`. Los consumidores
+ *  pasan celdas crudas → inyectamos el rol para que toda tabla sea accesible sin repetir
+ *  `role="cell"` a mano (axe: aria-required-children). */
+const asCells = (children: ReactNode) =>
+  Children.map(children, (c) =>
+    isValidElement(c) && !(c.props as { role?: string }).role
+      ? cloneElement(c as ReactElement, { role: "cell" })
+      : c,
+  );
 
 export interface TableRowProps extends HTMLAttributes<HTMLDivElement> {
   /** Renders a leading selection checkbox. */
@@ -42,7 +60,7 @@ export const TableRow = forwardRef<HTMLDivElement, TableRowProps>(function Table
           />
         </div>
       ) : null}
-      {children}
+      {asCells(children)}
       {chevron ? (
         <div role="cell" className={styles.chevronCell} aria-hidden>
           <Icon glyph="Chevron" size={16} />

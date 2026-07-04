@@ -21,7 +21,7 @@ const meta = {
   argTypes: { error: { control: "boolean" }, disabled: { control: "boolean" } },
   decorators: [(S) => <div style={{ width: 320 }}>{S()}</div>],
   render: (args) => (
-    <Select {...args}>
+    <Select aria-label="Área" {...args}>
       <option>Diseño</option>
       <option>Código</option>
       <option>Documentación</option>

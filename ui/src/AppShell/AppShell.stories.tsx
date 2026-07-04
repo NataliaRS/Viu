@@ -93,7 +93,7 @@ const Sidebar = () => (
       <Avatar size="md" initials="NR" />
       <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
         <span style={{ fontFamily: "var(--font-family-label)", fontSize: "var(--font-size-label-m)", color: "var(--color-text-primary)" }}>Natalia R.</span>
-        <span style={{ fontFamily: "var(--font-family-body)", fontSize: "var(--font-size-body-s)", color: "var(--color-text-tertiary)" }}>Directora de UX</span>
+        <span style={{ fontFamily: "var(--font-family-body)", fontSize: "var(--font-size-body-s)", color: "var(--color-text-secondary)" }}>Directora de UX</span>
       </div>
     </div>
   </>
@@ -147,7 +147,7 @@ export const Dashboard: Story = {
           <Kpi key={k.label} {...k} />
         ))}
       </div>
-      <h3 style={{ fontFamily: "var(--font-family-label)", fontSize: "var(--font-size-label-l)", color: "var(--color-text-primary)", margin: "0 0 var(--space-sm)" }}>Proyectos recientes</h3>
+      <h2 style={{ fontFamily: "var(--font-family-label)", fontSize: "var(--font-size-label-l)", color: "var(--color-text-primary)", margin: "0 0 var(--space-sm)" }}>Proyectos recientes</h2>
       <Table aria-label="Proyectos recientes" header={<><span style={{ flex: 2 }}>Nombre</span><span style={{ flex: 1 }}>Equipo</span><span style={{ flex: 1 }}>Estado</span></>}>
         {projects.map((p) => (
           <TableRow key={p.name} interactive chevron>

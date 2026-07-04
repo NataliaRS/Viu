@@ -67,3 +67,37 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
   de referencia); `deploy-storybook.yml` a Node 24. Primer commit custodiado: `58d411a`, todo verde.
 - **F4:** este split — SKILL.md (reglas, estable, con `version:` en frontmatter) / `state.md`
   (estado vivo) / `decision-log.md` (este archivo). Cero pérdida auditada línea a línea.
+
+## jul-2026 · F5 — a11y continua (axe por commit) + POC de regresión visual
+- **Infra:** `.storybook/test-runner.ts` (axe sobre cada story), `storybook-verify.yml` (jobs a11y +
+  visual), `scripts/{capture-baselines,visual-regression}.mjs`, `visual-baselines/{manifest,README}`.
+  Deps en `ui/`: `@storybook/test-runner@0.22.1` (el 0.24 pide Storybook 10; el repo usa SB 8.4.7),
+  axe-playwright, http-server, wait-on, `playwright@1.56`, pixelmatch, pngjs.
+- **Gotchas de infra (pagados):** (1) el `storybook-verify.yml` provisto hacía `npm ci` en `ui/` con
+  `ui/package-lock.json` — no existe (monorepo workspaces, lockfile único en raíz) → reescrito
+  root-based `npm ci` + `-w ui` + `--config-dir ui/.storybook`, espejando deploy-storybook. (2) Local:
+  la CDN de Playwright está bloqueada y el browser preinstalado es build 1194 (playwright 1.56) vs el
+  1228 que fija test-runner (playwright 1.61) → shim que apunta la ruta 1228 al binario 1194 (solo
+  local; en CI `playwright install` baja el browser). El `.skill`/artefactos generados NO se commitean.
+- **a11y — 35 fallas reales cazadas en 19 componentes (estreno del gate), todas arregladas:**
+  - *Estructural/ARIA/label (código):* `TableRow`/`Table` inyectan `role="cell"`/`"columnheader"`
+    (celdas vacías excluidas) → Table/DataTable/AppShell; `Stepper`→`role="listitem"`; `TreeItem`
+    checkbox con `aria-label` + fix de `role="tree"` anidado; `DataTable` empty-state como fila válida;
+    stories: Progress `label`, Slider/Select `aria-label`, Tab con decorator `tablist`, foundations
+    `<th scope>` sr-only, AppShell `h3`→`h2`.
+  - *Contraste (17, decisión de Natalia = opción 1 "remap a text-secondary"):* subir el texto de
+    de-énfasis `text-tertiary`/`text-disabled`→`text-secondary` (Card eyebrow/meta, Image caption,
+    FormField/Form helper, Menu/MenuItem shortcut, Wizard/Step count/label, AppShell meta). Chip y
+    FormField disabled: `aria-disabled` (son inactivos → axe los exime; el `text-disabled` es correcto
+    ahí). `feedback/danger-text` fallaba sobre elevated (3.98): `alert/400` `#f0565b`→`#f57377`
+    (elevated 4.90) — Natalia aprobó "lightear". foundations/Colors (matriz de contraste didáctica,
+    muestra sub-AA a propósito): exclusión acotada de axe en test-runner.ts, documentada.
+  - **Corrección §5 a "0 fallas WCAG reales":** era FALSO en el sentido estricto — la contrast-audit
+    medía solo sobre `bg/base`; `text-tertiary` (y danger-text) fallan sobre raised/elevated. Regla
+    nueva codificada en code-build (token de texto por superficie). Resultado final: **80/80 suites,
+    203/203, 0 violaciones.**
+- **Condición de Natalia (rebind Figma mismo batch):** pendiente vivo en state.md — subir los fills
+  tertiary→secondary en los nodos Componentes + `alert/400` en Tokens, cross-check MCP antes/después.
+- **Regresión visual (POC):** manifest con Badge `14:59` (`skip:true` hasta capturar baseline con
+  FIGMA_TOKEN); el job visual SKIPea verde hasta entonces. Gobernanza de baselines: commit `baseline:`
+  aprobado por Natalia; prohibido refrescar una baseline para poner un test en verde sin su OK.

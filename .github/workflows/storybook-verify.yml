@@ -1,0 +1,58 @@
+name: Storybook verify (a11y + visual)
+
+on:
+  push:
+    branches: ["claude/viu-design-system"]
+    paths: ["ui/**", "tokens/**", "dist/**", "visual-baselines/**"]
+  pull_request:
+    paths: ["ui/**", "tokens/**", "dist/**", "visual-baselines/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      # Monorepo npm workspaces: un solo lockfile en la raíz; `ui` es workspace sin
+      # lockfile propio → se instala y buildea desde la raíz (mismo patrón que
+      # deploy-storybook.yml). Los binarios se hoistean a node_modules/.bin.
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Build tokens (dist/tokens.css consumido por preview)
+        run: npm run build:tokens
+      - name: Build Storybook
+        run: npm run build-storybook -w ui
+      - name: axe sobre todas las stories
+        run: |
+          npx http-server ui/storybook-static -p 6006 --silent &
+          npx wait-on tcp:127.0.0.1:6006
+          npx test-storybook --url http://127.0.0.1:6006 --config-dir ui/.storybook
+
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Build tokens
+        run: npm run build:tokens
+      - name: Build Storybook
+        run: npm run build-storybook -w ui
+      - name: Regresión visual Figma ↔ stories
+        run: node scripts/visual-regression.mjs --storybook ui/storybook-static
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-diffs
+          path: visual-diffs/

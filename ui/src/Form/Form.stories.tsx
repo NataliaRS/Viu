@@ -95,7 +95,7 @@ const Fields = ({ priority, setPriority, notify, setNotify }: { priority: string
     <div style={{ display: "flex", alignItems: "center", gap: "var(--space-md)" }}>
       <div style={{ flex: 1 }}>
         <div style={{ fontFamily: "var(--font-family-body)", fontSize: "var(--font-size-body-m)", color: "var(--color-text-primary)" }}>Notificar al equipo al crear</div>
-        <div style={{ fontFamily: "var(--font-family-body)", fontSize: "var(--font-size-body-s)", color: "var(--color-text-tertiary)" }}>Se enviará un aviso a los miembros.</div>
+        <div style={{ fontFamily: "var(--font-family-body)", fontSize: "var(--font-size-body-s)", color: "var(--color-text-secondary)" }}>Se enviará un aviso a los miembros.</div>
       </div>
       <Switch checked={notify} onCheckedChange={setNotify} aria-label="Notificar al equipo" />
     </div>

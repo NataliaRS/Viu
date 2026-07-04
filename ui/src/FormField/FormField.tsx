@@ -23,7 +23,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(function For
 ) {
   const message = error ?? helper;
   return (
-    <div ref={ref} className={cx(styles.field, disabled && styles.disabled, className)} {...rest}>
+    <div ref={ref} aria-disabled={disabled || undefined} className={cx(styles.field, disabled && styles.disabled, className)} {...rest}>
       <label className={styles.label} htmlFor={htmlFor}>
         {label}
         {required ? (

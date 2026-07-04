@@ -121,7 +121,11 @@ export const Contrast: Story = {
           <table style={{ borderCollapse: "separate", borderSpacing: 6 }}>
             <thead>
               <tr>
-                <th />
+                <th scope="col">
+                  <span style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>
+                    Texto sobre fondo
+                  </span>
+                </th>
                 {bgKeys.map((b) => (
                   <th key={b} style={{ ...mono, color: "var(--color-text-tertiary)", fontWeight: 400, padding: "0 var(--space-xs)" }}>
                     {b.replace("color/bg/", "bg/")}

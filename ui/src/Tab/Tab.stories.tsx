@@ -26,6 +26,9 @@ const meta = {
     active: { control: "boolean" },
     disabled: { control: "boolean" },
   },
+  // Un `role="tab"` exige un ancestro `role="tablist"` (WAI-ARIA). En producto lo aporta
+  // Tabs; acá lo damos por decorator para que las stories de Tab suelto sean válidas.
+  decorators: [(S) => <div role="tablist" aria-label="Ejemplo de pestañas">{S()}</div>],
 } satisfies Meta<typeof Tab>;
 
 export default meta;
@@ -45,7 +48,7 @@ export const TabRow: Story = {
     const tabs = ["Resumen", "Actividad", "Ajustes"];
     const [active, setActive] = useState(0);
     return (
-      <div role="tablist" style={{ display: "flex", gap: "var(--space-md)" }}>
+      <div style={{ display: "flex", gap: "var(--space-md)" }}>
         {tabs.map((t, i) => (
           <Tab key={t} active={active === i} onClick={() => setActive(i)}>
             {t}
