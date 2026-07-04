@@ -21,7 +21,7 @@
  * Deps (ui/): playwright, pixelmatch, pngjs. SKIP con exit 0 si no hay manifest o está vacío.
  */
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { join, dirname, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 
@@ -53,11 +53,23 @@ const { PNG } = require("pngjs");
 const { createServer } = await import("node:http");
 const { readFile } = await import("node:fs/promises");
 
-// server estático mínimo para el build (sin dependencia extra)
+// server estático mínimo para el build (sin dependencia extra).
+// Content-Type OBLIGATORIO: los bundles de Storybook son ES modules y el browser rechaza
+// (`Failed to load module script`) cualquier .js servido sin un MIME de JS → la story no
+// montaría y el screenshot esperaría eternamente `#storybook-root > *`.
+const MIME = {
+  ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript",
+  ".css": "text/css", ".json": "application/json", ".map": "application/json",
+  ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg", ".ico": "image/x-icon",
+  ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf",
+};
 const server = createServer(async (req, res) => {
   const path = join(sbDir, decodeURIComponent(req.url.split("?")[0]).replace(/^\/+/, "") || "index.html");
   try {
-    res.end(await readFile(path));
+    const body = await readFile(path);
+    res.setHeader("Content-Type", MIME[extname(path).toLowerCase()] ?? "application/octet-stream");
+    res.end(body);
   } catch {
     res.statusCode = 404;
     res.end();
