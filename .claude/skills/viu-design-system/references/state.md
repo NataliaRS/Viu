@@ -65,12 +65,11 @@ los custodia `scripts/verify-counts.mjs` contra la realidad del repo.
   enterprise; el CI ya está listo para recibirlos).
 - Renombrar la librería `24:10626` "Icon"→"Glyph" en Figma para evitar dos sets llamados "Icon"
   (anotado en figma-build §2b desde jun-2026).
-- **F5 · rebind Figma del remap de contraste (mismo batch, aprobado por Natalia):** en el archivo
-  Componentes, subir el fill de los text layers de-énfasis de `text/tertiary`→`text/secondary` en
-  Card (eyebrow, autor-meta), Image (caption), Field/FormField (helper message), Menu item (shortcut),
-  Step (label upcoming), Wizard (count); y en Tokens, la primitiva `color/alert/400`→`#f57377`
-  (Natalia la hace, spec en chat). Cross-check nodo-a-nodo antes/después vía MCP; refrescar el snapshot
-  al terminar para confirmar Figma↔repo.
+- ~~**F5 · rebind Figma del remap de contraste**~~ ✅ HECHO (jul-2026). Natalia rebindeó en el archivo
+  Componentes los text layers de-énfasis `text/tertiary`→`text/secondary` (Card eyebrow/meta, Image
+  caption, Field/FormField helper, Menu item shortcut, Step label, Wizard count) y publicó la primitiva
+  `color/alert/400`→`#f57377`. Cross-check MCP confirmado: `feedback/danger-text`=#f57377 (Banner
+  `135:84`) y Card `434:6` usa `text/secondary`; snapshot ya en #f57377 → Figma↔repo en paridad.
 - **F5 · visual baselines (bloqueado por FIGMA_TOKEN):** correr `FIGMA_TOKEN=… node
   scripts/capture-baselines.mjs` (POC Badge `14:59`), poner `skip:false` en `visual-baselines/
   manifest.json`, correr `node scripts/visual-regression.mjs` y reportar el % de diferencia real del
