@@ -4,6 +4,7 @@
     "figmaNode": "14:59",
     "storyId": "components-atoms-badge--default",
     "baseline": "badge--neutral.png",
+    "selector": "#storybook-root > div > *",
     "threshold": 0.08,
     "skip": true
   }
