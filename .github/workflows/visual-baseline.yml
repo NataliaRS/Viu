@@ -1,0 +1,58 @@
+name: Visual baseline capture (one-shot, manual)
+
+# F5 · POC de regresión visual — captura de baseline desde Figma + medición del % real.
+# Se dispara A MANO (workflow_dispatch). NO commitea nada: captura el/los PNG de Figma con
+# el secret FIGMA_TOKEN, corre la comparación contra las stories y sube TODO como artifacts
+# (baseline + diffs + log). La aprobación de la baseline es de la dueña del sistema, vía
+# diff revisable — el runner sólo produce el material para esa decisión (gobernanza F5).
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Filtrar por nombre de componente (vacío = todas las entries del manifest)"
+        required: false
+        default: "Badge"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Capturar baseline(s) desde Figma (Images REST API)
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+        run: node scripts/capture-baselines.mjs --only "${{ inputs.only }}"
+
+      - name: Build tokens
+        run: npm run build:tokens
+      - name: Build Storybook
+        run: npm run build-storybook -w ui
+
+      # Para MEDIR el % hay que activar la entry (el manifest la trae skip:true hasta
+      # aprobar la baseline). Se activa SOLO en el runner, en disco, para esta corrida —
+      # no se commitea. visual-regression NO ajusta thresholds: reporta el número crudo.
+      - name: Activar entries del manifest (efímero, sólo para medir)
+        run: node -e "const f='visual-baselines/manifest.json',fs=require('fs');const m=JSON.parse(fs.readFileSync(f,'utf8'));m.forEach(e=>e.skip=false);fs.writeFileSync(f,JSON.stringify(m,null,2));console.log('skip=false (efímero) en',m.length,'entries')"
+
+      - name: Medir regresión visual (Figma baseline ↔ story) — % real
+        run: node scripts/visual-regression.mjs --storybook ui/storybook-static || true
+
+      - name: Subir baselines + diffs como artifacts (para aprobación)
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baseline-poc
+          path: |
+            visual-baselines/*.png
+            visual-diffs/
+          if-no-files-found: warn
