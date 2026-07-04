@@ -91,6 +91,10 @@ for (const e of entries) {
     continue;
   }
   await page.goto(`${base}/iframe.html?id=${e.storyId}&viewMode=story`, { waitUntil: "networkidle" });
+  // Esperar a que las webfonts de marca pinten ANTES del screenshot: `networkidle` no
+  // garantiza que `document.fonts` haya aplicado, y un render con la fuente de fallback
+  // da anchos distintos a los de Figma (que usa la fuente real) → falso mismatch.
+  await page.evaluate(() => document.fonts.ready);
   const el = page.locator(e.selector ?? "#storybook-root > *").first();
   const shot = PNG.sync.read(await el.screenshot());
   const ref = PNG.sync.read(readFileSync(baselinePath));
