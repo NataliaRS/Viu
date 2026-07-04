@@ -52,3 +52,28 @@ export const WithIcon: Story = {
     </div>
   ),
 };
+
+/**
+ * VisualParity — story de PARIDAD para la regresión visual (F5). Espeja EXACTAMENTE
+ * el contenido del nodo Figma `14:59` (Tone=Neutral: `Punto` 6px + label "Etiqueta",
+ * sin `Icono`), no un caso de uso. Regla del manifest de baselines: cada entry de
+ * regresión apunta a una story así — el comparador pixel-diffea contenidos idénticos,
+ * no "Nuevo" (Default) contra "Etiqueta" (Figma). No la borres ni le cambies el
+ * contenido sin re-alinear la baseline.
+ */
+export const VisualParity: Story = {
+  parameters: { controls: { disable: true } },
+  args: {
+    tone: "neutral",
+    children: "Etiqueta",
+    // El nodo tiene un `Punto` (ellipse 6px) leading, distinto del slot `Icono`. El
+    // componente no expone `punto`, pero `icon` acepta cualquier nodo → replicamos el
+    // punto (6px, hereda el color on-soft vía currentColor, decorativo).
+    icon: (
+      <span
+        aria-hidden
+        style={{ width: 6, height: 6, borderRadius: "50%", background: "currentColor", display: "inline-block" }}
+      />
+    ),
+  },
+};

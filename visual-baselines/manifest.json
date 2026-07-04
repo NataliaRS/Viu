@@ -2,7 +2,7 @@
   {
     "name": "Badge · Tone=Neutral",
     "figmaNode": "14:59",
-    "storyId": "components-atoms-badge--default",
+    "storyId": "components-atoms-badge--visual-parity",
     "baseline": "badge--neutral.png",
     "selector": "#storybook-root > div > *",
     "threshold": 0.08,
