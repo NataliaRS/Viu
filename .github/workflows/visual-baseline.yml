@@ -27,7 +27,10 @@ jobs:
           node-version: "24"
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      # visual-regression.mjs resuelve `playwright` desde ui/ (1.56); el root tiene 1.61
+      # (hoisted por test-runner). `npx playwright install` usaría el 1.61 → build errado y
+      # el headless_shell que pide el 1.56 no queda instalado. Instalamos con el binario de ui.
+      - run: ./ui/node_modules/.bin/playwright install --with-deps chromium
 
       - name: Capturar baseline(s) desde Figma (Images REST API)
         env:
