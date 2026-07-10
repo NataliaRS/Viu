@@ -70,8 +70,21 @@ los custodia `scripts/verify-counts.mjs` contra la realidad del repo.
   caption, Field/FormField helper, Menu item shortcut, Step label, Wizard count) y publicó la primitiva
   `color/alert/400`→`#f57377`. Cross-check MCP confirmado: `feedback/danger-text`=#f57377 (Banner
   `135:84`) y Card `434:6` usa `text/secondary`; snapshot ya en #f57377 → Figma↔repo en paridad.
-- **F5 · visual baselines (bloqueado por FIGMA_TOKEN):** correr `FIGMA_TOKEN=… node
-  scripts/capture-baselines.mjs` (POC Badge `14:59`), poner `skip:false` en `visual-baselines/
-  manifest.json`, correr `node scripts/visual-regression.mjs` y reportar el % de diferencia real del
-  POC (sin ajustar el threshold para que pase — el número calibra). Baselines = commit `baseline:`
-  aprobado por Natalia.
+- ~~**F5 · visual baselines POC (bloqueado por FIGMA_TOKEN)**~~ ✅ CORRIDO (jul-2026, Natalia dio el
+  token como secret de GitHub). Resultado y decisión en decision-log (F5 · POC visual). **Veredicto:
+  el pixel-diff Figma-PNG↔DOM da ~15% aun en paridad métrica (alto exacto, ancho ±2px, mismo contenido
+  y case) — dominado por antialiasing cross-rasterizer + esquinas del pill + banda de pad; NO por render
+  de fuente. Por la regla de Natalia (residuo grande → B), el gate de regresión visual va a DOM-vs-DOM,
+  no Figma-PNG-vs-DOM.** Quedan estos pendientes derivados:
+- **F5b · switch del POC a DOM-vs-DOM:** baseline = screenshot de la propia story (Chromium), comparado
+  contra el screenshot futuro (mismo rasterizer → estable). Reescribir `capture-baselines`/`visual-
+  regression` para capturar la story, no el nodo Figma. Mantener la story de paridad (`--visual-parity`)
+  como fuente del contenido canónico. (Figma↔DOM queda como chequeo visual a ojo, no gate mecánico.)
+- **F5c · republicar la librería Tokens (`o4tzMPcZIWMzVc67dW6dWW`) — acción MANUAL de Natalia** (no hay
+  path MCP/API para publish). Recién publica el estilo **Label/S Caps** (`a3965a…`, creado vía MCP,
+  figma-build §2) para que propague cross-file.
+- **F5d · migrar consumidores de micro-mayúscula a Label/S Caps** (post-republish, batch aparte):
+  **Badge** (`14:59` label — hoy con override interino `textCase: UPPER` vía MCP; reemplazar por el
+  estilo — + los otros tonos), **Card eyebrow**, **Tag**, **Status**, **FileRow**. Auditados jul-2026,
+  reportados, NO migrados aún. *(Hallazgo: el nodo `14:59` NO tenía el case seteado — Label/S mixto —
+  mientras el código sí uppercasea; era la causa del "ancho distinto" del POC, no fuente ni padding.)*

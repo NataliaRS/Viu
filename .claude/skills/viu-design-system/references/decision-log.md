@@ -101,3 +101,30 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
 - **Regresión visual (POC):** manifest con Badge `14:59` (`skip:true` hasta capturar baseline con
   FIGMA_TOKEN); el job visual SKIPea verde hasta entonces. Gobernanza de baselines: commit `baseline:`
   aprobado por Natalia; prohibido refrescar una baseline para poner un test en verde sin su OK.
+
+## jul-2026 · F5 · POC de regresión visual — corrida real y veredicto (Figma↔DOM → DOM-vs-DOM)
+- **Token:** Natalia lo dio como secret de GitHub (`FIGMA_TOKEN`). Se armó `visual-baseline.yml`
+  (`workflow_dispatch`, no commitea) que captura el nodo vía Images API con el secret, mide y sube
+  artifacts. Se corrió ~10 veces cazando bugs REALES del harness (ninguno un ajuste de threshold):
+  (1) Playwright: instalar con el bin de `ui` (1.56), no el 1.61 hoisted; (2) el server estático no
+  mandaba `Content-Type` → los ES modules de Storybook no ejecutaban; (3) `selector` para aislar el
+  Badge del decorator `minHeight:100vh`; (4) esperar `document.fonts.ready`; (5) `pixelmatch` ESM
+  (`.default`); (6) tolerar Δdim subpixel (padear a tamaño común, banda de borde cuenta como diff).
+- **Causa raíz del "ancho distinto" (NO era fuente ni padding):** la story `Default` renderiza
+  "Nuevo" y el nodo `14:59` dice "Etiqueta" + punto (ellipse 6px) — **contenidos distintos**. Fix:
+  story `VisualParity` que espeja el contenido literal del nodo; regla nueva de manifest (cada entry
+  de regresión apunta a una story de paridad, doc en `visual-baselines/README`). Además se descubrió
+  un **hallazgo C real:** el label del nodo `14:59` estaba en Label/S **mixto** mientras el código
+  uppercasea (`text-transform`); el intento de diseño es micro-mayúscula → faltaba `textCase: UPPER`
+  en Figma. Se creó vía MCP el text style **Label/S Caps** (`a3965a…`, dup de Label/S + Uppercase,
+  mismos tokens) en la lib Tokens; se aplicó un override interino a `14:59` para medir. Republicación
+  + migración de los 5 consumidores (Badge/Card eyebrow/Tag/Status/FileRow) = pendientes F5c/F5d.
+- **Número (sin tocar threshold):** con contenido, case y tema igualados, **~15% de píxeles distintos**
+  (alto EXACTO 25=25, ancho 85 vs 83 = Δ2px subpixel). Forzar tema claro no lo movió (14.92→15.01) →
+  el fill ya matcheaba; el ~15% es **antialiasing cross-rasterizer (Figma export vs Chromium) + esquinas
+  del pill + banda de pad**, no render de fuente. La paridad MÉTRICA es excelente; el pixel-diff crudo
+  contra un PNG de Figma es intrínsecamente ruidoso.
+- **Veredicto (regla de Natalia: residuo grande → B, C despejado):** el gate mecánico de regresión
+  visual va a **DOM-vs-DOM** (baseline = screenshot de la story, mismo rasterizer → estable). Figma↔DOM
+  queda como chequeo a ojo, no gate. Detalle e implementación pendiente en state.md (F5b). El
+  `visual-baseline.yml` + la infra Figma-Images quedan como herramienta de captura, no como gate.
