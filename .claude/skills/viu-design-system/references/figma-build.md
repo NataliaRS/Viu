@@ -85,7 +85,17 @@
 `7ff700ce6778474996205cf9a4c0e4863aa3657d` · Title/S `603620ded06931efb0b85430a31c168394a6fe3e` ·
 Body/L `1b1f4a805f78a665a9f2f7e6b8575ea8167a0a3f` · Body/M `28bd418f889fa4fafa936d61b7838beb0b07a620`
 · Body/S `6fd038d3797dd3f906f20bae8c7d72c5b1b6a9ff` · Label/M
-`e51a9ec1c4c217deac07dd686e95e98b75aee9a7` · Label/S `718d9549efb62b130d784332a9a41519b2888185`.
+`e51a9ec1c4c217deac07dd686e95e98b75aee9a7` · Label/S `718d9549efb62b130d784332a9a41519b2888185`
+· **Label/S Caps** `a3965a770a21321914ce3836fc14656750d0785b`.
+
+> **Label/S Caps (jul-2026):** duplicado de Label/S + **Letter case Uppercase** (`textCase: UPPER`),
+> mismos tokens — `fontSize` bindeado a `font-size/label-s` (VariableID:13:23), tracking 4%, lineHeight
+> 150%, General Sans Medium. Es la **micro-mayúscula documentada** en código (`text-transform: uppercase`
+> sobre `Label/S`). Creado vía MCP en el archivo Tokens `o4tzMPcZIWMzVc67dW6dWW`. **REQUIERE republicar
+> la librería** (acción manual en Figma; no hay path MCP/API) para que propague a consumidores en otros
+> archivos. **Consumidores a migrar a Label/S Caps** (hoy Label/S + uppercase ad-hoc en código; en Figma
+> el label debe pasar a este estilo): **Badge** (`14:59` label + resto de tonos), **Card eyebrow**, **Tag**,
+> **Status**, **FileRow**. *(Reportados, NO migrados aún — migración en batch aparte con republicación.)*
 
 **Familias de fuente (cargar TODAS al inicio de un build de texto):**
 - Display/Headline/Title (sección) → PP Neue Montreal / Medium

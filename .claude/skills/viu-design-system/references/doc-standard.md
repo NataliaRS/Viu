@@ -88,3 +88,4 @@ Icon, space-between).
 
 ### Badge — doc
 La sección de estilos del doc debe mostrar el fondo **soft** (/100 opaco + texto /700) y las **dos opciones de leading** (`Punto` / `Icono`), no el sólido saturado viejo. _Pendiente de refrescar el doc en Figma (jul-2026)._
+El label usa **micro-mayúscula**: en código `text-transform: uppercase`; en Figma, el estilo **Label/S Caps** (`textCase: UPPER`, ver figma-build §2) — no dependas de tipear el sample en mayúscula. (Regla general: cualquier label en micro-mayúscula documentada usa Label/S Caps, no Label/S + tipeo manual.)
