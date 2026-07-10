@@ -99,19 +99,36 @@ for (const e of entries) {
   const shot = PNG.sync.read(await el.screenshot());
   const ref = PNG.sync.read(readFileSync(baselinePath));
 
-  if (shot.width !== ref.width || shot.height !== ref.height) {
-    failures.push(`${e.name}: dimensiones ≠ — story ${shot.width}×${shot.height} vs baseline ${ref.width}×${ref.height} (re-exportar a 1x o revisar tamaño del componente)`);
+  // Delta dimensional: Figma (export del nodo) y el browser redondean el ancho de glifos /
+  // el subpixel distinto → ±1–2px es ruido de render, NO diferencia real. Un delta chico se
+  // padea a tamaño común y se mide (la banda de borde cuenta como diferencia, honesto); un
+  // delta grande = contenido/selector equivocado (p.ej. otra label) → se reporta sin medir.
+  const DIM_TOL = 4; // px; más que esto ya no es subpixel
+  const dimDelta = Math.max(Math.abs(shot.width - ref.width), Math.abs(shot.height - ref.height));
+  if (dimDelta > DIM_TOL) {
+    failures.push(`${e.name}: dimensiones ≠ — story ${shot.width}×${shot.height} vs baseline ${ref.width}×${ref.height} (>${DIM_TOL}px: contenido/selector, no subpixel — revisar la story de paridad)`);
     continue;
   }
-  const diff = new PNG({ width: ref.width, height: ref.height });
-  const bad = pixelmatch(ref.data, shot.data, diff.data, ref.width, ref.height, { threshold: 0.2 });
-  const ratio = bad / (ref.width * ref.height);
+  const W = Math.max(shot.width, ref.width);
+  const H = Math.max(shot.height, ref.height);
+  const pad = (png) => {
+    if (png.width === W && png.height === H) return png;
+    const out = new PNG({ width: W, height: H }); // relleno transparente → el borde no cubierto cuenta como diff
+    PNG.bitblt(png, out, 0, 0, png.width, png.height, 0, 0);
+    return out;
+  };
+  const refP = pad(ref);
+  const shotP = pad(shot);
+  const diff = new PNG({ width: W, height: H });
+  const bad = pixelmatch(refP.data, shotP.data, diff.data, W, H, { threshold: 0.2 });
+  const ratio = bad / (W * H);
+  const dimNote = dimDelta ? ` [Δdim ${shot.width}×${shot.height} vs ${ref.width}×${ref.height} → padeado a ${W}×${H}]` : "";
   const limit = e.threshold ?? 0.05;
   const verdict = ratio <= limit ? "✓" : "✗";
-  console.log(`${verdict} ${e.name}: ${(ratio * 100).toFixed(2)}% píxeles distintos (límite ${(limit * 100).toFixed(0)}%)`);
+  console.log(`${verdict} ${e.name}: ${(ratio * 100).toFixed(2)}% píxeles distintos (límite ${(limit * 100).toFixed(0)}%)${dimNote}`);
   if (ratio > limit) {
     writeFileSync(join(diffDir, `${e.name.replace(/\W+/g, "-")}.diff.png`), PNG.sync.write(diff));
-    failures.push(`${e.name}: ${(ratio * 100).toFixed(2)}% > ${(limit * 100).toFixed(0)}% — diff en visual-diffs/`);
+    failures.push(`${e.name}: ${(ratio * 100).toFixed(2)}% > ${(limit * 100).toFixed(0)}%${dimNote} — diff en visual-diffs/`);
   }
 }
 
