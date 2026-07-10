@@ -48,7 +48,10 @@ if (!existsSync(join(sbDir, "iframe.html"))) {
 }
 
 const { chromium } = require("playwright");
-const pixelmatch = require("pixelmatch");
+// pixelmatch ≥6 es ESM-only: require() vía createRequire devuelve el namespace → la
+// función vive en `.default`. (Antes nunca se ejecutaba: se bailaba por dimensiones.)
+const pixelmatchMod = require("pixelmatch");
+const pixelmatch = pixelmatchMod.default ?? pixelmatchMod;
 const { PNG } = require("pngjs");
 const { createServer } = await import("node:http");
 const { readFile } = await import("node:fs/promises");
