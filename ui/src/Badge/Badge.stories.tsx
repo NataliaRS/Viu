@@ -63,6 +63,10 @@ export const WithIcon: Story = {
  */
 export const VisualParity: Story = {
   parameters: { controls: { disable: true } },
+  // El nodo Figma `14:59` se exporta en tema CLARO (neutral-soft #e8e8eb). El decorator
+  // global cae a "dark" por defecto → comparar dark(story) vs light(Figma) infla el diff
+  // por fondo/tema, no por render de fuente. Igualamos el tema del nodo para un % justo.
+  globals: { theme: "light" },
   args: {
     tone: "neutral",
     children: "Etiqueta",
