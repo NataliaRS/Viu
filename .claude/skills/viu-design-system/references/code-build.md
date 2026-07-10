@@ -263,6 +263,15 @@ Un componente nunca usa hex ni números sueltos. Mapa de tokenización para CADA
      resultado (✓ por componente, con el sha). Si diverge, es bug de código, no de la convención.
   Verificado así jun-2026 la paridad de estados (Tree `411:19` · List `165:41` · Table `195:58` ·
   Nav `233:19` · Menu `170:21` · Pill `16:63` · Chip `17:67`): Hover=índigo / Sel.=crimson, 1:1.
+- **DOCTRINA — cómo se juzga la fidelidad Figma↔web (aprobada por Natalia, jul-2026):** la fidelidad
+  se juzga en **métricas y tokens** (verificable: padding, gap, tamaños, tracking, dimensiones — la
+  rutina de cross-check de arriba) **y a ojo de la dueña** al aprobar baselines; **nunca por pixel-diff
+  cross-rasterizer**, cuyo residuo (**~15% medido en el POC F5, jul-2026, con paridad métrica
+  excelente**) es **ruido de rasterización — tipografías incluidas — y no señal**. **Prohibido
+  introducir gates o métricas que afirmen paridad pixel-perfecta con Figma.** El gate de regresión
+  visual es **DOM-vs-DOM** (baseline = screenshot de la story; ver `visual-baselines/README` +
+  `decision-log` F5 · POC visual como evidencia). El render de Figma se usa solo como referencia
+  lado-a-lado para que la dueña apruebe una baseline, no como oráculo de pixeles.
 - **Si CI está verde pero el usuario "no ve cambios":** es caché del CLIENTE, no el pipeline. Verificado
   jun-2026: el build NO genera service worker; los assets van hasheados; GitHub Pages cachea el HTML
   ~10 min. Desde el sandbox NO se puede abrir `nataliars.github.io` (host fuera del allowlist → 403),

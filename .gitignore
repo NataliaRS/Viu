@@ -8,3 +8,7 @@ ui/dist/
 ui/demo-dist/
 ui/storybook-static/
 examples/*/dist/
+
+# F5 visual regression — ephemeral (review refs + diffs); baselines DO get committed
+visual-figma-refs/
+visual-diffs/

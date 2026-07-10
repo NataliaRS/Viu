@@ -128,3 +128,28 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
   visual va a **DOM-vs-DOM** (baseline = screenshot de la story, mismo rasterizer → estable). Figma↔DOM
   queda como chequeo a ojo, no gate. Detalle e implementación pendiente en state.md (F5b). El
   `visual-baseline.yml` + la infra Figma-Images quedan como herramienta de captura, no como gate.
+
+## jul-2026 · F5 — DOCTRINA de fidelidad visual (aprobada por Natalia) + F5c/F5d ejecutados
+- **DOCTRINA (codificada en code-build junto a la rutina de cross-check + `visual-baselines/README`):**
+  «La fidelidad Figma↔web se juzga en métricas y tokens (verificable: padding, gap, tamaños, tracking,
+  dimensiones) y a ojo de la dueña al aprobar baselines; nunca por pixel-diff cross-rasterizer, cuyo
+  residuo (~15% medido en el POC, jul-2026, con paridad métrica excelente) es ruido de rasterización
+  —tipografías incluidas— y no señal. Prohibido introducir gates o métricas que afirmen paridad
+  pixel-perfecta con Figma.» **Evidencia: el POC F5 de arriba** (Badge `14:59`↔story de paridad, ~15%
+  con alto exacto y ancho ±2px). Veredicto **A-vs-B: B** — gate mecánico DOM-vs-DOM.
+- **F5b (ejecutado):** gate reescrito a DOM-vs-DOM. `capture-baselines.mjs` ahora screenshotea la story
+  (Chromium) como baseline; `visual-regression.mjs` compara story-vs-baseline mismo-rasterizer (~0% si
+  no cambió). La captura Figma-Images se conserva como `capture-figma-refs.mjs` → `visual-figma-refs/`,
+  ayuda de revisión lado-a-lado (NO baseline). `visual-baseline.yml` produce ambos PNG como artifact
+  para que la dueña apruebe. Gobernanza: baseline aprobada por Natalia (side-by-side story↔Figma) en
+  commit `baseline:`; prohibido refrescar para poner en verde sin su OK (regla existente, se mantiene).
+- **F5c (Natalia):** republicó la librería Tokens `o4tzMPcZIWMzVc67dW6dWW` → el estilo **Label/S Caps**
+  (`a3965a…`) quedó importable cross-file (`importStyleByKeyAsync` OK).
+- **F5d (ejecutado vía MCP, cross-check nodo a nodo):** migrados a **Label/S Caps** todos los labels de
+  micro-mayúscula, y **eliminado el override interino** de `14:59` (ahora usa el estilo real). Conteo
+  verificado (0 nodos quedan en Label/S): **Badge** 6 tonos (`14:61/64/67/70/73/76`) · **Status** 4
+  (`20:140/143/146/149`) · **Tag** main 3 (`15:37/39/41`) · **FileRow** 3 (`237:14/28/39`) · **Card**
+  225 = 45 eyebrows `CATEGORÍA` (directos) + 180 labels de instancias de Tag (heredaron del Tag main).
+  Los `#etiqueta` dentro de Card NO se tocaron uno a uno: son instancias del Tag main → propagó solo.
+  El estilo Label/S Caps se creó vía MCP en la lib Tokens (dup de Label/S + Uppercase, `fontSize`
+  bindeado a `font-size/label-s`); doc en figma-build §2 + doc-standard.

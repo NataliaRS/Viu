@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 /**
- * visual-regression.mjs — F5 · Regresión visual Figma ↔ Storybook (EXPERIMENTAL)
+ * visual-regression.mjs — F5b · Regresión visual DOM-vs-DOM (gate mecánico)
  *
- * Compara baselines aprobadas (PNG exportados de Figma por la dueña del sistema, en
- * visual-baselines/) contra las stories renderizadas con Playwright + pixelmatch.
+ * Compara la baseline (screenshot de la story, `capture-baselines.mjs`) contra la story
+ * renderizada ahora — MISMO rasterizer (Chromium) en ambas → estable, sin ruido cross-
+ * rasterizer. **NO** se compara contra un PNG de Figma: el POC jul-2026 midió ~15% de
+ * diferencia Figma↔DOM con paridad métrica excelente (ruido de rasterización, no señal;
+ * ver code-build + decision-log F5). La fidelidad Figma↔diseño se juzga en métricas/tokens
+ * y a ojo de la dueña al aprobar la baseline, no acá.
  *
- * Modelo de gobernanza: la baseline es un ARTEFACTO APROBADO — la exporta Natalia desde
- * Figma (Export PNG 1x del nodo), no la fabrica una máquina. Cambiar una baseline = decir
- * "este es el nuevo look canónico" y pasa por commit revisable.
- *
- * Honestidad experimental: fuentes y antialiasing difieren entre Figma y el browser →
- * los thresholds son por entry y generosos al inicio. Un fallo acá es una ALERTA para
- * mirar el diff (se sube como artifact), no un veredicto automático. Empezar con 5–10
- * componentes core y calibrar antes de escalar (plan F5).
+ * Modelo de gobernanza: la baseline es un ARTEFACTO APROBADO — Natalia la aprueba comparando
+ * LADO A LADO el screenshot de la story contra el render de Figma (`visual-figma-refs/`).
+ * Cambiar/refrescar una baseline pasa por commit `baseline:` con su OK — prohibido refrescarla
+ * para poner un test en verde sin él. Con baseline DOM el diff esperado de una story sin cambios
+ * es ~0%; un % >0 es señal real (algo cambió), no ruido.
  *
  * Uso: node scripts/visual-regression.mjs --storybook ui/storybook-static
  * Config: visual-baselines/manifest.json →

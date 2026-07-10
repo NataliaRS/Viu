@@ -76,15 +76,18 @@ los custodia `scripts/verify-counts.mjs` contra la realidad del repo.
   y case) — dominado por antialiasing cross-rasterizer + esquinas del pill + banda de pad; NO por render
   de fuente. Por la regla de Natalia (residuo grande → B), el gate de regresión visual va a DOM-vs-DOM,
   no Figma-PNG-vs-DOM.** Quedan estos pendientes derivados:
-- **F5b · switch del POC a DOM-vs-DOM:** baseline = screenshot de la propia story (Chromium), comparado
-  contra el screenshot futuro (mismo rasterizer → estable). Reescribir `capture-baselines`/`visual-
-  regression` para capturar la story, no el nodo Figma. Mantener la story de paridad (`--visual-parity`)
-  como fuente del contenido canónico. (Figma↔DOM queda como chequeo visual a ojo, no gate mecánico.)
-- **F5c · republicar la librería Tokens (`o4tzMPcZIWMzVc67dW6dWW`) — acción MANUAL de Natalia** (no hay
-  path MCP/API para publish). Recién publica el estilo **Label/S Caps** (`a3965a…`, creado vía MCP,
-  figma-build §2) para que propague cross-file.
-- **F5d · migrar consumidores de micro-mayúscula a Label/S Caps** (post-republish, batch aparte):
-  **Badge** (`14:59` label — hoy con override interino `textCase: UPPER` vía MCP; reemplazar por el
-  estilo — + los otros tonos), **Card eyebrow**, **Tag**, **Status**, **FileRow**. Auditados jul-2026,
-  reportados, NO migrados aún. *(Hallazgo: el nodo `14:59` NO tenía el case seteado — Label/S mixto —
-  mientras el código sí uppercasea; era la causa del "ancho distinto" del POC, no fuente ni padding.)*
+- ~~**F5b · switch del POC a DOM-vs-DOM**~~ ✅ HECHO (jul-2026). `capture-baselines.mjs` screenshotea la
+  story (Chromium) como baseline; `visual-regression.mjs` compara story-vs-baseline mismo-rasterizer
+  (~0% si no cambió, ruido cross-rasterizer eliminado). La captura Figma quedó como `capture-figma-refs.mjs`
+  → `visual-figma-refs/` (ayuda de revisión lado-a-lado, NO baseline). `visual-baseline.yml` produce ambos
+  PNG como artifact para aprobación. Doctrina codificada en code-build + README. **Pendiente operativo:**
+  Natalia aprueba la baseline DOM del Badge (story `--visual-parity`) mirándola al lado del ref de Figma;
+  con su OK → commit `baseline:` + `skip:false` activa el gate.
+- ~~**F5c · republicar la librería Tokens**~~ ✅ HECHO (Natalia, jul-2026). `Label/S Caps` (`a3965a…`)
+  quedó importable cross-file.
+- ~~**F5d · migrar consumidores de micro-mayúscula a Label/S Caps**~~ ✅ HECHO (jul-2026, vía MCP,
+  cross-check nodo a nodo; 0 nodos quedan en Label/S). **Badge** 6 tonos (override interino de `14:59`
+  REEMPLAZADO por el estilo) · **Status** 4 · **Tag** main 3 · **FileRow** 3 · **Card** 225 (45 eyebrows
+  `CATEGORÍA` + 180 labels de instancias de Tag heredadas del main). Detalle en decision-log (F5 · F5d).
+  *(Hallazgo del POC: el nodo `14:59` estaba en Label/S mixto mientras el código uppercasea — era la
+  causa del "ancho distinto", no fuente ni padding. Label/S Caps creado en la lib Tokens vía MCP.)*
