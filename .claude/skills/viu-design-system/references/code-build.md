@@ -321,6 +321,23 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
   } }
   ```
   Ejemplos canónicos: `Button` e `Input` (copiar su estructura).
+- **i18n OBLIGATORIO — toggle EN/ES, inglés default (jul-2026).** El `parameters.viu` de la story se
+  escribe en **ESPAÑOL** (fuente); la traducción al **INGLÉS** va en el overlay
+  `.storybook/viu-en.ts`, keyed por el `title` del meta, con los mismos campos de texto (overview,
+  whenToUse, whenNotToUse, anatomy, accessibility, dos, donts — NO status/figma). ViuDocs mergea por
+  locale (lee el global `locale` de la toolbar vía `.storybook/i18n.ts` → `useLocale`; EN cae a ES si
+  falta un campo). **Al agregar o editar un componente hay que agregar/actualizar su entrada en
+  `viu-en.ts` en el mismo cambio.** No se edita la story para el inglés (cero churn); el inglés vive
+  centralizado y refinable en un solo archivo.
+  - **GATE mecánico (no es "acordarse"):** `ui/src/i18n-coverage.test.tsx` (vitest) FALLA si una story
+    con `viu` no tiene entrada EN, si a una entrada EN le falta un campo que sí está en el ES, o si hay
+    una entrada EN huérfana. Corre en `npm run test -w ui` y en CI (`storybook-verify.yml`, job `unit`,
+    en cada push/PR que toca `ui/**`). Es el equivalente i18n de los `verify-*`.
+  - **Foundations e Introduction** NO usan el overlay: traducen inline con `context.globals.locale`
+    (foundations) o el componente `.storybook/IntroContent.tsx` (Introduction). Si agregás una
+    foundation nueva con texto, hacela bilingüe con el helper `t(locale, en, es)` de `i18n.ts`.
+  - **CHROME** (etiquetas de secciones/tarjetas de ViuDocs) vive en `i18n.ts` (`CHROME.en/.es`); si
+    agregás una sección a ViuDocs, sumá su label en ambos idiomas ahí.
 - **Naming / IA:** título `Components/<Atoms|Molecules|Organisms|Patterns>/<Nombre>`. `tags:
   ["autodocs"]` siempre. El `storySort` (preview.tsx) es explícito con `method:"alphabetical"` +
   `order` anidado: top-level `Get started → Foundations → Components`; Foundations en orden pedagógico

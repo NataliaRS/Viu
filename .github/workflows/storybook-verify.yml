@@ -12,6 +12,23 @@ permissions:
   contents: read
 
 jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      # Vitest: tests de componentes + GATE de i18n (i18n-coverage.test.tsx) — falla si un
+      # componente con `parameters.viu` no tiene su traducción EN en .storybook/viu-en.ts.
+      # Así la traducción de cada componente nuevo/editado es MECÁNICA, no "acordarse".
+      - name: typecheck
+        run: npm run typecheck -w ui
+      - name: unit tests + i18n coverage gate
+        run: npm run test -w ui
+
   a11y:
     runs-on: ubuntu-latest
     steps:
