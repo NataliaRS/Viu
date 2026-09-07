@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { tokens, page, h2, Title, mono } from "./_shared";
+import { t } from "../../.storybook/i18n";
 
 const meta: Meta = { title: "Foundations/Grid", parameters: { layout: "fullscreen" } };
 export default meta;
@@ -8,17 +9,27 @@ type Story = StoryObj;
 const MODES = ["base", "sm", "md", "lg", "xl", "2xl"] as const;
 
 export const Responsive: Story = {
-  render: () => {
+  render: (_args, ctx) => {
+    const L = (ctx.globals?.locale as "en" | "es") ?? "en";
     const cols = tokens.grid["grid-columns"] as Record<string, number>;
     return (
       <div style={page}>
         <Title>Grid</Title>
         <p className="viu-type-body-m" style={{ color: "var(--color-text-secondary)", maxWidth: "60ch" }}>
-          Grilla responsive 4→12 columnas. Redimensioná la ventana para ver el cambio de modo
-          (la franja se adapta con <code style={mono}>.viu-grid</code>).
+          {L === "es" ? (
+            <>
+              Grilla responsive 4→12 columnas. Redimensioná la ventana para ver el cambio de modo
+              (la franja se adapta con <code style={mono}>.viu-grid</code>).
+            </>
+          ) : (
+            <>
+              Responsive 4→12 column grid. Resize the window to see the mode change (the strip adapts
+              with <code style={mono}>.viu-grid</code>).
+            </>
+          )}
         </p>
 
-        <h2 style={h2}>especificación por modo</h2>
+        <h2 style={h2}>{t(L, "spec per mode", "especificación por modo")}</h2>
         <div style={{ display: "grid", gap: "var(--space-2xs)" }}>
           {MODES.map((m) => (
             <code key={m} style={{ ...mono, color: "var(--color-text-secondary)" }}>
@@ -28,7 +39,7 @@ export const Responsive: Story = {
           ))}
         </div>
 
-        <h2 style={h2}>columnas (live)</h2>
+        <h2 style={h2}>{t(L, "columns (live)", "columnas (live)")}</h2>
         <div className="viu-grid" style={{ background: "var(--color-bg-raised)", borderRadius: "var(--radius-surface)", paddingBlock: "var(--space-md)" }}>
           {Array.from({ length: 12 }, (_, i) => (
             <div

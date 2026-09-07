@@ -43,6 +43,19 @@ const preview: Preview = {
     avatar: { control: false },
   },
   globalTypes: {
+    locale: {
+      description: "Idioma de la documentación / Documentation language",
+      defaultValue: "en",
+      toolbar: {
+        title: "Language",
+        icon: "globe",
+        items: [
+          { value: "en", title: "English", right: "🇬🇧" },
+          { value: "es", title: "Español", right: "🇪🇸" },
+        ],
+        dynamicTitle: true,
+      },
+    },
     theme: {
       description: "Tema VIU (black-first) — afecta el canvas de componentes",
       defaultValue: "dark",

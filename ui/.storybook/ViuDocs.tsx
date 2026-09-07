@@ -1,4 +1,6 @@
 import { Title, Description, Primary, Controls, Stories, Markdown, useOf } from "@storybook/blocks";
+import { useLocale, CHROME } from "./i18n";
+import { VIU_EN } from "./viu-en";
 
 /**
  * VIU custom Docs page — a single, reusable template so every component gets the
@@ -85,13 +87,20 @@ function Card({ accent, title, items }: { accent: string; title: string; items: 
 }
 
 export function ViuDocs() {
-  let viu: ViuMeta = {};
+  const locale = useLocale();
+  const C = CHROME[locale];
+  let es: ViuMeta = {};
+  let title = "";
   try {
-    const resolved = useOf("meta") as { preparedMeta?: { parameters?: { viu?: ViuMeta } } };
-    viu = resolved?.preparedMeta?.parameters?.viu ?? {};
+    const resolved = useOf("meta") as { preparedMeta?: { title?: string; parameters?: { viu?: ViuMeta } } };
+    es = resolved?.preparedMeta?.parameters?.viu ?? {};
+    title = resolved?.preparedMeta?.title ?? "";
   } catch {
-    viu = {};
+    es = {};
   }
+  // locale en: overlay inglés sobre el español (fallback donde falte). status/figma vienen del ES.
+  const en = locale === "en" && title ? VIU_EN[title] : undefined;
+  const viu: ViuMeta = en ? { ...es, ...en } : es;
   const status = viu.status ? STATUS[viu.status] : undefined;
 
   return (
@@ -122,7 +131,7 @@ export function ViuDocs() {
             rel="noreferrer"
             style={{ marginLeft: "auto", color: "var(--color-text-link)", fontFamily: "var(--font-family-label)", fontSize: "var(--font-size-label-m)" }}
           >
-            Ver en Figma ↗
+            {C.viewInFigma}
           </a>
         ) : null}
       </div>
@@ -130,24 +139,24 @@ export function ViuDocs() {
       {viu.overview ? <Markdown>{viu.overview}</Markdown> : <Description />}
 
       {viu.whenToUse || viu.whenNotToUse ? (
-        <Section title="Cuándo usar">
+        <Section title={C.whenToUse}>
           <div style={cols}>
-            {viu.whenToUse ? <Card accent="var(--color-feedback-success-text)" title="Usalo cuando" items={viu.whenToUse} /> : null}
-            {viu.whenNotToUse ? <Card accent="var(--color-feedback-danger-text)" title="Evitalo cuando" items={viu.whenNotToUse} /> : null}
+            {viu.whenToUse ? <Card accent="var(--color-feedback-success-text)" title={C.useWhen} items={viu.whenToUse} /> : null}
+            {viu.whenNotToUse ? <Card accent="var(--color-feedback-danger-text)" title={C.avoidWhen} items={viu.whenNotToUse} /> : null}
           </div>
         </Section>
       ) : null}
 
-      <Section title="Vista general">
+      <Section title={C.overview}>
         <Primary />
       </Section>
 
-      <Section title="Propiedades">
+      <Section title={C.properties}>
         <Controls />
       </Section>
 
       {viu.anatomy ? (
-        <Section title="Anatomía">
+        <Section title={C.anatomy}>
           <ul style={list}>
             {viu.anatomy.map((t, i) => (
               <li key={i}>{t}</li>
@@ -157,7 +166,7 @@ export function ViuDocs() {
       ) : null}
 
       {viu.accessibility ? (
-        <Section title="Accesibilidad">
+        <Section title={C.accessibility}>
           <ul style={list}>
             {viu.accessibility.map((t, i) => (
               <li key={i}>{t}</li>
@@ -167,15 +176,15 @@ export function ViuDocs() {
       ) : null}
 
       {viu.dos || viu.donts ? (
-        <Section title="Do & Don't">
+        <Section title={C.doAndDont}>
           <div style={cols}>
-            {viu.dos ? <Card accent="var(--color-feedback-success-text)" title="✓ Hacé" items={viu.dos} /> : null}
-            {viu.donts ? <Card accent="var(--color-feedback-danger-text)" title="✗ No hagas" items={viu.donts} /> : null}
+            {viu.dos ? <Card accent="var(--color-feedback-success-text)" title={C.do} items={viu.dos} /> : null}
+            {viu.donts ? <Card accent="var(--color-feedback-danger-text)" title={C.dont} items={viu.donts} /> : null}
           </div>
         </Section>
       ) : null}
 
-      <Section title="Ejemplos">
+      <Section title={C.examples}>
         <Stories includePrimary={false} />
       </Section>
     </>

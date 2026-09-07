@@ -9,27 +9,38 @@ const SPACE = ["3xs", "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", 
 const RADIUS = ["xs", "control", "surface", "pill"];
 
 export const Spacing: Story = {
-  render: () => (
-    <div style={page}>
-      <Title>Spacing</Title>
-      <p className="viu-type-body-m" style={{ color: "var(--color-text-secondary)" }}>
-        Escala <code style={mono}>space/*</code> (Scales).
-      </p>
-      <div style={{ display: "grid", gap: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-        {SPACE.map((s) => {
-          const v = tokens.scales[`space/${s}`];
-          return (
-            <div key={s} style={{ display: "flex", alignItems: "center", gap: "var(--space-md)" }}>
-              <code style={{ ...mono, width: 110, flex: "none", color: "var(--color-text-tertiary)" }}>
-                space/{s} · {v}
-              </code>
-              <div style={{ height: 16, width: v, background: "var(--color-bg-brand)", borderRadius: "var(--radius-xs)" }} />
-            </div>
-          );
-        })}
+  render: (_args, ctx) => {
+    const L = (ctx.globals?.locale as "en" | "es") ?? "en";
+    return (
+      <div style={page}>
+        <Title>Spacing</Title>
+        <p className="viu-type-body-m" style={{ color: "var(--color-text-secondary)" }}>
+          {L === "es" ? (
+            <>
+              Escala <code style={mono}>space/*</code> (Scales).
+            </>
+          ) : (
+            <>
+              <code style={mono}>space/*</code> scale (Scales).
+            </>
+          )}
+        </p>
+        <div style={{ display: "grid", gap: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
+          {SPACE.map((s) => {
+            const v = tokens.scales[`space/${s}`];
+            return (
+              <div key={s} style={{ display: "flex", alignItems: "center", gap: "var(--space-md)" }}>
+                <code style={{ ...mono, width: 110, flex: "none", color: "var(--color-text-tertiary)" }}>
+                  space/{s} · {v}
+                </code>
+                <div style={{ height: 16, width: v, background: "var(--color-bg-brand)", borderRadius: "var(--radius-xs)" }} />
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  ),
+    );
+  },
 };
 
 export const Radius: Story = {

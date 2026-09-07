@@ -26,6 +26,12 @@ los custodia `scripts/verify-counts.mjs` contra la realidad del repo.
 - **Código (`NataliaRS/Viu`, rama `claude/viu-design-system`):** **29 átomos + 35 moléculas + 9
   organismos + 4 patrones = 73 componentes** en `@viu/ui`, Storybook en vivo
   (https://nataliars.github.io/Viu/) con chrome de marca, ViuDocs y Foundations interactivas.
+  **i18n (jul-2026): toggle EN/ES en la toolbar (`globalTypes.locale`, default EN).** Infra en
+  `.storybook/i18n.ts` (`useLocale` lee el canal del preview + fallback URL; `CHROME` en/es; helper
+  `t`). El contenido de docs de cada componente vive en español en su story (`parameters.viu`) y en
+  inglés en el overlay `.storybook/viu-en.ts` (74 entries, keyed por título) — ViuDocs mergea por
+  locale (EN cae a ES si falta). Foundations leen `context.globals.locale`; Introduction = componente
+  bilingüe `.storybook/IntroContent.tsx`. El inglés lo generó Claude fiel al copy ES, refinable por Natalia.
   **C1 design-to-code COMPLETO (5/5):** ✅ Kbd + ✅ SegmentedControl + ✅ ChoiceGroup + ✅ Combobox +
   ✅ DateRangePicker portados. **Paridad Figma↔código restaurada** — cobertura 1:1. **Conteo de código
   (F1.1 jul-2026):** en `ui/src` hay **74 carpetas publicables con story** — distinto del 73 de Figma por

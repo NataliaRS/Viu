@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { tokens, page, h2, grid, mono, Title, Swatch, copy, contrast } from "./_shared";
+import { t } from "../../.storybook/i18n";
 
 const meta: Meta = { title: "Foundations/Colors", parameters: { layout: "fullscreen" } };
 export default meta;
@@ -19,14 +20,19 @@ const colorFamilies = (prefix: string) => {
 };
 
 export const Primitives: Story = {
-  render: () => {
+  render: (_args, ctx) => {
+    const L = (ctx.globals?.locale as "en" | "es") ?? "en";
     const fams = colorFamilies("color/");
     const alpha = primEntries.filter(([n]) => n.startsWith("alpha/"));
     return (
       <div style={page}>
         <Title>Primitives · Color</Title>
         <p className="viu-type-body-m" style={{ color: "var(--color-text-secondary)", maxWidth: "60ch" }}>
-          Valores crudos (clic para copiar). Los componentes no los consumen directo — usan Semantic.
+          {t(
+            L,
+            "Raw values (click to copy). Components don't consume them directly — they use Semantic.",
+            "Valores crudos (clic para copiar). Los componentes no los consumen directo — usan Semantic.",
+          )}
         </p>
         {Object.entries(fams).map(([family, items]) => (
           <div key={family}>
@@ -50,7 +56,8 @@ export const Primitives: Story = {
 };
 
 export const Semantic: Story = {
-  render: () => {
+  render: (_args, ctx) => {
+    const L = (ctx.globals?.locale as "en" | "es") ?? "en";
     const groups = ["bg", "text", "border", "feedback"];
     const dark = tokens.semantic.dark;
     const light = tokens.semantic.light;
@@ -58,8 +65,11 @@ export const Semantic: Story = {
       <div style={page}>
         <Title>Semantic · Color</Title>
         <p className="viu-type-body-m" style={{ color: "var(--color-text-secondary)", maxWidth: "60ch" }}>
-          La única capa de color que consumen los componentes. El swatch refleja el tema activo
-          (cambialo arriba ↑); los hex muestran Dark / Light. Clic para copiar el token.
+          {t(
+            L,
+            "The only color layer components consume. The swatch reflects the active theme (change it above ↑); the hex values show Dark / Light. Click to copy the token.",
+            "La única capa de color que consumen los componentes. El swatch refleja el tema activo (cambialo arriba ↑); los hex muestran Dark / Light. Clic para copiar el token.",
+          )}
         </p>
         {groups.map((g) => (
           <div key={g}>
@@ -74,7 +84,7 @@ export const Semantic: Story = {
                       key={name}
                       type="button"
                       onClick={() => copy(v(name))}
-                      title={`Copiar ${v(name)}`}
+                      title={t(L, `Copy ${v(name)}`, `Copiar ${v(name)}`)}
                       style={{
                         textAlign: "left",
                         padding: 0,
@@ -106,16 +116,26 @@ export const Semantic: Story = {
 };
 
 export const Contrast: Story = {
-  render: () => {
+  render: (_args, ctx) => {
+    const L = (ctx.globals?.locale as "en" | "es") ?? "en";
     const dark = tokens.semantic.dark;
     const bgKeys = ["color/bg/base", "color/bg/raised", "color/bg/elevated", "color/bg/sunken"];
     const textKeys = ["color/text/primary", "color/text/secondary", "color/text/tertiary", "color/text/muted", "color/text/link", "color/text/brand"];
     return (
       <div style={page}>
-        <Title>Contraste · WCAG (tema Dark)</Title>
+        <Title>{t(L, "Contrast · WCAG (Dark theme)", "Contraste · WCAG (tema Dark)")}</Title>
         <p className="viu-type-body-m" style={{ color: "var(--color-text-secondary)", maxWidth: "60ch" }}>
-          Ratio de contraste de cada texto sobre cada fondo. <strong>AA</strong> = ≥ 4.5 (texto normal),
-          ≥ 3 (texto grande). Sobre fondos sólidos del tema oscuro.
+          {L === "es" ? (
+            <>
+              Ratio de contraste de cada texto sobre cada fondo. <strong>AA</strong> = ≥ 4.5 (texto normal),
+              ≥ 3 (texto grande). Sobre fondos sólidos del tema oscuro.
+            </>
+          ) : (
+            <>
+              Contrast ratio of each text over each background. <strong>AA</strong> = ≥ 4.5 (normal text),
+              ≥ 3 (large text). Over the dark theme's solid backgrounds.
+            </>
+          )}
         </p>
         <div style={{ overflowX: "auto", marginTop: "var(--space-lg)" }}>
           <table style={{ borderCollapse: "separate", borderSpacing: 6 }}>
@@ -123,7 +143,7 @@ export const Contrast: Story = {
               <tr>
                 <th scope="col">
                   <span style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>
-                    Texto sobre fondo
+                    {t(L, "Text over background", "Texto sobre fondo")}
                   </span>
                 </th>
                 {bgKeys.map((b) => (
@@ -134,20 +154,20 @@ export const Contrast: Story = {
               </tr>
             </thead>
             <tbody>
-              {textKeys.map((t) => (
-                <tr key={t}>
+              {textKeys.map((tk) => (
+                <tr key={tk}>
                   <td style={{ ...mono, color: "var(--color-text-tertiary)", paddingRight: "var(--space-sm)", whiteSpace: "nowrap" }}>
-                    {t.replace("color/text/", "text/")}
+                    {tk.replace("color/text/", "text/")}
                   </td>
                   {bgKeys.map((b) => {
-                    const r = contrast(dark[t], dark[b]);
+                    const r = contrast(dark[tk], dark[b]);
                     const pass = r >= 4.5;
                     return (
                       <td key={b}>
                         <div
                           style={{
                             background: dark[b],
-                            color: dark[t],
+                            color: dark[tk],
                             border: "1px solid var(--color-border-subtle)",
                             borderRadius: "var(--radius-control)",
                             padding: "var(--space-sm)",
@@ -174,7 +194,8 @@ export const Contrast: Story = {
 };
 
 export const Compare: Story = {
-  render: () => {
+  render: (_args, ctx) => {
+    const L = (ctx.globals?.locale as "en" | "es") ?? "en";
     const dark = tokens.semantic.dark;
     const light = tokens.semantic.light;
     const cell = (hex: string) => (
@@ -185,9 +206,13 @@ export const Compare: Story = {
     );
     return (
       <div style={page}>
-        <Title>Dark / Light · lado a lado</Title>
+        <Title>{t(L, "Dark / Light · side by side", "Dark / Light · lado a lado")}</Title>
         <p className="viu-type-body-m" style={{ color: "var(--color-text-secondary)", maxWidth: "60ch" }}>
-          Cada token semántico en ambos temas, sin depender del tema activo.
+          {t(
+            L,
+            "Every semantic token in both themes, independent of the active theme.",
+            "Cada token semántico en ambos temas, sin depender del tema activo.",
+          )}
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "minmax(180px, 1fr) 1fr 1fr", gap: "var(--space-2xs) var(--space-lg)", marginTop: "var(--space-lg)", alignItems: "center" }}>
           <div style={h2}>token</div>
