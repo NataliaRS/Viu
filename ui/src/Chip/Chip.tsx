@@ -33,7 +33,7 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
         onClick={onToggle}
         className={cx(styles.chip, styles.choice, selected && styles.choiceSelected, className)}
       >
-        {selected ? <Icon glyph="Check" size={14} /> : null}
+        {selected ? <Icon glyph="Check" size={16} /> : null}
         <span className={styles.label}>{label}</span>
       </button>
     );
@@ -56,7 +56,7 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
           disabled={disabled}
           onClick={onRemove}
         >
-          <Icon glyph="Close" size={12} />
+          <Icon glyph="Close" size={16} />
         </button>
       ) : null}
     </span>
