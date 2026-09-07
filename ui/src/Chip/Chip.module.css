@@ -33,6 +33,12 @@
 .avatar:focus-within {
   border-color: var(--color-border-focus);
 }
+/* Inner wrapper around the avatar node — layout only. Must NOT reuse `.avatar`
+   (the chip-container class), whose bg/border would draw a rectangular box inside the chip. */
+.avatarSlot {
+  display: inline-flex;
+  flex: none;
+}
 .avatar :global(span) { flex: none; }
 
 .remove {

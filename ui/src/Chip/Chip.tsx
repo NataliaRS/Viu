@@ -46,7 +46,7 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
       className={cx(styles.chip, styles[variant], disabled && styles.disabled, className)}
       {...rest}
     >
-      {variant === "avatar" && avatar ? <span className={styles.avatar}>{avatar}</span> : null}
+      {variant === "avatar" && avatar ? <span className={styles.avatarSlot}>{avatar}</span> : null}
       <span className={styles.label}>{label}</span>
       {onRemove ? (
         <button
