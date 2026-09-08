@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Drawer, type DrawerSide } from "./Drawer";
 import { Button } from "../Button/Button";
-import { Input } from "../Input/Input";
+import { Select } from "../Select/Select";
 import { Textarea } from "../Textarea/Textarea";
 import { FormField } from "../FormField/FormField";
 
@@ -17,24 +17,55 @@ interface DrawerDemoArgs {
   title: string;
   showClose: boolean;
   showFooter: boolean;
-  body: string;
+}
+
+const MAX_COMMENTS = 280;
+
+/** Contenido del nodo Figma 227:53: un Select "Rol" + un Textarea "Comentarios"
+ *  con helper y contador. El contador es vivo (component → useState). */
+function EditProjectBody() {
+  const [comments, setComments] = useState(
+    "Me encantó la nueva experiencia de onboarding. Lo único confuso fue el segundo paso.",
+  );
+  return (
+    <>
+      <FormField label="Rol" htmlFor="drawer-rol" helper="Elegí tu rol principal en el equipo.">
+        <Select id="drawer-rol" defaultValue="Diseño de producto">
+          <option>Diseño de producto</option>
+          <option>Ingeniería</option>
+          <option>Producto</option>
+          <option>Marketing</option>
+          <option>Soporte</option>
+        </Select>
+      </FormField>
+      <FormField
+        label="Comentarios"
+        htmlFor="drawer-comentarios"
+        helper={
+          <span style={{ display: "flex", justifyContent: "space-between", gap: "var(--space-sm)" }}>
+            <span>Contanos qué te pareció.</span>
+            <span>
+              {comments.length}/{MAX_COMMENTS}
+            </span>
+          </span>
+        }
+      >
+        <Textarea
+          id="drawer-comentarios"
+          rows={3}
+          maxLength={MAX_COMMENTS}
+          value={comments}
+          onChange={(e) => setComments(e.target.value)}
+        />
+      </FormField>
+    </>
+  );
 }
 
 const editFooter = (
   <>
     <Button variant="secondary">Cancelar</Button>
     <Button variant="primary">Guardar cambios</Button>
-  </>
-);
-
-const editBody = (
-  <>
-    <FormField label="Nombre" htmlFor="drawer-name">
-      <Input id="drawer-name" defaultValue="Rediseño 2026" />
-    </FormField>
-    <FormField label="Descripción" htmlFor="drawer-desc">
-      <Textarea id="drawer-desc" defaultValue="Rework del onboarding y la home." />
-    </FormField>
   </>
 );
 
@@ -55,7 +86,7 @@ const meta = {
           showClose={a.showClose}
           footer={a.showFooter ? editFooter : undefined}
         >
-          {a.body}
+          <EditProjectBody />
         </Drawer>
       </>
     );
@@ -66,17 +97,15 @@ const meta = {
     title: "Editar proyecto",
     showClose: true,
     showFooter: true,
-    body: "Contenido del panel: formularios, detalle o filtros que no justifican una página entera.",
   },
   argTypes: {
     side: { type: { name: "enum", value: ["right", "left"] }, control: "inline-radio", options: ["right", "left"], description: "Lado de entrada.", table: { category: "Variante" } },
     title: { type: { name: "string" }, control: "text", description: "Título del panel.", table: { category: "Texto" } },
-    body: { type: { name: "string" }, control: "text", description: "Contenido del cuerpo.", table: { category: "Texto" } },
     showClose: { type: { name: "boolean" }, control: "boolean", description: "Botón de cierre.", table: { category: "Estructura" } },
     showFooter: { type: { name: "boolean" }, control: "boolean", description: "Footer con acciones.", table: { category: "Estructura" } },
   },
   parameters: {
-    controls: { include: ["side", "title", "body", "showClose", "showFooter"] },
+    controls: { include: ["side", "title", "showClose", "showFooter"] },
     viu: {
       status: "Stable",
       figma: "https://www.figma.com/design/kjEg0KpLID4cH00DruERTN/Componentes?node-id=227-53",
@@ -117,14 +146,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
 
-/** A form inside the body, sliding in from the left. */
+/** El mismo formulario, entrando desde la izquierda. */
 export const FromLeft: Story = {
   parameters: { controls: { disable: true } },
   render: () => {
     const [open, setOpen] = useState(true);
     return (
-      <Drawer open={open} onClose={() => setOpen(false)} side="left" title="Filtros" footer={editFooter}>
-        {editBody}
+      <Drawer open={open} onClose={() => setOpen(false)} side="left" title="Editar proyecto" footer={editFooter}>
+        <EditProjectBody />
       </Drawer>
     );
   },
