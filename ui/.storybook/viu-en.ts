@@ -784,13 +784,21 @@ export const VIU_EN: Record<string, Partial<ViuMeta>> = {
     donts: ["Don't put long flows or many fields in it.", "Don't use it for global system messages.", "Don't overdo actions; one primary is enough."],
   },
   "Components/Organisms/Table": {
-    overview: "Tabular container: column header + rows (TableRow), with dividers.",
+    overview:
+      "Tabular container: column header + rows (TableRow) with dividers, plus an optional footer (count + Pagination).",
     whenToUse: ["Data in comparable columns.", "Listings with sorting/selection."],
-    whenNotToUse: ["Content without columns → use List."],
-    anatomy: ["role=table.", "Header (column titles).", "rowgroup with TableRow."],
-    accessibility: ["Consistent role=table/row/cell.", "Align header and cells."],
-    dos: ["Keep column widths consistent."],
-    donts: ["Don't use Table for layout."],
+    whenNotToUse: ["Content without columns → use List.", "With a search/filter toolbar → use the Data table pattern."],
+    anatomy: [
+      "role=table: header (columnheader) + rowgroup of TableRows, with dividers between rows.",
+      "Row: selection checkbox, cells (Avatar+name, Role, Status via Badge, Activity) and a chevron.",
+      "Optional footer (sibling of role=table): result count + Pagination.",
+    ],
+    accessibility: [
+      "Consistent role=table/row/cell/columnheader; align header and cells.",
+      "The footer sits outside role=table so it doesn't break aria-required-children.",
+    ],
+    dos: ["Keep column widths consistent.", "Communicate status with text (Badge), not color alone."],
+    donts: ["Don't use Table for layout.", "Don't put the Pagination inside role=table."],
   },
   "Components/Organisms/TreeView": {
     overview: "Hierarchical tree container. Composes TreeItem with indentation, expand/collapse, selection and, optionally, a checkbox/icon per node.",

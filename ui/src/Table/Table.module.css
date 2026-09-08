@@ -1,5 +1,19 @@
+.root {
+  width: 100%;
+}
 .table {
   width: 100%;
+}
+/* Footer (Figma 372:6): conteo a la izquierda + Pagination a la derecha,
+   separado del cuerpo por un divisor superior. */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  min-height: 56px;
+  padding-inline: var(--space-md);
+  border-top: var(--border-width-default) solid var(--color-border-default);
 }
 .header {
   display: flex;
