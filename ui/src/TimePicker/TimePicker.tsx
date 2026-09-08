@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { Icon } from "../Icon/Icon";
+import { MenuItem } from "../MenuItem/MenuItem";
 import styles from "./TimePicker.module.css";
 
 export interface TimePickerProps {
@@ -47,9 +48,11 @@ function buildOptions(min: string, max: string, step: number): string[] {
 
 /**
  * Time picker (Figma `409:6`, estado `Abierto` `1009:6`): un control que abre un
- * dropdown propio de horas — REEMPLAZA al `<input type=time>` nativo. La opción
- * elegida usa `bg/subtle` + `text/primary` + un check Icon (`text/brand`) a la
- * derecha; el chevron del control apunta arriba (`stat_1`) al estar abierto.
+ * dropdown propio de horas — REEMPLAZA al `<input type=time>` nativo. Cada opción
+ * reusa `MenuItem` (mismos principios: Body/M, padding, radio). La opción elegida
+ * usa el estado `selected` de MenuItem — fondo `bg/brand-subtle` (rojo) + check
+ * Icon (`text/brand`) a la derecha; el chevron del control apunta arriba
+ * (`stat_1`) al estar abierto.
  */
 export const TimePicker = forwardRef<HTMLButtonElement, TimePickerProps>(function TimePicker(
   {
@@ -162,18 +165,23 @@ export const TimePicker = forwardRef<HTMLButtonElement, TimePickerProps>(functio
           {options.map((opt, i) => {
             const isSelected = opt === selected;
             return (
-              <button
+              <MenuItem
                 key={opt}
-                type="button"
                 role="option"
                 aria-selected={isSelected}
-                className={cx(styles.option, isSelected && styles.selected, i === activeIndex && styles.active)}
+                selected={isSelected}
+                // Cursor de teclado (activo): resalta indigo salvo en la fila
+                // seleccionada, cuyo rojo (`selected`) siempre gana.
+                style={
+                  i === activeIndex && !isSelected
+                    ? { background: "var(--color-bg-brand-2-subtle)" }
+                    : undefined
+                }
                 onMouseEnter={() => setActiveIndex(i)}
                 onClick={() => commit(opt)}
               >
-                <span>{opt}</span>
-                {isSelected ? <Icon glyph="check" size={16} className={styles.check} /> : null}
-              </button>
+                {opt}
+              </MenuItem>
             );
           })}
         </div>

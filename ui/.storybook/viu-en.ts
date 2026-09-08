@@ -498,7 +498,7 @@ export const VIU_EN: Record<string, Partial<ViuMeta>> = {
     overview: "A single action within a Menu: optional icon, label and keyboard shortcut.",
     whenToUse: ["Each command of a Menu."],
     whenNotToUse: ["As a primary button → use Button.", "An option of a Select → use <option>."],
-    anatomy: ["Icon (optional) + label (Body/M) + shortcut (Body/S).", "States: default/hover/disabled."],
+    anatomy: ["Icon (optional) + label (Body/M) + shortcut (Body/S) or a check when selected.", "States: default/hover/selected/disabled."],
     accessibility: ["role=menuitem; Enter/Space activate it.", "The shortcut is shown as a hint (register it at the app level too)."],
     dos: ["Clear, short verbs.", "Show the shortcut if it exists."],
     donts: ["Don't mix navigation destinations with actions without distinguishing them."],

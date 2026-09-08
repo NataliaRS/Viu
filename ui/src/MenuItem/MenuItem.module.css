@@ -21,6 +21,15 @@
 .item:hover:not(:disabled) {
   background: var(--color-bg-brand-2-subtle);
 }
+/* Seleccionado (Figma): fondo rojo; gana sobre el hover. */
+.selected,
+.selected:hover:not(:disabled) {
+  background: var(--color-bg-brand-subtle);
+}
+.check {
+  flex: none;
+  color: var(--color-text-brand);
+}
 .item:focus-visible {
   outline: var(--border-width-strong) solid var(--color-border-focus);
   outline-offset: -2px;

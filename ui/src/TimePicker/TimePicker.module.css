@@ -92,31 +92,5 @@
   border-radius: var(--radius-control);
   box-shadow: var(--shadow-overlay);
 }
-.option {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-sm);
-  border: 0;
-  background: none;
-  border-radius: var(--radius-control);
-  font-family: var(--font-family-label);
-  font-size: var(--font-size-label-m);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  text-align: left;
-  transition: background-color var(--motion-duration-micro) var(--motion-ease-standard);
-}
-.option:hover,
-.active {
-  background: var(--color-bg-brand-2-subtle);
-  color: var(--color-text-primary);
-}
-.selected {
-  background: var(--color-bg-subtle);
-  color: var(--color-text-primary);
-}
-.check { flex: none; color: var(--color-text-brand); }
+/* Cada opción reusa el componente `MenuItem` (ver TimePicker.tsx):
+   Body/M, padding xs/sm, radio de control, seleccionado = bg/brand-subtle. */
