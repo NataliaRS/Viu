@@ -73,9 +73,8 @@
   background: var(--color-text-disabled);
 }
 .label {
-  font-family: var(--font-family-label);
-  font-size: var(--font-size-label-m);
-  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-m);
   line-height: var(--line-height-relaxed);
   color: var(--color-text-primary);
 }
