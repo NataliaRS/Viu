@@ -174,5 +174,7 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
   alias, scopes `ALL_FILLS/STROKE_COLOR/EFFECT_COLOR`), verificado por read-back. Luego snapshot
   regenerado a mano 1:1, `sync:tokens` OK (188/66 en paridad), `build:tokens` → dist, `check:tokens` OK.
   Conteos del skill actualizados (state.md, figma-build §2/§10/§13, SKILL.md) → verify-counts/pointers 0.
-- **Pendiente (Natalia):** **republicar la librería Tokens** para que las 4 primitivas + los remapeos
-  propaguen a los consumidores en el archivo Componentes (acción manual, no hay path MCP).
+- **Republicación (Natalia, sep-2026 — HECHO):** republicó la librería Tokens
+  `o4tzMPcZIWMzVc67dW6dWW` → las 4 primitivas nuevas + los remapeos de `text/*` ya propagan a los
+  consumidores en el archivo Componentes (mismo patrón que F5c/Label-S-Caps). Batch de contraste AA
+  cerrado: Figma ↔ snapshot ↔ tokens/*.json ↔ dist en paridad y publicado.
