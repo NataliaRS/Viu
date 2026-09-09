@@ -100,7 +100,9 @@ const meta = {
       donts: ["No metas flujos largos ni muchos campos.", "No lo uses para mensajes globales del sistema.", "No abuses de acciones; una primaria alcanza."],
     },
   },
-  decorators: [(S) => <div style={{ padding: "var(--space-4xl) 0", textAlign: "center" }}>{S()}</div>],
+  // Centrar el disparador con flex (no `text-align`, que se heredaría al panel y
+  // centraría su contenido — el panel del Popover no se portalea).
+  decorators: [(S) => <div style={{ padding: "var(--space-4xl) 0", display: "flex", justifyContent: "center" }}>{S()}</div>],
 } satisfies Meta<PopoverDemoArgs>;
 
 export default meta;

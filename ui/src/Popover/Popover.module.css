@@ -22,6 +22,11 @@
   border-radius: var(--radius-surface);
   box-shadow: var(--shadow-overlay);
   outline: none;
+  /* El panel NO se portalea (a diferencia de Modal/Drawer): queda anclado en el
+     árbol del disparador y hereda su `text-align`. Un ancestro centrado (o
+     cualquier layout) NO debe centrar el contenido del popover — Figma 187:38 es
+     alineado a la izquierda. Fijamos el eje del texto en el panel. */
+  text-align: start;
 }
 
 .bottom {
