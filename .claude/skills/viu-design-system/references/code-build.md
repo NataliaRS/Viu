@@ -88,6 +88,16 @@ moléculas. Paridad Figma↔código restaurada: 29/35/9 en ambos lados).*
   Overlays comparten `src/overlay/useFocusTrap.ts` (foco atrapado + Esc + restore) y `useScrollLock`;
   Modal/Drawer van por `createPortal` con scrim `alpha/black-72` en `z/modal`; Popover es anclado
   (trigger slot + caret + click-outside) en `z/popover`.
+  - **Table** = header (columnheader) + rowgroup de TableRow + prop `footer` opcional (conteo +
+    Pagination, espeja Figma `372:6`). El footer se renderiza como **hermano** de `role=table` (NO
+    fila) para no romper `aria-required-children`; el camino sin footer queda byte-idéntico → DataTable
+    y demás consumidores no cambian. La story del organismo espeja el ejemplo de Figma (Avatar+nombre,
+    Rol, Estado=Badge soft con punto, Actividad, chevron, fila seleccionada roja) — no un demo pelado.
+  - **MenuItem — estado `selected` (sep-2026, Figma "Seleccionado"):** fondo `bg/brand-subtle` (rojo)
+    + check `text/brand` a la derecha; gana sobre el `:hover`. **TimePicker** reusa MenuItem para las
+    opciones del dropdown (patrón Combobox: `role="option"` + `aria-selected` + `selected`; el cursor
+    de teclado resalta indigo salvo en la fila seleccionada, cuyo rojo siempre gana) — dejó de tener
+    botones con estilos propios y las opciones pasan a Body/M (no Label/M).
   - **Card — REESCRITA jun-2026 (props estructuradas, paridad con Figma `434:6`).** Estaba portada
     como contenedor genérico (solo `surface`/`orientation`/`media`/`footer`/`badge`/`accent`+children)
     → había **perdido ~15 de las 20 props** de la Card de Figma. Ahora expone toda la anatomía como
@@ -180,16 +190,20 @@ en tests; el SVG decorativo va `aria-hidden`. **Símbolos embebidos (`symbolPath
 ### Regla de consumo de tokens (código) — CERO valores mágicos
 Un componente nunca usa hex ni números sueltos. Mapa de tokenización para CADA componente nuevo:
 - color → SOLO Semantic (`--color-bg|text|border|feedback-*`). Nunca primitivos de color ni hex.
-- **Contraste por superficie (F5, jul-2026 — regla de accesibilidad):** `text-tertiary` (#828287)
-  solo alcanza AA (4.5:1) sobre `bg/base` (5.18); sobre `bg/raised` (4.45) y `bg/elevated` (3.54)
-  NO pasa. Para **texto legible** (labels, helper, eyebrow, meta, caption, shortcut, count…) sobre
-  raised/elevated/subtle → usar **`text-secondary`** (pasa en todas: 8.36/7.18/5.72). `text-disabled`
-  es SOLO para contenido realmente inactivo (marcar el elemento/ancestro con `disabled`/`aria-disabled`
-  para que axe lo exima); nunca para de-énfasis de texto activo (era un bug recurrente: Card eyebrow/
-  meta, MenuItem shortcut). Ídem feedback: `feedback/danger-text` fallaba sobre elevated (3.98) →
-  `alert/400` se aclaró a `#f57377` (elevated 4.90). El gate `storybook-verify.yml` (axe sobre cada
-  story) custodia esto por commit; la única excepción documentada es la matriz de `Foundations/Colors`
-  (muestra combos sub-AA a propósito), acotada en `.storybook/test-runner.ts`.
+- **Contraste por superficie (regla de accesibilidad):** los TRES roles de texto de apoyo
+  (`text-secondary·tertiary·muted`) pasan AA 4.5:1 como **body** en toda superficie hasta
+  `bg/elevated` (dark) / `bg/strong` (light). *(corregido sep-2026: antes `text-tertiary` #828287
+  solo pasaba sobre `bg/base` [5.18] y fallaba en raised/elevated [4.45/3.54], y `muted` peor [2.63
+  en elevated, debajo de 3:1]; se re-steppeó la rampa con 4 grises nuevos
+  `neutral/250·350·525·550` → Dark sec→250·ter→300·muted→350, Light sec→600·ter→550·muted→525.
+  Ahora los tres son body-legibles; ver decision-log sep-2026.)* Elegí el rol por **jerarquía**
+  (secondary = más énfasis → muted = menos), NO por contraste — ya no hace falta "subir a secondary
+  para pasar AA". `text-disabled` sigue siendo SOLO para contenido realmente inactivo (marcar el
+  elemento/ancestro con `disabled`/`aria-disabled` para que axe lo exima); nunca para de-énfasis de
+  texto activo. Feedback: `feedback/danger-text` se aclaró a `alert/400` `#f57377` (elevated 4.90,
+  jul-2026). El gate `storybook-verify.yml` (axe sobre cada story) custodia esto por commit; la única
+  excepción documentada es la matriz de `Foundations/Colors` (muestra combos sub-AA a propósito),
+  acotada en `.storybook/test-runner.ts`.
 - espaciado/padding/gap → `--space-*` (Scales) · radios → `--radius-*` (Scales) · z-index → `--z-*`.
 - transiciones → `transition-duration: var(--motion-duration-micro)` + `transition-timing-function:
   var(--motion-ease-standard)` (Scales). Animaciones largas → `--motion-duration-loop`.
@@ -444,9 +458,20 @@ El Storybook es el producto de marca, no un catálogo. Reglas que TODO component
     `role=dialog` + `aria-modal` + `aria-labelledby`(title)/`aria-describedby`(subtitle); dialog
     `tabIndex=-1`; cierre por scrim con `onMouseDown` + `e.target===e.currentTarget` (no cierra al
     arrastrar desde adentro).
+    - **GOTCHA tipografía/color en portal (sep-2026):** el panel portea a `<body>`, FUERA del scope
+      de tokens de tipografía/color → el texto suelto cae a serif + color por defecto (contraste
+      insuficiente = falla axe `color-contrast`). Todo contenedor de texto del overlay DEBE declarar
+      `font-family` + `color` explícitos. `.body` de Modal ya lo hacía; el de **Drawer** no → se
+      agregó `font-family: body` + `font-size: body-m` + `line-height: relaxed` + `color:
+      text-secondary` espejando Modal. Regla: en cualquier superficie porteada, no confíes en herencia.
   - Popover: anclado (NO portal) — `position:relative` root con slot `trigger` + panel `absolute`
     `z/popover`; non-modal pero reusa el focus-trap; cierre extra por click-outside (`pointerdown`
     capture, fuera del root). Caret = cuadrado rotado 45° (literal 10px, no hay token de caret).
+    - **GOTCHA `text-align` heredado (sep-2026):** al NO portear, el panel queda en el árbol del
+      disparador y HEREDA su `text-align`. Un ancestro centrado (o el decorator de la story con
+      `text-align:center`) centraba el título/cuerpo del panel, cuando Figma (187:38) es alineado a
+      la izquierda. Fix robusto: `.panel { text-align: start }` — el eje del texto del panel no debe
+      depender del layout del consumidor. (Modal/Drawer no sufren esto porque portean.)
   - **Flip/colisión (B5, jun-2026):** hook compartido `src/overlay/useFlipSide.ts` (NO exportado del
     index) — `useFlipSide(preferred)` devuelve `{side, recompute}`; `recompute(anchor, floating)` mide
     rects contra el viewport (gap 8px) y voltea al lado opuesto solo si el preferido no entra Y el
