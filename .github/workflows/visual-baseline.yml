@@ -32,13 +32,13 @@ jobs:
       - run: npm ci
       # capture-baselines.mjs resuelve `playwright` desde ui/ (1.56); el root tiene 1.61
       # (hoisted por test-runner). Instalamos con el binario de ui para el build correcto.
-      # Resiliencia: quitar el source apt de google-chrome (a veces sirve un Packages.gz
-      # desincronizado → apt-get update de --with-deps aborta). No lo usamos; Chromium
-      # viene del CDN de Playwright.
-      - name: Install Chromium (sin el repo apt roto de google-chrome)
+      # Resiliencia: quitar CUALQUIER source apt que referencie dl.google.com (.list o
+      # deb822 .sources) y, si `--with-deps` aun así falla, caer a instalar solo el
+      # binario de Chromium — inmune a repos apt de terceros rotos.
+      - name: Install Chromium (resiliente a repos apt de terceros rotos)
         run: |
-          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
-          ./ui/node_modules/.bin/playwright install --with-deps chromium
+          sudo bash -c 'grep -rl dl.google.com /etc/apt/sources.list.d/ 2>/dev/null | xargs -r rm -f' || true
+          ./ui/node_modules/.bin/playwright install --with-deps chromium || ./ui/node_modules/.bin/playwright install chromium
 
       - name: Render de referencia del nodo Figma (ayuda de revisión, NO baseline)
         env:

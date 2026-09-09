@@ -41,14 +41,16 @@ jobs:
       # lockfile propio → se instala y buildea desde la raíz (mismo patrón que
       # deploy-storybook.yml). Los binarios se hoistean a node_modules/.bin.
       - run: npm ci
-      # Resiliencia: el runner trae un source apt de google-chrome que a veces sirve
-      # un Packages.gz desincronizado (Hash Sum mismatch) → `apt-get update` de
-      # `--with-deps` aborta (exit 100) aunque Chromium venga del CDN de Playwright, no
-      # de ese repo. Lo quitamos antes de instalar (no lo usamos).
-      - name: Install Chromium (sin el repo apt roto de google-chrome)
+      # Resiliencia: el runner trae un source apt de google-chrome (a veces sirve un
+      # Packages.gz desincronizado → Hash Sum mismatch → `apt-get update` de
+      # `--with-deps` aborta con exit 100). Quitamos CUALQUIER source que lo referencie
+      # (formato .list o deb822 .sources) y, si aun así `--with-deps` falla, caemos a
+      # instalar solo el binario de Chromium (del CDN de Playwright; el runner ya trae
+      # las libs del sistema) — inmune a repos apt de terceros rotos.
+      - name: Install Chromium (resiliente a repos apt de terceros rotos)
         run: |
-          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
-          npx playwright install --with-deps chromium
+          sudo bash -c 'grep -rl dl.google.com /etc/apt/sources.list.d/ 2>/dev/null | xargs -r rm -f' || true
+          npx playwright install --with-deps chromium || npx playwright install chromium
       - name: Build tokens (dist/tokens.css consumido por preview)
         run: npm run build:tokens
       - name: Build Storybook
@@ -68,14 +70,16 @@ jobs:
           node-version: "24"
           cache: npm
       - run: npm ci
-      # Resiliencia: el runner trae un source apt de google-chrome que a veces sirve
-      # un Packages.gz desincronizado (Hash Sum mismatch) → `apt-get update` de
-      # `--with-deps` aborta (exit 100) aunque Chromium venga del CDN de Playwright, no
-      # de ese repo. Lo quitamos antes de instalar (no lo usamos).
-      - name: Install Chromium (sin el repo apt roto de google-chrome)
+      # Resiliencia: el runner trae un source apt de google-chrome (a veces sirve un
+      # Packages.gz desincronizado → Hash Sum mismatch → `apt-get update` de
+      # `--with-deps` aborta con exit 100). Quitamos CUALQUIER source que lo referencie
+      # (formato .list o deb822 .sources) y, si aun así `--with-deps` falla, caemos a
+      # instalar solo el binario de Chromium (del CDN de Playwright; el runner ya trae
+      # las libs del sistema) — inmune a repos apt de terceros rotos.
+      - name: Install Chromium (resiliente a repos apt de terceros rotos)
         run: |
-          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
-          npx playwright install --with-deps chromium
+          sudo bash -c 'grep -rl dl.google.com /etc/apt/sources.list.d/ 2>/dev/null | xargs -r rm -f' || true
+          npx playwright install --with-deps chromium || npx playwright install chromium
       - name: Build tokens
         run: npm run build:tokens
       - name: Build Storybook
