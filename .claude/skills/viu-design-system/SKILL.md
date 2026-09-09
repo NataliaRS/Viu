@@ -66,7 +66,7 @@ skill — nunca quedan divergentes.
 | Justificar/cuestionar un principio con teoría (Norman, WCAG, Frost, Kholmatova…) | `references/canon.md` |
 | Estados, capas `--state-*`, motion `--motion-*`, reduced-motion, checklist de interacción | `references/interaction.md` |
 | Documentar un componente o foundation (plantillas 11-dim / 6-dim, quality bar, equivalencias MD↔Figma↔Storybook) | `references/doc-standard.md` |
-| Cualquier trabajo en Figma (use_figma, keys, registro de componentes, helpers, recetas, gotchas, inventario de 346 tokens) | `references/figma-build.md` — leer ANTES de la primera llamada a use_figma |
+| Cualquier trabajo en Figma (use_figma, keys, registro de componentes, helpers, recetas, gotchas, inventario de 350 tokens) | `references/figma-build.md` — leer ANTES de la primera llamada a use_figma |
 | Cualquier trabajo en código (repo, regla cero-magic-values, Storybook estándar, convenciones, overlays, CI/deploy) | `references/code-build.md` |
 
 Para builds Figma↔código, leer ambas operativas: comparten la regla de paridad (la variable de

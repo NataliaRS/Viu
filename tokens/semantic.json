@@ -21,9 +21,9 @@
     },
     "text": {
       "primary": { "Dark": "{color/neutral/50}", "Light": "{color/neutral/900}" },
-      "secondary": { "Dark": "{color/neutral/300}", "Light": "{color/neutral/600}" },
-      "tertiary": { "Dark": "{color/neutral/400}", "Light": "{color/neutral/500}" },
-      "muted": { "Dark": "{color/neutral/500}", "Light": "{color/neutral/400}" },
+      "secondary": { "Dark": "{color/neutral/250}", "Light": "{color/neutral/600}" },
+      "tertiary": { "Dark": "{color/neutral/300}", "Light": "{color/neutral/550}" },
+      "muted": { "Dark": "{color/neutral/350}", "Light": "{color/neutral/525}" },
       "disabled": { "Dark": "{color/neutral/600}", "Light": "{color/neutral/300}" },
       "on-brand": { "Dark": "{color/neutral/0}", "Light": "{color/neutral/0}" },
       "brand": { "Dark": "{color/red/300}", "Light": "{color/red/700}" },

@@ -153,3 +153,26 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
   Los `#etiqueta` dentro de Card NO se tocaron uno a uno: son instancias del Tag main → propagó solo.
   El estilo Label/S Caps se creó vía MCP en la lib Tokens (dup de Label/S + Uppercase, `fontSize`
   bindeado a `font-size/label-s`); doc en figma-build §2 + doc-standard.
+
+## sep-2026 · Contraste AA de texto (secondary/tertiary/muted) — Figma-first
+- **Problema (medido):** `text/tertiary` y `text/muted` NO pasaban AA 4.5:1 como body sobre
+  superficies elevadas. Dark: tertiary 3.54 / muted 2.63 sobre `bg/elevated` (#2e2e31) — muted por
+  debajo incluso de 3:1. Light: tertiary 4.21 / muted 3.13 sobre `bg/strong` (#e8e8eb). Viola P5.
+  `secondary` sí pasaba (5.72 / 7.44). Auditado con fórmula WCAG relativa contra base/raised/elevated
+  (dark) y white/subtle/strong (light).
+- **Decisión (aprobada por Natalia):** los TRES roles de texto de apoyo pasan AA 4.5:1 como body en
+  toda superficie hasta elevated/strong, aun cambiando el gris. Re-step de la rampa de apoyo: se
+  agregan 4 primitivas neutrales y se remapean los aliases.
+  - **Primitivas nuevas (4):** `color/neutral/250`=#bdbdc2 · `350`=#96969b · `525`=#67676c ·
+    `550`=#59595e (tinte frío +5 en B, consistente con la rampa). Total 346→350; Primitives 184→188.
+  - **Aliases:** Dark → secondary `neutral/250` (7.23 en elevated) · tertiary `neutral/300` (5.72) ·
+    muted `neutral/350` (4.60). Light → secondary `neutral/600` (7.44 en strong, sin cambio) ·
+    tertiary `neutral/550` (5.70) · muted `neutral/525` (4.60). Los tres ≥4.5 en la peor superficie y
+    escalonados (jerarquía visible). `primary` intacto (neutral/50 dark · 900 light).
+- **Ejecución (Figma-first, source-of-truth):** creadas las 4 variables + remapeados los 3 semánticos
+  vía MCP `use_figma` en la lib Tokens `o4tzMPcZIWMzVc67dW6dWW` (createVariable COLOR + setValueForMode
+  alias, scopes `ALL_FILLS/STROKE_COLOR/EFFECT_COLOR`), verificado por read-back. Luego snapshot
+  regenerado a mano 1:1, `sync:tokens` OK (188/66 en paridad), `build:tokens` → dist, `check:tokens` OK.
+  Conteos del skill actualizados (state.md, figma-build §2/§10/§13, SKILL.md) → verify-counts/pointers 0.
+- **Pendiente (Natalia):** **republicar la librería Tokens** para que las 4 primitivas + los remapeos
+  propaguen a los consumidores en el archivo Componentes (acción manual, no hay path MCP).

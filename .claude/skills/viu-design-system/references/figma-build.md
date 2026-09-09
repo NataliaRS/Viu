@@ -36,7 +36,7 @@
    lag en texto recién sobreescrito por propiedad → el dato del nodo es la verdad.
 
 ## 2. Mapa de keys VIU (revalidar en el primer arranque, §11)
-> Inventario COMPLETO de las 5 colecciones de variables (346 tokens) auditado en §13. Acá van solo
+> Inventario COMPLETO de las 5 colecciones de variables (350 tokens) auditado en §13. Acá van solo
 > las keys de import más usadas para construir en Figma. **Las KEYS son la verdad; los hex anotados
 > son referencia ilustrativa y pueden quedar viejos** (caso real: `bg/elevated` anotado `#1c1c1f`,
 > los nodos hoy leen `#2e2e31`). Consumir SIEMPRE el token.
@@ -402,8 +402,8 @@ Cada uno tiene su doc "cuándo y dónde". No son el mismo componente.
 - **Auditar TODO el sistema de tokens: NO uses `get_variable_defs`** (solo devuelve lo pegado a un
   nodo → incompleto). Usá `getLocalVariablesAsync` vía `use_figma` (§11) y compará contra el
   inventario completo (§13).
-- Las 5 colecciones del archivo Tokens (auditadas jun-2026, §13): Primitives(184) · Semantic(66) ·
-  Scales(70) · Type Scale(23) · Grid(3) = 346 variables *(corregido jul-2026: antes decía Primitives(183)·Semantic(52)=331; el batch Badge soft sumó `red/100` a Primitives → 184 y 14 semánticos → 66)*.
+- Las 5 colecciones del archivo Tokens (auditadas jun-2026, §13): Primitives(188) · Semantic(66) ·
+  Scales(70) · Type Scale(23) · Grid(3) = 350 variables *(corregido sep-2026: Primitives 184→188 — +4 grises `neutral/250·350·525·550` del batch de contraste AA de texto → total 346→350)* *(corregido jul-2026: antes decía Primitives(183)·Semantic(52)=331; el batch Badge soft sumó `red/100` a Primitives → 184 y 14 semánticos → 66)*.
 - **Sync a repo:** el MCP de Figma NO escribe a disco. Pero las sesiones web de Claude Code SÍ tienen
   file tools + git → el código vive en el repo `NataliaRS/Viu` (`code-build.md`). En sesiones sin file
   tools, entregar el contenido como texto.
@@ -451,11 +451,11 @@ viejos si hubo reorganización).
   verificación de datos en la misma llamada; screenshot aparte.
 
 ## 13. Sistema de tokens — inventario completo (auditado vía `getLocalVariablesAsync`, jun 2026)
-5 colecciones / **346 variables** *(corregido jul-2026: antes 331)*. Nombres con "/" = jerarquía. Los aliases SIEMPRE apuntan a
+5 colecciones / **350 variables** *(corregido sep-2026: antes 346; +4 grises neutral del batch de contraste AA)*. Nombres con "/" = jerarquía. Los aliases SIEMPRE apuntan a
 Primitives.
 
-**Primitives (183, mode `Value`):**
-- `color/{red 300-700, neutral 0-1000 (incl 650=#3a3a3e), green/amber/alert/blue 50-700, indigo
+**Primitives (188, mode `Value`):** *(corregido sep-2026: 184→188; +4 grises de texto para contraste AA — `neutral/250`=#bdbdc2·`350`=#96969b·`525`=#67676c·`550`=#59595e)*
+- `color/{red 300-700, neutral 0-1000 (incl 250·350·525·550 de contraste AA + 650=#3a3a3e), green/amber/alert/blue 50-700, indigo
   300-900}` · `alpha/{white-06/12/16/24/28/40/72, black-08/14/24/72, red-12/24/32, green-14,
   amber-16, alert-14, blue-14, indigo-14/24}`
 - `space/{0,2,4,6,8,12,16,20,24,32,40,48,64,96,128,192,256}` ·
