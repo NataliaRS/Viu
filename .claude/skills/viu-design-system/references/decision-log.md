@@ -178,3 +178,39 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
   `o4tzMPcZIWMzVc67dW6dWW` → las 4 primitivas nuevas + los remapeos de `text/*` ya propagan a los
   consumidores en el archivo Componentes (mismo patrón que F5c/Label-S-Caps). Batch de contraste AA
   cerrado: Figma ↔ snapshot ↔ tokens/*.json ↔ dist en paridad y publicado.
+
+## sep-2026 · Portafolio en código (repo `NataliaRS/Portfolio`) + 6 glifos nuevos en `@viu/ui`
+- **Qué:** se construyó el portafolio de Natalia como app React/Vite en el repo
+  `NataliaRS/Portfolio`, consumiendo el DS entero (`@viu/ui` + `@viu/design-tokens`). 4 páginas
+  portadas 1:1 del archivo Figma `Portafolio Natalia Agosto` (`kSdtE08zZKAXp6Qx5vaXF3`, página
+  `Paginas` `76:1609`): Home `76:1610`, Work `76:2180`, About `76:1884`, Case study `76:2540`.
+- **Consumo del DS fuera del monorepo:** `@viu/ui`/`@viu/design-tokens` son privados y no están en
+  npm → el portafolio **vendorea el BUILD** en `vendor/viu-{ui,design-tokens}` con deps `file:` y un
+  `scripts/sync-viu.mjs` que rebuildea desde un checkout de `NataliaRS/Viu` y re-copia. Nunca se
+  edita `vendor/` a mano. Es el primer consumidor real del paquete fuera del prototipo.
+- **6 glifos nuevos en `Icon/glyphs.tsx`** (paths oficiales de `google/material-design-icons`,
+  Outlined 400): `stacked_email`, `chat_bubble`, `emoji_language`, `star`, `download`, `arrow_back`.
+  Los cuatro primeros los pide el header del portafolio (el `Glyph` real de Figma, verificado con
+  `getMainComponentAsync` sobre `Quick Contact Icons` y el botón Resume); `download` el botón de
+  résumé; `arrow_back` para el carrusel. **Regla aplicada:** el consumidor NO re-implementa íconos
+  — el glifo se suma al sistema. Gate de 5 pasos verde tras el cambio.
+- **Extracción de copy sin transcribir a mano:** el texto de las 4 páginas se generó desde el dump
+  de `get_metadata` (los nombres de los nodos TEXT son el contenido) a `src/content/*.json`, y los
+  tramos en negrita de los bullets de About se leyeron con `getStyledTextSegments(["fontName"])`.
+  Los logos (elastic/paloalto/vmware/aeropost) salieron por `exportAsync({format:"SVG_STRING"})`
+  — el sandbox bloquea egress a figma.com, así que bajar assets por URL no es opción; exportar el
+  SVG **como string de retorno** de `use_figma` sí funciona (ojo: la respuesta se trunca a 20kb,
+  hay que partirla con `slice`).
+- **Hallazgo de tipografía:** el archivo del portafolio está tipeado con el paso **Mobile** de la
+  Type Scale (hero 36, títulos de sección 28, case study 65/51/40 = oversize-l/oversize-s/display-m
+  en Mobile). El código bindea las clases `viu-type-*` (regla de cero valores mágicos), así que en
+  ≥1024px sube un paso y el hero envuelve en 3 líneas en vez de 2. Queda documentado como
+  divergencia consciente en el README del portafolio; se cierra flipeando los frames de Figma a
+  modo Desktop.
+- **Drift detectado (⚠️ PENDIENTE, no corregido):** (a) la cita lead de Recommendations está en
+  24px Google Sans, **fuera de la escala** (no hay Body/2XL) — se usó `body-xl`; (b) la instancia de
+  `Quote` en Figma no muestra la barra de acento izquierda que sí dibuja el `Quote` de `@viu/ui`
+  → posible gap de paridad Figma↔código del componente, a verificar contra el nodo del set;
+  (c) el frame `Work` de Figma todavía tiene 4 duplicados sin editar de la card de Elastic mientras
+  la página de case study lista los 5 casos reales — el sitio shippea los 5 reales.
+

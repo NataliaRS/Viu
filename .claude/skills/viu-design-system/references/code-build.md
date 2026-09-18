@@ -164,7 +164,7 @@ del repo a `symbolPaths` (clone sparse+blobless: `git clone --depth 1 --filter=b
 repo oficial (github sí está en allowlist, figma no), se pasó a SVG embebido — más robusto para
 consumidores (sin FOUT ni texto de ligadura, sin requerir cargar fuente). `data-icon` = selector estable
 en tests; el SVG decorativo va `aria-hidden`. **Símbolos embebidos (`symbolPaths`):** los 12 base +
-`account_circle` (Avatar), `stat_1`/`stat_minus_1` (chevrons ↑/↓ de TimePicker), `sell` (ícono default del Badge, jul-2026).
+`account_circle` (Avatar), `stat_1`/`stat_minus_1` (chevrons ↑/↓ de TimePicker), `sell` (ícono default del Badge, jul-2026) + **6 sumados sep-2026 por el portafolio** (`stacked_email`, `chat_bubble`, `emoji_language`, `star`, `download`, `arrow_back`): los cuatro primeros son los del header del portafolio (Figma `Quick Contact Icons` + botón Resume), `download` el del botón de résumé y `arrow_back` el par de `arrow_forward` (el carrusel del case study usa ←/→ y rotar por CSS era peor que el símbolo oficial). Todos copiados del repo `google/material-design-icons` (Outlined 400), no dibujados a mano.
 
 **Paridad de la tanda Figma jun-2026 (Badge/Avatar/Tab/TimePicker) — HECHA:**
 - **Badge — SOFT (jul-2026, alineado a Figma `14:77`):** *(corregido jul-2026: antes decía "fondos
