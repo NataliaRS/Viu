@@ -214,3 +214,18 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
   (c) el frame `Work` de Figma todavía tiene 4 duplicados sin editar de la card de Elastic mientras
   la página de case study lista los 5 casos reales — el sitio shippea los 5 reales.
 
+
+### sep-2026 — `send`: el 7º ícono que pide el portafolio (Portfolio concierge)
+
+- **Qué se sumó:** `send` a `symbolPaths` en `ui/src/Icon/glyphs.tsx` (Material Symbols Outlined
+  400, viewBox `0 -960 960 960`, copiado del repo `google/material-design-icons`). Con esto el set
+  queda en 24 símbolos.
+- **Por qué no se reusó `arrow_forward`:** el botón vive pegado al campo de texto del concierge y
+  una flecha ahí se lee como "siguiente" / "ir", no como "enviar". Es un rol semántico distinto,
+  no una variante visual del mismo — la regla de nombrar por rol aplica igual a íconos.
+- **Por qué va al sistema y no al consumidor:** un `send` es reusable por definición (cualquier
+  superficie con un campo + envío). Dibujarlo en el portafolio hubiera sido el mismo error que ya
+  se pagó con los 6 de sep-2026: el consumidor no re-implementa íconos del sistema.
+- **Gates:** `typecheck · test (60/60) · build · cc:check · build-storybook` en verde;
+  `verify-pointers` / `verify-counts` (74 componentes, 74 Stable) / `verify-parity` (77 entries)
+  los tres en 0.
