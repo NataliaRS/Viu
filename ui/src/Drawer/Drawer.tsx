@@ -24,6 +24,11 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title
   title: ReactNode;
   /** Show the close (✕) button in the header. */
   showClose?: boolean;
+  /**
+   * Accessible name for the close button. Defaults to Spanish, like the rest
+   * of the system's built-in strings; a bilingual product passes its own.
+   */
+  closeLabel?: string;
   /** Footer slot, typically one or two `<Button>`s. */
   footer?: ReactNode;
   /** Dismiss when the scrim is clicked. */
@@ -41,6 +46,7 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(function Drawer(
     side = "right",
     title,
     showClose = true,
+    closeLabel = "Cerrar",
     footer,
     closeOnOverlayClick = true,
     closeOnEsc = true,
@@ -84,7 +90,7 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(function Drawer(
             {title}
           </p>
           {showClose ? (
-            <button type="button" className={styles.close} aria-label="Cerrar" onClick={onClose}>
+            <button type="button" className={styles.close} aria-label={closeLabel} onClick={onClose}>
               <Icon glyph="Close" size={20} />
             </button>
           ) : null}

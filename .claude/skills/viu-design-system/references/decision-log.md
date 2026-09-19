@@ -229,3 +229,19 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
 - **Gates:** `typecheck · test (60/60) · build · cc:check · build-storybook` en verde;
   `verify-pointers` / `verify-counts` (74 componentes, 74 Stable) / `verify-parity` (77 entries)
   los tres en 0.
+
+### sep-2026 — `menu` + `Drawer.closeLabel`: lo que pidió el menú móvil del portafolio
+
+- **`menu` en `symbolPaths`** (Material Symbols Outlined 400): el hamburger del portafolio.
+  Debajo de 768px la nav y la fila de acciones del header se ocultan y no había forma de
+  navegar, cambiar idioma ni llegar a contacto — el menú móvil lo resuelve y necesita el ícono.
+  El set queda en 25 símbolos.
+- **`Drawer` gana `closeLabel?: string`** (default `"Cerrar"`, sin cambio de comportamiento para
+  los consumidores actuales). El botón de cerrar tenía `aria-label="Cerrar"` hardcodeado: en un
+  producto bilingüe eso se filtra al DOM en inglés. Es aditivo y no rompe nada, pero **toca la API
+  pública de un componente existente** → queda marcado para aprobación de Natalia (gobernanza §1).
+  ⚠️ PENDIENTE: el mismo patrón existe en `Chip` (`aria-label={`Quitar ${label}`}`) y
+  probablemente en otros; no se tocó en este batch — auditar los labels de runtime en español
+  duro y decidir si todos llevan prop o si el sistema define una capa de strings.
+- **Gates:** `typecheck · test (60/60) · build · cc:check · build-storybook` en verde;
+  `verify-pointers` / `verify-counts` / `verify-parity` los tres en 0.
