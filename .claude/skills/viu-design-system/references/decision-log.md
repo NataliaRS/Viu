@@ -245,3 +245,19 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
   duro y decidir si todos llevan prop o si el sistema define una capa de strings.
 - **Gates:** `typecheck · test (60/60) · build · cc:check · build-storybook` en verde;
   `verify-pointers` / `verify-counts` / `verify-parity` los tres en 0.
+
+### sep-2026 — `play_arrow` + `pause`: el video del hero del portafolio
+
+- **Qué se sumó:** `play_arrow` y `pause` a `symbolPaths` (Material Symbols Outlined 400). El set
+  queda en 27 símbolos.
+- **Por qué:** el hero del portafolio pasa de imagen a video en loop (64s). **WCAG 2.2.2 (Pause,
+  Stop, Hide) exige un mecanismo para frenar cualquier contenido en movimiento que arranque solo y
+  dure más de 5 segundos** — no es opcional ni "nice to have", es el piso P5. Un video decorativo
+  sin botón de pausa es una falla de accesibilidad, así que el control necesita sus dos íconos.
+- **Nota para quien siga:** `VideoEmbed` del sistema NO sirve para un video de fondo — es un poster
+  con botón de play para embeber un reproductor de terceros (iframe). Un video decorativo en loop
+  es un `<video muted loop playsinline>` propio del consumidor. Si esto se repite en otro producto,
+  vale evaluar un componente `BackgroundVideo` en el sistema; por ahora es un one-off del
+  portafolio y NO entra a la librería (gobernanza §1: distinguir gap reusable de one-off).
+- **Gates:** `typecheck · test (60/60) · build · cc:check · build-storybook` en verde;
+  `verify-pointers` / `verify-counts` / `verify-parity` los tres en 0.
