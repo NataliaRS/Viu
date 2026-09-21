@@ -85,6 +85,7 @@ export const symbolPaths: Record<string, string> = {
   menu: "M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z",
   play_arrow: "M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z",
   pause: "M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z",
+  open_in_full: "M120-120v-320h80v184l504-504H520v-80h320v320h-80v-184L256-200h184v80H120Z",
 };
 
 /** Resuelve el nombre Material a partir de un nombre legacy o uno Material directo. */

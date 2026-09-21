@@ -261,3 +261,19 @@ Tooltip/Slider promovidos al cerrar B4/B5; conteo vigente en state.md.)*
   portafolio y NO entra a la librería (gobernanza §1: distinguir gap reusable de one-off).
 - **Gates:** `typecheck · test (60/60) · build · cc:check · build-storybook` en verde;
   `verify-pointers` / `verify-counts` / `verify-parity` los tres en 0.
+
+### sep-2026 — `open_in_full`: expandir el video del hero
+
+- **Qué se sumó:** `open_in_full` a `symbolPaths` (Material Symbols Outlined 400). El set queda en
+  28 símbolos.
+- **Por qué NO se usó `Modal`:** el organismo topa en 680px (`size="lg"`), y el video del hero ya
+  renderiza a ~481px — "expandir" a 680 no es expandir. Se usa la **Fullscreen API nativa** sobre el
+  elemento `<video>`: da pantalla completa real, entrega los controles del navegador (incluida la
+  salida), y en iOS Safari cae al reproductor nativo vía `webkitEnterFullscreen`. Un lightbox propio
+  hubiera reimplementado peor lo que el navegador ya hace bien para video.
+- **⚠️ PENDIENTE (gap del sistema):** `Modal` no tiene tamaño para contenido ancho (media, tablas
+  anchas, previews). Si aparece un segundo caso, evaluar un `size="xl"` o un `fullBleed`. También
+  arrastra el mismo `aria-label="Cerrar"` hardcodeado que ya se le puso prop al `Drawer` — queda en
+  la misma auditoría pendiente de strings de runtime en español duro.
+- **Gates:** `typecheck · test (60/60) · build · cc:check · build-storybook` en verde;
+  `verify-pointers` / `verify-counts` / `verify-parity` los tres en 0.
