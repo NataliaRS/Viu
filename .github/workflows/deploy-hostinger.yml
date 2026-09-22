@@ -1,0 +1,59 @@
+name: Deploy Storybook to Hostinger (viu.nataliars.com)
+
+# Enlaza el repo con el hosting propio: en cada push que toque la UI/tokens,
+# buildea el Storybook estático y lo sincroniza por FTPS a la carpeta del
+# subdominio viu.nataliars.com. Independiente de GitHub Pages / visibilidad del repo.
+#
+# Requiere 3 secrets en el repo (Settings → Secrets and variables → Actions):
+#   FTP_SERVER    host FTP de Hostinger (p. ej. "82.x.x.x" o el que muestre hPanel → FTP)
+#   FTP_USERNAME  usuario de la cuenta FTP creada apuntando a .../public_html/viu
+#   FTP_PASSWORD  contraseña de esa cuenta FTP
+# Recomendado: crear en hPanel una cuenta FTP cuyo directorio raíz sea
+#   domains/nataliars.com/public_html/viu  → así server-dir queda en "./".
+
+on:
+  push:
+    branches: ["claude/viu-design-system"]
+    paths: ["ui/**", "tokens/**", "dist/**", ".github/workflows/deploy-hostinger.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: "hostinger-viu"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      # 'true' solo cuando el secret FTP existe → evita runs en rojo hasta configurarlo.
+      HAS_FTP: ${{ secrets.FTP_SERVER != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build tokens
+        run: npm run build:tokens
+      - name: Build Storybook (estático → ui/storybook-static)
+        run: npm run build-storybook -w ui
+      - name: Aviso si faltan secrets FTP
+        if: env.HAS_FTP != 'true'
+        run: echo "::notice::Faltan los secrets FTP_SERVER/FTP_USERNAME/FTP_PASSWORD — el deploy a Hostinger se saltea. Agregalos en Settings → Secrets → Actions."
+      - name: Sync a Hostinger por FTPS
+        if: env.HAS_FTP == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          # Cuenta FTP scopeada a .../public_html/viu → raíz remota = "./".
+          # Si usás la cuenta FTP principal, cambiá a: /domains/nataliars.com/public_html/viu/
+          local-dir: ./ui/storybook-static/
+          server-dir: ./
+          # Borra en el server lo que ya no está en el build (mantiene viu/ limpio).
+          dangerous-clean-slate: false
