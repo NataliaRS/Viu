@@ -169,7 +169,6 @@ export function IntroContent() {
           <tr><td style={{ padding: "var(--space-2xs) var(--space-md) var(--space-2xs) 0" }}>🎨 Figma · Tokens & Foundations</td><td><code>o4tzMPcZIWMzVc67dW6dWW</code></td></tr>
           <tr><td style={{ padding: "var(--space-2xs) var(--space-md) var(--space-2xs) 0" }}>🧩 Figma · {es ? "Componentes" : "Components"}</td><td><code>kjEg0KpLID4cH00DruERTN</code></td></tr>
           <tr><td style={{ padding: "var(--space-2xs) var(--space-md) var(--space-2xs) 0" }}>📖 Storybook</td><td><a href="https://nataliars.github.io/Viu/" style={{ color: "var(--color-text-link)" }}>nataliars.github.io/Viu</a></td></tr>
-          <tr><td style={{ padding: "var(--space-2xs) var(--space-md) var(--space-2xs) 0" }}>💻 Repo</td><td><a href="https://github.com/NataliaRS/Viu" style={{ color: "var(--color-text-link)" }}>github.com/NataliaRS/Viu</a></td></tr>
         </tbody>
       </table>
 
