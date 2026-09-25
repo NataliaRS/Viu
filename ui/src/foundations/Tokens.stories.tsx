@@ -9,41 +9,154 @@ const prim = tokens.primitive as Record<string, string | number>;
 const scales = tokens.scales as Record<string, string | number>;
 const pick = (obj: Record<string, string | number>, prefix: string) =>
   Object.entries(obj).filter(([n]) => n.startsWith(prefix));
+const short = (n: string) => n.split("/").slice(1).join("/");
 
 const row: React.CSSProperties = { display: "flex", alignItems: "center", gap: "var(--space-md)" };
-const key: React.CSSProperties = { ...mono, width: 200, flex: "none", color: "var(--color-text-tertiary)" };
+const key: React.CSSProperties = { ...mono, width: 210, flex: "none", color: "var(--color-text-tertiary)" };
+const val: React.CSSProperties = { ...mono, color: "var(--color-text-tertiary)", marginTop: 4 };
+const intro: React.CSSProperties = {
+  color: "var(--color-text-secondary)",
+  fontFamily: "var(--font-family-body)",
+  fontSize: "var(--font-size-body-m)",
+  maxWidth: 720,
+  margin: "0 0 var(--space-md)",
+};
+const note: React.CSSProperties = { ...mono, color: "var(--color-text-tertiary)", fontSize: "var(--font-size-body-s)" };
+
+/** cubic-bezier(x1,y1,x2,y2) → small SVG curve (0..1 space, y flipped). */
+function EaseCurve({ value }: { value: string }) {
+  const m = value.match(/cubic-bezier\(([^)]+)\)/);
+  const [x1, y1, x2, y2] = (m ? m[1].split(",").map(Number) : [0, 0, 1, 1]);
+  const S = 72;
+  const px = (x: number) => x * S;
+  const py = (y: number) => (1 - y) * S;
+  return (
+    <svg width={S} height={S} viewBox={`0 0 ${S} ${S}`} style={{ flex: "none", background: "var(--color-bg-raised)", borderRadius: "var(--radius-control)", border: "1px solid var(--color-border-subtle)" }}>
+      <line x1="0" y1={S} x2={S} y2="0" stroke="var(--color-border-subtle)" strokeWidth="1" strokeDasharray="3 3" />
+      <path d={`M 0 ${S} C ${px(x1)} ${py(y1)} ${px(x2)} ${py(y2)} ${S} 0`} fill="none" stroke="var(--color-text-brand)" strokeWidth="2" />
+    </svg>
+  );
+}
 
 export const All: Story = {
   render: () => (
     <div style={page}>
       <Title>Tokens</Title>
+      <p style={intro}>
+        Referencia de las familias de tokens del sistema que no viven en las otras páginas de Foundations
+        (Colors, Typography, Spacing &amp; Radius, Grid, Effects). Cada valor sale de las variables
+        generadas — misma fuente que Figma. <code style={note}>(primitives)</code> = valor crudo ·{" "}
+        <code style={note}>(scales)</code> = alias semántico.
+      </p>
 
-      <h2 style={h2}>border-width (scales)</h2>
+      {/* ---------------- TYPE METRICS ---------------- */}
+      <h2 style={h2}>font-weight (primitives)</h2>
       <div style={{ display: "grid", gap: "var(--space-sm)" }}>
-        {pick(scales, "border-width/").map(([n, v]) => (
+        {pick(prim, "font-weight/").map(([n, v]) => (
           <div key={n} style={row}>
-            <code style={key}>{n} · {v}</code>
-            <div style={{ width: 120, borderTop: `${v} solid var(--color-text-primary)` }} />
+            <code style={key}>{short(n)} · {v}</code>
+            <span style={{ fontFamily: "var(--font-family-body)", fontSize: "var(--font-size-title-m)", fontWeight: Number(v) }}>
+              The quick brown fox
+            </span>
           </div>
         ))}
       </div>
 
-      <h2 style={h2}>icon-size (primitives)</h2>
+      <h2 style={h2}>line-height (primitives)</h2>
+      <div style={{ display: "flex", gap: "var(--space-lg)", flexWrap: "wrap" }}>
+        {pick(prim, "line-height/").map(([n, v]) => (
+          <div key={n} style={{ width: 220 }}>
+            <p style={{ margin: 0, fontFamily: "var(--font-family-body)", fontSize: "var(--font-size-body-m)", lineHeight: Number(v), color: "var(--color-text-secondary)" }}>
+              Texto de varias líneas para ver el interlineado en acción según el token aplicado.
+            </p>
+            <div style={val}>{short(n)} · {v}</div>
+          </div>
+        ))}
+      </div>
+
+      <h2 style={h2}>tracking / letter-spacing (primitives)</h2>
+      <div style={{ display: "grid", gap: "var(--space-sm)" }}>
+        {pick(prim, "tracking/").map(([n, v]) => (
+          <div key={n} style={row}>
+            <code style={key}>{short(n)} · {v}</code>
+            <span style={{ fontFamily: "var(--font-family-label)", fontSize: "var(--font-size-title-s)", letterSpacing: String(v), textTransform: "uppercase" }}>
+              Tracking
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* ---------------- MOTION ---------------- */}
+      <h2 style={h2}>duration (primitives)</h2>
+      <div style={{ display: "grid", gap: "var(--space-xs)" }}>
+        {pick(prim, "duration/").map(([n, v]) => {
+          const ms = parseInt(String(v), 10) || 0;
+          return (
+            <div key={n} style={row}>
+              <code style={key}>{short(n)} · {v}</code>
+              <div style={{ height: 8, width: Math.max(2, ms * 0.5), background: "var(--color-bg-brand)", borderRadius: "var(--radius-pill)" }} />
+            </div>
+          );
+        })}
+      </div>
+
+      <h2 style={h2}>easing (primitives)</h2>
+      <div style={{ display: "flex", gap: "var(--space-lg)", flexWrap: "wrap" }}>
+        {pick(prim, "easing/").map(([n, v]) => (
+          <div key={n} style={{ display: "flex", gap: "var(--space-sm)", alignItems: "center" }}>
+            <EaseCurve value={String(v)} />
+            <div>
+              <div style={{ fontFamily: "var(--font-family-label)", fontSize: "var(--font-size-label-m)", fontWeight: 500 }}>{short(n)}</div>
+              <div style={val}>{v}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2 style={h2}>motion (scales — alias de duration + easing)</h2>
+      <div style={{ display: "grid", gap: "var(--space-2xs)" }}>
+        {pick(scales, "motion/").map(([n, v]) => (
+          <code key={n} style={{ ...mono, color: "var(--color-text-secondary)" }}>{n} · {v}</code>
+        ))}
+      </div>
+
+      {/* ---------------- INTERACTION ---------------- */}
+      <h2 style={h2}>state layers (scales — opacidad de estado)</h2>
+      <div style={{ ...row, gap: "var(--space-md)", flexWrap: "wrap" }}>
+        {pick(scales, "state/").map(([n, v]) => (
+          <div key={n} style={{ textAlign: "center" }}>
+            <div style={{ position: "relative", width: 88, height: 56, background: "var(--color-bg-elevated)", border: "1px solid var(--color-border-subtle)", borderRadius: "var(--radius-control)", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "var(--color-text-primary)", opacity: Number(v) }} />
+            </div>
+            <div style={val}>{short(n)}</div>
+            <div style={note}>{Math.round(Number(v) * 100)}%</div>
+          </div>
+        ))}
+      </div>
+
+      {/* ---------------- SIZING ---------------- */}
+      <h2 style={h2}>icon-size (primitives) · icon (scales)</h2>
       <div style={{ ...row, gap: "var(--space-lg)", flexWrap: "wrap", alignItems: "flex-end" }}>
         {pick(prim, "icon-size/").map(([n, v]) => (
           <div key={n} style={{ textAlign: "center" }}>
             <div style={{ width: v, height: v, background: "var(--color-bg-brand)", borderRadius: "var(--radius-xs)" }} />
-            <div style={{ ...mono, color: "var(--color-text-tertiary)", marginTop: 4 }}>{n.replace("icon-size/", "")} {v}</div>
+            <div style={val}>{short(n)} · {v}</div>
           </div>
         ))}
       </div>
+      <div style={{ ...note, marginTop: "var(--space-xs)" }}>
+        Alias semánticos → {pick(scales, "icon/").map(([n, v]) => `${short(n)}=${v}`).join(" · ")}
+      </div>
 
-      <h2 style={h2}>opacity (primitives)</h2>
-      <div style={{ ...row, gap: "var(--space-sm)", flexWrap: "wrap" }}>
-        {pick(prim, "opacity/").map(([n, v]) => (
-          <div key={n} style={{ textAlign: "center" }}>
-            <div style={{ width: 48, height: 48, background: "var(--color-text-primary)", opacity: Number(v), borderRadius: "var(--radius-xs)" }} />
-            <div style={{ ...mono, color: "var(--color-text-tertiary)", marginTop: 4 }}>{v}</div>
+      <h2 style={h2}>size · objetivo táctil mínimo (scales)</h2>
+      <div style={{ ...row, gap: "var(--space-md)" }}>
+        {pick(scales, "size/").map(([n, v]) => (
+          <div key={n} style={{ display: "flex", alignItems: "center", gap: "var(--space-md)" }}>
+            <div style={{ width: v, height: v, background: "var(--color-bg-brand-2-subtle)", border: "1px dashed var(--color-border-brand-2)", borderRadius: "var(--radius-xs)" }} />
+            <div>
+              <code style={{ ...mono, color: "var(--color-text-secondary)" }}>{n} · {v}</code>
+              <div style={note}>Área mínima interactiva (WCAG 2.5.8 · AA target size).</div>
+            </div>
           </div>
         ))}
       </div>
@@ -53,29 +166,43 @@ export const All: Story = {
         {pick(scales, "aspect/").map(([n, v]) => (
           <div key={n} style={{ width: 140 }}>
             <div style={{ width: "100%", aspectRatio: String(v), background: "var(--color-bg-elevated)", border: "1px solid var(--color-border-default)", borderRadius: "var(--radius-control)" }} />
-            <div style={{ ...mono, color: "var(--color-text-tertiary)", marginTop: 4 }}>{n.replace("aspect/", "")} · {v}</div>
+            <div style={val}>{short(n)} · {v}</div>
           </div>
         ))}
       </div>
 
-      <h2 style={h2}>motion (scales)</h2>
-      <div style={{ display: "grid", gap: "var(--space-2xs)" }}>
-        {pick(scales, "motion/").map(([n, v]) => (
-          <code key={n} style={{ ...mono, color: "var(--color-text-secondary)" }}>{n} · {v}</code>
+      {/* ---------------- LAYOUT & MISC ---------------- */}
+      <h2 style={h2}>border-width (scales)</h2>
+      <div style={{ display: "grid", gap: "var(--space-sm)" }}>
+        {pick(scales, "border-width/").map(([n, v]) => (
+          <div key={n} style={row}>
+            <code style={key}>{short(n)} · {v}</code>
+            <div style={{ width: 120, borderTop: `${v} solid var(--color-text-primary)` }} />
+          </div>
+        ))}
+      </div>
+
+      <h2 style={h2}>opacity (primitives)</h2>
+      <div style={{ ...row, gap: "var(--space-sm)", flexWrap: "wrap" }}>
+        {pick(prim, "opacity/").map(([n, v]) => (
+          <div key={n} style={{ textAlign: "center" }}>
+            <div style={{ width: 48, height: 48, background: "var(--color-text-primary)", opacity: Number(v), borderRadius: "var(--radius-xs)" }} />
+            <div style={val}>{v}</div>
+          </div>
         ))}
       </div>
 
       <h2 style={h2}>z-index (primitives)</h2>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px,1fr))", gap: "var(--space-2xs)" }}>
         {pick(prim, "z/").map(([n, v]) => (
-          <code key={n} style={{ ...mono, color: "var(--color-text-secondary)" }}>{n} · {v}</code>
+          <code key={n} style={{ ...mono, color: "var(--color-text-secondary)" }}>{short(n)} · {v}</code>
         ))}
       </div>
 
       <h2 style={h2}>breakpoints (primitives)</h2>
       <div style={{ display: "flex", gap: "var(--space-lg)", flexWrap: "wrap" }}>
         {pick(prim, "breakpoint/").map(([n, v]) => (
-          <code key={n} style={{ ...mono, color: "var(--color-text-secondary)" }}>{n.replace("breakpoint/", "")} · {v}</code>
+          <code key={n} style={{ ...mono, color: "var(--color-text-secondary)" }}>{short(n)} · {v}</code>
         ))}
       </div>
     </div>
