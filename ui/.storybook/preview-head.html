@@ -15,3 +15,65 @@
 <!-- Íconos = SVG oficiales de Material Symbols embebidos en <Icon/> (sin fuente). -->
 <!-- PP Neue Montreal (display/títulos) es comercial (Pangram Pangram), sin CDN libre.
      Con licencia, agregá su @font-face acá. El stack del token cae a Satoshi → system-ui. -->
+
+<!-- El toggle de tema pone data-theme en <html>. Que TODO el preview siga el token:
+     el fondo del documento y el de las páginas de docs (que por defecto viene del
+     docs.theme estático dark). Así light pinta el Storybook entero, no solo los ejemplos. -->
+<style>
+  html,
+  body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+  }
+  /* Superficies de las páginas de docs (autodocs/ViuDocs) → seguir el tema. */
+  .sbdocs.sbdocs-wrapper {
+    background: var(--color-bg-base) !important;
+  }
+  .sbdocs.sbdocs-content {
+    background: transparent !important;
+  }
+  .docs-story,
+  .sbdocs.sbdocs-preview {
+    background: var(--color-bg-base) !important;
+  }
+  /* Chrome NATIVO de Storybook Docs: lo pinta el `docs.theme` estático (dark) y no
+     sigue el toggle → lo remapeamos a tokens para que siga el tema (light y dark). */
+  /* Texto heredado (título, descripción, <p>/<li> sin clase). No pisa los colores
+     explícitos que ViuDocs setea inline en sus propios elementos. */
+  .sbdocs-content {
+    color: var(--color-text-primary) !important;
+  }
+  /* Storybook pone reglas DIRECTAS sobre `.sbdocs-content p/li` con el color del
+     docs.theme (#f5f5f7), que le ganan a la herencia. Las hacemos heredar → toman
+     el color tokenizado del ancestro (el <ul> de ViuDocs con text-secondary, o el
+     wrapper con text-primary). No tocamos <a>/<span> (color propio intencional). */
+  .sbdocs-content :is(p, li, dd, dt, blockquote) {
+    color: inherit !important;
+  }
+  .sbdocs-title {
+    color: var(--color-text-primary) !important;
+  }
+  .sbdocs-subtitle {
+    color: var(--color-text-secondary) !important;
+  }
+  .docblock-argstable {
+    color: var(--color-text-primary) !important;
+  }
+  .docblock-argstable-head th {
+    color: var(--color-text-secondary) !important;
+    border-bottom-color: var(--color-border-default) !important;
+  }
+  .docblock-argstable-body td,
+  .docblock-argstable-body th {
+    background: var(--color-bg-raised) !important;
+    color: var(--color-text-primary) !important;
+    border-color: var(--color-border-subtle) !important;
+  }
+  /* Barras del preview embebido + botón "Show code". */
+  .sbdocs .sb-bar,
+  .docblock-code-toggle {
+    background: var(--color-bg-raised) !important;
+    color: var(--color-text-secondary) !important;
+    border-color: var(--color-border-subtle) !important;
+  }
+</style>
