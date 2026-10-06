@@ -76,4 +76,35 @@
     color: var(--color-text-secondary) !important;
     border-color: var(--color-border-subtle) !important;
   }
+
+  /* Página Get started / Introduction (IntroContent) — el `<code>` inline y las
+     tablas nativas los pinta el docs.theme estático (dark) y NO siguen el toggle:
+     en light quedaban con fondo claro + texto claro (ilegibles) y una fila de la
+     tabla salía oscura. Los remapeamos a tokens → correctos en dark y en light. */
+  .viu-intro code {
+    background: var(--color-bg-elevated) !important;
+    color: var(--color-text-primary) !important;
+    border: 1px solid var(--color-border-subtle) !important;
+    border-radius: var(--radius-xs);
+    padding: 0.1em 0.4em;
+    font-family: var(--font-family-mono);
+    font-size: 0.88em;
+  }
+  /* Los bloques de código (<pre><code>) ya traen su propio estilo tokenizado. */
+  .viu-intro pre code {
+    background: transparent !important;
+    border: none !important;
+    color: inherit !important;
+    padding: 0;
+    font-size: inherit;
+  }
+  /* Tabla de Resources: sin el striping fijo del tema oscuro → transparente, y
+     que las celdas hereden el color tokenizado del <tbody> (text-secondary) en
+     vez del color claro del docs.theme estático, que en light quedaba casi
+     invisible. El <a> y el <code> conservan su propio color (inline / regla). */
+  .viu-intro table :is(tr, td, th) {
+    background: transparent !important;
+    border-color: var(--color-border-subtle) !important;
+    color: inherit !important;
+  }
 </style>

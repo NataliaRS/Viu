@@ -48,7 +48,7 @@ export function IntroContent() {
   const es = L === "es";
 
   return (
-    <div>
+    <div className="viu-intro">
       <div style={heroBox}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-xs)", marginBottom: "var(--space-md)" }}>
           <strong className="viu-type-title-m" style={{ color: "var(--color-text-primary)" }}>VIU</strong>
